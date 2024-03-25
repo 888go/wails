@@ -19,7 +19,9 @@ import (
 
 // NewRequest 创建一个新的 WebViewRequest，基于 `WebKitURISchemeRequest` 指针
 // 这个函数根据给定的 WebKitURISchemeRequest 指针创建一个新的 WebViewRequest 对象
-func NewRequest(webKitURISchemeRequest unsafe.Pointer) Request {
+
+// webKitURISchemeRequest:
+func X创建请求对象(webKitURISchemeRequest unsafe.Pointer) Request {
 	webkitReq := (*C.WebKitURISchemeRequest)(webKitURISchemeRequest)
 	C.g_object_ref(C.gpointer(webkitReq))
 
@@ -37,15 +39,17 @@ type request struct {
 	rw     *responseWriter
 }
 
+
+// ff:
 func (r *request) URL() (string, error) {
 	return C.GoString(C.webkit_uri_scheme_request_get_uri(r.req)), nil
 }
 
-func (r *request) Method() (string, error) {
+func (r *request) X请求方法() (string, error) {
 	return webkit_uri_scheme_request_get_http_method(r.req), nil
 }
 
-func (r *request) Header() (http.Header, error) {
+func (r *request) X请求头() (http.Header, error) {
 	if r.header != nil {
 		return r.header, nil
 	}
@@ -54,7 +58,7 @@ func (r *request) Header() (http.Header, error) {
 	return r.header, nil
 }
 
-func (r *request) Body() (io.ReadCloser, error) {
+func (r *request) X请求体() (io.ReadCloser, error) {
 	if r.body != nil {
 		return r.body, nil
 	}
@@ -64,7 +68,7 @@ func (r *request) Body() (io.ReadCloser, error) {
 	return r.body, nil
 }
 
-func (r *request) Response() ResponseWriter {
+func (r *request) X请求响应() ResponseWriter {
 	if r.rw != nil {
 		return r.rw
 	}
@@ -73,12 +77,12 @@ func (r *request) Response() ResponseWriter {
 	return r.rw
 }
 
-func (r *request) Close() error {
+func (r *request) X关闭() error {
 	var err error
 	if r.body != nil {
 		err = r.body.Close()
 	}
-	r.Response().Finish()
+	r.X请求响应().Finish()
 	C.g_object_unref(C.gpointer(r.req))
 	return err
 }

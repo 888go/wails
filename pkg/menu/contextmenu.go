@@ -1,13 +1,15 @@
 package menu
 
 type ContextMenu struct {
-	ID   string
-	Menu *Menu
+	ID  string
+	X菜单 *Menu //hs:菜单
 }
 
-func NewContextMenu(ID string, menu *Menu) *ContextMenu {
+
+// ID:
+func X创建上下文菜单(ID string, 菜单 *Menu) *ContextMenu {
 	return &ContextMenu{
-		ID:   ID,
-		Menu: menu,
+		ID:  ID,
+		X菜单: 菜单,
 	}
 }

@@ -27,70 +27,70 @@ func (d *Dispatcher) processWindowMessage(message string, sender frontend.Fronte
 	case 'A':
 		switch message[2:] {
 		case "SDT":
-			go sender.WindowSetSystemDefaultTheme()
+			go sender.X窗口设置系统默认主题()
 		case "LT":
-			go sender.WindowSetLightTheme()
+			go sender.X窗口设置浅色主题()
 		case "DT":
-			go sender.WindowSetDarkTheme()
+			go sender.X窗口设置深色主题()
 		case "TP:0", "TP:1":
 			if message[2:] == "TP:0" {
-				go sender.WindowSetAlwaysOnTop(false)
+				go sender.X窗口设置置顶(false)
 			} else if message[2:] == "TP:1" {
-				go sender.WindowSetAlwaysOnTop(true)
+				go sender.X窗口设置置顶(true)
 			}
 		}
 	case 'c':
-		go sender.WindowCenter()
+		go sender.X窗口居中()
 	case 'T':
 		title := message[2:]
-		go sender.WindowSetTitle(title)
+		go sender.X窗口设置标题(title)
 	case 'F':
-		go sender.WindowFullscreen()
+		go sender.X窗口设置全屏()
 	case 'f':
-		go sender.WindowUnfullscreen()
+		go sender.X窗口取消全屏()
 	case 's':
 		parts := strings.Split(message[3:], ":")
 		w := d.mustAtoI(parts[0])
 		h := d.mustAtoI(parts[1])
-		go sender.WindowSetSize(w, h)
+		go sender.X窗口设置尺寸(w, h)
 	case 'p':
 		parts := strings.Split(message[3:], ":")
 		x := d.mustAtoI(parts[0])
 		y := d.mustAtoI(parts[1])
-		go sender.WindowSetPosition(x, y)
+		go sender.X窗口设置位置(x, y)
 	case 'H':
-		go sender.WindowHide()
+		go sender.X窗口隐藏()
 	case 'S':
-		go sender.WindowShow()
+		go sender.X窗口显示()
 	case 'R':
-		go sender.WindowReloadApp()
+		go sender.X窗口重载应用程序前端()
 	case 'r':
 		var rgba options.RGBA
 		err := json.Unmarshal([]byte(message[3:]), &rgba)
 		if err != nil {
 			return "", err
 		}
-		go sender.WindowSetBackgroundColour(&rgba)
+		go sender.X窗口设置背景色(&rgba)
 	case 'M':
-		go sender.WindowMaximise()
+		go sender.X窗口最大化()
 	case 't':
-		go sender.WindowToggleMaximise()
+		go sender.X窗口最大化切换()
 	case 'U':
-		go sender.WindowUnmaximise()
+		go sender.X窗口取消最大化()
 	case 'm':
-		go sender.WindowMinimise()
+		go sender.X窗口最小化()
 	case 'u':
-		go sender.WindowUnminimise()
+		go sender.X窗口取消最小化()
 	case 'Z':
 		parts := strings.Split(message[3:], ":")
 		w := d.mustAtoI(parts[0])
 		h := d.mustAtoI(parts[1])
-		go sender.WindowSetMaxSize(w, h)
+		go sender.X窗口设置最大尺寸(w, h)
 	case 'z':
 		parts := strings.Split(message[3:], ":")
 		w := d.mustAtoI(parts[0])
 		h := d.mustAtoI(parts[1])
-		go sender.WindowSetMinSize(w, h)
+		go sender.X窗口设置最小尺寸(w, h)
 	default:
 		d.log.Error("unknown Window message: %s", message)
 	}

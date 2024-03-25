@@ -7,15 +7,16 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/leaanthony/gosod"
 	"github.com/888go/wails/internal/binding"
 	"github.com/888go/wails/internal/frontend/runtime/wrapper"
 	"github.com/888go/wails/internal/fs"
 	"github.com/888go/wails/internal/logger"
 	"github.com/888go/wails/internal/project"
 	"github.com/888go/wails/pkg/options"
+	"github.com/leaanthony/gosod"
 )
 
+// ff:运行
 func (a *App) Run() error {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
@@ -73,6 +74,9 @@ func (a *App) Run() error {
 }
 
 // CreateApp 创建应用！
+
+// ff:
+// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	// Set up logger
 	myLogger := logger.New(appoptions.Logger)

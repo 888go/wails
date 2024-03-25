@@ -131,7 +131,7 @@ func processPList(options *Options, contentsDirectory string) error {
 }
 
 func processDarwinIcon(projectData *project.Project, iconName string, resourceDir string, destIconName string) (err error) {
-	appIcon, err := buildassets.ReadFile(projectData, iconName+".png")
+	appIcon, err := buildassets.X读文件(projectData, iconName+".png")
 	if err != nil {
 		return err
 	}
@@ -189,7 +189,7 @@ func packageApplicationForLinux(_ *Options) error {
 }
 
 func generateIcoFile(options *Options, iconName string, destIconName string) error {
-	content, err := buildassets.ReadFile(options.ProjectData, iconName+".png")
+	content, err := buildassets.X读文件(options.ProjectData, iconName+".png")
 	if err != nil {
 		return err
 	}

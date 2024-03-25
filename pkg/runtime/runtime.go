@@ -61,47 +61,47 @@ func getEvents(ctx context.Context) frontend.Events {
 }
 
 // Quit the application
-func Quit(ctx context.Context) {
-	if ctx == nil {
+func X退出(上下文 context.Context) {
+	if 上下文 == nil {
 		log.Fatalf("Error calling 'runtime.Quit': %s", contextError)
 	}
-	appFrontend := getFrontend(ctx)
-	appFrontend.Quit()
+	appFrontend := getFrontend(上下文)
+	appFrontend.X退出()
 }
 
 // Hide the application
-func Hide(ctx context.Context) {
-	if ctx == nil {
+func X隐藏(上下文 context.Context) {
+	if 上下文 == nil {
 		log.Fatalf("Error calling 'runtime.Hide': %s", contextError)
 	}
-	appFrontend := getFrontend(ctx)
-	appFrontend.Hide()
+	appFrontend := getFrontend(上下文)
+	appFrontend.X隐藏()
 }
 
 // 如果应用程序是隐藏的，则显示它
-func Show(ctx context.Context) {
-	if ctx == nil {
+func X显示(上下文 context.Context) {
+	if 上下文 == nil {
 		log.Fatalf("Error calling 'runtime.Show': %s", contextError)
 	}
-	appFrontend := getFrontend(ctx)
-	appFrontend.Show()
+	appFrontend := getFrontend(上下文)
+	appFrontend.X显示()
 }
 
 // EnvironmentInfo 包含有关环境的信息
 type EnvironmentInfo struct {
-	BuildType string `json:"buildType"`
-	Platform  string `json:"platform"`
-	Arch      string `json:"arch"`
+	X构建类型 string `json:"buildType"`
+	X平台  string `json:"platform"`
+	X架构      string `json:"arch"`
 }
 
 // Environment 返回关于环境的信息
-func Environment(ctx context.Context) EnvironmentInfo {
+func X取环境信息(上下文 context.Context) EnvironmentInfo {
 	var result EnvironmentInfo
-	buildType := ctx.Value("buildtype")
+	buildType := 上下文.Value("buildtype")
 	if buildType != nil {
-		result.BuildType = buildType.(string)
+		result.X构建类型 = buildType.(string)
 	}
-	result.Platform = goruntime.GOOS
-	result.Arch = goruntime.GOARCH
+	result.X平台 = goruntime.GOOS
+	result.X架构 = goruntime.GOARCH
 	return result
 }

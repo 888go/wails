@@ -46,45 +46,60 @@ func parseModifier(text string) (*Modifier, error) {
 
 // Accelerator 保存了菜单项的键盘快捷键
 type Accelerator struct {
-	Key       string
+	X名称       string
 	Modifiers []Modifier
 }
 
 // Key 创建一个标准的键Accelerator
+
+// ff:
+// key:
 func Key(key string) *Accelerator {
 	return &Accelerator{
-		Key: strings.ToLower(key),
+		X名称: strings.ToLower(key),
 	}
 }
 
 // CmdOrCtrl 创建一个 'CmdOrCtrl' 快捷键
+
+// ff:
+// key:
 func CmdOrCtrl(key string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
+		X名称:       strings.ToLower(key),
 		Modifiers: []Modifier{CmdOrCtrlKey},
 	}
 }
 
 // OptionOrAlt 创建一个 'OptionOrAlt' 加速器
+
+// ff:
+// key:
 func OptionOrAlt(key string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
+		X名称:       strings.ToLower(key),
 		Modifiers: []Modifier{OptionOrAltKey},
 	}
 }
 
 // Shift 创建一个“Shift”加速器
+
+// ff:
+// key:
 func Shift(key string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
+		X名称:       strings.ToLower(key),
 		Modifiers: []Modifier{ShiftKey},
 	}
 }
 
 // Control 创建一个名为'Control'的加速器
+
+// ff:
+// key:
 func Control(key string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
+		X名称:       strings.ToLower(key),
 		Modifiers: []Modifier{ControlKey},
 	}
 }
@@ -100,9 +115,15 @@ func Control(key string) *Accelerator {
 //}
 
 // Combo 创建一个带有多个修饰符的 Accelerator
+
+// ff:
+// rest:
+// modifier2:
+// modifier1:
+// key:
 func Combo(key string, modifier1 Modifier, modifier2 Modifier, rest ...Modifier) *Accelerator {
 	result := &Accelerator{
-		Key:       key,
+		X名称:       key,
 		Modifiers: []Modifier{modifier1, modifier2},
 	}
 	result.Modifiers = append(result.Modifiers, rest...)

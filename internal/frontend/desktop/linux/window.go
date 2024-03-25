@@ -57,6 +57,10 @@ func bool2Cint(value bool) C.int {
 	return C.int(0)
 }
 
+// ff:
+// devtoolsEnabled:
+// debug:
+// appoptions:
 func NewWindow(appoptions *options.App, debug bool, devtoolsEnabled bool) *Window {
 	validateWebKit2Version(appoptions)
 
@@ -138,7 +142,7 @@ func NewWindow(appoptions *options.App, debug bool, devtoolsEnabled bool) *Windo
 		}
 	}
 
-	// Menu
+	// X菜单
 	result.SetApplicationMenu(appoptions.Menu)
 
 	return result
@@ -160,10 +164,12 @@ func (w *Window) cWebKitUserContentManager() *C.WebKitUserContentManager {
 	return (*C.WebKitUserContentManager)(w.contentManager)
 }
 
+// ff:
 func (w *Window) Fullscreen() {
 	C.ExecuteOnMainThread(C.Fullscreen, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) UnFullscreen() {
 	if !w.IsFullScreen() {
 		return
@@ -173,25 +179,32 @@ func (w *Window) UnFullscreen() {
 	w.SetMaxSize(w.maxWidth, w.maxHeight)
 }
 
+// ff:
 func (w *Window) Destroy() {
 	C.gtk_widget_destroy(w.asGTKWidget())
 	C.g_object_unref(C.gpointer(w.gtkWindow))
 }
 
+// ff:
 func (w *Window) Close() {
 	C.gtk_window_close(w.asGTKWindow())
 }
 
+// ff:
 func (w *Window) Center() {
 	C.ExecuteOnMainThread(C.Center, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
+// y:
+// x:
 func (w *Window) SetPosition(x int, y int) {
 	invokeOnMainThread(func() {
 		C.SetPosition(unsafe.Pointer(w.asGTKWindow()), C.int(x), C.int(y))
 	})
 }
 
+// ff:
 func (w *Window) Size() (int, int) {
 	var width, height C.int
 	var wg sync.WaitGroup
@@ -204,6 +217,7 @@ func (w *Window) Size() (int, int) {
 	return int(width), int(height)
 }
 
+// ff:
 func (w *Window) GetPosition() (int, int) {
 	var width, height C.int
 	var wg sync.WaitGroup
@@ -216,6 +230,9 @@ func (w *Window) GetPosition() (int, int) {
 	return int(width), int(height)
 }
 
+// ff:
+// maxHeight:
+// maxWidth:
 func (w *Window) SetMaxSize(maxWidth int, maxHeight int) {
 	w.maxHeight = maxHeight
 	w.maxWidth = maxWidth
@@ -224,6 +241,9 @@ func (w *Window) SetMaxSize(maxWidth int, maxHeight int) {
 	})
 }
 
+// ff:
+// minHeight:
+// minWidth:
 func (w *Window) SetMinSize(minWidth int, minHeight int) {
 	w.minHeight = minHeight
 	w.minWidth = minWidth
@@ -232,30 +252,37 @@ func (w *Window) SetMinSize(minWidth int, minHeight int) {
 	})
 }
 
+// ff:
 func (w *Window) Show() {
 	C.ExecuteOnMainThread(C.Show, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) Hide() {
 	C.ExecuteOnMainThread(C.Hide, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) Maximise() {
 	C.ExecuteOnMainThread(C.Maximise, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) UnMaximise() {
 	C.ExecuteOnMainThread(C.UnMaximise, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) Minimise() {
 	C.ExecuteOnMainThread(C.Minimise, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) UnMinimise() {
 	C.ExecuteOnMainThread(C.UnMinimise, C.gpointer(w.asGTKWindow()))
 }
 
+// ff:
 func (w *Window) IsFullScreen() bool {
 	result := C.IsFullscreen(w.asGTKWidget())
 	if result != 0 {
@@ -264,20 +291,28 @@ func (w *Window) IsFullScreen() bool {
 	return false
 }
 
+// ff:
 func (w *Window) IsMaximised() bool {
 	result := C.IsMaximised(w.asGTKWidget())
 	return result > 0
 }
 
+// ff:
 func (w *Window) IsMinimised() bool {
 	result := C.IsMinimised(w.asGTKWidget())
 	return result > 0
 }
 
+// ff:
 func (w *Window) IsNormal() bool {
 	return !w.IsMaximised() && !w.IsMinimised() && !w.IsFullScreen()
 }
 
+// ff:
+// a:
+// b:
+// g:
+// r:
 func (w *Window) SetBackgroundColour(r uint8, g uint8, b uint8, a uint8) {
 	windowIsTranslucent := false
 	if w.appoptions.Linux != nil && w.appoptions.Linux.WindowIsTranslucent {
@@ -296,6 +331,8 @@ func (w *Window) SetBackgroundColour(r uint8, g uint8, b uint8, a uint8) {
 
 }
 
+// ff:
+// icon:
 func (w *Window) SetWindowIcon(icon []byte) {
 	if len(icon) == 0 {
 		return
@@ -303,6 +340,8 @@ func (w *Window) SetWindowIcon(icon []byte) {
 	C.SetWindowIcon(w.asGTKWindow(), (*C.guchar)(&icon[0]), (C.gsize)(len(icon)))
 }
 
+// ff:运行
+// url:
 func (w *Window) Run(url string) {
 	if w.menubar != nil {
 		C.gtk_box_pack_start(C.GTKBOX(unsafe.Pointer(w.vbox)), w.menubar, 0, 0, 0)
@@ -328,30 +367,46 @@ func (w *Window) Run(url string) {
 	}
 }
 
+// ff:
+// top:
 func (w *Window) SetKeepAbove(top bool) {
 	C.gtk_window_set_keep_above(w.asGTKWindow(), gtkBool(top))
 }
 
+// ff:
+// resizable:
 func (w *Window) SetResizable(resizable bool) {
 	C.gtk_window_set_resizable(w.asGTKWindow(), gtkBool(resizable))
 }
 
+// ff:
+// height:
+// width:
 func (w *Window) SetDefaultSize(width int, height int) {
 	C.gtk_window_set_default_size(w.asGTKWindow(), C.int(width), C.int(height))
 }
 
+// ff:
+// height:
+// width:
 func (w *Window) SetSize(width int, height int) {
 	C.gtk_window_resize(w.asGTKWindow(), C.gint(width), C.gint(height))
 }
 
+// ff:
+// frameless:
 func (w *Window) SetDecorated(frameless bool) {
 	C.gtk_window_set_decorated(w.asGTKWindow(), gtkBool(frameless))
 }
 
+// ff:
+// title:
 func (w *Window) SetTitle(title string) {
 	C.SetTitle(w.asGTKWindow(), C.CString(title))
 }
 
+// ff:
+// js:
 func (w *Window) ExecJS(js string) {
 	jscallback := C.JSCallback{
 		webview: w.webview,
@@ -360,18 +415,26 @@ func (w *Window) ExecJS(js string) {
 	invokeOnMainThread(func() { C.ExecuteJS(unsafe.Pointer(&jscallback)) })
 }
 
+// ff:
 func (w *Window) StartDrag() {
 	C.StartDrag(w.webview, w.asGTKWindow())
 }
 
+// ff:
+// edge:
 func (w *Window) StartResize(edge uintptr) {
 	C.StartResize(w.webview, w.asGTKWindow(), C.GdkWindowEdge(edge))
 }
 
+// ff:
 func (w *Window) Quit() {
 	C.gtk_main_quit()
 }
 
+// ff:对话框选择文件
+// action:选项
+// multipleFiles:
+// dialogOptions:
 func (w *Window) OpenFileDialog(dialogOptions frontend.OpenDialogOptions, multipleFiles int, action C.GtkFileChooserAction) {
 
 	data := C.OpenFileDialogOptions{
@@ -426,6 +489,8 @@ func (w *Window) OpenFileDialog(dialogOptions frontend.OpenDialogOptions, multip
 	invokeOnMainThread(func() { C.Opendialog(unsafe.Pointer(&data)) })
 }
 
+// ff:对话框弹出消息
+// options:选项
 func (w *Window) MessageDialog(dialogOptions frontend.MessageDialogOptions) {
 
 	data := C.MessageDialogOptions{
@@ -446,6 +511,7 @@ func (w *Window) MessageDialog(dialogOptions frontend.MessageDialogOptions) {
 	invokeOnMainThread(func() { C.MessageDialog(unsafe.Pointer(&data)) })
 }
 
+// ff:
 func (w *Window) ToggleMaximise() {
 	if w.IsMaximised() {
 		w.UnMaximise()
@@ -454,6 +520,7 @@ func (w *Window) ToggleMaximise() {
 	}
 }
 
+// ff:
 func (w *Window) ShowInspector() {
 	invokeOnMainThread(func() { C.ShowInspector(w.webview) })
 }

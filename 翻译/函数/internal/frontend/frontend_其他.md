@@ -58,12 +58,7 @@ hs=常量_对话框_错误
 [QuestionDialog DialogType = "question"]
 hs=常量_对话框_问题
 
-[Width int `json:"width"`]
-hs=Width弃用
-
-[Height int `json:"height"`]
-hs=Height弃用
-cf=2
+ 
 
 [Size ScreenSize `json:"size"`]
 hs=大小

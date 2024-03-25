@@ -97,6 +97,8 @@ type Project struct {
 	Bindings Bindings `json:"bindings"`
 }
 
+
+// ff:
 func (p *Project) GetFrontendDir() string {
 	if filepath.IsAbs(p.FrontendDir) {
 		return p.FrontendDir
@@ -104,6 +106,8 @@ func (p *Project) GetFrontendDir() string {
 	return filepath.Join(p.Path, p.FrontendDir)
 }
 
+
+// ff:
 func (p *Project) GetWailsJSDir() string {
 	if filepath.IsAbs(p.WailsJSDir) {
 		return p.WailsJSDir
@@ -111,6 +115,8 @@ func (p *Project) GetWailsJSDir() string {
 	return filepath.Join(p.Path, p.WailsJSDir)
 }
 
+
+// ff:
 func (p *Project) GetBuildDir() string {
 	if filepath.IsAbs(p.BuildDir) {
 		return p.BuildDir
@@ -118,6 +124,8 @@ func (p *Project) GetBuildDir() string {
 	return filepath.Join(p.Path, p.BuildDir)
 }
 
+
+// ff:
 func (p *Project) GetDevBuildCommand() string {
 	if p.DevBuildCommand != "" {
 		return p.DevBuildCommand
@@ -128,6 +136,8 @@ func (p *Project) GetDevBuildCommand() string {
 	return p.BuildCommand
 }
 
+
+// ff:
 func (p *Project) GetDevInstallerCommand() string {
 	if p.DevInstallCommand != "" {
 		return p.DevInstallCommand
@@ -135,10 +145,14 @@ func (p *Project) GetDevInstallerCommand() string {
 	return p.InstallCommand
 }
 
+
+// ff:
 func (p *Project) IsFrontendDevServerURLAutoDiscovery() bool {
 	return p.FrontendDevServerURL == "auto"
 }
 
+
+// ff:
 func (p *Project) Save() error {
 	data, err := json.MarshalIndent(p, "", "  ")
 	if err != nil {
@@ -249,6 +263,9 @@ type TsGeneration struct {
 }
 
 // 将给定的JSON数据解析为一个Project结构体
+
+// ff:
+// projectData:
 func Parse(projectData []byte) (*Project, error) {
 	project := &Project{}
 	err := json.Unmarshal(projectData, project)
@@ -260,6 +277,9 @@ func Parse(projectData []byte) (*Project, error) {
 }
 
 // 从当前工作目录加载项目
+
+// ff:
+// projectPath:
 func Load(projectPath string) (*Project, error) {
 	projectFile := filepath.Join(projectPath, "wails.json")
 	rawBytes, err := os.ReadFile(projectFile)

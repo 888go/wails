@@ -14,6 +14,8 @@ type ContextMenu struct {
 	menu          *menu.Menu
 }
 
+
+// ff:
 func (t *ContextMenu) AsJSON() (string, error) {
 	data, err := json.Marshal(t)
 	if err != nil {
@@ -22,19 +24,25 @@ func (t *ContextMenu) AsJSON() (string, error) {
 	return string(data), nil
 }
 
+
+// ff:
+// contextMenu:
 func NewContextMenu(contextMenu *menu.ContextMenu) *ContextMenu {
 	result := &ContextMenu{
 		ID:          contextMenu.ID,
-		menu:        contextMenu.Menu,
+		menu:        contextMenu.X菜单,
 		menuItemMap: NewMenuItemMap(),
 	}
 
-	result.menuItemMap.AddMenu(contextMenu.Menu)
+	result.menuItemMap.AddMenu(contextMenu.X菜单)
 	result.ProcessedMenu = NewWailsMenu(result.menuItemMap, result.menu)
 
 	return result
 }
 
+
+// ff:
+// contextMenu:
 func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 	newContextMenu := NewContextMenu(contextMenu)
 
@@ -43,10 +51,13 @@ func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 	m.contextMenuPointers[contextMenu] = contextMenu.ID
 }
 
+
+// ff:
+// contextMenu:
 func (m *Manager) UpdateContextMenu(contextMenu *menu.ContextMenu) (string, error) {
 	contextMenuID, contextMenuKnown := m.contextMenuPointers[contextMenu]
 	if !contextMenuKnown {
-		return "", fmt.Errorf("unknown Context Menu '%s'. Please add the context menu using AddContextMenu()", contextMenu.ID)
+		return "", fmt.Errorf("unknown Context X菜单 '%s'. Please add the context menu using AddContextMenu()", contextMenu.ID)
 	}
 
 	// 创建更新后的上下文菜单

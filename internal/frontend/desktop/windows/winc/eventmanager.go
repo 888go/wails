@@ -13,12 +13,18 @@ type EventManager struct {
 	handler EventHandler
 }
 
+
+// ff:
+// arg:
 func (evm *EventManager) Fire(arg *Event) {
 	if evm.handler != nil {
 		evm.handler(arg)
 	}
 }
 
+
+// ff:
+// handler:
 func (evm *EventManager) Bind(handler EventHandler) {
 	evm.handler = handler
 }

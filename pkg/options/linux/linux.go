@@ -46,6 +46,8 @@ type Messages struct {
 	WebKit2GTKMinRequired string
 }
 
+
+// ff:
 func DefaultMessages() *Messages {
 	return &Messages{
 		WebKit2GTKMinRequired: "This application requires at least WebKit2GTK %s to be installed.",

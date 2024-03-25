@@ -21,7 +21,7 @@ func acceleratorToWincShortcut(accelerator *keys.Accelerator) winc.Shortcut {
 	if accelerator == nil {
 		return winc.NoShortcut
 	}
-	inKey := strings.ToUpper(accelerator.Key)
+	inKey := strings.ToUpper(accelerator.X名称)
 	key, exists := keyMap[inKey]
 	if !exists {
 		return winc.NoShortcut

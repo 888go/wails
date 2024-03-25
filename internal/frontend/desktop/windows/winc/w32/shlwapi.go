@@ -13,6 +13,9 @@ var (
 	procSHCreateMemStream = modshlwapi.NewProc("SHCreateMemStream")
 )
 
+
+// ff:
+// data:
 func SHCreateMemStream(data []byte) (uintptr, error) {
 	ret, _, err := procSHCreateMemStream.Call(
 		uintptr(unsafe.Pointer(&data[0])),

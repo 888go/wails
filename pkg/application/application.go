@@ -22,34 +22,34 @@ type Application struct {
 }
 
 // NewWithOptions 使用给定的选项创建一个新的Application
-func NewWithOptions(options *options.App) *Application {
-	if options == nil {
-		return New()
+func X创建并按选项(App选项 *options.App) *Application {
+	if App选项 == nil {
+		return X创建并按默认选项()
 	}
 	return &Application{
-		options: options,
+		options: App选项,
 	}
 }
 
 // New 创建一个使用默认选项的新 Application
-func New() *Application {
+func X创建并按默认选项() *Application {
 	return &Application{
 		options: &options.App{},
 	}
 }
 
 // 设置应用菜单 将设置应用程序的菜单
-func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {
+func (a *Application) X设置菜单(菜单 *menu.Menu) {
 	if a.running {
-		a.application.SetApplicationMenu(appMenu)
+		a.application.SetApplicationMenu(菜单)
 		return
 	}
 
-	a.options.Menu = appMenu
+	a.options.X菜单 = 菜单
 }
 
 // Run 启动应用程序
-func (a *Application) Run() error {
+func (a *Application) X运行() error {
 	err := applicationInit()
 	if err != nil {
 		return err
@@ -75,17 +75,24 @@ func (a *Application) Run() error {
 }
 
 // Quit 将关闭应用程序
-func (a *Application) Quit() {
+func (a *Application) X退出() {
 	a.shutdown.Do(func() {
 		a.application.Shutdown()
 	})
 }
 
 // 将给定的结构体绑定到应用程序
+
+// ff:
+// boundStruct:
 func (a *Application) Bind(boundStruct any) {
 	a.options.Bind = append(a.options.Bind, boundStruct)
 }
 
+
+// ff:
+// callback:
+// eventType:
 func (a *Application) On(eventType EventType, callback func()) {
 	c := func(ctx context.Context) {
 		callback()
@@ -93,10 +100,10 @@ func (a *Application) On(eventType EventType, callback func()) {
 
 	switch eventType {
 	case StartUp:
-		a.options.OnStartup = c
+		a.options.X启动前回调函数 = c
 	case ShutDown:
-		a.options.OnShutdown = c
+		a.options.X应用退出回调函数 = c
 	case DomReady:
-		a.options.OnDomReady = c
+		a.options.DOM就绪回调函数 = c
 	}
 }

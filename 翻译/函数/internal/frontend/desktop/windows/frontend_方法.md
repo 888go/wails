@@ -114,3 +114,16 @@ js=js代码
 
 [func (f *Frontend) WindowReload() {]
 ff=窗口重载
+
+[func (f *Frontend) WindowCenter() {]
+ff=窗口居中
+
+[func (f *Frontend) WindowSetAlwaysOnTop(b bool) {]
+ff=窗口设置置顶
+b=置顶
+
+[func (f *Frontend) WindowSetPosition(x, y int) {]
+ff=窗口设置位置
+
+[func (f *Frontend) WindowGetPosition() (int, int) {]
+ff=窗口取位置

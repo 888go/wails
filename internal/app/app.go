@@ -31,15 +31,20 @@ type App struct {
 }
 
 // 关闭应用程序
+
+// ff:
 func (a *App) Shutdown() {
 	if a.frontend != nil {
-		a.frontend.Quit()
+		a.frontend.X退出()
 	}
 }
 
 // 设置应用菜单 将设置应用程序的菜单
+
+// ff:
+// menu:
 func (a *App) SetApplicationMenu(menu *menu.Menu) {
 	if a.frontend != nil {
-		a.frontend.MenuSetApplicationMenu(menu)
+		a.frontend.X菜单设置(menu)
 	}
 }

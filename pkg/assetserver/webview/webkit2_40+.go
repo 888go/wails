@@ -32,6 +32,9 @@ type webkitRequestBody struct {
 }
 
 // Read 实现了 io.Reader 接口
+
+// ff:
+// p:
 func (r *webkitRequestBody) Read(p []byte) (int, error) {
 	if r.closed {
 		return 0, io.ErrClosedPipe
@@ -55,7 +58,7 @@ func (r *webkitRequestBody) Read(p []byte) (int, error) {
 	return int(n), nil
 }
 
-func (r *webkitRequestBody) Close() error {
+func (r *webkitRequestBody) X关闭() error {
 	if r.closed {
 		return nil
 	}

@@ -66,7 +66,7 @@ format=格式化
 ctx=上下文
 
 [func LogInfof(ctx context.Context, format string, args ...interface{}) {]
-ff=日志信息
+ff=日志信息F
 args=参数
 format=格式化
 ctx=上下文

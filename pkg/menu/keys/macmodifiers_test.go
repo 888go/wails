@@ -12,7 +12,7 @@ func TestToMacModifier(t *testing.T) {
 		// TODO: Add test cases.
 		{"nil", nil, 0},
 		{"empty", &Accelerator{}, 0},
-		{"key", &Accelerator{Key: "p"}, 0},
+		{"key", &Accelerator{X名称: "p"}, 0},
 		{"cmd", CmdOrCtrl(""), NSEventModifierFlagCommand},
 		{"ctrl", Control(""), NSEventModifierFlagControl},
 		{"shift", Shift(""), NSEventModifierFlagShift},

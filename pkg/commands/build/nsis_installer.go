@@ -22,13 +22,17 @@ const (
 	nsisWebView2SetupFile = "tmp/MicrosoftEdgeWebview2Setup.exe"
 )
 
-func GenerateNSISInstaller(options *Options, amd64Binary string, arm64Binary string) error {
+
+// arm64Binary:
+// amd64Binary:
+// options:
+func X生成NSIS安装程序(options *Options, amd64Binary string, arm64Binary string) error {
 	outputLogger := options.Logger
-	outputLogger.Println("Creating NSIS installer\n------------------------------")
+	outputLogger.X日志输出并换行("Creating NSIS installer\n------------------------------")
 
 	// 确保文件存在，如果不存在，模板将会被写入。
 	projectFile := path.Join(nsisFolder, nsisProjectFile)
-	if _, err := buildassets.ReadFile(options.ProjectData, projectFile); err != nil {
+	if _, err := buildassets.X读文件(options.ProjectData, projectFile); err != nil {
 		return fmt.Errorf("Unable to generate NSIS installer project template: %w", err)
 	}
 
@@ -51,7 +55,7 @@ func GenerateNSISInstaller(options *Options, amd64Binary string, arm64Binary str
 	}
 
 	if !shell.CommandExists("makensis") {
-		outputLogger.Println("Warning: Cannot create installer: makensis not found")
+		outputLogger.X日志输出并换行("Warning: Cannot create installer: makensis not found")
 		return nil
 	}
 
@@ -91,7 +95,7 @@ func makeNSIS(options *Options, installerKind string, amd64Binary string, arm64B
 	verbose := options.Verbosity == VERBOSE
 	outputLogger := options.Logger
 
-	outputLogger.Print("  - Building '%s' installer: ", installerKind)
+	outputLogger.X日志输出("  - Building '%s' installer: ", installerKind)
 	args := []string{}
 	if amd64Binary != "" {
 		args = append(args, "-DARG_WAILS_AMD64_BINARY="+amd64Binary)
@@ -102,18 +106,18 @@ func makeNSIS(options *Options, installerKind string, amd64Binary string, arm64B
 	args = append(args, nsisProjectFile)
 
 	if verbose {
-		outputLogger.Println("makensis %s", strings.Join(args, " "))
+		outputLogger.X日志输出并换行("makensis %s", strings.Join(args, " "))
 	}
 
 	installerDir := buildassets.GetLocalPath(options.ProjectData, nsisFolder)
 	stdOut, stdErr, err := shell.RunCommand(installerDir, "makensis", args...)
 	if err != nil || verbose {
-		outputLogger.Println(stdOut)
-		outputLogger.Println(stdErr)
+		outputLogger.X日志输出并换行(stdOut)
+		outputLogger.X日志输出并换行(stdErr)
 	}
 	if err != nil {
 		return fmt.Errorf("Error during creation of the installer: %w", err)
 	}
-	outputLogger.Println("Done.")
+	outputLogger.X日志输出并换行("Done.")
 	return nil
 }

@@ -164,19 +164,32 @@ func init() {
 	mainThread = GetCurrentThreadId()
 }
 
+
+// ff:
+// lp:
 func GET_X_LPARAM(lp uintptr) int32 {
 	return int32(int16(LOWORD(uint32(lp))))
 }
 
+
+// ff:
+// lp:
 func GET_Y_LPARAM(lp uintptr) int32 {
 	return int32(int16(HIWORD(uint32(lp))))
 }
 
+
+// ff:
+// wndClassEx:
 func RegisterClassEx(wndClassEx *WNDCLASSEX) ATOM {
 	ret, _, _ := procRegisterClassEx.Call(uintptr(unsafe.Pointer(wndClassEx)))
 	return ATOM(ret)
 }
 
+
+// ff:
+// iconName:
+// instance:
 func LoadIcon(instance HINSTANCE, iconName *uint16) HICON {
 	ret, _, _ := procLoadIcon.Call(
 		uintptr(instance),
@@ -185,6 +198,10 @@ func LoadIcon(instance HINSTANCE, iconName *uint16) HICON {
 	return HICON(ret)
 }
 
+
+// ff:
+// res:
+// instance:
 func LoadIconWithResourceID(instance HINSTANCE, res uint16) HICON {
 	ret, _, _ := procLoadIcon.Call(
 		uintptr(instance),
@@ -193,6 +210,10 @@ func LoadIconWithResourceID(instance HINSTANCE, res uint16) HICON {
 	return HICON(ret)
 }
 
+
+// ff:
+// cursorName:
+// instance:
 func LoadCursor(instance HINSTANCE, cursorName *uint16) HCURSOR {
 	ret, _, _ := procLoadCursor.Call(
 		uintptr(instance),
@@ -201,6 +222,10 @@ func LoadCursor(instance HINSTANCE, cursorName *uint16) HCURSOR {
 	return HCURSOR(ret)
 }
 
+
+// ff:
+// res:
+// instance:
 func LoadCursorWithResourceID(instance HINSTANCE, res uint16) HCURSOR {
 	ret, _, _ := procLoadCursor.Call(
 		uintptr(instance),
@@ -209,6 +234,10 @@ func LoadCursorWithResourceID(instance HINSTANCE, res uint16) HCURSOR {
 	return HCURSOR(ret)
 }
 
+
+// ff:
+// cmdshow:
+// hwnd:
 func ShowWindow(hwnd HWND, cmdshow int) bool {
 	ret, _, _ := procShowWindow.Call(
 		uintptr(hwnd),
@@ -217,6 +246,10 @@ func ShowWindow(hwnd HWND, cmdshow int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// cmdshow:
+// hwnd:
 func ShowWindowAsync(hwnd HWND, cmdshow int) bool {
 	ret, _, _ := procShowWindowAsync.Call(
 		uintptr(hwnd),
@@ -225,16 +258,28 @@ func ShowWindowAsync(hwnd HWND, cmdshow int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func UpdateWindow(hwnd HWND) bool {
 	ret, _, _ := procUpdateWindow.Call(
 		uintptr(hwnd))
 	return ret != 0
 }
 
+
+// ff:
+// lp:
+// wp:
+// msg:
+// threadID:
 func PostThreadMessage(threadID HANDLE, msg int, wp, lp uintptr) {
 	procPostThreadMessageW.Call(threadID, uintptr(msg), wp, lp)
 }
 
+
+// ff:
+// name:
 func RegisterWindowMessage(name *uint16) uint32 {
 	ret, _, _ := procRegisterWindowMessageA.Call(
 		uintptr(unsafe.Pointer(name)))
@@ -242,11 +287,18 @@ func RegisterWindowMessage(name *uint16) uint32 {
 	return uint32(ret)
 }
 
+
+// ff:
+// lp:
+// wp:
+// msg:
 func PostMainThreadMessage(msg uint32, wp, lp uintptr) bool {
 	ret, _, _ := procPostThreadMessageW.Call(mainThread, uintptr(msg), wp, lp)
 	return ret != 0
 }
 
+
+// ff:
 func CreateWindowEx(exStyle uint, className, windowName *uint16,
 	style uint, x, y, width, height int, parent HWND, menu HMENU,
 	instance HINSTANCE, param unsafe.Pointer) HWND {
@@ -267,6 +319,10 @@ func CreateWindowEx(exStyle uint, className, windowName *uint16,
 	return HWND(ret)
 }
 
+
+// ff:
+// windowName:
+// className:
 func FindWindowW(className, windowName *uint16) HWND {
 	ret, _, _ := procFindWindowW.Call(
 		uintptr(unsafe.Pointer(className)),
@@ -275,6 +331,12 @@ func FindWindowW(className, windowName *uint16) HWND {
 	return HWND(ret)
 }
 
+
+// ff:
+// exStyle:
+// menu:
+// style:
+// rect:
 func AdjustWindowRectEx(rect *RECT, style uint, menu bool, exStyle uint) bool {
 	ret, _, _ := procAdjustWindowRectEx.Call(
 		uintptr(unsafe.Pointer(rect)),
@@ -285,6 +347,11 @@ func AdjustWindowRectEx(rect *RECT, style uint, menu bool, exStyle uint) bool {
 	return ret != 0
 }
 
+
+// ff:
+// menu:
+// style:
+// rect:
 func AdjustWindowRect(rect *RECT, style uint, menu bool) bool {
 	ret, _, _ := procAdjustWindowRect.Call(
 		uintptr(unsafe.Pointer(rect)),
@@ -294,21 +361,33 @@ func AdjustWindowRect(rect *RECT, style uint, menu bool) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func DestroyWindow(hwnd HWND) bool {
 	ret, _, _ := procDestroyWindow.Call(hwnd)
 	return ret != 0
 }
 
+
+// ff:
 func HasGetDpiForWindowFunc() bool {
 	err := procGetDpiForWindow.Find()
 	return err == nil
 }
 
+
+// ff:
+// hwnd:
 func GetDpiForWindow(hwnd HWND) UINT {
 	dpi, _, _ := procGetDpiForWindow.Call(hwnd)
 	return uint(dpi)
 }
 
+
+// ff:
+// data:
+// hwnd:
 func SetWindowCompositionAttribute(hwnd HWND, data *WINDOWCOMPOSITIONATTRIBDATA) bool {
 	if procSetWindowCompositionAttribute != nil {
 		ret, _, _ := procSetWindowCompositionAttribute.Call(
@@ -320,6 +399,12 @@ func SetWindowCompositionAttribute(hwnd HWND, data *WINDOWCOMPOSITIONATTRIBDATA)
 	return false
 }
 
+
+// ff:
+// lParam:
+// wParam:
+// msg:
+// hwnd:
 func DefWindowProc(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	ret, _, _ := procDefWindowProc.Call(
 		uintptr(hwnd),
@@ -330,6 +415,12 @@ func DefWindowProc(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	return ret
 }
 
+
+// ff:
+// lParam:
+// wParam:
+// msg:
+// hwnd:
 func DefDlgProc(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	ret, _, _ := procDefDlgProc.Call(
 		uintptr(hwnd),
@@ -340,11 +431,20 @@ func DefDlgProc(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	return ret
 }
 
+
+// ff:
+// exitCode:
 func PostQuitMessage(exitCode int) {
 	procPostQuitMessage.Call(
 		uintptr(exitCode))
 }
 
+
+// ff:
+// msgFilterMax:
+// msgFilterMin:
+// hwnd:
+// msg:
 func GetMessage(msg *MSG, hwnd HWND, msgFilterMin, msgFilterMax uint32) int {
 	ret, _, _ := procGetMessage.Call(
 		uintptr(unsafe.Pointer(msg)),
@@ -355,6 +455,9 @@ func GetMessage(msg *MSG, hwnd HWND, msgFilterMin, msgFilterMax uint32) int {
 	return int(ret)
 }
 
+
+// ff:
+// msg:
 func TranslateMessage(msg *MSG) bool {
 	ret, _, _ := procTranslateMessage.Call(
 		uintptr(unsafe.Pointer(msg)))
@@ -363,6 +466,9 @@ func TranslateMessage(msg *MSG) bool {
 
 }
 
+
+// ff:
+// msg:
 func DispatchMessage(msg *MSG) uintptr {
 	ret, _, _ := procDispatchMessage.Call(
 		uintptr(unsafe.Pointer(msg)))
@@ -371,6 +477,12 @@ func DispatchMessage(msg *MSG) uintptr {
 
 }
 
+
+// ff:
+// lParam:
+// wParam:
+// msg:
+// hwnd:
 func SendMessage(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	ret, _, _ := procSendMessage.Call(
 		uintptr(hwnd),
@@ -381,6 +493,12 @@ func SendMessage(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	return ret
 }
 
+
+// ff:
+// lParam:
+// wParam:
+// msg:
+// hwnd:
 func PostMessage(hwnd HWND, msg uint32, wParam, lParam uintptr) bool {
 	ret, _, _ := procPostMessage.Call(
 		uintptr(hwnd),
@@ -391,17 +509,26 @@ func PostMessage(hwnd HWND, msg uint32, wParam, lParam uintptr) bool {
 	return ret != 0
 }
 
+
+// ff:
 func WaitMessage() bool {
 	ret, _, _ := procWaitMessage.Call()
 	return ret != 0
 }
 
+
+// ff:
+// text:
+// hwnd:
 func SetWindowText(hwnd HWND, text string) {
 	procSetWindowText.Call(
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(text))))
 }
 
+
+// ff:
+// hwnd:
 func GetWindowTextLength(hwnd HWND) int {
 	ret, _, _ := procGetWindowTextLength.Call(
 		uintptr(hwnd))
@@ -409,6 +536,10 @@ func GetWindowTextLength(hwnd HWND) int {
 	return int(ret)
 }
 
+
+// ff:
+// info:
+// hwnd:
 func GetWindowInfo(hwnd HWND, info *WINDOWINFO) int {
 	ret, _, _ := procGetWindowInfo.Call(
 		hwnd,
@@ -417,6 +548,9 @@ func GetWindowInfo(hwnd HWND, info *WINDOWINFO) int {
 	return int(ret)
 }
 
+
+// ff:
+// hwnd:
 func GetWindowText(hwnd HWND) string {
 	textLen := GetWindowTextLength(hwnd) + 1
 
@@ -429,6 +563,9 @@ func GetWindowText(hwnd HWND) string {
 	return syscall.UTF16ToString(buf)
 }
 
+
+// ff:
+// hwnd:
 func GetWindowRect(hwnd HWND) *RECT {
 	var rect RECT
 	procGetWindowRect.Call(
@@ -438,6 +575,14 @@ func GetWindowRect(hwnd HWND) *RECT {
 	return &rect
 }
 
+
+// ff:
+// repaint:
+// height:
+// width:
+// y:
+// x:
+// hwnd:
 func MoveWindow(hwnd HWND, x, y, width, height int, repaint bool) bool {
 	ret, _, _ := procMoveWindow.Call(
 		uintptr(hwnd),
@@ -451,6 +596,14 @@ func MoveWindow(hwnd HWND, x, y, width, height int, repaint bool) bool {
 
 }
 
+
+// ff:
+// ok:
+// Y:
+// X:
+// y:
+// x:
+// hwnd:
 func ScreenToClient(hwnd HWND, x, y int) (X, Y int, ok bool) {
 	pt := POINT{X: int32(x), Y: int32(y)}
 	ret, _, _ := procScreenToClient.Call(
@@ -460,6 +613,13 @@ func ScreenToClient(hwnd HWND, x, y int) (X, Y int, ok bool) {
 	return int(pt.X), int(pt.Y), ret != 0
 }
 
+
+// ff:
+// lParam:
+// wParam:
+// msg:
+// hwnd:
+// preWndProc:
 func CallWindowProc(preWndProc uintptr, hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	ret, _, _ := procCallWindowProc.Call(
 		preWndProc,
@@ -471,6 +631,11 @@ func CallWindowProc(preWndProc uintptr, hwnd HWND, msg uint32, wParam, lParam ui
 	return ret
 }
 
+
+// ff:
+// value:
+// index:
+// hwnd:
 func SetWindowLong(hwnd HWND, index int, value uint32) uint32 {
 	ret, _, _ := procSetWindowLong.Call(
 		uintptr(hwnd),
@@ -480,6 +645,11 @@ func SetWindowLong(hwnd HWND, index int, value uint32) uint32 {
 	return uint32(ret)
 }
 
+
+// ff:
+// value:
+// index:
+// hwnd:
 func SetWindowLongPtr(hwnd HWND, index int, value uintptr) uintptr {
 	ret, _, _ := procSetWindowLongPtr.Call(
 		uintptr(hwnd),
@@ -489,6 +659,10 @@ func SetWindowLongPtr(hwnd HWND, index int, value uintptr) uintptr {
 	return ret
 }
 
+
+// ff:
+// index:
+// hwnd:
 func GetWindowLong(hwnd HWND, index int) int32 {
 	ret, _, _ := procGetWindowLong.Call(
 		uintptr(hwnd),
@@ -497,6 +671,10 @@ func GetWindowLong(hwnd HWND, index int) int32 {
 	return int32(ret)
 }
 
+
+// ff:
+// index:
+// hwnd:
 func GetWindowLongPtr(hwnd HWND, index int) uintptr {
 	ret, _, _ := procGetWindowLongPtr.Call(
 		uintptr(hwnd),
@@ -505,6 +683,10 @@ func GetWindowLongPtr(hwnd HWND, index int) uintptr {
 	return ret
 }
 
+
+// ff:
+// b:
+// hwnd:
 func EnableWindow(hwnd HWND, b bool) bool {
 	ret, _, _ := procEnableWindow.Call(
 		uintptr(hwnd),
@@ -512,6 +694,9 @@ func EnableWindow(hwnd HWND, b bool) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func IsWindowEnabled(hwnd HWND) bool {
 	ret, _, _ := procIsWindowEnabled.Call(
 		uintptr(hwnd))
@@ -519,6 +704,9 @@ func IsWindowEnabled(hwnd HWND) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func IsWindowVisible(hwnd HWND) bool {
 	ret, _, _ := procIsWindowVisible.Call(
 		uintptr(hwnd))
@@ -526,6 +714,9 @@ func IsWindowVisible(hwnd HWND) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func SetFocus(hwnd HWND) HWND {
 	ret, _, _ := procSetFocus.Call(
 		uintptr(hwnd))
@@ -533,6 +724,9 @@ func SetFocus(hwnd HWND) HWND {
 	return HWND(ret)
 }
 
+
+// ff:
+// hwnd:
 func SetActiveWindow(hwnd HWND) HWND {
 	ret, _, _ := procSetActiveWindow.Call(
 		uintptr(hwnd))
@@ -540,11 +734,17 @@ func SetActiveWindow(hwnd HWND) HWND {
 	return HWND(ret)
 }
 
+
+// ff:
+// hwnd:
 func BringWindowToTop(hwnd HWND) bool {
 	ret, _, _ := procBringWindowToTop.Call(uintptr(hwnd))
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func SetForegroundWindow(hwnd HWND) HWND {
 	ret, _, _ := procSetForegroundWindow.Call(
 		uintptr(hwnd))
@@ -552,11 +752,18 @@ func SetForegroundWindow(hwnd HWND) HWND {
 	return HWND(ret)
 }
 
+
+// ff:
 func GetFocus() HWND {
 	ret, _, _ := procGetFocus.Call()
 	return HWND(ret)
 }
 
+
+// ff:
+// erase:
+// rect:
+// hwnd:
 func InvalidateRect(hwnd HWND, rect *RECT, erase bool) bool {
 	ret, _, _ := procInvalidateRect.Call(
 		uintptr(hwnd),
@@ -566,6 +773,9 @@ func InvalidateRect(hwnd HWND, rect *RECT, erase bool) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func GetClientRect(hwnd HWND) *RECT {
 	var rect RECT
 	ret, _, _ := procGetClientRect.Call(
@@ -579,6 +789,9 @@ func GetClientRect(hwnd HWND) *RECT {
 	return &rect
 }
 
+
+// ff:
+// hwnd:
 func GetDC(hwnd HWND) HDC {
 	ret, _, _ := procGetDC.Call(
 		uintptr(hwnd))
@@ -586,6 +799,10 @@ func GetDC(hwnd HWND) HDC {
 	return HDC(ret)
 }
 
+
+// ff:
+// hDC:
+// hwnd:
 func ReleaseDC(hwnd HWND, hDC HDC) bool {
 	ret, _, _ := procReleaseDC.Call(
 		uintptr(hwnd),
@@ -594,6 +811,9 @@ func ReleaseDC(hwnd HWND, hDC HDC) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func SetCapture(hwnd HWND) HWND {
 	ret, _, _ := procSetCapture.Call(
 		uintptr(hwnd))
@@ -601,12 +821,18 @@ func SetCapture(hwnd HWND) HWND {
 	return HWND(ret)
 }
 
+
+// ff:
 func ReleaseCapture() bool {
 	ret, _, _ := procReleaseCapture.Call()
 
 	return ret != 0
 }
 
+
+// ff:
+// HANDLE:
+// hwnd:
 func GetWindowThreadProcessId(hwnd HWND) (HANDLE, int) {
 	var processId int
 	ret, _, _ := procGetWindowThreadProcessId.Call(
@@ -616,6 +842,12 @@ func GetWindowThreadProcessId(hwnd HWND) (HANDLE, int) {
 	return HANDLE(ret), processId
 }
 
+
+// ff:
+// flags:
+// caption:
+// title:
+// hwnd:
 func MessageBox(hwnd HWND, title, caption string, flags uint) int {
 	ret, _, _ := procMessageBox.Call(
 		uintptr(hwnd),
@@ -626,6 +858,9 @@ func MessageBox(hwnd HWND, title, caption string, flags uint) int {
 	return int(ret)
 }
 
+
+// ff:
+// index:
 func GetSystemMetrics(index int) int {
 	ret, _, _ := procGetSystemMetrics.Call(
 		uintptr(index))
@@ -633,6 +868,9 @@ func GetSystemMetrics(index int) int {
 	return int(ret)
 }
 
+
+// ff:
+// nIndex:
 func GetSysColorBrush(nIndex int) HBRUSH {
 	/*
 		ret, _, _ := procSysColorBrush.Call(1,
@@ -650,6 +888,10 @@ func GetSysColorBrush(nIndex int) HBRUSH {
 	return HBRUSH(ret)
 }
 
+
+// ff:
+// src:
+// dst:
 func CopyRect(dst, src *RECT) bool {
 	ret, _, _ := procCopyRect.Call(
 		uintptr(unsafe.Pointer(dst)),
@@ -658,6 +900,10 @@ func CopyRect(dst, src *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// rect2:
+// rect1:
 func EqualRect(rect1, rect2 *RECT) bool {
 	ret, _, _ := procEqualRect.Call(
 		uintptr(unsafe.Pointer(rect1)),
@@ -666,6 +912,11 @@ func EqualRect(rect1, rect2 *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// dy:
+// dx:
+// rect:
 func InflateRect(rect *RECT, dx, dy int) bool {
 	ret, _, _ := procInflateRect.Call(
 		uintptr(unsafe.Pointer(rect)),
@@ -675,6 +926,11 @@ func InflateRect(rect *RECT, dx, dy int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// src2:
+// src1:
+// dst:
 func IntersectRect(dst, src1, src2 *RECT) bool {
 	ret, _, _ := procIntersectRect.Call(
 		uintptr(unsafe.Pointer(dst)),
@@ -684,6 +940,9 @@ func IntersectRect(dst, src1, src2 *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// rect:
 func IsRectEmpty(rect *RECT) bool {
 	ret, _, _ := procIsRectEmpty.Call(
 		uintptr(unsafe.Pointer(rect)))
@@ -691,6 +950,11 @@ func IsRectEmpty(rect *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// dy:
+// dx:
+// rect:
 func OffsetRect(rect *RECT, dx, dy int) bool {
 	ret, _, _ := procOffsetRect.Call(
 		uintptr(unsafe.Pointer(rect)),
@@ -700,6 +964,11 @@ func OffsetRect(rect *RECT, dx, dy int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// y:
+// x:
+// rect:
 func PtInRect(rect *RECT, x, y int) bool {
 	pt := POINT{X: int32(x), Y: int32(y)}
 	ret, _, _ := procPtInRect.Call(
@@ -709,6 +978,13 @@ func PtInRect(rect *RECT, x, y int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// bottom:
+// right:
+// top:
+// left:
+// rect:
 func SetRect(rect *RECT, left, top, right, bottom int) bool {
 	ret, _, _ := procSetRect.Call(
 		uintptr(unsafe.Pointer(rect)),
@@ -720,6 +996,9 @@ func SetRect(rect *RECT, left, top, right, bottom int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// rect:
 func SetRectEmpty(rect *RECT) bool {
 	ret, _, _ := procSetRectEmpty.Call(
 		uintptr(unsafe.Pointer(rect)))
@@ -727,6 +1006,11 @@ func SetRectEmpty(rect *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// src2:
+// src1:
+// dst:
 func SubtractRect(dst, src1, src2 *RECT) bool {
 	ret, _, _ := procSubtractRect.Call(
 		uintptr(unsafe.Pointer(dst)),
@@ -736,6 +1020,11 @@ func SubtractRect(dst, src1, src2 *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// src2:
+// src1:
+// dst:
 func UnionRect(dst, src1, src2 *RECT) bool {
 	ret, _, _ := procUnionRect.Call(
 		uintptr(unsafe.Pointer(dst)),
@@ -745,6 +1034,12 @@ func UnionRect(dst, src1, src2 *RECT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// lpDialogProc:
+// hWndParent:
+// lpTemplate:
+// hInstance:
 func CreateDialog(hInstance HINSTANCE, lpTemplate *uint16, hWndParent HWND, lpDialogProc uintptr) HWND {
 	ret, _, _ := procCreateDialogParam.Call(
 		uintptr(hInstance),
@@ -756,6 +1051,12 @@ func CreateDialog(hInstance HINSTANCE, lpTemplate *uint16, hWndParent HWND, lpDi
 	return HWND(ret)
 }
 
+
+// ff:
+// lpDialogProc:
+// hWndParent:
+// lpTemplateName:
+// hInstance:
 func DialogBox(hInstance HINSTANCE, lpTemplateName *uint16, hWndParent HWND, lpDialogProc uintptr) int {
 	ret, _, _ := procDialogBoxParam.Call(
 		uintptr(hInstance),
@@ -767,6 +1068,10 @@ func DialogBox(hInstance HINSTANCE, lpTemplateName *uint16, hWndParent HWND, lpD
 	return int(ret)
 }
 
+
+// ff:
+// nIDDlgItem:
+// hDlg:
 func GetDlgItem(hDlg HWND, nIDDlgItem int) HWND {
 	ret, _, _ := procGetDlgItem.Call(
 		uintptr(unsafe.Pointer(hDlg)),
@@ -775,6 +1080,12 @@ func GetDlgItem(hDlg HWND, nIDDlgItem int) HWND {
 	return HWND(ret)
 }
 
+
+// ff:
+// hIcon:
+// y:
+// x:
+// hDC:
 func DrawIcon(hDC HDC, x, y int, hIcon HICON) bool {
 	ret, _, _ := procDrawIcon.Call(
 		uintptr(unsafe.Pointer(hDC)),
@@ -785,6 +1096,8 @@ func DrawIcon(hDC HDC, x, y int, hIcon HICON) bool {
 	return ret != 0
 }
 
+
+// ff:
 func CreateMenu() HMENU {
 	ret, _, _ := procCreateMenu.Call(0,
 		0,
@@ -794,6 +1107,10 @@ func CreateMenu() HMENU {
 	return HMENU(ret)
 }
 
+
+// ff:
+// hMenu:
+// hWnd:
 func SetMenu(hWnd HWND, hMenu HMENU) bool {
 	ret, _, _ := syscall.Syscall(setMenu, 2,
 		uintptr(hWnd),
@@ -806,6 +1123,12 @@ func SetMenu(hWnd HWND, hMenu HMENU) bool {
 // 这是微软官方文档链接，指向Windows Win32 API中关于CheckMenuRadioItem函数的说明：
 // https://docs.microsoft.com/zh-cn/windows/win32/api/winuser/nf-winuser-checkmenuradioitem
 // （该链接描述的是Windows API中的一个函数，用于在菜单栏中切换单选按钮式的菜单项。）
+
+// ff:
+// hwnd:
+// endID:
+// startID:
+// menuID:
 func SelectRadioMenuItem(menuID uint16, startID uint16, endID uint16, hwnd HWND) bool {
 	ret, _, _ := procCheckMenuRadioItem.Call(
 		hwnd,
@@ -817,6 +1140,8 @@ func SelectRadioMenuItem(menuID uint16, startID uint16, endID uint16, hwnd HWND)
 
 }
 
+
+// ff:
 func CreatePopupMenu() HMENU {
 	ret, _, _ := procCreatePopupMenu.Call(0,
 		0,
@@ -826,6 +1151,14 @@ func CreatePopupMenu() HMENU {
 	return HMENU(ret)
 }
 
+
+// ff:
+// lptpm:
+// hWnd:
+// y:
+// x:
+// fuFlags:
+// hMenu:
 func TrackPopupMenuEx(hMenu HMENU, fuFlags uint32, x, y int32, hWnd HWND, lptpm *TPMPARAMS) BOOL {
 	ret, _, _ := syscall.Syscall6(trackPopupMenuEx, 6,
 		uintptr(hMenu),
@@ -838,6 +1171,9 @@ func TrackPopupMenuEx(hMenu HMENU, fuFlags uint32, x, y int32, hWnd HWND, lptpm 
 	return BOOL(ret)
 }
 
+
+// ff:
+// hWnd:
 func DrawMenuBar(hWnd HWND) bool {
 	ret, _, _ := syscall.Syscall(drawMenuBar, 1,
 		uintptr(hWnd),
@@ -847,6 +1183,12 @@ func DrawMenuBar(hWnd HWND) bool {
 	return ret != 0
 }
 
+
+// ff:
+// lpmii:
+// fByPosition:
+// uItem:
+// hMenu:
 func InsertMenuItem(hMenu HMENU, uItem uint32, fByPosition bool, lpmii *MENUITEMINFO) bool {
 	ret, _, _ := syscall.Syscall6(insertMenuItem, 4,
 		uintptr(hMenu),
@@ -859,6 +1201,12 @@ func InsertMenuItem(hMenu HMENU, uItem uint32, fByPosition bool, lpmii *MENUITEM
 	return ret != 0
 }
 
+
+// ff:
+// lpmii:
+// fByPosition:
+// uItem:
+// hMenu:
 func SetMenuItemInfo(hMenu HMENU, uItem uint32, fByPosition bool, lpmii *MENUITEMINFO) bool {
 	ret, _, _ := syscall.Syscall6(setMenuItemInfo, 4,
 		uintptr(hMenu),
@@ -871,6 +1219,11 @@ func SetMenuItemInfo(hMenu HMENU, uItem uint32, fByPosition bool, lpmii *MENUITE
 	return ret != 0
 }
 
+
+// ff:
+// y:
+// x:
+// hwnd:
 func ClientToScreen(hwnd HWND, x, y int) (int, int) {
 	pt := POINT{X: int32(x), Y: int32(y)}
 
@@ -881,6 +1234,10 @@ func ClientToScreen(hwnd HWND, x, y int) (int, int) {
 	return int(pt.X), int(pt.Y)
 }
 
+
+// ff:
+// msg:
+// hwnd:
 func IsDialogMessage(hwnd HWND, msg *MSG) bool {
 	ret, _, _ := procIsDialogMessage.Call(
 		uintptr(hwnd),
@@ -889,6 +1246,9 @@ func IsDialogMessage(hwnd HWND, msg *MSG) bool {
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func IsWindow(hwnd HWND) bool {
 	ret, _, _ := procIsWindow.Call(
 		uintptr(hwnd))
@@ -896,6 +1256,10 @@ func IsWindow(hwnd HWND) bool {
 	return ret != 0
 }
 
+
+// ff:
+// nResult:
+// hwnd:
 func EndDialog(hwnd HWND, nResult uintptr) bool {
 	ret, _, _ := procEndDialog.Call(
 		uintptr(hwnd),
@@ -904,6 +1268,13 @@ func EndDialog(hwnd HWND, nResult uintptr) bool {
 	return ret != 0
 }
 
+
+// ff:
+// wRemoveMsg:
+// wMsgFilterMax:
+// wMsgFilterMin:
+// hwnd:
+// lpMsg:
 func PeekMessage(lpMsg *MSG, hwnd HWND, wMsgFilterMin, wMsgFilterMax, wRemoveMsg uint32) bool {
 	ret, _, _ := procPeekMessage.Call(
 		uintptr(unsafe.Pointer(lpMsg)),
@@ -915,6 +1286,11 @@ func PeekMessage(lpMsg *MSG, hwnd HWND, wMsgFilterMin, wMsgFilterMax, wRemoveMsg
 	return ret != 0
 }
 
+
+// ff:
+// lpMsg:
+// hAccTable:
+// hwnd:
 func TranslateAccelerator(hwnd HWND, hAccTable HACCEL, lpMsg *MSG) bool {
 	ret, _, _ := procTranslateMessage.Call(
 		uintptr(hwnd),
@@ -924,6 +1300,15 @@ func TranslateAccelerator(hwnd HWND, hAccTable HACCEL, lpMsg *MSG) bool {
 	return ret != 0
 }
 
+
+// ff:
+// uFlags:
+// cy:
+// cx:
+// y:
+// x:
+// hWndInsertAfter:
+// hwnd:
 func SetWindowPos(hwnd, hWndInsertAfter HWND, x, y, cx, cy int, uFlags uint) bool {
 	ret, _, _ := procSetWindowPos.Call(
 		uintptr(hwnd),
@@ -937,6 +1322,11 @@ func SetWindowPos(hwnd, hWndInsertAfter HWND, x, y, cx, cy int, uFlags uint) boo
 	return ret != 0
 }
 
+
+// ff:
+// hbr:
+// lprc:
+// hDC:
 func FillRect(hDC HDC, lprc *RECT, hbr HBRUSH) bool {
 	ret, _, _ := procFillRect.Call(
 		uintptr(hDC),
@@ -946,6 +1336,13 @@ func FillRect(hDC HDC, lprc *RECT, hbr HBRUSH) bool {
 	return ret != 0
 }
 
+
+// ff:
+// uFormat:
+// lpRect:
+// uCount:
+// text:
+// hDC:
 func DrawText(hDC HDC, text string, uCount int, lpRect *RECT, uFormat uint) int {
 	ret, _, _ := procDrawText.Call(
 		uintptr(hDC),
@@ -957,41 +1354,62 @@ func DrawText(hDC HDC, text string, uCount int, lpRect *RECT, uFormat uint) int 
 	return int(ret)
 }
 
+
+// ff:
+// hwnd:
 func AddClipboardFormatListener(hwnd HWND) bool {
 	ret, _, _ := procAddClipboardFormatListener.Call(
 		uintptr(hwnd))
 	return ret != 0
 }
 
+
+// ff:
+// hwnd:
 func RemoveClipboardFormatListener(hwnd HWND) bool {
 	ret, _, _ := procRemoveClipboardFormatListener.Call(
 		uintptr(hwnd))
 	return ret != 0
 }
 
+
+// ff:
+// hWndNewOwner:
 func OpenClipboard(hWndNewOwner HWND) bool {
 	ret, _, _ := procOpenClipboard.Call(
 		uintptr(hWndNewOwner))
 	return ret != 0
 }
 
+
+// ff:
 func CloseClipboard() bool {
 	ret, _, _ := procCloseClipboard.Call()
 	return ret != 0
 }
 
+
+// ff:
+// format:
 func EnumClipboardFormats(format uint) uint {
 	ret, _, _ := procEnumClipboardFormats.Call(
 		uintptr(format))
 	return uint(ret)
 }
 
+
+// ff:
+// uFormat:
 func GetClipboardData(uFormat uint) HANDLE {
 	ret, _, _ := procGetClipboardData.Call(
 		uintptr(uFormat))
 	return HANDLE(ret)
 }
 
+
+// ff:
+// hMem:
+// uFormat:
 func SetClipboardData(uFormat uint, hMem HANDLE) HANDLE {
 	ret, _, _ := procSetClipboardData.Call(
 		uintptr(uFormat),
@@ -999,11 +1417,16 @@ func SetClipboardData(uFormat uint, hMem HANDLE) HANDLE {
 	return HANDLE(ret)
 }
 
+
+// ff:
 func EmptyClipboard() bool {
 	ret, _, _ := procEmptyClipboard.Call()
 	return ret != 0
 }
 
+
+// ff:
+// format:
 func GetClipboardFormatName(format uint) (string, bool) {
 	cchMaxCount := 255
 	buf := make([]uint16, cchMaxCount)
@@ -1019,11 +1442,18 @@ func GetClipboardFormatName(format uint) (string, bool) {
 	return "Requested format does not exist or is predefined", false
 }
 
+
+// ff:
+// format:
 func IsClipboardFormatAvailable(format uint) bool {
 	ret, _, _ := procIsClipboardFormatAvailable.Call(uintptr(format))
 	return ret != 0
 }
 
+
+// ff:
+// paint:
+// hwnd:
 func BeginPaint(hwnd HWND, paint *PAINTSTRUCT) HDC {
 	ret, _, _ := procBeginPaint.Call(
 		uintptr(hwnd),
@@ -1031,12 +1461,19 @@ func BeginPaint(hwnd HWND, paint *PAINTSTRUCT) HDC {
 	return HDC(ret)
 }
 
+
+// ff:
+// paint:
+// hwnd:
 func EndPaint(hwnd HWND, paint *PAINTSTRUCT) {
 	procEndPaint.Call(
 		uintptr(hwnd),
 		uintptr(unsafe.Pointer(paint)))
 }
 
+
+// ff:
+// keyState:
 func GetKeyboardState(keyState []byte) bool {
 	if len(keyState) != 256 {
 		panic("keyState slice must have a size of 256 bytes")
@@ -1045,6 +1482,11 @@ func GetKeyboardState(keyState []byte) bool {
 	return ret != 0
 }
 
+
+// ff:
+// dwhkl:
+// uMapType:
+// uCode:
 func MapVirtualKeyEx(uCode, uMapType uint, dwhkl HKL) uint {
 	ret, _, _ := procMapVirtualKey.Call(
 		uintptr(uCode),
@@ -1053,11 +1495,21 @@ func MapVirtualKeyEx(uCode, uMapType uint, dwhkl HKL) uint {
 	return uint(ret)
 }
 
+
+// ff:
+// vKey:
 func GetAsyncKeyState(vKey int) uint16 {
 	ret, _, _ := procGetAsyncKeyState.Call(uintptr(vKey))
 	return uint16(ret)
 }
 
+
+// ff:
+// uFlags:
+// lpChar:
+// lpKeyState:
+// uScanCode:
+// uVirtKey:
 func ToAscii(uVirtKey, uScanCode uint, lpKeyState *byte, lpChar *uint16, uFlags uint) int {
 	ret, _, _ := procToAscii.Call(
 		uintptr(uVirtKey),
@@ -1068,18 +1520,30 @@ func ToAscii(uVirtKey, uScanCode uint, lpKeyState *byte, lpChar *uint16, uFlags 
 	return int(ret)
 }
 
+
+// ff:
+// fSwap:
 func SwapMouseButton(fSwap bool) bool {
 	ret, _, _ := procSwapMouseButton.Call(
 		uintptr(BoolToBOOL(fSwap)))
 	return ret != 0
 }
 
+
+// ff:
+// ok:
+// y:
+// x:
 func GetCursorPos() (x, y int, ok bool) {
 	pt := POINT{}
 	ret, _, _ := procGetCursorPos.Call(uintptr(unsafe.Pointer(&pt)))
 	return int(pt.X), int(pt.Y), ret != 0
 }
 
+
+// ff:
+// y:
+// x:
 func SetCursorPos(x, y int) bool {
 	ret, _, _ := procSetCursorPos.Call(
 		uintptr(x),
@@ -1088,6 +1552,9 @@ func SetCursorPos(x, y int) bool {
 	return ret != 0
 }
 
+
+// ff:
+// cursor:
 func SetCursor(cursor HCURSOR) HCURSOR {
 	ret, _, _ := procSetCursor.Call(
 		uintptr(cursor),
@@ -1095,6 +1562,15 @@ func SetCursor(cursor HCURSOR) HCURSOR {
 	return HCURSOR(ret)
 }
 
+
+// ff:
+// XORbits:
+// ANDbits:
+// cBitsPerPixel:
+// cPlanes:
+// nHeight:
+// nWidth:
+// instance:
 func CreateIcon(instance HINSTANCE, nWidth, nHeight int, cPlanes, cBitsPerPixel byte, ANDbits, XORbits *byte) HICON {
 	ret, _, _ := procCreateIcon.Call(
 		uintptr(instance),
@@ -1108,6 +1584,9 @@ func CreateIcon(instance HINSTANCE, nWidth, nHeight int, cPlanes, cBitsPerPixel 
 	return HICON(ret)
 }
 
+
+// ff:
+// icon:
 func DestroyIcon(icon HICON) bool {
 	ret, _, _ := procDestroyIcon.Call(
 		uintptr(icon),
@@ -1115,6 +1594,11 @@ func DestroyIcon(icon HICON) bool {
 	return ret != 0
 }
 
+
+// ff:
+// dwFlags:
+// y:
+// x:
 func MonitorFromPoint(x, y int, dwFlags uint32) HMONITOR {
 	ret, _, _ := procMonitorFromPoint.Call(
 		uintptr(x),
@@ -1124,6 +1608,10 @@ func MonitorFromPoint(x, y int, dwFlags uint32) HMONITOR {
 	return HMONITOR(ret)
 }
 
+
+// ff:
+// dwFlags:
+// rc:
 func MonitorFromRect(rc *RECT, dwFlags uint32) HMONITOR {
 	ret, _, _ := procMonitorFromRect.Call(
 		uintptr(unsafe.Pointer(rc)),
@@ -1132,6 +1620,10 @@ func MonitorFromRect(rc *RECT, dwFlags uint32) HMONITOR {
 	return HMONITOR(ret)
 }
 
+
+// ff:
+// dwFlags:
+// hwnd:
 func MonitorFromWindow(hwnd HWND, dwFlags uint32) HMONITOR {
 	ret, _, _ := procMonitorFromWindow.Call(
 		uintptr(hwnd),
@@ -1140,6 +1632,10 @@ func MonitorFromWindow(hwnd HWND, dwFlags uint32) HMONITOR {
 	return HMONITOR(ret)
 }
 
+
+// ff:
+// lmpi:
+// hMonitor:
 func GetMonitorInfo(hMonitor HMONITOR, lmpi *MONITORINFO) bool {
 	ret, _, _ := procGetMonitorInfo.Call(
 		uintptr(hMonitor),
@@ -1148,6 +1644,12 @@ func GetMonitorInfo(hMonitor HMONITOR, lmpi *MONITORINFO) bool {
 	return ret != 0
 }
 
+
+// ff:
+// dwData:
+// fnEnum:
+// clip:
+// hdc:
 func EnumDisplayMonitors(hdc HDC, clip *RECT, fnEnum uintptr, dwData unsafe.Pointer) bool {
 	ret, _, _ := procEnumDisplayMonitors.Call(
 		hdc,
@@ -1158,6 +1660,12 @@ func EnumDisplayMonitors(hdc HDC, clip *RECT, fnEnum uintptr, dwData unsafe.Poin
 	return ret != 0
 }
 
+
+// ff:
+// dwFlags:
+// devMode:
+// iModeNum:
+// szDeviceName:
 func EnumDisplaySettingsEx(szDeviceName *uint16, iModeNum uint32, devMode *DEVMODE, dwFlags uint32) bool {
 	ret, _, _ := procEnumDisplaySettingsEx.Call(
 		uintptr(unsafe.Pointer(szDeviceName)),
@@ -1168,6 +1676,13 @@ func EnumDisplaySettingsEx(szDeviceName *uint16, iModeNum uint32, devMode *DEVMO
 	return ret != 0
 }
 
+
+// ff:
+// lParam:
+// dwFlags:
+// hwnd:
+// devMode:
+// szDeviceName:
 func ChangeDisplaySettingsEx(szDeviceName *uint16, devMode *DEVMODE, hwnd HWND, dwFlags uint32, lParam uintptr) int32 {
 	ret, _, _ := procChangeDisplaySettingsEx.Call(
 		uintptr(unsafe.Pointer(szDeviceName)),
@@ -1180,6 +1695,9 @@ func ChangeDisplaySettingsEx(szDeviceName *uint16, devMode *DEVMODE, hwnd HWND, 
 }
 
 /*
+
+// ff:
+// inputs:
 func SendInput(inputs []INPUT) uint32 {
 	var validInputs []C.INPUT
 
@@ -1208,6 +1726,12 @@ func SendInput(inputs []INPUT) uint32 {
 	return uint32(ret)
 }*/
 
+
+// ff:
+// dwThreadId:
+// hMod:
+// lpfn:
+// idHook:
 func SetWindowsHookEx(idHook int, lpfn HOOKPROC, hMod HINSTANCE, dwThreadId DWORD) HHOOK {
 	ret, _, _ := procSetWindowsHookEx.Call(
 		uintptr(idHook),
@@ -1218,6 +1742,9 @@ func SetWindowsHookEx(idHook int, lpfn HOOKPROC, hMod HINSTANCE, dwThreadId DWOR
 	return HHOOK(ret)
 }
 
+
+// ff:
+// hhk:
 func UnhookWindowsHookEx(hhk HHOOK) bool {
 	ret, _, _ := procUnhookWindowsHookEx.Call(
 		uintptr(hhk),
@@ -1225,6 +1752,12 @@ func UnhookWindowsHookEx(hhk HHOOK) bool {
 	return ret != 0
 }
 
+
+// ff:
+// lParam:
+// wParam:
+// nCode:
+// hhk:
 func CallNextHookEx(hhk HHOOK, nCode int, wParam WPARAM, lParam LPARAM) LRESULT {
 	ret, _, _ := procCallNextHookEx.Call(
 		uintptr(hhk),
@@ -1235,6 +1768,9 @@ func CallNextHookEx(hhk HHOOK, nCode int, wParam WPARAM, lParam LPARAM) LRESULT 
 	return LRESULT(ret)
 }
 
+
+// ff:
+// nVirtKey:
 func GetKeyState(nVirtKey int32) int16 {
 	ret, _, _ := syscall.Syscall(getKeyState, 1,
 		uintptr(nVirtKey),
@@ -1244,6 +1780,9 @@ func GetKeyState(nVirtKey int32) int16 {
 	return int16(ret)
 }
 
+
+// ff:
+// hMenu:
 func DestroyMenu(hMenu HMENU) bool {
 	ret, _, _ := procDestroyMenu.Call(1,
 		uintptr(hMenu),
@@ -1253,6 +1792,10 @@ func DestroyMenu(hMenu HMENU) bool {
 	return ret != 0
 }
 
+
+// ff:
+// lpwndpl:
+// hWnd:
 func GetWindowPlacement(hWnd HWND, lpwndpl *WINDOWPLACEMENT) bool {
 	ret, _, _ := syscall.Syscall(getWindowPlacement, 2,
 		uintptr(hWnd),
@@ -1262,6 +1805,10 @@ func GetWindowPlacement(hWnd HWND, lpwndpl *WINDOWPLACEMENT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// lpwndpl:
+// hWnd:
 func SetWindowPlacement(hWnd HWND, lpwndpl *WINDOWPLACEMENT) bool {
 	ret, _, _ := syscall.Syscall(setWindowPlacement, 2,
 		uintptr(hWnd),
@@ -1271,6 +1818,12 @@ func SetWindowPlacement(hWnd HWND, lpwndpl *WINDOWPLACEMENT) bool {
 	return ret != 0
 }
 
+
+// ff:
+// fRedraw:
+// lpsi:
+// fnBar:
+// hwnd:
 func SetScrollInfo(hwnd HWND, fnBar int32, lpsi *SCROLLINFO, fRedraw bool) int32 {
 	ret, _, _ := syscall.Syscall6(setScrollInfo, 4,
 		hwnd,
@@ -1283,6 +1836,11 @@ func SetScrollInfo(hwnd HWND, fnBar int32, lpsi *SCROLLINFO, fRedraw bool) int32
 	return int32(ret)
 }
 
+
+// ff:
+// lpsi:
+// fnBar:
+// hwnd:
 func GetScrollInfo(hwnd HWND, fnBar int32, lpsi *SCROLLINFO) bool {
 	ret, _, _ := syscall.Syscall(getScrollInfo, 3,
 		hwnd,

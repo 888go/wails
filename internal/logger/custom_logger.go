@@ -50,47 +50,77 @@ func newcustomLogger(logger *Logger, name string) *customLogger {
 
 // Writeln 直接将内容写入输出，不带日志级别
 // 在消息末尾追加回车符
+
+// ff:
+// message:
 func (l *customLogger) Writeln(message string) {
 	l.logger.Writeln(message)
 }
 
 // Write 直接将内容写入输出，不带有日志级别
+
+// ff:
+// message:
 func (l *customLogger) Write(message string) {
 	l.logger.Write(message)
 }
 
 // 以下是将该段Go语言代码注释翻译成中文：
 // 跟踪级别日志记录。其工作方式类似于Sprintf（格式化字符串函数）。
+
+// ff:
+// args:
+// format:
 func (l *customLogger) Trace(format string, args ...interface{}) {
 	format = fmt.Sprintf("%s | %s", l.name, format)
 	l.logger.Trace(format, args...)
 }
 
 // 调试级别日志记录。其工作方式类似于 Sprintf（格式化字符串并写入）。
+
+// ff:
+// args:
+// format:
 func (l *customLogger) Debug(format string, args ...interface{}) {
 	format = fmt.Sprintf("%s | %s", l.name, format)
 	l.logger.Debug(format, args...)
 }
 
 // 信息级别日志记录。功能类似于 Sprintf。
+
+// ff:
+// args:
+// format:
 func (l *customLogger) Info(format string, args ...interface{}) {
 	format = fmt.Sprintf("%s | %s", l.name, format)
 	l.logger.Info(format, args...)
 }
 
 // 警告级别日志记录。其工作方式类似于 Sprintf（格式化字符串输出）。
+
+// ff:
+// args:
+// format:
 func (l *customLogger) Warning(format string, args ...interface{}) {
 	format = fmt.Sprintf("%s | %s", l.name, format)
 	l.logger.Warning(format, args...)
 }
 
 // 错误级别日志记录。其工作方式类似于 Sprintf（格式化字符串并输出）。
+
+// ff:
+// args:
+// format:
 func (l *customLogger) Error(format string, args ...interface{}) {
 	format = fmt.Sprintf("%s | %s", l.name, format)
 	l.logger.Error(format, args...)
 }
 
 // Fatal级别日志记录。其工作方式类似于Sprintf。
+
+// ff:
+// args:
+// format:
 func (l *customLogger) Fatal(format string, args ...interface{}) {
 	format = fmt.Sprintf("%s | %s", l.name, format)
 	l.logger.Fatal(format, args...)

@@ -2,12 +2,12 @@ package runtime
 
 import "context"
 
-func ClipboardGetText(ctx context.Context) (string, error) {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.ClipboardGetText()
+func X剪贴板取文本(上下文 context.Context) (string, error) {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X剪贴板取文本()
 }
 
-func ClipboardSetText(ctx context.Context, text string) error {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.ClipboardSetText(text)
+func X剪贴板置文本(上下文 context.Context, 文本 string) error {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X剪贴板置文本(文本)
 }

@@ -14,9 +14,7 @@
 
 [func (r *request) Close() error {]
 ff=关闭
-
-[func (i *iStreamReleaseCloser) Close() error {]
-ff=关闭
+ 
 
 [func (r *request) Method() (string, error) {]
 ff=请求方法

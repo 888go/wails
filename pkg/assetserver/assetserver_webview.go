@@ -27,6 +27,9 @@ type assetServerWebView struct {
 // - `ServeWebViewRequest`函数用于异步地处理HTTP请求，通过模拟Go语言的HTTP服务端行为来实现。
 // - 如果没有对应的处理器向客户端发送响应数据，则该HTTP请求将以501（未实现）的状态码结束。
 // - `AssetServer`会获取对该HTTP请求的所有权，因此调用者不应再关闭这个请求或者以其他方式对其进行操作。
+
+// ff:
+// req:
 func (d *AssetServer) ServeWebViewRequest(req webview.Request) {
 	d.dispatchInit.Do(func() {
 		workers := d.dispatchWorkers
@@ -59,7 +62,7 @@ func (d *AssetServer) ServeWebViewRequest(req webview.Request) {
 func (d *AssetServer) processWebViewRequest(r webview.Request) {
 	uri, _ := r.URL()
 	d.processWebViewRequestInternal(r)
-	if err := r.Close(); err != nil {
+	if err := r.X关闭(); err != nil {
 		d.logError("Unable to call close for request for uri '%s'", uri)
 	}
 }
@@ -70,7 +73,7 @@ func (d *AssetServer) processWebViewRequestInternal(r webview.Request) {
 	uri := "unknown"
 	var err error
 
-	wrw := r.Response()
+	wrw := r.X请求响应()
 	defer func() {
 		if err := wrw.Finish(); err != nil {
 			d.logError("Error finishing request '%s': %s", uri, err)
@@ -87,19 +90,19 @@ func (d *AssetServer) processWebViewRequestInternal(r webview.Request) {
 		return
 	}
 
-	method, err := r.Method()
+	method, err := r.X请求方法()
 	if err != nil {
 		d.webviewRequestErrorHandler(uri, rw, fmt.Errorf("HTTP-Method: %w", err))
 		return
 	}
 
-	header, err := r.Header()
+	header, err := r.X请求头()
 	if err != nil {
 		d.webviewRequestErrorHandler(uri, rw, fmt.Errorf("HTTP-Header: %w", err))
 		return
 	}
 
-	body, err := r.Body()
+	body, err := r.X请求体()
 	if err != nil {
 		d.webviewRequestErrorHandler(uri, rw, fmt.Errorf("HTTP-Body: %w", err))
 		return

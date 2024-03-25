@@ -7,180 +7,188 @@ import (
 )
 
 // WindowSetTitle 设置窗口的标题
-func WindowSetTitle(ctx context.Context, title string) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetTitle(title)
+func X窗口设置标题(上下文 context.Context, 标题 string) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置标题(标题)
 }
 
 // WindowFullscreen 将窗口设置为全屏模式
-func WindowFullscreen(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowFullscreen()
+func X窗口设置全屏(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置全屏()
 }
 
 // WindowUnfullscreen 将窗口设置为未全屏状态
-func WindowUnfullscreen(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowUnfullscreen()
+func X窗口取消全屏(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口取消全屏()
 }
 
 // WindowCenter 将窗口居中于当前屏幕
-func WindowCenter(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowCenter()
+func X窗口居中(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口居中()
 }
 
 // WindowReload 将重新加载窗口内容
-func WindowReload(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowReload()
+func X窗口重载(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口重载()
 }
 
 // WindowReloadApp 将重新加载应用程序
-func WindowReloadApp(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowReloadApp()
+func X窗口重载应用程序前端(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口重载应用程序前端()
 }
 
-func WindowSetSystemDefaultTheme(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetSystemDefaultTheme()
+func X窗口设置系统默认主题(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置系统默认主题()
 }
 
-func WindowSetLightTheme(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetLightTheme()
+func X窗口设置浅色主题(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置浅色主题()
 }
 
-func WindowSetDarkTheme(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetDarkTheme()
+func X窗口设置深色主题(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置深色主题()
 }
 
 // WindowShow 如果窗口被隐藏，则显示窗口
-func WindowShow(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowShow()
+func X窗口显示(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口显示()
 }
 
 // WindowHide the window
-func WindowHide(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowHide()
+func X窗口隐藏(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口隐藏()
 }
 
 // WindowSetSize 设置窗口的大小
-func WindowSetSize(ctx context.Context, width int, height int) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetSize(width, height)
+func X窗口设置尺寸(上下文 context.Context, 宽 int, 高 int) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置尺寸(宽, 高)
 }
 
-func WindowGetSize(ctx context.Context) (int, int) {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.WindowGetSize()
+func X窗口取尺寸(上下文 context.Context) (int, int) {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X窗口取尺寸()
 }
 
 // WindowSetMinSize 设置窗口的最小尺寸
-func WindowSetMinSize(ctx context.Context, width int, height int) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetMinSize(width, height)
+func X窗口设置最小尺寸(上下文 context.Context, 宽 int, 高 int) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置最小尺寸(宽, 高)
 }
 
 // WindowSetMaxSize 设置窗口的最大尺寸
-func WindowSetMaxSize(ctx context.Context, width int, height int) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetMaxSize(width, height)
+func X窗口设置最大尺寸(上下文 context.Context, 宽 int, 高 int) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置最大尺寸(宽, 高)
 }
 
 // WindowSetAlwaysOnTop 设置窗口是否总在顶部展示
-func WindowSetAlwaysOnTop(ctx context.Context, b bool) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetAlwaysOnTop(b)
+func X窗口设置置顶(上下文 context.Context, 置顶 bool) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置置顶(置顶)
 }
 
 // WindowSetPosition 设置窗口的位置
-func WindowSetPosition(ctx context.Context, x int, y int) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowSetPosition(x, y)
+
+// y:
+// x:
+func X窗口设置位置(上下文 context.Context, x int, y int) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口设置位置(x, y)
 }
 
-func WindowGetPosition(ctx context.Context) (int, int) {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.WindowGetPosition()
+func X窗口取位置(上下文 context.Context) (int, int) {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X窗口取位置()
 }
 
 // WindowMaximise 窗口最大化
-func WindowMaximise(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowMaximise()
+func X窗口最大化(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口最大化()
 }
 
 // WindowToggleMaximise：最大化窗口
-func WindowToggleMaximise(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowToggleMaximise()
+func X窗口最大化切换(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口最大化切换()
 }
 
 // WindowUnmaximise 将窗口取消最大化
-func WindowUnmaximise(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowUnmaximise()
+func X窗口取消最大化(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口取消最大化()
 }
 
 // WindowMinimise 窗口最小化
-func WindowMinimise(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowMinimise()
+func X窗口最小化(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口最小化()
 }
 
 // WindowUnminimise 将窗口从最小化状态恢复
-func WindowUnminimise(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowUnminimise()
+func X窗口取消最小化(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口取消最小化()
 }
 
 // WindowIsFullscreen 获取窗口状态，判断窗口是否全屏
-func WindowIsFullscreen(ctx context.Context) bool {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.WindowIsFullscreen()
+func X窗口是否全屏(上下文 context.Context) bool {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X窗口是否全屏()
 }
 
 // WindowIsMaximised 获取窗口状态是否为最大化
-func WindowIsMaximised(ctx context.Context) bool {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.WindowIsMaximised()
+func X窗口是否最大化(上下文 context.Context) bool {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X窗口是否最大化()
 }
 
 // WindowIsMinimised 获取窗口状态是否为最小化
-func WindowIsMinimised(ctx context.Context) bool {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.WindowIsMinimised()
+func X窗口是否最小化(上下文 context.Context) bool {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X窗口是否最小化()
 }
 
 // WindowIsNormal 获取窗口状态是否为正常窗口
-func WindowIsNormal(ctx context.Context) bool {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.WindowIsNormal()
+func X窗口是否为正常(上下文 context.Context) bool {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X窗口是否为正常()
 }
 
 // WindowExecJS在window环境中执行给定的Js代码
-func WindowExecJS(ctx context.Context, js string) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.ExecJS(js)
+func X窗口执行JS(上下文 context.Context, js代码 string) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口执行JS(js代码)
 }
 
-func WindowSetBackgroundColour(ctx context.Context, R, G, B, A uint8) {
-	appFrontend := getFrontend(ctx)
+
+// A:
+// B:
+// G:
+// R:
+func X窗口设置背景色(上下文 context.Context, R, G, B, A uint8) {
+	appFrontend := getFrontend(上下文)
 	col := &options.RGBA{
 		R: R,
 		G: G,
 		B: B,
 		A: A,
 	}
-	appFrontend.WindowSetBackgroundColour(col)
+	appFrontend.X窗口设置背景色(col)
 }
 
-func WindowPrint(ctx context.Context) {
-	appFrontend := getFrontend(ctx)
-	appFrontend.WindowPrint()
+func X窗口打开打印对话框(上下文 context.Context) {
+	appFrontend := getFrontend(上下文)
+	appFrontend.X窗口打开打印对话框()
 }

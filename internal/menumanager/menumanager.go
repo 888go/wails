@@ -27,6 +27,8 @@ type Manager struct {
 	radioGroups map[*menu.MenuItem][]*menu.MenuItem
 }
 
+
+// ff:
 func NewManager() *Manager {
 	return &Manager{
 		applicationMenuItemMap: NewMenuItemMap(),
@@ -42,6 +44,12 @@ func (m *Manager) getMenuItemByID(menuMap *MenuItemMap, menuId string) *menu.Men
 	return menuMap.idToMenuItemMap[menuId]
 }
 
+
+// ff:
+// parentID:
+// menuType:
+// data:
+// menuID:
 func (m *Manager) ProcessClick(menuID string, data string, menuType string, parentID string) error {
 	var menuItemMap *MenuItemMap
 
@@ -71,22 +79,22 @@ func (m *Manager) ProcessClick(menuID string, data string, menuType string, pare
 	}
 
 	// 这个菜单项是否是复选框？
-	if menuItem.Type == menu.CheckboxType {
+	if menuItem.X常量_菜单项类型 == menu.X常量_菜单项类型_复选框 {
 		// Toggle state
-		menuItem.Checked = !menuItem.Checked
+		menuItem.X是否选中 = !menuItem.X是否选中
 	}
 
-	if menuItem.Type == menu.RadioType {
+	if menuItem.X常量_菜单项类型 == menu.X常量_菜单项类型_单选框 {
 		println("Toggle radio")
 		// Get my radio group
 		for _, radioMenuItem := range m.radioGroups[menuItem] {
-			radioMenuItem.Checked = (radioMenuItem == menuItem)
+			radioMenuItem.X是否选中 = (radioMenuItem == menuItem)
 		}
 	}
 
-	if menuItem.Click == nil {
+	if menuItem.X单击回调函数 == nil {
 		// No callback
-		return fmt.Errorf("No callback for menu '%s'", menuItem.Label)
+		return fmt.Errorf("No callback for menu '%s'", menuItem.X显示名称)
 	}
 
 	// 创建新的Callback结构体
@@ -96,7 +104,7 @@ func (m *Manager) ProcessClick(menuID string, data string, menuType string, pare
 	}
 
 	// Call back!
-	go menuItem.Click(callbackData)
+	go menuItem.X单击回调函数(callbackData)
 
 	return nil
 }

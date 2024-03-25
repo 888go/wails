@@ -6,12 +6,12 @@ import (
 	"github.com/888go/wails/pkg/menu"
 )
 
-func MenuSetApplicationMenu(ctx context.Context, menu *menu.Menu) {
-	frontend := getFrontend(ctx)
-	frontend.MenuSetApplicationMenu(menu)
+func X菜单设置(上下文 context.Context, 菜单 *menu.Menu) {
+	frontend := getFrontend(上下文)
+	frontend.X菜单设置(菜单)
 }
 
-func MenuUpdateApplicationMenu(ctx context.Context) {
-	frontend := getFrontend(ctx)
-	frontend.MenuUpdateApplicationMenu()
+func X菜单更新(上下文 context.Context) {
+	frontend := getFrontend(上下文)
+	frontend.X菜单更新()
 }

@@ -17,14 +17,14 @@ func main() {
 
 	// 使用选项创建应用程序
 	err := wails.Run(&options.App{
-		Title:  "staticanalysis",
-		Width:  1024,
-		Height: 768,
+		X标题:  "staticanalysis",
+		X宽度:  1024,
+		X高度: 768,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
+		X背景颜色: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		X启动前回调函数:        app.startup,
 		Bind: []interface{}{
 			app,
 		},

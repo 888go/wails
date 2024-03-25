@@ -20,12 +20,12 @@ import (
 
 	"github.com/888go/wails/internal/frontend/runtime"
 
-	"github.com/labstack/echo/v4"
 	"github.com/888go/wails/internal/binding"
 	"github.com/888go/wails/internal/frontend"
 	"github.com/888go/wails/internal/logger"
 	"github.com/888go/wails/internal/menumanager"
 	"github.com/888go/wails/pkg/options"
+	"github.com/labstack/echo/v4"
 	"golang.org/x/net/websocket"
 )
 
@@ -49,6 +49,8 @@ type DevWebServer struct {
 	devServerAddr string
 }
 
+// ff:运行
+// ctx:上下文
 func (d *DevWebServer) Run(ctx context.Context) error {
 	d.ctx = ctx
 
@@ -80,9 +82,9 @@ func (d *DevWebServer) Run(ctx context.Context) error {
 			return err
 		}
 
-// 目前在生产模式下不支持WebSockets，因此WebSocket连接是通过
-// 前端开发服务器（如Vite）建立的，目的是为了支持自动重载。
-// 因此，我们直接将WebSocket连接导向前端开发服务器，而不是返回一个未实现状态（NotImplementedStatus）。
+		// 目前在生产模式下不支持WebSockets，因此WebSocket连接是通过
+		// 前端开发服务器（如Vite）建立的，目的是为了支持自动重载。
+		// 因此，我们直接将WebSocket连接导向前端开发服务器，而不是返回一个未实现状态（NotImplementedStatus）。
 		wsHandler = httputil.NewSingleHostReverseProxy(externalURL)
 	}
 
@@ -130,16 +132,21 @@ func (d *DevWebServer) Run(ctx context.Context) error {
 	return err
 }
 
+// ff:窗口重载
 func (d *DevWebServer) WindowReload() {
 	d.broadcast("reload")
 	d.Frontend.WindowReload()
 }
 
+// ff:窗口重载应用程序前端
 func (d *DevWebServer) WindowReloadApp() {
 	d.broadcast("reloadapp")
 	d.Frontend.WindowReloadApp()
 }
 
+// ff:
+// data:
+// name:
 func (d *DevWebServer) Notify(name string, data ...interface{}) {
 	d.notify(name, data...)
 }
@@ -203,6 +210,9 @@ func (d *DevWebServer) handleIPCWebSocket(c echo.Context) error {
 	return nil
 }
 
+// ff:日志调试
+// args:参数
+// message:消息
 func (d *DevWebServer) LogDebug(message string, args ...interface{}) {
 	d.logger.Debug("[DevWebServer] "+message, args...)
 }
@@ -280,6 +290,14 @@ func (d *DevWebServer) notifyExcludingSender(eventMessage []byte, sender *websoc
 	d.Frontend.Notify(notifyMessage.Name, notifyMessage.Data...)
 }
 
+// ff:
+// desktopFrontend:
+// menuManager:
+// dispatcher:
+// appBindings:
+// myLogger:
+// appoptions:
+// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher, menuManager *menumanager.Manager, desktopFrontend frontend.Frontend) *DevWebServer {
 	result := &DevWebServer{
 		ctx:              ctx,

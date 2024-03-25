@@ -31,6 +31,13 @@ type Bindings struct {
 }
 
 // NewBindings 返回一个新的 Bindings 对象
+
+// ff:
+// enumsToBind:
+// obfuscate:
+// exemptions:
+// structPointersToBind:
+// logger:
 func NewBindings(logger *logger.Logger, structPointersToBind []interface{}, exemptions []interface{}, obfuscate bool, enumsToBind []interface{}) *Bindings {
 	result := &Bindings{
 		db:                  newDB(),
@@ -66,6 +73,9 @@ func NewBindings(logger *logger.Logger, structPointersToBind []interface{}, exem
 }
 
 // 将给定的结构体方法添加到 Bindings 中
+
+// ff:
+// structPtr:
 func (b *Bindings) Add(structPtr interface{}) error {
 	methods, err := b.getMethods(structPtr)
 	if err != nil {
@@ -84,14 +94,20 @@ func (b *Bindings) Add(structPtr interface{}) error {
 	return nil
 }
 
+
+// ff:
 func (b *Bindings) DB() *DB {
 	return b.db
 }
 
+
+// ff:
 func (b *Bindings) ToJSON() (string, error) {
 	return b.db.ToJSON()
 }
 
+
+// ff:
 func (b *Bindings) GenerateModels() ([]byte, error) {
 	models := map[string]string{}
 	var seen slicer.StringSlicer
@@ -199,6 +215,9 @@ func (b *Bindings) GenerateModels() ([]byte, error) {
 	return modelsData.Bytes(), nil
 }
 
+
+// ff:
+// modelsDir:
 func (b *Bindings) WriteModels(modelsDir string) error {
 	modelsData, err := b.GenerateModels()
 	if err != nil {
@@ -218,6 +237,9 @@ func (b *Bindings) WriteModels(modelsDir string) error {
 	return nil
 }
 
+
+// ff:
+// e:
 func (b *Bindings) AddEnumToGenerateTS(e interface{}) {
 	enumType := reflect.TypeOf(e)
 
@@ -252,6 +274,11 @@ func (b *Bindings) AddEnumToGenerateTS(e interface{}) {
 	}
 }
 
+
+// ff:
+// s:
+// structName:
+// packageName:
 func (b *Bindings) AddStructToGenerateTS(packageName string, structName string, s interface{}) {
 	if b.structsToGenerateTS[packageName] == nil {
 		b.structsToGenerateTS[packageName] = make(map[string]interface{})
@@ -310,16 +337,25 @@ func (b *Bindings) AddStructToGenerateTS(packageName string, structName string, 
 	}
 }
 
+
+// ff:
+// prefix:
 func (b *Bindings) SetTsPrefix(prefix string) *Bindings {
 	b.tsPrefix = prefix
 	return b
 }
 
+
+// ff:
+// postfix:
 func (b *Bindings) SetTsSuffix(postfix string) *Bindings {
 	b.tsSuffix = postfix
 	return b
 }
 
+
+// ff:
+// outputType:
 func (b *Bindings) SetOutputType(outputType string) *Bindings {
 	if outputType == "interfaces" {
 		b.tsInterface = true

@@ -9,7 +9,7 @@ import (
 )
 
 // Run 根据给定的配置创建应用程序并执行它
-func Run(options *options.App) error {
-	mainApp := application.NewWithOptions(options)
-	return mainApp.Run()
+func X运行(配置 *options.App) error {
+	mainApp := application.X创建并按选项(配置)
+	return mainApp.X运行()
 }

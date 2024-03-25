@@ -16,6 +16,9 @@ import (
 )
 
 // RelativeToCwd 返回一个基于当前工作目录（cwd）和给定的相对路径的绝对路径
+
+// ff:
+// relativePath:
 func RelativeToCwd(relativePath string) (string, error) {
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -26,12 +29,19 @@ func RelativeToCwd(relativePath string) (string, error) {
 }
 
 // Mkdir 将创建给定的目录
+
+// ff:
+// dirname:
 func Mkdir(dirname string) error {
 	return os.Mkdir(dirname, 0o755)
 }
 
 // MkDirs 创建给定的嵌套目录。
 // 若创建失败，返回错误
+
+// ff:
+// mode:
+// fullPath:
 func MkDirs(fullPath string, mode ...os.FileMode) error {
 	var perms os.FileMode
 	perms = 0o755
@@ -43,16 +53,27 @@ func MkDirs(fullPath string, mode ...os.FileMode) error {
 
 // MoveFile尝试将源文件移动到目标位置
 // 目标是一个指向文件名的完整路径，而不是一个目录
+
+// ff:
+// target:
+// source:
 func MoveFile(source string, target string) error {
 	return os.Rename(source, target)
 }
 
 // DeleteFile 将会删除给定的文件
+
+// ff:
+// filename:
 func DeleteFile(filename string) error {
 	return os.Remove(filename)
 }
 
 // CopyFile 从源文件复制到目标文件
+
+// ff:
+// target:
+// source:
 func CopyFile(source string, target string) error {
 	s, err := os.Open(source)
 	if err != nil {
@@ -71,6 +92,9 @@ func CopyFile(source string, target string) error {
 }
 
 // DirExists - 如果给定的路径在文件系统中解析为一个目录，则返回true
+
+// ff:
+// path:
 func DirExists(path string) bool {
 	fi, err := os.Lstat(path)
 	if err != nil {
@@ -81,6 +105,9 @@ func DirExists(path string) bool {
 }
 
 // FileExists 返回一个布尔值，表示给定的文件是否存在
+
+// ff:
+// path:
 func FileExists(path string) bool {
 	fi, err := os.Lstat(path)
 	if err != nil {
@@ -93,6 +120,10 @@ func FileExists(path string) bool {
 // RelativePath 函数返回一个由调用文件所在目录与给定的相对路径组合而成的完整路径。
 //
 // 示例：在 *本* 文件中调用 RelativePath("..") 将会得到 '/path/to/wails2/v2/internal'
+
+// ff:
+// optionalpaths:
+// relativepath:
 func RelativePath(relativepath string, optionalpaths ...string) string {
 	_, thisFile, _, _ := runtime.Caller(1)
 	localDir := filepath.Dir(thisFile)
@@ -112,6 +143,9 @@ func RelativePath(relativepath string, optionalpaths ...string) string {
 }
 
 // MustLoadString尝试加载一个字符串，如果出现任何错误，将会输出一条致命消息并终止程序
+
+// ff:
+// filename:
 func MustLoadString(filename string) string {
 	data, err := os.ReadFile(filename)
 	if err != nil {
@@ -122,6 +156,9 @@ func MustLoadString(filename string) string {
 }
 
 // MD5File 返回给定文件的 md5 哈希值
+
+// ff:
+// filename:
 func MD5File(filename string) (string, error) {
 	f, err := os.Open(filename)
 	if err != nil {
@@ -138,6 +175,9 @@ func MD5File(filename string) (string, error) {
 }
 
 // MustMD5File将会调用MD5File函数，并在出现错误时终止程序运行
+
+// ff:
+// filename:
 func MustMD5File(filename string) string {
 	result, err := MD5File(filename)
 	if err != nil {
@@ -149,6 +189,10 @@ func MustMD5File(filename string) string {
 
 // MustWriteString 将尝试将给定的数据写入给定的文件名
 // 如果发生失败，它将中止程序
+
+// ff:
+// data:
+// filename:
 func MustWriteString(filename string, data string) {
 	err := os.WriteFile(filename, []byte(data), 0o755)
 	if err != nil {
@@ -169,6 +213,9 @@ func fatal(message ...string) {
 }
 
 // GetSubdirectories 返回给定根目录下的子目录列表
+
+// ff:
+// rootDir:
 func GetSubdirectories(rootDir string) (*slicer.StringSlicer, error) {
 	var result slicer.StringSlicer
 
@@ -186,6 +233,9 @@ func GetSubdirectories(rootDir string) (*slicer.StringSlicer, error) {
 	return &result, err
 }
 
+
+// ff:
+// dir:
 func DirIsEmpty(dir string) (bool, error) {
 	// CREDIT: 代码来源：https://stackoverflow.com/a/30708914/8325411
 	f, err := os.Open(dir)
@@ -205,6 +255,11 @@ func DirIsEmpty(dir string) (bool, error) {
 // 源目录必须存在，目标目录必须不存在。
 // 符号链接会被忽略并跳过。
 // 来源：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
+
+// ff:
+// err:
+// dst:
+// src:
 func CopyDir(src string, dst string) (err error) {
 	src = filepath.Clean(src)
 	dst = filepath.Clean(dst)
@@ -261,6 +316,10 @@ func CopyDir(src string, dst string) (err error) {
 }
 
 // SetPermissions 递归地设置目录及其下文件的权限
+
+// ff:
+// perm:
+// dir:
 func SetPermissions(dir string, perm os.FileMode) error {
 	return filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -274,6 +333,12 @@ func SetPermissions(dir string, perm os.FileMode) error {
 // 源目录必须存在，目标目录必须不存在。它会忽略通过ignore参数给出的所有文件或目录。
 // 符号链接会被忽略并跳过。
 // 来源：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
+
+// ff:
+// err:
+// ignore:
+// dst:
+// src:
 func CopyDirExtended(src string, dst string, ignore []string) (err error) {
 	ignoreList := slicer.String(ignore)
 	src = filepath.Clean(src)
@@ -333,6 +398,10 @@ func CopyDirExtended(src string, dst string, ignore []string) (err error) {
 	return
 }
 
+
+// ff:
+// file:
+// fsys:
 func FindPathToFile(fsys fs.FS, file string) (string, error) {
 	stat, _ := fs.Stat(fsys, file)
 	if stat != nil {
@@ -371,6 +440,10 @@ func FindPathToFile(fsys fs.FS, file string) (string, error) {
 
 // FindFileInParents 在当前目录及其所有父目录中搜索指定文件。
 // 如果找到该文件，则返回该文件的绝对路径，否则返回一个空字符串
+
+// ff:
+// filename:
+// path:
 func FindFileInParents(path string, filename string) string {
 	// Check for bad paths
 	if _, err := os.Stat(path); err != nil {

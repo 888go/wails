@@ -75,6 +75,10 @@ type CallbackMessage struct {
 	CallbackID string      `json:"callbackid"`
 }
 
+
+// ff:
+// callbackID:
+// message:
 func (d *Dispatcher) NewErrorCallback(message string, callbackID string) (string, error) {
 	result := &CallbackMessage{
 		CallbackID: callbackID,

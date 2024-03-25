@@ -9,11 +9,15 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
+// ff:运行
 func (a *App) Run() error {
 	return nil
 }
 
 // CreateApp 创建应用！
+
+// ff:
+// _:
 func CreateApp(_ *options.App) (*App, error) {
 	result := w32.MessageBox(0,
 		`没有正确的构建标记，Wails应用程序将无法构建。

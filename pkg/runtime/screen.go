@@ -9,7 +9,7 @@ import (
 type Screen = frontend.Screen
 
 // ScreenGetAllScreens 返回所有屏幕
-func ScreenGetAll(ctx context.Context) ([]Screen, error) {
-	appFrontend := getFrontend(ctx)
-	return appFrontend.ScreenGetAll()
+func X取屏幕信息(上下文 context.Context) ([]Screen, error) {
+	appFrontend := getFrontend(上下文)
+	return appFrontend.X取屏幕信息()
 }

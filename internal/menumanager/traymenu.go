@@ -44,6 +44,8 @@ type TrayMenu struct {
 	StyledLabel      []*ansi.StyledText `json:",omitempty"`
 }
 
+
+// ff:
 func (t *TrayMenu) AsJSON() (string, error) {
 	data, err := json.Marshal(t)
 	if err != nil {
@@ -52,10 +54,13 @@ func (t *TrayMenu) AsJSON() (string, error) {
 	return string(data), nil
 }
 
+
+// ff:
+// trayMenu:
 func NewTrayMenu(trayMenu *menu.TrayMenu) *TrayMenu {
 	// Parse ANSI text
 	var styledLabel []*ansi.StyledText
-	tempLabel := trayMenu.Label
+	tempLabel := trayMenu.X显示名称
 	if strings.Contains(tempLabel, "\033[") {
 		parsedLabel, err := ansi.Parse(tempLabel)
 		if err == nil {
@@ -64,48 +69,57 @@ func NewTrayMenu(trayMenu *menu.TrayMenu) *TrayMenu {
 	}
 
 	result := &TrayMenu{
-		Label:            trayMenu.Label,
-		FontName:         trayMenu.FontName,
-		FontSize:         trayMenu.FontSize,
-		Disabled:         trayMenu.Disabled,
-		Tooltip:          trayMenu.Tooltip,
-		Image:            trayMenu.Image,
-		MacTemplateImage: trayMenu.MacTemplateImage,
-		menu:             trayMenu.Menu,
+		Label:            trayMenu.X显示名称,
+		FontName:         trayMenu.X字体名称,
+		FontSize:         trayMenu.X字体大小,
+		Disabled:         trayMenu.X是否禁用,
+		Tooltip:          trayMenu.X提示,
+		Image:            trayMenu.X图标名称,
+		MacTemplateImage: trayMenu.Mac模板图标,
+		menu:             trayMenu.X菜单,
 		RGBA:             trayMenu.RGBA,
 		menuItemMap:      NewMenuItemMap(),
 		trayMenu:         trayMenu,
 		StyledLabel:      styledLabel,
 	}
 
-	result.menuItemMap.AddMenu(trayMenu.Menu)
+	result.menuItemMap.AddMenu(trayMenu.X菜单)
 	result.ProcessedMenu = NewWailsMenu(result.menuItemMap, result.menu)
 
 	return result
 }
 
+
+// ff:
+// id:
 func (m *Manager) OnTrayMenuOpen(id string) {
 	trayMenu, ok := m.trayMenus[id]
 	if !ok {
 		return
 	}
-	if trayMenu.trayMenu.OnOpen == nil {
+	if trayMenu.trayMenu.X打开回调函数 == nil {
 		return
 	}
-	go trayMenu.trayMenu.OnOpen()
+	go trayMenu.trayMenu.X打开回调函数()
 }
 
+
+// ff:
+// id:
 func (m *Manager) OnTrayMenuClose(id string) {
 	trayMenu, ok := m.trayMenus[id]
 	if !ok {
 		return
 	}
-	if trayMenu.trayMenu.OnClose == nil {
+	if trayMenu.trayMenu.X关闭回调函数 == nil {
 		return
 	}
-	go trayMenu.trayMenu.OnClose()
+	go trayMenu.trayMenu.X关闭回调函数()
 }
 
+
+// ff:
+// trayMenu:
 func (m *Manager) AddTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	newTrayMenu := NewTrayMenu(trayMenu)
 
@@ -120,6 +134,9 @@ func (m *Manager) AddTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	return newTrayMenu.AsJSON()
 }
 
+
+// ff:
+// trayMenu:
 func (m *Manager) GetTrayID(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, exists := m.trayMenuPointers[trayMenu]
 	if !exists {
@@ -129,6 +146,9 @@ func (m *Manager) GetTrayID(trayMenu *menu.TrayMenu) (string, error) {
 }
 
 // SetTrayMenu 更新或创建一个菜单
+
+// ff:
+// trayMenu:
 func (m *Manager) SetTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, trayMenuKnown := m.trayMenuPointers[trayMenu]
 	if !trayMenuKnown {
@@ -145,6 +165,8 @@ func (m *Manager) SetTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	return updatedTrayMenu.AsJSON()
 }
 
+
+// ff:
 func (m *Manager) GetTrayMenus() ([]string, error) {
 	result := []string{}
 	for _, trayMenu := range m.trayMenus {
@@ -158,10 +180,13 @@ func (m *Manager) GetTrayMenus() ([]string, error) {
 	return result, nil
 }
 
+
+// ff:
+// trayMenu:
 func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, trayMenuKnown := m.trayMenuPointers[trayMenu]
 	if !trayMenuKnown {
-		return "", fmt.Errorf("[UpdateTrayMenuLabel] unknown tray id for tray %s", trayMenu.Label)
+		return "", fmt.Errorf("[UpdateTrayMenuLabel] unknown tray id for tray %s", trayMenu.X显示名称)
 	}
 
 	type LabelUpdate struct {
@@ -179,7 +204,7 @@ func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 
 	// Parse ANSI text
 	var styledLabel []*ansi.StyledText
-	tempLabel := trayMenu.Label
+	tempLabel := trayMenu.X显示名称
 	if strings.Contains(tempLabel, "\033[") {
 		parsedLabel, err := ansi.Parse(tempLabel)
 		if err == nil {
@@ -189,13 +214,13 @@ func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 
 	update := &LabelUpdate{
 		ID:               trayID,
-		Label:            trayMenu.Label,
-		FontName:         trayMenu.FontName,
-		FontSize:         trayMenu.FontSize,
-		Disabled:         trayMenu.Disabled,
-		Tooltip:          trayMenu.Tooltip,
-		Image:            trayMenu.Image,
-		MacTemplateImage: trayMenu.MacTemplateImage,
+		Label:            trayMenu.X显示名称,
+		FontName:         trayMenu.X字体名称,
+		FontSize:         trayMenu.X字体大小,
+		Disabled:         trayMenu.X是否禁用,
+		Tooltip:          trayMenu.X提示,
+		Image:            trayMenu.X图标名称,
+		MacTemplateImage: trayMenu.Mac模板图标,
 		RGBA:             trayMenu.RGBA,
 		StyledLabel:      styledLabel,
 	}
@@ -208,6 +233,8 @@ func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 	return string(data), nil
 }
 
+
+// ff:
 func (m *Manager) GetContextMenus() ([]string, error) {
 	result := []string{}
 	for _, contextMenu := range m.contextMenus {

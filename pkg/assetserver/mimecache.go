@@ -34,6 +34,10 @@ var (
 	}
 )
 
+
+// ff:
+// data:
+// filename:
 func GetMimetype(filename string, data []byte) string {
 	mimeMutex.Lock()
 	defer mimeMutex.Unlock()

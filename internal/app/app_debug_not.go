@@ -2,6 +2,8 @@
 
 package app
 
+
+// ff:
 func IsDebug() bool {
 	return false
 }

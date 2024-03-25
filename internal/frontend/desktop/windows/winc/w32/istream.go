@@ -20,14 +20,21 @@ type IStream struct {
 	lpVtbl *pIStreamVtbl
 }
 
+
+// ff:
+// id:
 func (this *IStream) QueryInterface(id *GUID) *IDispatch {
 	return ComQueryInterface((*IUnknown)(unsafe.Pointer(this)), id)
 }
 
+
+// ff:
 func (this *IStream) AddRef() int32 {
 	return ComAddRef((*IUnknown)(unsafe.Pointer(this)))
 }
 
+
+// ff:
 func (this *IStream) Release() int32 {
 	return ComRelease((*IUnknown)(unsafe.Pointer(this)))
 }

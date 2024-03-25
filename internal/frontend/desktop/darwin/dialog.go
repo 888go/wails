@@ -19,8 +19,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/leaanthony/slicer"
 	"github.com/888go/wails/internal/frontend"
+	"github.com/leaanthony/slicer"
 )
 
 // Obj-C 对话方法将响应发送到此通道
@@ -32,6 +32,9 @@ var (
 )
 
 // OpenDirectoryDialog 提示用户选择一个目录
+
+// ff:对话框选择目录
+// dialogOptions:选项
 func (f *Frontend) OpenDirectoryDialog(options frontend.OpenDialogOptions) (string, error) {
 	results, err := f.openDialog(&options, false, false, true)
 	if err != nil {
@@ -86,6 +89,9 @@ func (f *Frontend) openDialog(options *frontend.OpenDialogOptions, multiple bool
 }
 
 // OpenFileDialog 提示用户选择一个文件
+
+// ff:对话框选择文件
+// options:选项
 func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, error) {
 	results, err := f.openDialog(&options, false, true, false)
 	if err != nil {
@@ -99,11 +105,17 @@ func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, e
 }
 
 // OpenMultipleFilesDialog 提示用户选择一个或多个文件
+
+// ff:对话框多选文件
+// dialogOptions:选项
 func (f *Frontend) OpenMultipleFilesDialog(options frontend.OpenDialogOptions) ([]string, error) {
 	return f.openDialog(&options, true, true, false)
 }
 
 // SaveFileDialog 弹出文件选择对话框，提示用户选择一个文件
+
+// ff:对话框保存文件
+// dialogOptions:选项
 func (f *Frontend) SaveFileDialog(options frontend.SaveDialogOptions) (string, error) {
 	dialogLock.Lock()
 	defer dialogLock.Unlock()
@@ -139,6 +151,9 @@ func (f *Frontend) SaveFileDialog(options frontend.SaveDialogOptions) (string, e
 }
 
 // MessageDialog 向用户展示一条消息对话框
+
+// ff:对话框弹出消息
+// options:选项
 func (f *Frontend) MessageDialog(options frontend.MessageDialogOptions) (string, error) {
 	dialogLock.Lock()
 	defer dialogLock.Unlock()
@@ -183,15 +198,17 @@ func processMessageDialogResponse(selection int) {
 	messageDialogResponse <- selection
 }
 
-//export processOpenFileDialogResponse
 // 导出processOpenFileDialogResponse函数，供C语言或其他外部环境调用
+//
+//export processOpenFileDialogResponse
 func processOpenFileDialogResponse(cselection *C.char) {
 	selection := C.GoString(cselection)
 	openFileDialogResponse <- selection
 }
 
-//export processSaveFileDialogResponse
 // 导出processSaveFileDialogResponse函数，供C语言或其他外部环境调用
+//
+//export processSaveFileDialogResponse
 func processSaveFileDialogResponse(cselection *C.char) {
 	selection := C.GoString(cselection)
 	saveFileDialogResponse <- selection

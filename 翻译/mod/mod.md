@@ -4,4 +4,4 @@
 
 
 [mod]
-新地址=github.com/888go/Wails
+新地址=github.com/888go/wails

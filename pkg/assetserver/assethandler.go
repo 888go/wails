@@ -37,6 +37,10 @@ type assetHandler struct {
 	retryMissingFiles bool
 }
 
+
+// ff:
+// log:
+// options:
 func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, error) {
 	vfs := options.Assets
 	if vfs != nil {
@@ -44,7 +48,7 @@ func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, err
 			return nil, err
 		}
 
-		subDir, err := FindPathToFile(vfs, indexHTML)
+		subDir, err := X查找文件路径(vfs, indexHTML)
 		if err != nil {
 			if errors.Is(err, os.ErrNotExist) {
 				msg := "在你的Assets文件中找不到`index.html`。FS"
@@ -78,6 +82,10 @@ func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, err
 	return result, nil
 }
 
+
+// ff:
+// req:
+// rw:
 func (d *assetHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	url := req.URL.Path
 	handler := d.handler

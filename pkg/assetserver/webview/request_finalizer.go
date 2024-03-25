@@ -21,7 +21,7 @@ func newRequestFinalizer(r Request) Request {
 	return rf
 }
 
-func (r *requestFinalizer) Close() error {
+func (r *requestFinalizer) X关闭() error {
 	return r.close(false)
 }
 
@@ -29,10 +29,10 @@ func (r *requestFinalizer) close(asyncRelease bool) error {
 	if atomic.CompareAndSwapInt32(&r.closed, 0, 1) {
 		runtime.SetFinalizer(r, nil)
 		if asyncRelease {
-			go r.Request.Close()
+			go r.Request.X关闭()
 			return nil
 		} else {
-			return r.Request.Close()
+			return r.Request.X关闭()
 		}
 	}
 	return nil

@@ -38,6 +38,9 @@ type BaseBuilder struct {
 }
 
 // NewBaseBuilder 创建一个新的 BaseBuilder
+
+// ff:
+// options:
 func NewBaseBuilder(options *Options) *BaseBuilder {
 	result := &BaseBuilder{
 		options: options,
@@ -46,6 +49,9 @@ func NewBaseBuilder(options *Options) *BaseBuilder {
 }
 
 // SetProjectData 为该构建器设置项目数据
+
+// ff:
+// projectData:
 func (b *BaseBuilder) SetProjectData(projectData *project.Project) {
 	b.projectData = projectData
 }
@@ -91,6 +97,8 @@ func (b *BaseBuilder) convertByteSliceToIntegerString(data []byte) string {
 }
 
 // CleanUp 进行构建后清理工作
+
+// ff:
 func (b *BaseBuilder) CleanUp() {
 	// Delete all the files
 	b.filesToDelete.Each(func(filename string) {
@@ -118,6 +126,9 @@ func commandPrettifier(args []string) string {
 	return strings.Join(args, " ")
 }
 
+
+// ff:
+// options:
 func (b *BaseBuilder) OutputFilename(options *Options) string {
 	outputFile := options.OutputFile
 	if outputFile == "" {
@@ -152,6 +163,9 @@ func (b *BaseBuilder) OutputFilename(options *Options) string {
 }
 
 // CompileProject 编译项目
+
+// ff:
+// options:
 func (b *BaseBuilder) CompileProject(options *Options) error {
 	// 检查运行时包装器是否存在
 	err := generateRuntimeWrapper(options)
@@ -438,11 +452,20 @@ func generateRuntimeWrapper(options *Options) error {
 }
 
 // NpmInstall 在给定的目录中运行 "npm install"
+
+// ff:
+// verbose:
+// sourceDir:
 func (b *BaseBuilder) NpmInstall(sourceDir string, verbose bool) error {
 	return b.NpmInstallUsingCommand(sourceDir, "npm install", verbose)
 }
 
 // NpmInstallUsingCommand 在指定的npm项目目录中运行给定的安装命令
+
+// ff:
+// verbose:
+// installCommand:
+// sourceDir:
 func (b *BaseBuilder) NpmInstallUsingCommand(sourceDir string, installCommand string, verbose bool) error {
 	packageJSON := filepath.Join(sourceDir, "package.json")
 
@@ -506,6 +529,11 @@ func (b *BaseBuilder) NpmInstallUsingCommand(sourceDir string, installCommand st
 }
 
 // NpmRun在指定的目录中执行npm目标
+
+// ff:
+// verbose:
+// buildTarget:
+// projectDir:
 func (b *BaseBuilder) NpmRun(projectDir, buildTarget string, verbose bool) error {
 	stdout, stderr, err := shell.RunCommand(projectDir, "npm", "run", buildTarget)
 	if verbose || err != nil {
@@ -520,6 +548,12 @@ func (b *BaseBuilder) NpmRun(projectDir, buildTarget string, verbose bool) error
 }
 
 // NpmRunWithEnvironment 在指定的目录下，使用给定的环境变量执行npm目标
+
+// ff:
+// envvars:
+// verbose:
+// buildTarget:
+// projectDir:
 func (b *BaseBuilder) NpmRunWithEnvironment(projectDir, buildTarget string, verbose bool, envvars []string) error {
 	cmd := shell.CreateCommand(projectDir, "npm", "run", buildTarget)
 	cmd.Env = append(os.Environ(), envvars...)
@@ -539,6 +573,9 @@ func (b *BaseBuilder) NpmRunWithEnvironment(projectDir, buildTarget string, verb
 }
 
 // BuildFrontend 执行针对前端目录的 `npm build` 命令
+
+// ff:
+// outputLogger:
 func (b *BaseBuilder) BuildFrontend(outputLogger *clilogger.CLILogger) error {
 	verbose := b.options.Verbosity == VERBOSE
 
@@ -566,7 +603,7 @@ func (b *BaseBuilder) BuildFrontend(outputLogger *clilogger.CLILogger) error {
 		if err := b.NpmInstallUsingCommand(frontendDir, installCommand, verbose); err != nil {
 			return err
 		}
-		outputLogger.Println("Done.")
+		outputLogger.X日志输出并换行("Done.")
 	}
 
 	// 检查是否存在构建命令

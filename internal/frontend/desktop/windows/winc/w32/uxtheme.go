@@ -82,6 +82,9 @@ func init() {
 	setWindowTheme = MustGetProcAddress(libuxtheme, "SetWindowTheme")
 }
 
+
+// ff:
+// hTheme:
 func CloseThemeData(hTheme HTHEME) HRESULT {
 	ret, _, _ := syscall.Syscall(closeThemeData, 1,
 		uintptr(hTheme),
@@ -91,6 +94,14 @@ func CloseThemeData(hTheme HTHEME) HRESULT {
 	return HRESULT(ret)
 }
 
+
+// ff:
+// pClipRect:
+// pRect:
+// iStateId:
+// iPartId:
+// hdc:
+// hTheme:
 func DrawThemeBackground(hTheme HTHEME, hdc HDC, iPartId, iStateId int32, pRect, pClipRect *RECT) HRESULT {
 	ret, _, _ := syscall.Syscall6(drawThemeBackground, 6,
 		uintptr(hTheme),
@@ -103,6 +114,17 @@ func DrawThemeBackground(hTheme HTHEME, hdc HDC, iPartId, iStateId int32, pRect,
 	return HRESULT(ret)
 }
 
+
+// ff:
+// pRect:
+// dwTextFlags2:
+// dwTextFlags:
+// iCharCount:
+// pszText:
+// iStateId:
+// iPartId:
+// hdc:
+// hTheme:
 func DrawThemeText(hTheme HTHEME, hdc HDC, iPartId, iStateId int32, pszText *uint16, iCharCount int32, dwTextFlags, dwTextFlags2 uint32, pRect *RECT) HRESULT {
 	ret, _, _ := syscall.Syscall9(drawThemeText, 9,
 		uintptr(hTheme),
@@ -118,6 +140,17 @@ func DrawThemeText(hTheme HTHEME, hdc HDC, iPartId, iStateId int32, pszText *uin
 	return HRESULT(ret)
 }
 
+
+// ff:
+// pExtentRect:
+// pBoundingRect:
+// dwTextFlags:
+// iCharCount:
+// pszText:
+// iStateId:
+// iPartId:
+// hdc:
+// hTheme:
 func GetThemeTextExtent(hTheme HTHEME, hdc HDC, iPartId, iStateId int32, pszText *uint16, iCharCount int32, dwTextFlags uint32, pBoundingRect, pExtentRect *RECT) HRESULT {
 	ret, _, _ := syscall.Syscall9(getThemeTextExtent, 9,
 		uintptr(hTheme),
@@ -133,6 +166,10 @@ func GetThemeTextExtent(hTheme HTHEME, hdc HDC, iPartId, iStateId int32, pszText
 	return HRESULT(ret)
 }
 
+
+// ff:
+// pszClassList:
+// hwnd:
 func OpenThemeData(hwnd HWND, pszClassList *uint16) HTHEME {
 	ret, _, _ := syscall.Syscall(openThemeData, 2,
 		uintptr(hwnd),
@@ -142,6 +179,11 @@ func OpenThemeData(hwnd HWND, pszClassList *uint16) HTHEME {
 	return HTHEME(ret)
 }
 
+
+// ff:
+// pszSubIdList:
+// pszSubAppName:
+// hwnd:
 func SetWindowTheme(hwnd HWND, pszSubAppName, pszSubIdList *uint16) HRESULT {
 	ret, _, _ := syscall.Syscall(setWindowTheme, 3,
 		uintptr(hwnd),

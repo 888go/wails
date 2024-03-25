@@ -19,6 +19,9 @@ var (
 	procCommDlgExtendedError = modcomdlg32.NewProc("CommDlgExtendedError")
 )
 
+
+// ff:
+// ofn:
 func GetOpenFileName(ofn *OPENFILENAME) bool {
 	ret, _, _ := procGetOpenFileName.Call(
 		uintptr(unsafe.Pointer(ofn)))
@@ -26,6 +29,9 @@ func GetOpenFileName(ofn *OPENFILENAME) bool {
 	return ret != 0
 }
 
+
+// ff:
+// ofn:
 func GetSaveFileName(ofn *OPENFILENAME) bool {
 	ret, _, _ := procGetSaveFileName.Call(
 		uintptr(unsafe.Pointer(ofn)))
@@ -33,6 +39,8 @@ func GetSaveFileName(ofn *OPENFILENAME) bool {
 	return ret != 0
 }
 
+
+// ff:
 func CommDlgExtendedError() uint {
 	ret, _, _ := procCommDlgExtendedError.Call()
 

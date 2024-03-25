@@ -12,10 +12,13 @@ var MenuManager = NewManager()
 type radioGroup []*menu.MenuItem
 
 // 点击根据所点击的项目更新单选组状态
+
+// ff:
+// item:
 func (g *radioGroup) Click(item *menu.MenuItem) {
 	for _, radioGroupItem := range *g {
 		if radioGroupItem != item {
-			radioGroupItem.Checked = false
+			radioGroupItem.X是否选中 = false
 		}
 	}
 }
@@ -53,13 +56,13 @@ func (p *processedMenu) process(items []*menu.MenuItem) {
 		p.items[item] = struct{}{}
 
 		// 如果这是一个单选按钮项，则将其添加到单选组中
-		if item.Type == menu.RadioType {
+		if item.X常量_菜单项类型 == menu.X常量_菜单项类型_单选框 {
 			currentRadioGroup = append(currentRadioGroup, item)
 		}
 
 // 如果当前项目不是单选按钮项，或者我们正在处理菜单中的最后一个项目，
 // 那么如果有项目的话，我们需要将当前单选组添加到映射中
-		if item.Type != menu.RadioType || index == len(items)-1 {
+		if item.X常量_菜单项类型 != menu.X常量_菜单项类型_单选框 || index == len(items)-1 {
 			if len(currentRadioGroup) > 0 {
 				p.addRadioGroup(currentRadioGroup)
 				currentRadioGroup = nil
@@ -67,8 +70,8 @@ func (p *processedMenu) process(items []*menu.MenuItem) {
 		}
 
 		// Process the submenu
-		if item.SubMenu != nil {
-			p.process(item.SubMenu.Items)
+		if item.X子菜单 != nil {
+			p.process(item.X子菜单.Items)
 		}
 	}
 }
@@ -80,7 +83,7 @@ func (p *processedMenu) processClick(item *menu.MenuItem) {
 	}
 
 	// 如果这是一个单选按钮项，那么我们需要更新单选组
-	if item.Type == menu.RadioType {
+	if item.X常量_菜单项类型 == menu.X常量_菜单项类型_单选框 {
 		// 获取此项目的单选组
 		radioGroups := p.radioGroups[item]
 // 遍历该选项所属的每个单选组，并将除被点击项之外的所有其他项的选中状态设置为 false
@@ -92,7 +95,7 @@ func (p *processedMenu) processClick(item *menu.MenuItem) {
 		}
 	}
 
-	if item.Type == menu.CheckboxType {
+	if item.X常量_菜单项类型 == menu.X常量_菜单项类型_复选框 {
 		p.updateMenuItemCallback(item)
 	}
 
@@ -108,39 +111,51 @@ type Manager struct {
 	menus map[*menu.Menu]*processedMenu
 }
 
+
+// ff:
 func NewManager() *Manager {
 	return &Manager{
 		menus: make(map[*menu.Menu]*processedMenu),
 	}
 }
 
+
+// ff:
+// updateMenuItemCallback:
+// menu:
 func (m *Manager) AddMenu(menu *menu.Menu, updateMenuItemCallback func(*menu.MenuItem)) {
 	m.menus[menu] = newProcessedMenu(menu, updateMenuItemCallback)
 }
 
+
+// ff:
+// item:
 func (m *Manager) ProcessClick(item *menu.MenuItem) {
 
 	// 如果menuitem是复选框，那么我们需要切换其状态
-	if item.Type == menu.CheckboxType {
-		item.Checked = !item.Checked
+	if item.X常量_菜单项类型 == menu.X常量_菜单项类型_复选框 {
+		item.X是否选中 = !item.X是否选中
 	}
 
 	// 设置单选按钮项为选中状态
-	if item.Type == menu.RadioType {
-		item.Checked = true
+	if item.X常量_菜单项类型 == menu.X常量_菜单项类型_单选框 {
+		item.X是否选中 = true
 	}
 
 	for _, thisMenu := range m.menus {
 		thisMenu.processClick(item)
 	}
 
-	if item.Click != nil {
-		item.Click(&menu.CallbackData{
+	if item.X单击回调函数 != nil {
+		item.X单击回调函数(&menu.CallbackData{
 			MenuItem: item,
 		})
 	}
 }
 
+
+// ff:
+// data:
 func (m *Manager) RemoveMenu(data *menu.Menu) {
 	delete(m.menus, data)
 }

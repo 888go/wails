@@ -12,5 +12,4 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func (rw *contentTypeSniffer) Header() http.Header {]
-ff=请求头
+ 

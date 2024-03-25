@@ -3256,7 +3256,7 @@ type NMTCKEYDOWN struct {
 	Flags uint32
 }
 
-// Menu support constants
+// X菜单 support constants
 
 // 常量定义，用于 MENUITEMINFO 结构体中的 fMask 字段
 const (

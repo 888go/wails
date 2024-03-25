@@ -13,18 +13,21 @@ import (
 	"golang.org/x/net/html"
 )
 
+
+// ff:
+// appOptions:
 func BuildAssetServerConfig(appOptions *options.App) (assetserver.Options, error) {
 	var options assetserver.Options
 	if opt := appOptions.AssetServer; opt != nil {
-		if appOptions.Assets != nil || appOptions.AssetsHandler != nil {
+		if appOptions.Assets弃用 != nil || appOptions.AssetsHandler弃用 != nil {
 			panic("It's not possible to use the deprecated Assets and AssetsHandler options and the new AssetServer option at the same time. Please migrate all your Assets options to the AssetServer option.")
 		}
 
 		options = *opt
 	} else {
 		options = assetserver.Options{
-			Assets:  appOptions.Assets,
-			Handler: appOptions.AssetsHandler,
+			Assets:  appOptions.Assets弃用,
+			Handler: appOptions.AssetsHandler弃用,
 		}
 	}
 
