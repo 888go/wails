@@ -1,0 +1,10 @@
+{
+  "name": "demo2",
+  "outputfilename": "demo2",
+  "frontend:install": "",
+  "frontend:build": "",
+  "author": {
+    "name": "admin",
+    "email": "“admin@mail.com”"
+  }
+}

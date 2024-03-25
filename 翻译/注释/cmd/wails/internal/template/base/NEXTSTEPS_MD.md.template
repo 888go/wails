@@ -1,0 +1,127 @@
+
+<原文开始>
+Next Steps
+
+Congratulations on generating your template!
+
+
+<原文结束>
+
+# <翻译开始>
+# 下一步
+
+恭喜您成功生成了模板！
+
+# <翻译结束>
+
+
+<原文开始>
+Completing your template
+
+The next steps to complete the template are:
+
+  1. Complete the fields in the `template.json` file.
+     - It is really important to ensure `helpurl` is valid as this is where users of the template will be directed for help.
+  2. Update `README.md`.
+  3. Edit `wails.json` and ensure all fields are correct, especially:
+     - `wailsjsdir` - path to generate wailsjs modules
+     - `frontend:install` - The command to install your frontend dependencies
+     - `frontend:build` - The command to build your frontend
+  4. Remove any `public` or `dist` directories.
+  5. Delete this file.
+
+
+<原文结束>
+
+# <翻译开始>
+# 完成模板的后续步骤：
+
+1. 在`template.json`文件中填写所有字段。
+   - 确保`helpurl`有效至关重要，因为这是模板使用者寻求帮助时会被引导至的网址。
+2. 更新`README.md`文件。
+3. 编辑`wails.json`并确保所有字段无误，特别是：
+   - `wailsjsdir`：生成wailsjs模块的路径
+   - `frontend:install`：安装前端依赖项的命令
+   - `frontend:build`：构建前端的命令
+4. 删除任何`public`或`dist`目录。
+5. 删除此文件。
+
+# <翻译结束>
+
+
+<原文开始>
+Testing your template
+
+You can test your template by running this command:
+
+`wails init -n test -t {{.TemplateDir}}`
+
+#
+<原文结束>
+
+# <翻译开始>
+# 测试模板
+
+您可以使用以下命令来测试您的模板：
+
+`wails init -n test -t {{.TemplateDir}}`
+
+#
+
+# <翻译结束>
+
+
+<原文开始>
+Checklist
+
+Once generated, do the following tests:
+  - Change into the new project directory and run `wails build`. A working binary should be generated in the `build/bin` project directory.
+  - Run `wails dev`. This will compile your app and run it.
+    - You should be able to see your application running on http://localhost:34115/
+
+
+<原文结束>
+
+# <翻译开始>
+# 清单
+
+生成后，请执行以下测试：
+
+- 进入新项目目录并运行 `wails build`。 应在 `build/bin` 项目目录下生成一个可运行的二进制文件。
+- 运行 `wails dev`。这将编译您的应用并运行它。
+  - 您应能在 <http://localhost:34115/> 看到正在运行的应用程序。
+
+# <翻译结束>
+
+
+<原文开始>
+Publishing your template
+
+You can publish a template to a git repository and use it as follows:
+
+`wails init -name test -t https://your/git/url`
+
+EG: 
+
+`wails init -name test -t https://github.com/leaanthony/testtemplate`
+
+
+<原文结束>
+
+# <翻译开始>
+# 发布模板
+
+您可以将模板发布到 Git 仓库，并按照以下方式使用：
+
+```
+wails init -name test -t https://your/git/url
+```
+
+例如：
+
+```
+wails init -name test -t https://github.com/leaanthony/testtemplate
+```
+
+# <翻译结束>
+

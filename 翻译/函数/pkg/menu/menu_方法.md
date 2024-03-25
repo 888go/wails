@@ -1,0 +1,59 @@
+# **_方法.md 文件备注:
+# ff= 方法,重命名方法名称
+# 
+# **_package.md 文件备注:
+# bm= 包名,更换新的包名称, 如: package gin //bm:gin类
+#
+# **_其他.md 文件备注:
+# hs= 行首,跳转到行首进行重命名.文档内如果有多个相同的,会一起重命名.
+# th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
+# cf= 重复,用于重命名多次,如: 一个文档内有2个"One(result interface{}) error"需要重命名.
+#     但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
+# zz= 正则表达式,用于结构名称替换或者复杂替换
+#     如待替换: type authPair struct { //zz:^type *authPair
+
+[func (m *Menu) Append(item *MenuItem) {]
+ff=加入
+item=菜单项
+
+[func (m *Menu) Merge(menu *Menu) {]
+ff=合并
+menu=菜单
+
+[func (m *Menu) AddCheckbox(label string, checked bool, accelerator *keys.Accelerator, click Callback) *MenuItem {]
+ff=加入复选框
+click=单击回调函数
+label=显示名称
+accelerator=快捷键
+checked=选中
+
+[func (m *Menu) AddRadio(label string, checked bool, accelerator *keys.Accelerator, click Callback) *MenuItem {]
+ff=加入单选框
+click=单击回调函数
+label=显示名称
+accelerator=快捷键
+checked=选中
+
+[func (m *Menu) AddSeparator() {]
+ff=加入分隔符
+
+[func (m *Menu) AddSubmenu(label string) *Menu {]
+ff=加入子菜单
+label=显示名称
+
+[func NewMenuFromItems(first *MenuItem, rest ...*MenuItem) *Menu {]
+ff=创建菜单并按菜单项
+rest=第一个
+
+[func NewMenu() *Menu {]
+ff=创建
+
+[func (m *Menu) AddText(label string, accelerator *keys.Accelerator, click Callback) *MenuItem {]
+click=单击回调函数
+label=显示名称
+ff=加入文本菜单项
+accelerator=快捷键
+
+[func (m *Menu) Prepend(item *MenuItem) {]
+ff=加入子菜单最前
+item=菜单项

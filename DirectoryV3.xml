@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/pkg/menu" title="菜单"/>
+     <tree path="/pkg/menu/menuitem.go" title="菜单项"/>
+     <tree path="/frontend" title="前端项目文件"/>
+     <tree path="/wails.json" title="项目配置"/>
+     <tree path="/pkg/options" title="选项"/>
+     <tree path="/internal" title="内部方法"/>
+     <tree path="/pkg/runtime" title="环境" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+           backgroundColor=""/>
+     <tree path="/pkg/mac" title="苹果系统"/>
+     <tree path="/pkg/logger" title="日志"/>
+     <tree path="/pkg/git" title="git" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+           backgroundColor=""/>
+    <tree path="/pkg/application" title="主应用程序"/>
+    <tree path="/pkg/runtime/window.go" title="窗口"/>
+    <tree path="/pkg/runtime/events.go" title="事件"/>
+    <tree path="/pkg" title="方法"/>
+    <tree path="/pkg/menu/menu.go" title="菜单"/>
+    <tree path="/pkg/menu/mac.go" title="苹果系统"/>
+    <tree path="/pkg/runtime/log.go" title="日志"/>
+    <tree path="/pkg/runtime/dialog.go" title="对话框"/>
+    <tree path="/pkg/runtime/menu.go" title="菜单" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/pkg/runtime/browser.go" title="系统浏览器"/>
+    <tree path="/pkg/runtime/clipboard.go" title="系统剪辑版"/>
+    <tree path="/pkg/runtime/runtime.go" title="环境"/>
+    <tree path="/pkg/runtime/screen.go" title="屏幕"/>
+    <tree path="/pkg/menu/styledlabel.go" title="文本样式"/>
+    <tree path="/pkg/menu/menuroles.go" title="菜单项"/>
+    <tree path="/pkg/menu/keys" title="快捷键"/>
+    <tree path="/pkg/menu/tray.go" title="托盘菜单" extension="" presentableText="" tooltipTitle="" icon="" textColor=""
+          backgroundColor=""/>
+    <tree path="/pkg/menu/styledlabel_test.go" title="单元测试" extension="" presentableText="" tooltipTitle="" icon=""
+          textColor="" backgroundColor=""/>
+    <tree path="/pkg/menu/type.go" title="文本菜单项"/>
+    <tree path="/pkg/menu/contextmenu.go" title="上下文菜单"/>
+    <tree path="/pkg/buildassets/build" title="构建编译"/>
+    <tree path="/pkg/commands/build/desktop.go" title="内部方法"/>
+</trees>
