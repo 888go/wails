@@ -12,9 +12,6 @@ var MenuManager = NewManager()
 type radioGroup []*menu.MenuItem
 
 // 点击根据所点击的项目更新单选组状态
-
-// ff:
-// item:
 func (g *radioGroup) Click(item *menu.MenuItem) {
 	for _, radioGroupItem := range *g {
 		if radioGroupItem != item {
@@ -111,25 +108,16 @@ type Manager struct {
 	menus map[*menu.Menu]*processedMenu
 }
 
-
-// ff:
 func NewManager() *Manager {
 	return &Manager{
 		menus: make(map[*menu.Menu]*processedMenu),
 	}
 }
 
-
-// ff:
-// updateMenuItemCallback:
-// menu:
 func (m *Manager) AddMenu(menu *menu.Menu, updateMenuItemCallback func(*menu.MenuItem)) {
 	m.menus[menu] = newProcessedMenu(menu, updateMenuItemCallback)
 }
 
-
-// ff:
-// item:
 func (m *Manager) ProcessClick(item *menu.MenuItem) {
 
 	// 如果menuitem是复选框，那么我们需要切换其状态
@@ -153,9 +141,6 @@ func (m *Manager) ProcessClick(item *menu.MenuItem) {
 	}
 }
 
-
-// ff:
-// data:
 func (m *Manager) RemoveMenu(data *menu.Menu) {
 	delete(m.menus, data)
 }

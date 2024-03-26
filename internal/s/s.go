@@ -51,10 +51,6 @@ func log(message string, args ...interface{}) {
 }
 
 // 重命名文件或目录
-
-// ff:
-// target:
-// source:
 func RENAME(source string, target string) {
 	log("RENAME %s -> %s", source, target)
 	err := os.Rename(source, target)
@@ -62,9 +58,6 @@ func RENAME(source string, target string) {
 }
 
 // MUSTDELETE a file.
-
-// ff:
-// filename:
 func MUSTDELETE(filename string) {
 	log("DELETE %s", filename)
 	err := os.Remove(filepath.Join(CWD(), filename))
@@ -72,27 +65,17 @@ func MUSTDELETE(filename string) {
 }
 
 // DELETE a file.
-
-// ff:
-// filename:
 func DELETE(filename string) {
 	log("DELETE %s", filename)
 	_ = os.Remove(filepath.Join(CWD(), filename))
 }
 
-
-// ff:
-// dir:
 func CD(dir string) {
 	err := os.Chdir(dir)
 	checkError(err)
 	log("CD %s [%s]", dir, CWD())
 }
 
-
-// ff:
-// mode:
-// path:
 func MKDIR(path string, mode ...os.FileMode) {
 	var perms os.FileMode
 	perms = 0o755
@@ -105,10 +88,6 @@ func MKDIR(path string, mode ...os.FileMode) {
 }
 
 // ENDIR 确保如果路径不存在，则创建该路径
-
-// ff:
-// mode:
-// path:
 func ENDIR(path string, mode ...os.FileMode) {
 	var perms os.FileMode
 	perms = 0o755
@@ -122,10 +101,6 @@ func ENDIR(path string, mode ...os.FileMode) {
 // 源目录必须存在，目标目录必须不存在。
 // 符号链接将被忽略并跳过。
 // 致谢：https://gist.github.com/r0l1/92462b38df26839a3ca324697c8cba04
-
-// ff:
-// dst:
-// src:
 func COPYDIR(src string, dst string) {
 	log("COPYDIR %s -> %s", src, dst)
 	src = filepath.Clean(src)
@@ -170,10 +145,6 @@ func COPYDIR(src string, dst string) {
 }
 
 // 将文件从源复制到目标
-
-// ff:
-// target:
-// source:
 func COPY(source string, target string) {
 	log("COPY %s -> %s", source, target)
 	src, err := os.Open(source)
@@ -185,8 +156,6 @@ func COPY(source string, target string) {
 	checkError(err)
 }
 
-
-// ff:
 func CWD() string {
 	result, err := os.Getwd()
 	checkError(err)
@@ -194,34 +163,22 @@ func CWD() string {
 	return result
 }
 
-
-// ff:
-// target:
 func RMDIR(target string) {
 	log("RMDIR %s", target)
 	err := os.RemoveAll(target)
 	checkError(err)
 }
 
-
-// ff:
-// target:
 func RM(target string) {
 	log("RM %s", target)
 	err := os.Remove(target)
 	checkError(err)
 }
 
-
-// ff:
-// message:
 func ECHO(message string) {
 	println(message)
 }
 
-
-// ff:
-// filepath:
 func TOUCH(filepath string) {
 	log("TOUCH %s", filepath)
 	f, err := os.Create(filepath)
@@ -229,9 +186,6 @@ func TOUCH(filepath string) {
 	closefile(f)
 }
 
-
-// ff:
-// command:
 func EXEC(command string) {
 	log("EXEC %s", command)
 	gen := script.Exec(command)
@@ -240,9 +194,6 @@ func EXEC(command string) {
 }
 
 // EXISTS - 如果给定路径存在则返回真（true）
-
-// ff:
-// path:
 func EXISTS(path string) bool {
 	_, err := os.Lstat(path)
 	log("EXISTS %s (%T)", path, err == nil)
@@ -250,9 +201,6 @@ func EXISTS(path string) bool {
 }
 
 // ISDIR 函数返回 true，如果给定的目录存在
-
-// ff:
-// path:
 func ISDIR(path string) bool {
 	fi, err := os.Lstat(path)
 	if err != nil {
@@ -263,9 +211,6 @@ func ISDIR(path string) bool {
 }
 
 // ISDIREMPTY 判断给定的目录是否为空，若为空则返回 true
-
-// ff:
-// dir:
 func ISDIREMPTY(dir string) bool {
 	// CREDIT: 代码来源：https://stackoverflow.com/a/30708914/8325411
 	f, err := os.Open(dir)
@@ -277,9 +222,6 @@ func ISDIREMPTY(dir string) bool {
 }
 
 // ISFILE在给定的文件存在时返回true
-
-// ff:
-// path:
 func ISFILE(path string) bool {
 	fi, err := os.Lstat(path)
 	if err != nil {
@@ -290,9 +232,6 @@ func ISFILE(path string) bool {
 }
 
 // SUBDIRS 函数返回给定目录下的子目录列表
-
-// ff:
-// rootDir:
 func SUBDIRS(rootDir string) []string {
 	var result []string
 
@@ -310,10 +249,6 @@ func SUBDIRS(rootDir string) []string {
 }
 
 // SAVESTRING 将使用给定的字符串创建一个文件
-
-// ff:
-// data:
-// filename:
 func SAVESTRING(filename string, data string) {
 	log("SAVESTRING %s", filename)
 	mute()
@@ -322,9 +257,6 @@ func SAVESTRING(filename string, data string) {
 }
 
 // LOADSTRING 函数返回给定文件名的文件内容作为字符串
-
-// ff:
-// filename:
 func LOADSTRING(filename string) string {
 	log("LOADSTRING %s", filename)
 	mute()
@@ -334,10 +266,6 @@ func LOADSTRING(filename string) string {
 }
 
 // SAVEBYTES 将使用给定的字符串创建一个文件
-
-// ff:
-// data:
-// filename:
 func SAVEBYTES(filename string, data []byte) {
 	log("SAVEBYTES %s", filename)
 	err := os.WriteFile(filename, data, 0o755)
@@ -345,9 +273,6 @@ func SAVEBYTES(filename string, data []byte) {
 }
 
 // LOADBYTES 函数返回给定文件名的文件内容作为字符串
-
-// ff:
-// filename:
 func LOADBYTES(filename string) []byte {
 	log("LOADBYTES %s", filename)
 	data, err := os.ReadFile(filename)
@@ -361,9 +286,6 @@ func closefile(f *os.File) {
 }
 
 // MD5FILE 返回给定文件的 md5 校验和
-
-// ff:
-// filename:
 func MD5FILE(filename string) string {
 	f, err := os.Open(filename)
 	checkError(err)
@@ -380,10 +302,6 @@ func MD5FILE(filename string) string {
 type Sub map[string]string
 
 // REPLACEALL 将给定文件中所有替换键替换为关联的值
-
-// ff:
-// substitutions:
-// filename:
 func REPLACEALL(filename string, substitutions Sub) {
 	log("REPLACEALL %s (%v)", filename, substitutions)
 	data := LOADSTRING(filename)

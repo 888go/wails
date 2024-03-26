@@ -12,24 +12,5 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func (f *Frontend) WindowReload() {]
-ff=窗口重载
-
-[func (f *Frontend) Run(ctx context.Context) error {]
-ff=运行
-
-[func (f *Frontend) WindowCenter() {]
-ff=窗口居中
-
-[func (f *Frontend) WindowSetAlwaysOnTop(b bool) {]
-ff=窗口设置置顶
-b=置顶
-
-[func (f *Frontend) WindowSetPosition(x, y int) {]
-ff=窗口设置位置
-
-[func (f *Frontend) WindowGetPosition() (int, int) {]
-ff=窗口取位置
-
-[func (f *Frontend) WindowReloadApp() {]
-ff=窗口重载应用程序前端
+[Menu *Menu]
+hs=菜单

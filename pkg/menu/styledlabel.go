@@ -26,50 +26,34 @@ type StyledText struct {
 	Style TextStyle
 }
 
-
-// ff:
 func (s *StyledText) Bold() bool {
 	return s.Style&Bold == Bold
 }
 
-
-// ff:
 func (s *StyledText) Faint() bool {
 	return s.Style&Faint == Faint
 }
 
-
-// ff:
 func (s *StyledText) Italic() bool {
 	return s.Style&Italic == Italic
 }
 
-
-// ff:
 func (s *StyledText) Blinking() bool {
 	return s.Style&Blinking == Blinking
 }
 
-
-// ff:
 func (s *StyledText) Inversed() bool {
 	return s.Style&Inversed == Inversed
 }
 
-
-// ff:
 func (s *StyledText) Invisible() bool {
 	return s.Style&Invisible == Invisible
 }
 
-
-// ff:
 func (s *StyledText) Underlined() bool {
 	return s.Style&Underlined == Underlined
 }
 
-
-// ff:
 func (s *StyledText) Strikethrough() bool {
 	return s.Style&Strikethrough == Strikethrough
 }
@@ -107,9 +91,6 @@ var ansiColorMap = map[string]map[string]*Col{
 	},
 }
 
-
-// ff:
-// input:
 func ParseANSI(input string) ([]*StyledText, error) {
 	var result []*StyledText
 	invalid := fmt.Errorf("invalid ansi string")

@@ -98,8 +98,6 @@ func parseTemplate(template gofs.FS) (Template, error) {
 }
 
 // List 返回可用模板的列表
-
-// ff:
 func List() ([]Template, error) {
 	// 如果缓存未加载，则加载它
 	if templateCache == nil {
@@ -168,9 +166,6 @@ func loadTemplateCache() error {
 }
 
 // 安装给定的模板。如果模板为远程，则返回 true。
-
-// ff:
-// options:
 func Install(options *Options) (bool, *Template, error) {
 	// Get cwd
 	cwd, err := os.Getwd()

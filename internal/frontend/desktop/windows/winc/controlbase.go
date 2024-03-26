@@ -66,12 +66,6 @@ type ControlBase struct {
 }
 
 // initControl 由控件调用，如：编辑框、按钮、树视图、列表视图等。
-
-// ff:
-// style:
-// exstyle:
-// parent:
-// className:
 func (cba *ControlBase) InitControl(className string, parent Controller, exstyle, style uint) {
 	cba.hwnd = CreateWindow(className, parent, exstyle, style)
 	if cba.hwnd == 0 {
@@ -81,12 +75,6 @@ func (cba *ControlBase) InitControl(className string, parent Controller, exstyle
 }
 
 // InitWindow 由自定义窗口组件（如 split、panel 等）调用。
-
-// ff:
-// style:
-// exstyle:
-// parent:
-// className:
 func (cba *ControlBase) InitWindow(className string, parent Controller, exstyle, style uint) {
 	RegClassOnlyOnce(className)
 	cba.hwnd = CreateWindow(className, parent, exstyle, style)
@@ -97,9 +85,6 @@ func (cba *ControlBase) InitWindow(className string, parent Controller, exstyle,
 }
 
 // SetTheme 为 TreeView 和 ListView 控件设置主题。
-
-// ff:
-// appName:
 func (cba *ControlBase) SetTheme(appName string) error {
 	if hr := w32.SetWindowTheme(cba.hwnd, syscall.StringToUTF16Ptr(appName), nil); w32.FAILED(hr) {
 		return fmt.Errorf("SetWindowTheme %d", hr)
@@ -107,21 +92,14 @@ func (cba *ControlBase) SetTheme(appName string) error {
 	return nil
 }
 
-
-// ff:
 func (cba *ControlBase) Handle() w32.HWND {
 	return cba.hwnd
 }
 
-
-// ff:
-// hwnd:
 func (cba *ControlBase) SetHandle(hwnd w32.HWND) {
 	cba.hwnd = hwnd
 }
 
-
-// ff:
 func (cba *ControlBase) GetWindowDPI() (w32.UINT, w32.UINT) {
 	if w32.HasGetDpiForWindowFunc() {
 // GetDpiForWindow 函数从 Windows 10，版本1607开始支持，并且是最精确的一个，
@@ -149,10 +127,6 @@ func (cba *ControlBase) GetWindowDPI() (w32.UINT, w32.UINT) {
 	return w32.UINT(x), w32.UINT(y)
 }
 
-
-// ff:
-// clear:
-// set:
 func (cba *ControlBase) SetAndClearStyleBits(set, clear uint32) error {
 	style := uint32(w32.GetWindowLong(cba.hwnd, w32.GWL_STYLE))
 	if style == 0 {
@@ -167,35 +141,23 @@ func (cba *ControlBase) SetAndClearStyleBits(set, clear uint32) error {
 	return nil
 }
 
-
-// ff:
-// isform:
 func (cba *ControlBase) SetIsForm(isform bool) {
 	cba.isForm = isform
 }
 
-
-// ff:
-// caption:
 func (cba *ControlBase) SetText(caption string) {
 	w32.SetWindowText(cba.hwnd, caption)
 }
 
-
-// ff:
 func (cba *ControlBase) Text() string {
 	return w32.GetWindowText(cba.hwnd)
 }
 
-
-// ff:
 func (cba *ControlBase) Close() {
 	UnRegMsgHandler(cba.hwnd)
 	w32.DestroyWindow(cba.hwnd)
 }
 
-
-// ff:
 func (cba *ControlBase) SetTranslucentBackground() {
 	var accent = w32.ACCENT_POLICY{
 		AccentState: w32.ACCENT_ENABLE_BLURBEHIND,
@@ -238,10 +200,6 @@ func (cba *ControlBase) clampSize(width, height int) (int, int) {
 	return width, height
 }
 
-
-// ff:
-// height:
-// width:
 func (cba *ControlBase) SetSize(width, height int) {
 	x, y := cba.Pos()
 	width, height = cba.clampSize(width, height)
@@ -249,10 +207,6 @@ func (cba *ControlBase) SetSize(width, height int) {
 	w32.MoveWindow(cba.hwnd, x, y, width, height, true)
 }
 
-
-// ff:
-// height:
-// width:
 func (cba *ControlBase) SetMinSize(width, height int) {
 	cba.minWidth = width
 	cba.minHeight = height
@@ -272,10 +226,6 @@ func (cba *ControlBase) SetMinSize(width, height int) {
 		w32.MoveWindow(cba.hwnd, x, y, clampedWidth, clampedHeight, true)
 	}
 }
-
-// ff:
-// height:
-// width:
 func (cba *ControlBase) SetMaxSize(width, height int) {
 	cba.maxWidth = width
 	cba.maxHeight = height
@@ -296,10 +246,6 @@ func (cba *ControlBase) SetMaxSize(width, height int) {
 	}
 }
 
-
-// ff:
-// height:
-// width:
 func (cba *ControlBase) Size() (width, height int) {
 	rect := w32.GetWindowRect(cba.hwnd)
 	width = int(rect.Right - rect.Left)
@@ -308,33 +254,22 @@ func (cba *ControlBase) Size() (width, height int) {
 	return
 }
 
-
-// ff:
 func (cba *ControlBase) Width() int {
 	rect := w32.GetWindowRect(cba.hwnd)
 	return int(rect.Right - rect.Left)
 }
 
-
-// ff:
 func (cba *ControlBase) Height() int {
 	rect := w32.GetWindowRect(cba.hwnd)
 	return int(rect.Bottom - rect.Top)
 }
 
-
-// ff:
-// y:
-// x:
 func (cba *ControlBase) SetPos(x, y int) {
 	info := getMonitorInfo(cba.hwnd)
 	workRect := info.RcWork
 
 	w32.SetWindowPos(cba.hwnd, w32.HWND_TOP, int(workRect.Left)+x, int(workRect.Top)+y, 0, 0, w32.SWP_NOSIZE)
 }
-
-// ff:
-// b:
 func (cba *ControlBase) SetAlwaysOnTop(b bool) {
 	if b {
 		w32.SetWindowPos(cba.hwnd, w32.HWND_TOPMOST, 0, 0, 0, 0, w32.SWP_NOSIZE|w32.SWP_NOMOVE)
@@ -343,10 +278,6 @@ func (cba *ControlBase) SetAlwaysOnTop(b bool) {
 	}
 }
 
-
-// ff:
-// y:
-// x:
 func (cba *ControlBase) Pos() (x, y int) {
 	rect := w32.GetWindowRect(cba.hwnd)
 	x = int(rect.Left)
@@ -357,14 +288,10 @@ func (cba *ControlBase) Pos() (x, y int) {
 	return
 }
 
-
-// ff:
 func (cba *ControlBase) Visible() bool {
 	return w32.IsWindowVisible(cba.hwnd)
 }
 
-
-// ff:
 func (cba *ControlBase) ToggleVisible() bool {
 	visible := w32.IsWindowVisible(cba.hwnd)
 	if visible {
@@ -375,21 +302,14 @@ func (cba *ControlBase) ToggleVisible() bool {
 	return !visible
 }
 
-
-// ff:
 func (cba *ControlBase) ContextMenu() *MenuItem {
 	return cba.contextMenu
 }
 
-
-// ff:
-// menu:
 func (cba *ControlBase) SetContextMenu(menu *MenuItem) {
 	cba.contextMenu = menu
 }
 
-
-// ff:
 func (cba *ControlBase) Bounds() *Rect {
 	rect := w32.GetWindowRect(cba.hwnd)
 	if cba.isForm {
@@ -399,28 +319,20 @@ func (cba *ControlBase) Bounds() *Rect {
 	return ScreenToClientRect(cba.hwnd, rect)
 }
 
-
-// ff:
 func (cba *ControlBase) ClientRect() *Rect {
 	rect := w32.GetClientRect(cba.hwnd)
 	return ScreenToClientRect(cba.hwnd, rect)
 }
-
-// ff:
 func (cba *ControlBase) ClientWidth() int {
 	rect := w32.GetClientRect(cba.hwnd)
 	return int(rect.Right - rect.Left)
 }
 
-
-// ff:
 func (cba *ControlBase) ClientHeight() int {
 	rect := w32.GetClientRect(cba.hwnd)
 	return int(rect.Bottom - rect.Top)
 }
 
-
-// ff:
 func (cba *ControlBase) Show() {
 // WindowPos 与 HWND_TOPMOST 一起使用，用于确保将我们的应用置于顶部
 // 强制设置我们的主窗口置于顶层
@@ -441,34 +353,22 @@ func (cba *ControlBase) Show() {
 	w32.SetForegroundWindow(cba.hwnd)
 }
 
-
-// ff:
 func (cba *ControlBase) Hide() {
 	w32.ShowWindow(cba.hwnd, w32.SW_HIDE)
 }
 
-
-// ff:
 func (cba *ControlBase) Enabled() bool {
 	return w32.IsWindowEnabled(cba.hwnd)
 }
 
-
-// ff:
-// b:
 func (cba *ControlBase) SetEnabled(b bool) {
 	w32.EnableWindow(cba.hwnd, b)
 }
 
-
-// ff:
 func (cba *ControlBase) SetFocus() {
 	w32.SetFocus(cba.hwnd)
 }
 
-
-// ff:
-// erase:
 func (cba *ControlBase) Invalidate(erase bool) {
 // 获取cba.hwnd的客户区矩形，并将其赋值给pRect
 // 如果cba.isForm为真（即表示当前是表单）
@@ -484,42 +384,27 @@ func (cba *ControlBase) Invalidate(erase bool) {
 	w32.InvalidateRect(cba.hwnd, nil, erase)
 }
 
-
-// ff:
 func (cba *ControlBase) Parent() Controller {
 	return cba.parent
 }
 
-
-// ff:
-// parent:
 func (cba *ControlBase) SetParent(parent Controller) {
 	cba.parent = parent
 }
 
-
-// ff:
 func (cba *ControlBase) Font() *Font {
 	return cba.font
 }
 
-
-// ff:
-// font:
 func (cba *ControlBase) SetFont(font *Font) {
 	w32.SendMessage(cba.hwnd, w32.WM_SETFONT, uintptr(font.hfont), 1)
 	cba.font = font
 }
 
-
-// ff:
-// b:
 func (cba *ControlBase) EnableDragAcceptFiles(b bool) {
 	w32.DragAcceptFiles(cba.hwnd, b)
 }
 
-
-// ff:
 func (cba *ControlBase) InvokeRequired() bool {
 	if cba.hwnd == 0 {
 		return false
@@ -531,9 +416,6 @@ func (cba *ControlBase) InvokeRequired() bool {
 	return windowThreadId != currentThreadId
 }
 
-
-// ff:
-// f:
 func (cba *ControlBase) Invoke(f func()) {
 	if cba.tryInvokeOnCurrentGoRoutine(f) {
 		return
@@ -545,9 +427,6 @@ func (cba *ControlBase) Invoke(f func()) {
 	w32.PostMessage(cba.hwnd, wmInvokeCallback, 0, 0)
 }
 
-
-// ff:
-// msg:
 func (cba *ControlBase) PreTranslateMessage(msg *w32.MSG) bool {
 	if msg.Message == w32.WM_GETDLGCODE {
 		println("pretranslate, WM_GETDLGCODE")
@@ -556,116 +435,78 @@ func (cba *ControlBase) PreTranslateMessage(msg *w32.MSG) bool {
 }
 
 // Events
-
-// ff:
 func (cba *ControlBase) OnCreate() *EventManager {
 	return &cba.onCreate
 }
 
-
-// ff:
 func (cba *ControlBase) OnClose() *EventManager {
 	return &cba.onClose
 }
 
-
-// ff:
 func (cba *ControlBase) OnKillFocus() *EventManager {
 	return &cba.onKillFocus
 }
 
-
-// ff:
 func (cba *ControlBase) OnSetFocus() *EventManager {
 	return &cba.onSetFocus
 }
 
-
-// ff:
 func (cba *ControlBase) OnDropFiles() *EventManager {
 	return &cba.onDropFiles
 }
 
-
-// ff:
 func (cba *ControlBase) OnLBDown() *EventManager {
 	return &cba.onLBDown
 }
 
-
-// ff:
 func (cba *ControlBase) OnLBUp() *EventManager {
 	return &cba.onLBUp
 }
 
-
-// ff:
 func (cba *ControlBase) OnLBDbl() *EventManager {
 	return &cba.onLBDbl
 }
 
-
-// ff:
 func (cba *ControlBase) OnMBDown() *EventManager {
 	return &cba.onMBDown
 }
 
-
-// ff:
 func (cba *ControlBase) OnMBUp() *EventManager {
 	return &cba.onMBUp
 }
 
-
-// ff:
 func (cba *ControlBase) OnRBDown() *EventManager {
 	return &cba.onRBDown
 }
 
-
-// ff:
 func (cba *ControlBase) OnRBUp() *EventManager {
 	return &cba.onRBUp
 }
 
-
-// ff:
 func (cba *ControlBase) OnRBDbl() *EventManager {
 	return &cba.onRBDbl
 }
 
-
-// ff:
 func (cba *ControlBase) OnMouseMove() *EventManager {
 	return &cba.onMouseMove
 }
 
-
-// ff:
 func (cba *ControlBase) OnMouseHover() *EventManager {
 	return &cba.onMouseHover
 }
 
-
-// ff:
 func (cba *ControlBase) OnMouseLeave() *EventManager {
 	return &cba.onMouseLeave
 }
 
-
-// ff:
 func (cba *ControlBase) OnPaint() *EventManager {
 	return &cba.onPaint
 }
 
-
-// ff:
 func (cba *ControlBase) OnSize() *EventManager {
 	return &cba.onSize
 }
 
-
-// ff:
 func (cba *ControlBase) OnKeyUp() *EventManager {
 	return &cba.onKeyUp
 }

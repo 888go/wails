@@ -8,10 +8,6 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
-
-// ff:
-// logger:
-// options:
 func PreflightChecks(options *options.App, logger *logger.Logger) error {
 
 	_ = options

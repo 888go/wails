@@ -13,10 +13,6 @@ import (
 	"github.com/charmbracelet/glamour"
 )
 
-
-// ff:
-// noColour:
-// tagVersion:
 func GetReleaseNotes(tagVersion string, noColour bool) string {
 	resp, err := http.Get("https://api.github.com/repos/wailsapp/wails/releases/tags/" + url.PathEscape(tagVersion))
 	if err != nil {
@@ -61,8 +57,6 @@ func GetReleaseNotes(tagVersion string, noColour bool) string {
 
 // GetVersionTags 获取Wails仓库上的标签列表
 // 返回一个按降序排序的标签列表
-
-// ff:
 func GetVersionTags() ([]*SemanticVersion, error) {
 	result := []*SemanticVersion{}
 	var err error
@@ -102,10 +96,6 @@ func GetVersionTags() ([]*SemanticVersion, error) {
 }
 
 // GetLatestStableRelease 从 GitHub 获取最新的稳定版本
-
-// ff:
-// err:
-// result:
 func GetLatestStableRelease() (result *SemanticVersion, err error) {
 	tags, err := GetVersionTags()
 	if err != nil {
@@ -122,10 +112,6 @@ func GetLatestStableRelease() (result *SemanticVersion, err error) {
 }
 
 // GetLatestPreRelease 从GitHub获取最新的预发布版本
-
-// ff:
-// err:
-// result:
 func GetLatestPreRelease() (result *SemanticVersion, err error) {
 	tags, err := GetVersionTags()
 	if err != nil {
@@ -142,9 +128,6 @@ func GetLatestPreRelease() (result *SemanticVersion, err error) {
 }
 
 // IsValidTag 判断给定的字符串是否为有效的标签并返回布尔值
-
-// ff:
-// tagVersion:
 func IsValidTag(tagVersion string) (bool, error) {
 	if tagVersion[0] == 'v' {
 		tagVersion = tagVersion[1:]

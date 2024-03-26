@@ -47,15 +47,6 @@ func genOFN(parent Controller, title, filter string, filterIndex uint, initialDi
 	return &ofn
 }
 
-
-// ff:
-// accepted:
-// filePath:
-// initialDir:
-// filterIndex:
-// filter:
-// title:
-// parent:
 func ShowOpenFileDlg(parent Controller, title, filter string, filterIndex uint, initialDir string) (filePath string, accepted bool) {
 	buf := make([]uint16, 1024)
 	ofn := genOFN(parent, title, filter, filterIndex, initialDir, buf)
@@ -66,15 +57,6 @@ func ShowOpenFileDlg(parent Controller, title, filter string, filterIndex uint, 
 	return
 }
 
-
-// ff:
-// accepted:
-// filePath:
-// initialDir:
-// filterIndex:
-// filter:
-// title:
-// parent:
 func ShowSaveFileDlg(parent Controller, title, filter string, filterIndex uint, initialDir string) (filePath string, accepted bool) {
 	buf := make([]uint16, 1024)
 	ofn := genOFN(parent, title, filter, filterIndex, initialDir, buf)
@@ -85,12 +67,6 @@ func ShowSaveFileDlg(parent Controller, title, filter string, filterIndex uint, 
 	return
 }
 
-
-// ff:
-// accepted:
-// folder:
-// title:
-// parent:
 func ShowBrowseFolderDlg(parent Controller, title string) (folder string, accepted bool) {
 	var bi w32.BROWSEINFO
 	bi.Owner = parent.Handle()
@@ -107,72 +83,36 @@ func ShowBrowseFolderDlg(parent Controller, title string) (folder string, accept
 }
 
 // MsgBoxOkCancel 基础弹出消息框。返回值为1表示点击了“确定”，返回值为2表示点击了“取消”。
-
-// ff:
-// caption:
-// title:
-// parent:
 func MsgBoxOkCancel(parent Controller, title, caption string) int {
 	return MsgBox(parent, title, caption, w32.MB_ICONEXCLAMATION|w32.MB_OKCANCEL)
 }
 
-
-// ff:
-// caption:
-// title:
-// parent:
 func MsgBoxYesNo(parent Controller, title, caption string) int {
 	return MsgBox(parent, title, caption, w32.MB_ICONEXCLAMATION|w32.MB_YESNO)
 }
 
-
-// ff:
-// caption:
-// title:
-// parent:
 func MsgBoxOk(parent Controller, title, caption string) {
 	MsgBox(parent, title, caption, w32.MB_ICONINFORMATION|w32.MB_OK)
 }
 
 // Warningf 是一个通用警告信息函数，带有“确定”和“取消”按钮。当用户点击“确定”时返回1。
-
-// ff:
-// data:
-// format:
-// parent:
 func Warningf(parent Controller, format string, data ...interface{}) int {
 	caption := fmt.Sprintf(format, data...)
 	return MsgBox(parent, "Warning", caption, w32.MB_ICONWARNING|w32.MB_OKCANCEL)
 }
 
 // Printf 是一个通用的信息消息，带有一个“确定”按钮。
-
-// ff:
-// data:
-// format:
-// parent:
 func Printf(parent Controller, format string, data ...interface{}) {
 	caption := fmt.Sprintf(format, data...)
 	MsgBox(parent, "Information", caption, w32.MB_ICONINFORMATION|w32.MB_OK)
 }
 
 // Errorf 是一个通用错误消息，带有“确定”按钮。
-
-// ff:
-// data:
-// format:
-// parent:
 func Errorf(parent Controller, format string, data ...interface{}) {
 	caption := fmt.Sprintf(format, data...)
 	MsgBox(parent, "Error", caption, w32.MB_ICONERROR|w32.MB_OK)
 }
 
-
-// ff:
-// flags:
-// caption:
-// title:
-// parent:
 func MsgBox(parent Controller, title, caption string, flags uint) int {
 	var result int
 	if parent != nil {

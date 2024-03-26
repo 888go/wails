@@ -7,9 +7,6 @@ import (
 	"golang.org/x/mod/modfile"
 )
 
-
-// ff:
-// goModText:
 func GetWailsVersionFromModFile(goModText []byte) (*semver.Version, error) {
 	file, err := modfile.Parse("", goModText, nil)
 	if err != nil {
@@ -33,10 +30,6 @@ func GetWailsVersionFromModFile(goModText []byte) (*semver.Version, error) {
 	return nil, nil
 }
 
-
-// ff:
-// currentVersion:
-// goModData:
 func GoModOutOfSync(goModData []byte, currentVersion string) (bool, error) {
 	gomodversion, err := GetWailsVersionFromModFile(goModData)
 	if err != nil {
@@ -54,10 +47,6 @@ func GoModOutOfSync(goModData []byte, currentVersion string) (bool, error) {
 	return !gomodversion.Equal(result), nil
 }
 
-
-// ff:
-// currentVersion:
-// goModText:
 func UpdateGoModVersion(goModText []byte, currentVersion string) ([]byte, error) {
 	file, err := modfile.Parse("", goModText, nil)
 	if err != nil {
@@ -94,10 +83,6 @@ func UpdateGoModVersion(goModText []byte, currentVersion string) ([]byte, error)
 	return file.Format()
 }
 
-
-// ff:
-// goVersion:
-// goModText:
 func SyncGoVersion(goModText []byte, goVersion string) ([]byte, bool, error) {
 	file, err := modfile.Parse("", goModText, nil)
 	if err != nil {

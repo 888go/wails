@@ -7,24 +7,23 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/leaanthony/gosod"
 	"github.com/888go/wails/internal/binding"
 	"github.com/888go/wails/internal/frontend/runtime/wrapper"
 	"github.com/888go/wails/internal/fs"
 	"github.com/888go/wails/internal/logger"
 	"github.com/888go/wails/internal/project"
 	"github.com/888go/wails/pkg/options"
-	"github.com/leaanthony/gosod"
 )
 
-// ff:运行
 func (a *App) Run() error {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
 	bindingExemptions := []interface{}{
-		a.options.OnStartup,
-		a.options.OnShutdown,
-		a.options.OnDomReady,
-		a.options.OnBeforeClose,
+		a.options.X启动前回调函数,
+		a.options.X应用退出回调函数,
+		a.options.DOM就绪回调函数,
+		a.options.X应用关闭前回调函数,
 	}
 
 	// Check for CLI Flags
@@ -74,13 +73,10 @@ func (a *App) Run() error {
 }
 
 // CreateApp 创建应用！
-
-// ff:
-// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	// Set up logger
-	myLogger := logger.New(appoptions.Logger)
-	myLogger.SetLogLevel(appoptions.LogLevel)
+	myLogger := logger.New(appoptions.X日志记录器)
+	myLogger.SetLogLevel(appoptions.X日志级别)
 
 	result := &App{
 		logger:  myLogger,

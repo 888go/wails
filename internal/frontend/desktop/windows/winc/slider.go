@@ -15,9 +15,6 @@ type Slider struct {
 	onScroll EventManager
 }
 
-
-// ff:
-// parent:
 func NewSlider(parent Controller) *Slider {
 	tb := new(Slider)
 
@@ -33,57 +30,34 @@ func NewSlider(parent Controller) *Slider {
 	return tb
 }
 
-
-// ff:
 func (tb *Slider) OnScroll() *EventManager {
 	return &tb.onScroll
 }
 
-
-// ff:
 func (tb *Slider) Value() int {
 	ret := w32.SendMessage(tb.hwnd, w32.TBM_GETPOS, 0, 0)
 	return int(ret)
 }
 
-
-// ff:
-// v:
 func (tb *Slider) SetValue(v int) {
 	tb.prevPos = v
 	w32.SendMessage(tb.hwnd, w32.TBM_SETPOS, uintptr(w32.BoolToBOOL(true)), uintptr(v))
 }
 
-
-// ff:
-// max:
-// min:
 func (tb *Slider) Range() (min, max int) {
 	min = int(w32.SendMessage(tb.hwnd, w32.TBM_GETRANGEMIN, 0, 0))
 	max = int(w32.SendMessage(tb.hwnd, w32.TBM_GETRANGEMAX, 0, 0))
 	return min, max
 }
 
-
-// ff:
-// max:
-// min:
 func (tb *Slider) SetRange(min, max int) {
 	w32.SendMessage(tb.hwnd, w32.TBM_SETRANGE, uintptr(w32.BoolToBOOL(true)), uintptr(w32.MAKELONG(uint16(min), uint16(max))))
 }
 
-
-// ff:
-// pagesize:
 func (tb *Slider) SetPage(pagesize int) {
 	w32.SendMessage(tb.hwnd, w32.TBM_SETPAGESIZE, 0, uintptr(pagesize))
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (tb *Slider) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	/*
 // 移除：

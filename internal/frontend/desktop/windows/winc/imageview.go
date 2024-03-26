@@ -14,9 +14,6 @@ type ImageView struct {
 	bmp *Bitmap
 }
 
-
-// ff:
-// parent:
 func NewImageView(parent Controller) *ImageView {
 	iv := new(ImageView)
 
@@ -29,9 +26,6 @@ func NewImageView(parent Controller) *ImageView {
 	return iv
 }
 
-
-// ff:
-// filepath:
 func (iv *ImageView) DrawImageFile(filepath string) error {
 	bmp, err := NewBitmapFromFile(filepath, RGB(255, 255, 0))
 	if err != nil {
@@ -41,18 +35,10 @@ func (iv *ImageView) DrawImageFile(filepath string) error {
 	return nil
 }
 
-
-// ff:
-// bmp:
 func (iv *ImageView) DrawImage(bmp *Bitmap) {
 	iv.bmp = bmp
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (iv *ImageView) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_SIZE, w32.WM_SIZING:

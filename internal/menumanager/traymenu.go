@@ -44,8 +44,6 @@ type TrayMenu struct {
 	StyledLabel      []*ansi.StyledText `json:",omitempty"`
 }
 
-
-// ff:
 func (t *TrayMenu) AsJSON() (string, error) {
 	data, err := json.Marshal(t)
 	if err != nil {
@@ -54,9 +52,6 @@ func (t *TrayMenu) AsJSON() (string, error) {
 	return string(data), nil
 }
 
-
-// ff:
-// trayMenu:
 func NewTrayMenu(trayMenu *menu.TrayMenu) *TrayMenu {
 	// Parse ANSI text
 	var styledLabel []*ansi.StyledText
@@ -89,9 +84,6 @@ func NewTrayMenu(trayMenu *menu.TrayMenu) *TrayMenu {
 	return result
 }
 
-
-// ff:
-// id:
 func (m *Manager) OnTrayMenuOpen(id string) {
 	trayMenu, ok := m.trayMenus[id]
 	if !ok {
@@ -103,9 +95,6 @@ func (m *Manager) OnTrayMenuOpen(id string) {
 	go trayMenu.trayMenu.X打开回调函数()
 }
 
-
-// ff:
-// id:
 func (m *Manager) OnTrayMenuClose(id string) {
 	trayMenu, ok := m.trayMenus[id]
 	if !ok {
@@ -117,9 +106,6 @@ func (m *Manager) OnTrayMenuClose(id string) {
 	go trayMenu.trayMenu.X关闭回调函数()
 }
 
-
-// ff:
-// trayMenu:
 func (m *Manager) AddTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	newTrayMenu := NewTrayMenu(trayMenu)
 
@@ -134,9 +120,6 @@ func (m *Manager) AddTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	return newTrayMenu.AsJSON()
 }
 
-
-// ff:
-// trayMenu:
 func (m *Manager) GetTrayID(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, exists := m.trayMenuPointers[trayMenu]
 	if !exists {
@@ -146,9 +129,6 @@ func (m *Manager) GetTrayID(trayMenu *menu.TrayMenu) (string, error) {
 }
 
 // SetTrayMenu 更新或创建一个菜单
-
-// ff:
-// trayMenu:
 func (m *Manager) SetTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, trayMenuKnown := m.trayMenuPointers[trayMenu]
 	if !trayMenuKnown {
@@ -165,8 +145,6 @@ func (m *Manager) SetTrayMenu(trayMenu *menu.TrayMenu) (string, error) {
 	return updatedTrayMenu.AsJSON()
 }
 
-
-// ff:
 func (m *Manager) GetTrayMenus() ([]string, error) {
 	result := []string{}
 	for _, trayMenu := range m.trayMenus {
@@ -180,9 +158,6 @@ func (m *Manager) GetTrayMenus() ([]string, error) {
 	return result, nil
 }
 
-
-// ff:
-// trayMenu:
 func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, trayMenuKnown := m.trayMenuPointers[trayMenu]
 	if !trayMenuKnown {
@@ -233,8 +208,6 @@ func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 	return string(data), nil
 }
 
-
-// ff:
 func (m *Manager) GetContextMenus() ([]string, error) {
 	result := []string{}
 	for _, contextMenu := range m.contextMenus {

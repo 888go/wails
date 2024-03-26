@@ -51,9 +51,6 @@ type Accelerator struct {
 }
 
 // Key 创建一个标准的键Accelerator
-
-// ff:
-// key:
 func Key(key string) *Accelerator {
 	return &Accelerator{
 		X名称: strings.ToLower(key),
@@ -61,9 +58,6 @@ func Key(key string) *Accelerator {
 }
 
 // CmdOrCtrl 创建一个 'CmdOrCtrl' 快捷键
-
-// ff:
-// key:
 func CmdOrCtrl(key string) *Accelerator {
 	return &Accelerator{
 		X名称:       strings.ToLower(key),
@@ -72,9 +66,6 @@ func CmdOrCtrl(key string) *Accelerator {
 }
 
 // OptionOrAlt 创建一个 'OptionOrAlt' 加速器
-
-// ff:
-// key:
 func OptionOrAlt(key string) *Accelerator {
 	return &Accelerator{
 		X名称:       strings.ToLower(key),
@@ -83,9 +74,6 @@ func OptionOrAlt(key string) *Accelerator {
 }
 
 // Shift 创建一个“Shift”加速器
-
-// ff:
-// key:
 func Shift(key string) *Accelerator {
 	return &Accelerator{
 		X名称:       strings.ToLower(key),
@@ -94,9 +82,6 @@ func Shift(key string) *Accelerator {
 }
 
 // Control 创建一个名为'Control'的加速器
-
-// ff:
-// key:
 func Control(key string) *Accelerator {
 	return &Accelerator{
 		X名称:       strings.ToLower(key),
@@ -115,12 +100,6 @@ func Control(key string) *Accelerator {
 //}
 
 // Combo 创建一个带有多个修饰符的 Accelerator
-
-// ff:
-// rest:
-// modifier2:
-// modifier1:
-// key:
 func Combo(key string, modifier1 Modifier, modifier2 Modifier, rest ...Modifier) *Accelerator {
 	result := &Accelerator{
 		X名称:       key,

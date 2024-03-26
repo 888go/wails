@@ -50,11 +50,6 @@ var (
 
 var windowsVersion, _ = operatingsystem.GetWindowsVersionInfo()
 
-
-// ff:
-// buildNumber:
-// minor:
-// major:
 func IsWindowsVersionAtLeast(major, minor, buildNumber int) bool {
 	return windowsVersion.Major >= major &&
 		windowsVersion.Minor >= minor &&

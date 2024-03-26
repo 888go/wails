@@ -25,11 +25,6 @@ func internalTrackMouseEvent(hwnd w32.HWND) {
 	w32.TrackMouseEvent(&tme)
 }
 
-
-// ff:
-// style:
-// b:
-// hwnd:
 func SetStyle(hwnd w32.HWND, b bool, style int) {
 	originalStyle := int(w32.GetWindowLongPtr(hwnd, w32.GWL_STYLE))
 	if originalStyle != 0 {
@@ -42,11 +37,6 @@ func SetStyle(hwnd w32.HWND, b bool, style int) {
 	}
 }
 
-
-// ff:
-// style:
-// b:
-// hwnd:
 func SetExStyle(hwnd w32.HWND, b bool, style int) {
 	originalStyle := int(w32.GetWindowLongPtr(hwnd, w32.GWL_EXSTYLE))
 	if originalStyle != 0 {
@@ -59,12 +49,6 @@ func SetExStyle(hwnd w32.HWND, b bool, style int) {
 	}
 }
 
-
-// ff:
-// style:
-// exStyle:
-// parent:
-// className:
 func CreateWindow(className string, parent Controller, exStyle, style uint) w32.HWND {
 	instance := GetAppInstance()
 	var parentHwnd w32.HWND
@@ -94,10 +78,6 @@ func CreateWindow(className string, parent Controller, exStyle, style uint) w32.
 	return hwnd
 }
 
-
-// ff:
-// wndproc:
-// className:
 func RegisterClass(className string, wndproc uintptr) {
 	instance := GetAppInstance()
 	icon := w32.LoadIconWithResourceID(instance, w32.IDI_APPLICATION)
@@ -119,9 +99,6 @@ func RegisterClass(className string, wndproc uintptr) {
 	}
 }
 
-
-// ff:
-// name:
 func RegisterWindowMessage(name string) uint32 {
 	n := syscall.StringToUTF16Ptr(name)
 
@@ -146,9 +123,6 @@ func getWindowInfo(hwnd w32.HWND) *w32.WINDOWINFO {
 	return &info
 }
 
-
-// ff:
-// className:
 func RegClassOnlyOnce(className string) {
 	isExists := false
 	for _, class := range gRegisteredClasses {
@@ -164,10 +138,6 @@ func RegClassOnlyOnce(className string) {
 	}
 }
 
-
-// ff:
-// rect:
-// hwnd:
 func ScreenToClientRect(hwnd w32.HWND, rect *w32.RECT) *Rect {
 	l, t, r, b := rect.Left, rect.Top, rect.Right, rect.Bottom
 	l1, t1, _ := w32.ScreenToClient(hwnd, int(l), int(t))
@@ -176,19 +146,11 @@ func ScreenToClientRect(hwnd w32.HWND, rect *w32.RECT) *Rect {
 }
 
 // ScaleWithDPI 将像素从默认的 DPI 空间（96）按比例缩放到目标 DPI 空间。
-
-// ff:
-// dpi:
-// pixels:
 func ScaleWithDPI(pixels int, dpi uint) int {
 	return (pixels * int(dpi)) / 96
 }
 
 // ScaleToDefaultDPI 将像素从缩放后的 DPI 空间（非默认值）按比例转换到默认 DPI 空间（96）。
-
-// ff:
-// dpi:
-// pixels:
 func ScaleToDefaultDPI(pixels int, dpi uint) int {
 	return (pixels * 96) / int(dpi)
 }

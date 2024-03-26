@@ -117,8 +117,6 @@ import (
 )
 
 // NewRequest 根据指向 `id<WKURLSchemeTask>` 的指针创建一个新的 WebViewRequest
-
-// wkURLSchemeTask:
 func X创建请求对象(wkURLSchemeTask unsafe.Pointer) Request {
 	C.URLSchemeTaskRetain(wkURLSchemeTask)
 	return newRequestFinalizer(&request{task: wkURLSchemeTask})
@@ -134,8 +132,6 @@ type request struct {
 	rw     *responseWriter
 }
 
-
-// ff:
 func (r *request) URL() (string, error) {
 	return C.GoString(C.URLSchemeTaskRequestURL(r.task)), nil
 }
@@ -217,11 +213,6 @@ type requestBodyStreamReader struct {
 }
 
 // Read 实现了 io.Reader 接口
-
-// ff:
-// err:
-// n:
-// p:
 func (r *requestBodyStreamReader) Read(p []byte) (n int, err error) {
 	var content unsafe.Pointer
 	var contentLen int

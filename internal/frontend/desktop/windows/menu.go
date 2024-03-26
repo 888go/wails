@@ -39,8 +39,6 @@ func addRadioItemToMap(menuItem *menu.MenuItem, wincMenuItem *winc.MenuItem) {
 	radioGroupMap[menuItem] = append(radioGroupMap[menuItem], wincMenuItem)
 }
 
-// ff:
-// menu:
 func (w *Window) SetApplicationMenu(menu *menu.Menu) {
 	w.applicationMenu = menu
 	processMenu(w, menu)
@@ -69,9 +67,9 @@ func processMenuItem(parent *winc.MenuItem, menuItem *menu.MenuItem) {
 	case menu.X常量_菜单项类型_文本:
 		shortcut := acceleratorToWincShortcut(menuItem.X快捷键)
 		newItem := parent.AddItem(menuItem.X显示名称, shortcut)
-		// 如果menuItem的Tooltip属性不为空字符串 {
-		//	为newItem设置Tooltip属性，值为menuItem的Tooltip属性值
-		//}
+// 如果menuItem的Tooltip属性不为空字符串 {
+//	为newItem设置Tooltip属性，值为menuItem的Tooltip属性值
+//}
 		if menuItem.X单击回调函数 != nil {
 			newItem.OnClick().Bind(func(e *winc.Event) {
 				menuItem.X单击回调函数(&menu.CallbackData{
@@ -86,9 +84,9 @@ func processMenuItem(parent *winc.MenuItem, menuItem *menu.MenuItem) {
 		newItem := parent.AddItem(menuItem.X显示名称, shortcut)
 		newItem.SetCheckable(true)
 		newItem.SetChecked(menuItem.X是否选中)
-		// 如果menuItem的Tooltip属性不为空字符串 {
-		//	为newItem设置Tooltip属性，值为menuItem的Tooltip属性值
-		//}
+// 如果menuItem的Tooltip属性不为空字符串 {
+//	为newItem设置Tooltip属性，值为menuItem的Tooltip属性值
+//}
 		if menuItem.X单击回调函数 != nil {
 			newItem.OnClick().Bind(func(e *winc.Event) {
 				toggleCheckBox(menuItem)
@@ -104,9 +102,9 @@ func processMenuItem(parent *winc.MenuItem, menuItem *menu.MenuItem) {
 		newItem := parent.AddItemRadio(menuItem.X显示名称, shortcut)
 		newItem.SetCheckable(true)
 		newItem.SetChecked(menuItem.X是否选中)
-		// 如果menuItem的Tooltip属性不为空字符串 {
-		//	为newItem设置Tooltip属性，值为menuItem的Tooltip属性值
-		//}
+// 如果menuItem的Tooltip属性不为空字符串 {
+//	为newItem设置Tooltip属性，值为menuItem的Tooltip属性值
+//}
 		if menuItem.X单击回调函数 != nil {
 			newItem.OnClick().Bind(func(e *winc.Event) {
 				toggleRadioItem(menuItem)
@@ -125,13 +123,10 @@ func processMenuItem(parent *winc.MenuItem, menuItem *menu.MenuItem) {
 	}
 }
 
-// ff:菜单设置
-// menu:菜单
 func (f *Frontend) MenuSetApplicationMenu(menu *menu.Menu) {
 	f.mainWindow.SetApplicationMenu(menu)
 }
 
-// ff:菜单更新
 func (f *Frontend) MenuUpdateApplicationMenu() {
 	processMenu(f.mainWindow, f.mainWindow.applicationMenu)
 }

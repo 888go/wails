@@ -33,8 +33,6 @@ type Options struct {
 }
 
 // Validate the options
-
-// ff:
 func (o Options) Validate() error {
 	if o.Assets == nil && o.Handler == nil && o.Middleware == nil {
 		return fmt.Errorf("AssetServer options invalid: either Assets, Handler or Middleware must be set")

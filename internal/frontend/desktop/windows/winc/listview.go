@@ -39,18 +39,9 @@ type StringListItem struct {
 	Check bool
 }
 
-
-// ff:
 func (s StringListItem) Text() []string          { return []string{s.Data} }
-
-// ff:
 func (s StringListItem) Checked() bool           { return s.Check }
-
-// ff:
-// checked:
 func (s StringListItem) SetChecked(checked bool) { s.Check = checked }
-
-// ff:
 func (s StringListItem) ImageIndex() int         { return 0 }
 
 type ListView struct {
@@ -74,9 +65,6 @@ type ListView struct {
 	onEndScroll    EventManager
 }
 
-
-// ff:
-// parent:
 func NewListView(parent Controller) *ListView {
 	lv := new(ListView)
 
@@ -104,37 +92,22 @@ func (lv *ListView) setItemState(i int, state, mask uint) {
 	w32.SendMessage(lv.hwnd, w32.LVM_SETITEMSTATE, uintptr(i), uintptr(unsafe.Pointer(&item)))
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableSingleSelect(enable bool) {
 	SetStyle(lv.hwnd, enable, w32.LVS_SINGLESEL)
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableSortHeader(enable bool) {
 	SetStyle(lv.hwnd, enable, w32.LVS_NOSORTHEADER)
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableSortAscending(enable bool) {
 	SetStyle(lv.hwnd, enable, w32.LVS_SORTASCENDING)
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableEditLabels(enable bool) {
 	SetStyle(lv.hwnd, enable, w32.LVS_EDITLABELS)
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableFullRowSelect(enable bool) {
 	if enable {
 		w32.SendMessage(lv.hwnd, w32.LVM_SETEXTENDEDLISTVIEWSTYLE, 0, w32.LVS_EX_FULLROWSELECT)
@@ -143,9 +116,6 @@ func (lv *ListView) EnableFullRowSelect(enable bool) {
 	}
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableDoubleBuffer(enable bool) {
 	if enable {
 		w32.SendMessage(lv.hwnd, w32.LVM_SETEXTENDEDLISTVIEWSTYLE, 0, w32.LVS_EX_DOUBLEBUFFER)
@@ -154,9 +124,6 @@ func (lv *ListView) EnableDoubleBuffer(enable bool) {
 	}
 }
 
-
-// ff:
-// enable:
 func (lv *ListView) EnableHotTrack(enable bool) {
 	if enable {
 		w32.SendMessage(lv.hwnd, w32.LVM_SETEXTENDEDLISTVIEWSTYLE, 0, w32.LVS_EX_TRACKSELECT)
@@ -165,32 +132,20 @@ func (lv *ListView) EnableHotTrack(enable bool) {
 	}
 }
 
-
-// ff:
-// count:
 func (lv *ListView) SetItemCount(count int) bool {
 	return w32.SendMessage(lv.hwnd, w32.LVM_SETITEMCOUNT, uintptr(count), 0) != 0
 }
 
-
-// ff:
 func (lv *ListView) ItemCount() int {
 	return int(w32.SendMessage(lv.hwnd, w32.LVM_GETITEMCOUNT, 0, 0))
 }
 
-
-// ff:
-// y:
-// x:
 func (lv *ListView) ItemAt(x, y int) ListItem {
 	hti := w32.LVHITTESTINFO{Pt: w32.POINT{int32(x), int32(y)}}
 	w32.SendMessage(lv.hwnd, w32.LVM_HITTEST, 0, uintptr(unsafe.Pointer(&hti)))
 	return lv.findItemByIndex(int(hti.IItem))
 }
 
-
-// ff:
-// list:
 func (lv *ListView) Items() (list []ListItem) {
 	for item := range lv.item2Handle {
 		list = append(list, item)
@@ -198,10 +153,6 @@ func (lv *ListView) Items() (list []ListItem) {
 	return list
 }
 
-
-// ff:
-// width:
-// caption:
 func (lv *ListView) AddColumn(caption string, width int) {
 	var lc w32.LVCOLUMN
 	lc.Mask = w32.LVCF_TEXT
@@ -216,8 +167,6 @@ func (lv *ListView) AddColumn(caption string, width int) {
 
 // StretchLastColumn 使最后一个列占据 *ListView 的所有剩余水平空间。
 // 这种效果不是持久的。
-
-// ff:
 func (lv *ListView) StretchLastColumn() error {
 	if lv.cols == 0 {
 		return nil
@@ -229,16 +178,11 @@ func (lv *ListView) StretchLastColumn() error {
 }
 
 // CheckBoxes 返回 *TableView 是否具有复选框。
-
-// ff:
 func (lv *ListView) CheckBoxes() bool {
 	return w32.SendMessage(lv.hwnd, w32.LVM_GETEXTENDEDLISTVIEWSTYLE, 0, 0)&w32.LVS_EX_CHECKBOXES > 0
 }
 
 // SetCheckBoxes 设置 *TableView 是否包含复选框。
-
-// ff:
-// value:
 func (lv *ListView) SetCheckBoxes(value bool) {
 	exStyle := w32.SendMessage(lv.hwnd, w32.LVM_GETEXTENDEDLISTVIEWSTYLE, 0, 0)
 	oldStyle := exStyle
@@ -270,17 +214,10 @@ func (lv *ListView) applyImage(lc *w32.LVITEM, imIndex int) {
 	}
 }
 
-
-// ff:
-// item:
 func (lv *ListView) AddItem(item ListItem) {
 	lv.InsertItem(item, lv.ItemCount())
 }
 
-
-// ff:
-// index:
-// item:
 func (lv *ListView) InsertItem(item ListItem, index int) {
 	text := item.Text()
 	li := &w32.LVITEM{
@@ -307,9 +244,6 @@ func (lv *ListView) InsertItem(item ListItem, index int) {
 	}
 }
 
-
-// ff:
-// item:
 func (lv *ListView) UpdateItem(item ListItem) bool {
 	lparam, ok := lv.item2Handle[item]
 	if !ok {
@@ -353,8 +287,6 @@ func (lv *ListView) setLvItem(lvItem *w32.LVITEM) {
 	w32.SendMessage(lv.hwnd, w32.LVM_SETITEM, 0, uintptr(unsafe.Pointer(lvItem)))
 }
 
-
-// ff:
 func (lv *ListView) DeleteAllItems() bool {
 	if w32.SendMessage(lv.hwnd, w32.LVM_DELETEALLITEMS, 0, 0) == w32.TRUE {
 		lv.item2Handle = make(map[ListItem]uintptr)
@@ -364,9 +296,6 @@ func (lv *ListView) DeleteAllItems() bool {
 	return false
 }
 
-
-// ff:
-// item:
 func (lv *ListView) DeleteItem(item ListItem) error {
 	index := lv.findIndexByItem(item)
 	if index == -1 {
@@ -411,9 +340,6 @@ func (lv *ListView) findItemByIndex(i int) ListItem {
 	return nil
 }
 
-
-// ff:
-// item:
 func (lv *ListView) EnsureVisible(item ListItem) bool {
 	if i := lv.findIndexByItem(item); i != -1 {
 		return w32.SendMessage(lv.hwnd, w32.LVM_ENSUREVISIBLE, uintptr(i), 1) == 0
@@ -421,8 +347,6 @@ func (lv *ListView) EnsureVisible(item ListItem) bool {
 	return false
 }
 
-
-// ff:
 func (lv *ListView) SelectedItem() ListItem {
 	if items := lv.SelectedItems(); len(items) > 0 {
 		return items[0]
@@ -430,9 +354,6 @@ func (lv *ListView) SelectedItem() ListItem {
 	return nil
 }
 
-
-// ff:
-// item:
 func (lv *ListView) SetSelectedItem(item ListItem) bool {
 	if i := lv.findIndexByItem(item); i > -1 {
 		lv.SetSelectedIndex(i)
@@ -442,8 +363,6 @@ func (lv *ListView) SetSelectedItem(item ListItem) bool {
 }
 
 // mask 用于设置 LVITEM.Mask，该参数在调用 ListView.GetItem 时表明你希望获取哪些 LVITEM 属性。
-
-// ff:
 func (lv *ListView) SelectedItems() []ListItem {
 	var items []ListItem
 
@@ -460,97 +379,64 @@ func (lv *ListView) SelectedItems() []ListItem {
 	return items
 }
 
-
-// ff:
 func (lv *ListView) SelectedCount() uint {
 	return uint(w32.SendMessage(lv.hwnd, w32.LVM_GETSELECTEDCOUNT, 0, 0))
 }
 
 // GetSelectedIndex 获取首个选中项的索引。如果没有项被选中，则返回-1。
-
-// ff:
 func (lv *ListView) SelectedIndex() int {
 	var i int = -1
 	return int(w32.SendMessage(lv.hwnd, w32.LVM_GETNEXTITEM, uintptr(i), uintptr(w32.LVNI_SELECTED)))
 }
 
 // 将i设置为-1以选择所有项。
-
-// ff:
-// i:
 func (lv *ListView) SetSelectedIndex(i int) {
 	lv.setItemState(i, w32.LVIS_SELECTED, w32.LVIS_SELECTED)
 }
 
-
-// ff:
-// imageList:
 func (lv *ListView) SetImageList(imageList *ImageList) {
 	w32.SendMessage(lv.hwnd, w32.LVM_SETIMAGELIST, w32.LVSIL_SMALL, uintptr(imageList.Handle()))
 	lv.iml = imageList
 }
 
 // Event publishers
-
-// ff:
 func (lv *ListView) OnEndLabelEdit() *EventManager {
 	return &lv.onEndLabelEdit
 }
 
-
-// ff:
 func (lv *ListView) OnDoubleClick() *EventManager {
 	return &lv.onDoubleClick
 }
 
-
-// ff:
 func (lv *ListView) OnClick() *EventManager {
 	return &lv.onClick
 }
 
-
-// ff:
 func (lv *ListView) OnKeyDown() *EventManager {
 	return &lv.onKeyDown
 }
 
-
-// ff:
 func (lv *ListView) OnItemChanging() *EventManager {
 	return &lv.onItemChanging
 }
 
-
-// ff:
 func (lv *ListView) OnItemChanged() *EventManager {
 	return &lv.onItemChanged
 }
 
-
-// ff:
 func (lv *ListView) OnCheckChanged() *EventManager {
 	return &lv.onCheckChanged
 }
 
-
-// ff:
 func (lv *ListView) OnViewChange() *EventManager {
 	return &lv.onViewChange
 }
 
-
-// ff:
 func (lv *ListView) OnEndScroll() *EventManager {
 	return &lv.onEndScroll
 }
 
 // Message processer
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (lv *ListView) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	/*case w32.WM_ERASEBKGND:

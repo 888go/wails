@@ -56,8 +56,6 @@ type RadioGroup struct {
 	hwnd    w32.HWND
 }
 
-
-// ff:
 func NewContextMenu() *MenuItem {
 	hMenu := w32.CreatePopupMenu()
 	if hMenu == 0 {
@@ -71,8 +69,6 @@ func NewContextMenu() *MenuItem {
 	return item
 }
 
-
-// ff:
 func (m *Menu) Dispose() {
 	if m.hMenu != 0 {
 		w32.DestroyMenu(m.hMenu)
@@ -80,8 +76,6 @@ func (m *Menu) Dispose() {
 	}
 }
 
-
-// ff:
 func (m *Menu) IsDisposed() bool {
 	return m.hMenu == 0
 }
@@ -129,8 +123,6 @@ func initMenuItemInfoFromAction(mii *w32.MENUITEMINFO, a *MenuItem) {
 }
 
 // 在主窗口上显示菜单。
-
-// ff:
 func (m *Menu) Show() {
 	initialised = true
 	updateRadioGroups()
@@ -140,9 +132,6 @@ func (m *Menu) Show() {
 }
 
 // AddSubMenu 返回一个用于作为子菜单以执行 AddItem(s) 操作的项目。
-
-// ff:
-// text:
 func (m *Menu) AddSubMenu(text string) *MenuItem {
 	hSubMenu := w32.CreateMenu()
 	if hSubMenu == 0 {
@@ -211,41 +200,25 @@ func updateRadioGroups() {
 
 }
 
-
-// ff:
 func (mi *MenuItem) OnClick() *EventManager {
 	return &mi.onClick
 }
 
-
-// ff:
 func (mi *MenuItem) AddSeparator() {
 	addMenuItem(mi.hSubMenu, 0, "-", Shortcut{}, nil, false)
 }
 
 // AddItem 添加普通菜单项。
-
-// ff:
-// shortcut:
-// text:
 func (mi *MenuItem) AddItem(text string, shortcut Shortcut) *MenuItem {
 	return addMenuItem(mi.hSubMenu, 0, text, shortcut, nil, false)
 }
 
 // AddItemCheckable 添加一个普通菜单项，该菜单项可以带有复选标记。
-
-// ff:
-// shortcut:
-// text:
 func (mi *MenuItem) AddItemCheckable(text string, shortcut Shortcut) *MenuItem {
 	return addMenuItem(mi.hSubMenu, 0, text, shortcut, nil, true)
 }
 
 // AddItemRadio 添加一个普通菜单项，该菜单项可以带有选中标记，并且是单选组的一部分。
-
-// ff:
-// shortcut:
-// text:
 func (mi *MenuItem) AddItemRadio(text string, shortcut Shortcut) *MenuItem {
 	menuItem := addMenuItem(mi.hSubMenu, 0, text, shortcut, nil, true)
 	menuItem.isRadio = true
@@ -253,19 +226,11 @@ func (mi *MenuItem) AddItemRadio(text string, shortcut Shortcut) *MenuItem {
 }
 
 // AddItemWithBitmap 添加具有快捷键和位图的菜单项。
-
-// ff:
-// image:
-// shortcut:
-// text:
 func (mi *MenuItem) AddItemWithBitmap(text string, shortcut Shortcut, image *Bitmap) *MenuItem {
 	return addMenuItem(mi.hSubMenu, 0, text, shortcut, image, false)
 }
 
 // AddSubMenu 添加子菜单
-
-// ff:
-// text:
 func (mi *MenuItem) AddSubMenu(text string) *MenuItem {
 	hSubMenu := w32.CreatePopupMenu()
 	if hSubMenu == 0 {
@@ -329,35 +294,16 @@ func (mi *MenuItem) update() {
 	}
 }
 
-
-// ff:
 func (mi *MenuItem) IsSeparator() bool { return mi.text == "-" }
-
-// ff:
 func (mi *MenuItem) SetSeparator()     { mi.text = "-" }
 
-
-// ff:
 func (mi *MenuItem) Enabled() bool     { return mi.enabled }
-
-// ff:
-// b:
 func (mi *MenuItem) SetEnabled(b bool) { mi.enabled = b; mi.update() }
 
-
-// ff:
 func (mi *MenuItem) Checkable() bool     { return mi.checkable }
-
-// ff:
-// b:
 func (mi *MenuItem) SetCheckable(b bool) { mi.checkable = b; mi.update() }
 
-
-// ff:
 func (mi *MenuItem) Checked() bool { return mi.checked }
-
-// ff:
-// b:
 func (mi *MenuItem) SetChecked(b bool) {
 	if mi.isRadio {
 		radioGroup := radioGroups[mi]
@@ -372,28 +318,13 @@ func (mi *MenuItem) SetChecked(b bool) {
 	mi.update()
 }
 
-
-// ff:
 func (mi *MenuItem) Text() string     { return mi.text }
-
-// ff:
-// s:
 func (mi *MenuItem) SetText(s string) { mi.text = s; mi.update() }
 
-
-// ff:
 func (mi *MenuItem) Image() *Bitmap     { return mi.image }
-
-// ff:
-// b:
 func (mi *MenuItem) SetImage(b *Bitmap) { mi.image = b; mi.update() }
 
-
-// ff:
 func (mi *MenuItem) ToolTip() string     { return mi.toolTip }
-
-// ff:
-// s:
 func (mi *MenuItem) SetToolTip(s string) { mi.toolTip = s; mi.update() }
 
 func (mi *MenuItem) updateRadioGroup() {

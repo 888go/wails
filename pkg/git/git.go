@@ -35,9 +35,6 @@ func X取名称() (string, error) {
 	return name, err
 }
 
-
-// ff:
-// projectDir:
 func InitRepo(projectDir string) error {
 	_, _, err := shell.RunCommand(projectDir, gitcommand(), "init")
 	return err

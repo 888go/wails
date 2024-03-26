@@ -17,11 +17,6 @@ type Pen struct {
 	brush *Brush
 }
 
-
-// ff:
-// brush:
-// width:
-// style:
 func NewPen(style uint, width uint, brush *Brush) *Pen {
 	if brush == nil {
 		panic("Brush cannot be nil")
@@ -35,8 +30,6 @@ func NewPen(style uint, width uint, brush *Brush) *Pen {
 	return &Pen{hPen, style, brush}
 }
 
-
-// ff:
 func NewNullPen() *Pen {
 	lb := w32.LOGBRUSH{LbStyle: w32.BS_NULL}
 
@@ -48,26 +41,18 @@ func NewNullPen() *Pen {
 	return &Pen{hPen: hPen}
 }
 
-
-// ff:
 func (pen *Pen) Style() uint {
 	return pen.style
 }
 
-
-// ff:
 func (pen *Pen) Brush() *Brush {
 	return pen.brush
 }
 
-
-// ff:
 func (pen *Pen) GetHPEN() w32.HPEN {
 	return pen.hPen
 }
 
-
-// ff:
 func (pen *Pen) Dispose() {
 	if pen.hPen != 0 {
 		w32.DeleteObject(w32.HGDIOBJ(pen.hPen))

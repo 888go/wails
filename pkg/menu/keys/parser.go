@@ -39,9 +39,6 @@ func parseKey(key string) (string, bool) {
 	return "", false
 }
 
-
-// ff:
-// shortcut:
 func Parse(shortcut string) (*Accelerator, error) {
 	var result Accelerator
 

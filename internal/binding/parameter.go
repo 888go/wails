@@ -18,16 +18,11 @@ func newParameter(Name string, Type reflect.Type) *Parameter {
 }
 
 // IsType返回true，如果给定的
-
-// ff:
-// typename:
 func (p *Parameter) IsType(typename string) bool {
 	return p.TypeName == typename
 }
 
 // IsError 函数返回 true，如果参数类型是 error 类型
-
-// ff:
 func (p *Parameter) IsError() bool {
 	return p.IsType("error")
 }

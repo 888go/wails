@@ -33,8 +33,6 @@ var logLevelMap = map[string]LogLevel{
 	"error":   X常量_日志级别_错误,
 }
 
-
-// LogLevel:
 func X字符串到日志级别(日志级别 string) (LogLevel, error) {
 	result, ok := logLevelMap[strings.ToLower(日志级别)]
 	if !ok {

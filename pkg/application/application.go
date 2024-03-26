@@ -82,17 +82,10 @@ func (a *Application) X退出() {
 }
 
 // 将给定的结构体绑定到应用程序
-
-// ff:
-// boundStruct:
 func (a *Application) Bind(boundStruct any) {
 	a.options.Bind = append(a.options.Bind, boundStruct)
 }
 
-
-// ff:
-// callback:
-// eventType:
 func (a *Application) On(eventType EventType, callback func()) {
 	c := func(ctx context.Context) {
 		callback()

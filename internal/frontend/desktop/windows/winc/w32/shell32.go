@@ -94,18 +94,12 @@ var (
 	procGetSpecialFolderPath = modshell32.NewProc("SHGetSpecialFolderPathW")
 )
 
-
-// ff:
-// bi:
 func SHBrowseForFolder(bi *BROWSEINFO) uintptr {
 	ret, _, _ := procSHBrowseForFolder.Call(uintptr(unsafe.Pointer(bi)))
 
 	return ret
 }
 
-
-// ff:
-// idl:
 func SHGetPathFromIDList(idl uintptr) string {
 	buf := make([]uint16, 1024)
 	procSHGetPathFromIDList.Call(
@@ -115,22 +109,12 @@ func SHGetPathFromIDList(idl uintptr) string {
 	return syscall.UTF16ToString(buf)
 }
 
-
-// ff:
-// accept:
-// hwnd:
 func DragAcceptFiles(hwnd HWND, accept bool) {
 	procDragAcceptFiles.Call(
 		uintptr(hwnd),
 		uintptr(BoolToBOOL(accept)))
 }
 
-
-// ff:
-// fileCount:
-// fileName:
-// iFile:
-// hDrop:
 func DragQueryFile(hDrop HDROP, iFile uint) (fileName string, fileCount uint) {
 	ret, _, _ := procDragQueryFile.Call(
 		uintptr(hDrop),
@@ -159,12 +143,6 @@ func DragQueryFile(hDrop HDROP, iFile uint) (fileName string, fileCount uint) {
 	return
 }
 
-
-// ff:
-// isClientArea:
-// y:
-// x:
-// hDrop:
 func DragQueryPoint(hDrop HDROP) (x, y int, isClientArea bool) {
 	var pt POINT
 	ret, _, _ := procDragQueryPoint.Call(
@@ -174,21 +152,10 @@ func DragQueryPoint(hDrop HDROP) (x, y int, isClientArea bool) {
 	return int(pt.X), int(pt.Y), (ret == 1)
 }
 
-
-// ff:
-// hDrop:
 func DragFinish(hDrop HDROP) {
 	procDragFinish.Call(uintptr(hDrop))
 }
 
-
-// ff:
-// nShowCmd:
-// lpDirectory:
-// lpParameters:
-// lpFile:
-// lpOperation:
-// hwnd:
 func ShellExecute(hwnd HWND, lpOperation, lpFile, lpParameters, lpDirectory string, nShowCmd int) error {
 	var op, param, directory uintptr
 	if len(lpOperation) != 0 {
@@ -246,10 +213,6 @@ func ShellExecute(hwnd HWND, lpOperation, lpFile, lpParameters, lpDirectory stri
 	return errors.New(errorMsg)
 }
 
-
-// ff:
-// nIconIndex:
-// lpszExeFileName:
 func ExtractIcon(lpszExeFileName string, nIconIndex int) HICON {
 	ret, _, _ := procExtractIcon.Call(
 		0,
@@ -259,12 +222,6 @@ func ExtractIcon(lpszExeFileName string, nIconIndex int) HICON {
 	return HICON(ret)
 }
 
-
-// ff:
-// fCreate:
-// csidl:
-// lpszPath:
-// hwndOwner:
 func SHGetSpecialFolderPath(hwndOwner HWND, lpszPath *uint16, csidl CSIDL, fCreate bool) bool {
 	ret, _, _ := procGetSpecialFolderPath.Call(
 		uintptr(hwndOwner),

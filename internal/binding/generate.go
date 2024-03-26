@@ -33,9 +33,6 @@ func init() {
 	valueTypeIndex = mapRegex.SubexpIndex("valueType")
 }
 
-
-// ff:
-// baseDir:
 func (b *Bindings) GenerateGoBindings(baseDir string) error {
 	store := b.db.store
 	var obfuscatedBindings map[string]int

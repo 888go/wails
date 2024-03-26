@@ -23,9 +23,6 @@ type Dialog struct {
 	onCancel EventManager
 }
 
-
-// ff:
-// parent:
 func NewDialog(parent Controller) *Dialog {
 	dlg := new(Dialog)
 
@@ -52,19 +49,12 @@ func NewDialog(parent Controller) *Dialog {
 	return dlg
 }
 
-
-// ff:
-// modal:
 func (dlg *Dialog) SetModal(modal bool) {
 	dlg.isModal = modal
 }
 
 // SetButtons 将对话框事件与按钮连接起来。 btnCancel 可以为 nil。
 // （该函数用于设置或绑定按钮到相应的对话框事件，其中 btnCancel 参数表示取消按钮，如果不需要可以传入 nil 值。）
-
-// ff:
-// btnCancel:
-// btnOk:
 func (dlg *Dialog) SetButtons(btnOk *PushButton, btnCancel *PushButton) {
 	dlg.btnOk = btnOk
 	dlg.btnOk.SetDefault()
@@ -72,28 +62,19 @@ func (dlg *Dialog) SetButtons(btnOk *PushButton, btnCancel *PushButton) {
 }
 
 // Events
-
-// ff:
 func (dlg *Dialog) OnLoad() *EventManager {
 	return &dlg.onLoad
 }
 
-
-// ff:
 func (dlg *Dialog) OnOk() *EventManager {
 	return &dlg.onOk
 }
 
-
-// ff:
 func (dlg *Dialog) OnCancel() *EventManager {
 	return &dlg.onCancel
 }
 
 // PreTranslateMessage 处理与对话框相关的特定消息。非常重要。
-
-// ff:
-// msg:
 func (dlg *Dialog) PreTranslateMessage(msg *w32.MSG) bool {
 	if msg.Message >= w32.WM_KEYFIRST && msg.Message <= w32.WM_KEYLAST {
 		if w32.IsDialogMessage(dlg.hwnd, msg) {
@@ -104,8 +85,6 @@ func (dlg *Dialog) PreTranslateMessage(msg *w32.MSG) bool {
 }
 
 // ShowDialog 为对话框窗口执行特殊设置。
-
-// ff:
 func (dlg *Dialog) Show() {
 	if dlg.isModal {
 		dlg.Parent().SetEnabled(false)
@@ -115,8 +94,6 @@ func (dlg *Dialog) Show() {
 }
 
 // 当你完成对话框操作后，关闭它。
-
-// ff:
 func (dlg *Dialog) Close() {
 	if dlg.isModal {
 		dlg.Parent().SetEnabled(true)
@@ -131,11 +108,6 @@ func (dlg *Dialog) cancel() {
 	dlg.onCancel.Fire(NewEvent(dlg, nil))
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (dlg *Dialog) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_COMMAND:

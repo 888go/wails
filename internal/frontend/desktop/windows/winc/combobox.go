@@ -18,9 +18,6 @@ type ComboBox struct {
 	onSelectedChange EventManager
 }
 
-
-// ff:
-// parent:
 func NewComboBox(parent Controller) *ComboBox {
 	cb := new(ComboBox)
 
@@ -32,53 +29,32 @@ func NewComboBox(parent Controller) *ComboBox {
 	return cb
 }
 
-
-// ff:
 func (cb *ComboBox) DeleteAllItems() bool {
 	return w32.SendMessage(cb.hwnd, w32.CB_RESETCONTENT, 0, 0) == w32.TRUE
 }
 
-
-// ff:
-// str:
-// index:
 func (cb *ComboBox) InsertItem(index int, str string) bool {
 	lp := uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(str)))
 	return w32.SendMessage(cb.hwnd, w32.CB_INSERTSTRING, uintptr(index), lp) != w32.CB_ERR
 }
 
-
-// ff:
-// index:
 func (cb *ComboBox) DeleteItem(index int) bool {
 	return w32.SendMessage(cb.hwnd, w32.CB_DELETESTRING, uintptr(index), 0) != w32.CB_ERR
 }
 
-
-// ff:
 func (cb *ComboBox) SelectedItem() int {
 	return int(int32(w32.SendMessage(cb.hwnd, w32.CB_GETCURSEL, 0, 0)))
 }
 
-
-// ff:
-// value:
 func (cb *ComboBox) SetSelectedItem(value int) bool {
 	return int(int32(w32.SendMessage(cb.hwnd, w32.CB_SETCURSEL, uintptr(value), 0))) == value
 }
 
-
-// ff:
 func (cb *ComboBox) OnSelectedChange() *EventManager {
 	return &cb.onSelectedChange
 }
 
 // Message processer
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (cb *ComboBox) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_COMMAND:

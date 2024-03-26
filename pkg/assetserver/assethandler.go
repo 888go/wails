@@ -37,10 +37,6 @@ type assetHandler struct {
 	retryMissingFiles bool
 }
 
-
-// ff:
-// log:
-// options:
 func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, error) {
 	vfs := options.Assets
 	if vfs != nil {
@@ -82,10 +78,6 @@ func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, err
 	return result, nil
 }
 
-
-// ff:
-// req:
-// rw:
 func (d *assetHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	url := req.URL.Path
 	handler := d.handler

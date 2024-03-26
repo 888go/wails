@@ -18,51 +18,51 @@ func Test_calculateMessageDialogFlags(t *testing.T) {
 		{
 			name: "Test Info Dialog",
 			options: frontend.MessageDialogOptions{
-				X对话框类型: frontend.X常量_对话框_信息,
+				Type: frontend.InfoDialog,
 			},
 			want: windows.MB_OK | windows.MB_ICONINFORMATION,
 		},
 		{
 			name: "Test Error Dialog",
 			options: frontend.MessageDialogOptions{
-				X对话框类型: frontend.X常量_对话框_错误,
+				Type: frontend.ErrorDialog,
 			},
 			want: windows.MB_ICONERROR | windows.MB_OK,
 		},
 		{
 			name: "Test Question Dialog",
 			options: frontend.MessageDialogOptions{
-				X对话框类型: frontend.X常量_对话框_问题,
+				Type: frontend.QuestionDialog,
 			},
 			want: windows.MB_YESNO,
 		},
 		{
 			name: "Test Question Dialog with default cancel",
 			options: frontend.MessageDialogOptions{
-				X对话框类型:          frontend.X常量_对话框_问题,
-				X默认按钮: "No",
+				Type:          frontend.QuestionDialog,
+				DefaultButton: "No",
 			},
 			want: windows.MB_YESNO | windows.MB_DEFBUTTON2,
 		},
 		{
 			name: "Test Question Dialog with default cancel (lowercase)",
 			options: frontend.MessageDialogOptions{
-				X对话框类型:          frontend.X常量_对话框_问题,
-				X默认按钮: "no",
+				Type:          frontend.QuestionDialog,
+				DefaultButton: "no",
 			},
 			want: windows.MB_YESNO | windows.MB_DEFBUTTON2,
 		},
 		{
 			name: "Test Warning Dialog",
 			options: frontend.MessageDialogOptions{
-				X对话框类型: frontend.X常量_对话框_警告,
+				Type: frontend.WarningDialog,
 			},
 			want: windows.MB_OK | windows.MB_ICONWARNING,
 		},
 		{
 			name: "Test Error Dialog",
 			options: frontend.MessageDialogOptions{
-				X对话框类型: frontend.X常量_对话框_错误,
+				Type: frontend.ErrorDialog,
 			},
 			want: windows.MB_ICONERROR | windows.MB_OK,
 		},

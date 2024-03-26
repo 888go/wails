@@ -29,18 +29,15 @@ func getDefaultFolder(folder string) (string, error) {
 }
 
 // OpenDirectoryDialog 提示用户选择一个目录
-
-// ff:对话框选择目录
-// dialogOptions:选项
 func (f *Frontend) OpenDirectoryDialog(options frontend.OpenDialogOptions) (string, error) {
 
-	defaultFolder, err := getDefaultFolder(options.X默认目录)
+	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
 	if err != nil {
 		return "", err
 	}
 
 	config := cfd.DialogConfig{
-		Title:  options.X标题,
+		Title:  options.Title,
 		Role:   "PickFolder",
 		Folder: defaultFolder,
 	}
@@ -57,20 +54,17 @@ func (f *Frontend) OpenDirectoryDialog(options frontend.OpenDialogOptions) (stri
 }
 
 // OpenFileDialog 提示用户选择一个文件
-
-// ff:对话框选择文件
-// options:选项
 func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, error) {
-	defaultFolder, err := getDefaultFolder(options.X默认目录)
+	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
 	if err != nil {
 		return "", err
 	}
 
 	config := cfd.DialogConfig{
 		Folder:      defaultFolder,
-		FileFilters: convertFilters(options.X过滤器),
-		FileName:    options.X默认文件名,
-		Title:       options.X标题,
+		FileFilters: convertFilters(options.Filters),
+		FileName:    options.DefaultFilename,
+		Title:       options.Title,
 	}
 
 	result, err := f.showCfdDialog(
@@ -85,21 +79,18 @@ func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, e
 }
 
 // OpenMultipleFilesDialog 提示用户选择一个或多个文件
-
-// ff:对话框多选文件
-// dialogOptions:选项
 func (f *Frontend) OpenMultipleFilesDialog(options frontend.OpenDialogOptions) ([]string, error) {
 
-	defaultFolder, err := getDefaultFolder(options.X默认目录)
+	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
 	if err != nil {
 		return nil, err
 	}
 
 	config := cfd.DialogConfig{
-		Title:       options.X标题,
+		Title:       options.Title,
 		Role:        "OpenMultipleFiles",
-		FileFilters: convertFilters(options.X过滤器),
-		FileName:    options.X默认文件名,
+		FileFilters: convertFilters(options.Filters),
+		FileName:    options.DefaultFilename,
 		Folder:      defaultFolder,
 	}
 
@@ -115,26 +106,23 @@ func (f *Frontend) OpenMultipleFilesDialog(options frontend.OpenDialogOptions) (
 }
 
 // SaveFileDialog 弹出文件选择对话框，提示用户选择一个文件
-
-// ff:对话框保存文件
-// dialogOptions:选项
 func (f *Frontend) SaveFileDialog(options frontend.SaveDialogOptions) (string, error) {
 
-	defaultFolder, err := getDefaultFolder(options.X默认目录)
+	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
 	if err != nil {
 		return "", err
 	}
 
 	config := cfd.DialogConfig{
-		Title:       options.X标题,
+		Title:       options.Title,
 		Role:        "SaveFile",
-		FileFilters: convertFilters(options.X过滤器),
-		FileName:    options.X默认文件名,
+		FileFilters: convertFilters(options.Filters),
+		FileName:    options.DefaultFilename,
 		Folder:      defaultFolder,
 	}
 
-	if len(options.X过滤器) > 0 {
-		config.DefaultExtension = strings.TrimPrefix(strings.Split(options.X过滤器[0].X扩展名列表, ";")[0], "*")
+	if len(options.Filters) > 0 {
+		config.DefaultExtension = strings.TrimPrefix(strings.Split(options.Filters[0].Pattern, ";")[0], "*")
 	}
 
 	result, err := f.showCfdDialog(
@@ -172,17 +160,17 @@ func (f *Frontend) showCfdDialog(newDlg func() (cfd.Dialog, error), isMultiSelec
 func calculateMessageDialogFlags(options frontend.MessageDialogOptions) uint32 {
 	var flags uint32
 
-	switch options.X对话框类型 {
-	case frontend.X常量_对话框_信息:
+	switch options.Type {
+	case frontend.InfoDialog:
 		flags = windows.MB_OK | windows.MB_ICONINFORMATION
-	case frontend.X常量_对话框_错误:
+	case frontend.ErrorDialog:
 		flags = windows.MB_ICONERROR | windows.MB_OK
-	case frontend.X常量_对话框_问题:
+	case frontend.QuestionDialog:
 		flags = windows.MB_YESNO
-		if strings.TrimSpace(strings.ToLower(options.X默认按钮)) == "no" {
+		if strings.TrimSpace(strings.ToLower(options.DefaultButton)) == "no" {
 			flags |= windows.MB_DEFBUTTON2
 		}
-	case frontend.X常量_对话框_警告:
+	case frontend.WarningDialog:
 		flags = windows.MB_OK | windows.MB_ICONWARNING
 	}
 
@@ -190,16 +178,13 @@ func calculateMessageDialogFlags(options frontend.MessageDialogOptions) uint32 {
 }
 
 // MessageDialog 向用户展示一条消息对话框
-
-// ff:对话框弹出消息
-// options:选项
 func (f *Frontend) MessageDialog(options frontend.MessageDialogOptions) (string, error) {
 
-	title, err := syscall.UTF16PtrFromString(options.X标题)
+	title, err := syscall.UTF16PtrFromString(options.Title)
 	if err != nil {
 		return "", err
 	}
-	message, err := syscall.UTF16PtrFromString(options.X消息)
+	message, err := syscall.UTF16PtrFromString(options.Message)
 	if err != nil {
 		return "", err
 	}

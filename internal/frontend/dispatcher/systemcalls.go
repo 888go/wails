@@ -29,25 +29,25 @@ func (d *Dispatcher) processSystemCall(payload callMessage, sender frontend.Fron
 
 	switch name {
 	case "WindowGetPos":
-		x, y := sender.X窗口取位置()
+		x, y := sender.WindowGetPosition()
 		return &position{x, y}, nil
 	case "WindowGetSize":
-		w, h := sender.X窗口取尺寸()
+		w, h := sender.WindowGetSize()
 		return &size{w, h}, nil
 	case "ScreenGetAll":
-		return sender.X取屏幕信息()
+		return sender.ScreenGetAll()
 	case "WindowIsMaximised":
-		return sender.X窗口是否最大化(), nil
+		return sender.WindowIsMaximised(), nil
 	case "WindowIsMinimised":
-		return sender.X窗口是否最小化(), nil
+		return sender.WindowIsMinimised(), nil
 	case "WindowIsNormal":
-		return sender.X窗口是否为正常(), nil
+		return sender.WindowIsNormal(), nil
 	case "WindowIsFullscreen":
-		return sender.X窗口是否全屏(), nil
+		return sender.WindowIsFullscreen(), nil
 	case "Environment":
 		return runtime.X取环境信息(d.ctx), nil
 	case "ClipboardGetText":
-		t, err := sender.X剪贴板取文本()
+		t, err := sender.ClipboardGetText()
 		return t, err
 	case "ClipboardSetText":
 		if len(payload.Args) < 1 {
@@ -57,7 +57,7 @@ func (d *Dispatcher) processSystemCall(payload callMessage, sender frontend.Fron
 		if err := json.Unmarshal(payload.Args[0], &arg); err != nil {
 			return false, err
 		}
-		if err := sender.X剪贴板置文本(arg); err != nil {
+		if err := sender.ClipboardSetText(arg); err != nil {
 			return false, err
 		}
 		return true, nil

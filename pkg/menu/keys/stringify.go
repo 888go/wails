@@ -31,10 +31,6 @@ var modifierStringMap = map[string]map[Modifier]string{
 	},
 }
 
-
-// ff:
-// platform:
-// accelerator:
 func Stringify(accelerator *Accelerator, platform string) string {
 	result := slicer.String()
 	for _, modifier := range accelerator.Modifiers {

@@ -17,9 +17,6 @@ type ScrollView struct {
 	child Dockable
 }
 
-
-// ff:
-// parent:
 func NewScrollView(parent Controller) *ScrollView {
 	sv := new(ScrollView)
 
@@ -35,15 +32,10 @@ func NewScrollView(parent Controller) *ScrollView {
 	return sv
 }
 
-
-// ff:
-// child:
 func (sv *ScrollView) SetChild(child Dockable) {
 	sv.child = child
 }
 
-
-// ff:
 func (sv *ScrollView) UpdateScrollBars() {
 	w, h := sv.child.Width(), sv.child.Height()
 	sw, sh := sv.Size()
@@ -105,11 +97,6 @@ func (sv *ScrollView) scroll(sb int32, cmd uint16) int {
 	return -int(pos)
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (sv *ScrollView) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	if sv.child != nil {
 		switch msg {

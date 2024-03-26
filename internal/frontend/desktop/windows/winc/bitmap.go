@@ -32,10 +32,6 @@ func assembleBitmapFromHBITMAP(hbitmap w32.HBITMAP) (*Bitmap, error) {
 	}, nil
 }
 
-
-// ff:
-// background:
-// filepath:
 func NewBitmapFromFile(filepath string, background Color) (*Bitmap, error) {
 	var gpBitmap *uintptr
 	var err error
@@ -56,12 +52,6 @@ func NewBitmapFromFile(filepath string, background Color) (*Bitmap, error) {
 	return assembleBitmapFromHBITMAP(hbitmap)
 }
 
-
-// ff:
-// background:
-// resType:
-// resName:
-// instance:
 func NewBitmapFromResource(instance w32.HINSTANCE, resName *uint16, resType *uint16, background Color) (*Bitmap, error) {
 	var gpBitmap *uintptr
 	var err error
@@ -98,8 +88,6 @@ func NewBitmapFromResource(instance w32.HINSTANCE, resName *uint16, resType *uin
 	return assembleBitmapFromHBITMAP(hbitmap)
 }
 
-
-// ff:
 func (bm *Bitmap) Dispose() {
 	if bm.handle != 0 {
 		w32.DeleteObject(w32.HGDIOBJ(bm.handle))
@@ -107,26 +95,18 @@ func (bm *Bitmap) Dispose() {
 	}
 }
 
-
-// ff:
 func (bm *Bitmap) GetHBITMAP() w32.HBITMAP {
 	return bm.handle
 }
 
-
-// ff:
 func (bm *Bitmap) Size() (int, int) {
 	return bm.width, bm.height
 }
 
-
-// ff:
 func (bm *Bitmap) Height() int {
 	return bm.height
 }
 
-
-// ff:
 func (bm *Bitmap) Width() int {
 	return bm.width
 }

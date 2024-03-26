@@ -19,13 +19,6 @@ type Dispatcher struct {
 	errfmt     options.ErrorFormatter
 }
 
-
-// ff:
-// errfmt:
-// events:
-// bindings:
-// log:
-// ctx:
 func NewDispatcher(ctx context.Context, log *logger.Logger, bindings *binding.Bindings, events frontend.Events, errfmt options.ErrorFormatter) *Dispatcher {
 	return &Dispatcher{
 		log:        log,
@@ -37,10 +30,6 @@ func NewDispatcher(ctx context.Context, log *logger.Logger, bindings *binding.Bi
 	}
 }
 
-
-// ff:
-// sender:
-// message:
 func (d *Dispatcher) ProcessMessage(message string, sender frontend.Frontend) (string, error) {
 	if message == "" {
 		return "", errors.New("No message to process")
@@ -59,13 +48,13 @@ func (d *Dispatcher) ProcessMessage(message string, sender frontend.Frontend) (s
 	case 'B':
 		return d.processBrowserMessage(message, sender)
 	case 'Q':
-		sender.X退出()
+		sender.Quit()
 		return "", nil
 	case 'S':
-		sender.X显示()
+		sender.Show()
 		return "", nil
 	case 'H':
-		sender.X隐藏()
+		sender.Hide()
 		return "", nil
 	default:
 		return "", errors.New("Unknown message from front end: " + message)

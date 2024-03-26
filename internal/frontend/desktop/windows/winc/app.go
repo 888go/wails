@@ -38,22 +38,14 @@ func init() {
 }
 
 // SetAppIconID 为应用程序窗口设置资源图标ID。
-
-// ff:
-// appIconID:
 func SetAppIcon(appIconID int) {
 	AppIconID = appIconID
 }
 
-
-// ff:
 func GetAppInstance() w32.HINSTANCE {
 	return gAppInstance
 }
 
-
-// ff:
-// msg:
 func PreTranslateMessage(msg *w32.MSG) bool {
 // 此函数由MessageLoop调用。它处理键盘加速键，并对键盘和鼠标事件调用Controller.PreTranslateMessage。
 
@@ -79,8 +71,6 @@ func PreTranslateMessage(msg *w32.MSG) bool {
 }
 
 // RunMainLoop 在主应用程序循环中处理消息。
-
-// ff:
 func RunMainLoop() int {
 	m := (*w32.MSG)(unsafe.Pointer(w32.GlobalAlloc(0, uint32(unsafe.Sizeof(w32.MSG{})))))
 	defer w32.GlobalFree(w32.HGLOBAL(unsafe.Pointer(m)))
@@ -98,8 +88,6 @@ func RunMainLoop() int {
 }
 
 // PostMessages 处理最近的消息。有时有助于即时窗口刷新。
-
-// ff:
 func PostMessages() {
 	m := (*w32.MSG)(unsafe.Pointer(w32.GlobalAlloc(0, uint32(unsafe.Sizeof(w32.MSG{})))))
 	defer w32.GlobalFree(w32.HGLOBAL(unsafe.Pointer(m)))
@@ -114,8 +102,6 @@ func PostMessages() {
 	}
 }
 
-
-// ff:
 func Exit() {
 	w32.PostQuitMessage(0)
 }

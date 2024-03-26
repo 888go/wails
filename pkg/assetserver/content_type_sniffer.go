@@ -10,23 +10,15 @@ type contentTypeSniffer struct {
 	wroteHeader bool
 }
 
-
-// ff:
 func (rw *contentTypeSniffer) Header() http.Header {
 	return rw.rw.Header()
 }
 
-
-// ff:
-// buf:
 func (rw *contentTypeSniffer) Write(buf []byte) (int, error) {
 	rw.writeHeader(buf)
 	return rw.rw.Write(buf)
 }
 
-
-// ff:
-// code:
 func (rw *contentTypeSniffer) WriteHeader(code int) {
 	if rw.wroteHeader {
 		return

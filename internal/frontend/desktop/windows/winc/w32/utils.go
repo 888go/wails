@@ -13,9 +13,6 @@ import (
 	"unsafe"
 )
 
-
-// ff:
-// name:
 func MustLoadLibrary(name string) uintptr {
 	lib, err := syscall.LoadLibrary(name)
 	if err != nil {
@@ -25,10 +22,6 @@ func MustLoadLibrary(name string) uintptr {
 	return uintptr(lib)
 }
 
-
-// ff:
-// name:
-// lib:
 func MustGetProcAddress(lib uintptr, name string) uintptr {
 	addr, err := syscall.GetProcAddress(syscall.Handle(lib), name)
 	if err != nil {
@@ -38,45 +31,26 @@ func MustGetProcAddress(lib uintptr, name string) uintptr {
 	return uintptr(addr)
 }
 
-
-// ff:
-// hr:
 func SUCCEEDED(hr HRESULT) bool {
 	return hr >= 0
 }
 
-
-// ff:
-// hr:
 func FAILED(hr HRESULT) bool {
 	return hr < 0
 }
 
-
-// ff:
-// dw:
 func LOWORD(dw uint32) uint16 {
 	return uint16(dw)
 }
 
-
-// ff:
-// dw:
 func HIWORD(dw uint32) uint16 {
 	return uint16(dw >> 16 & 0xffff)
 }
 
-
-// ff:
-// hi:
-// lo:
 func MAKELONG(lo, hi uint16) uint32 {
 	return uint32(uint32(lo) | ((uint32(hi)) << 16))
 }
 
-
-// ff:
-// value:
 func BoolToBOOL(value bool) BOOL {
 	if value {
 		return 1
@@ -85,9 +59,6 @@ func BoolToBOOL(value bool) BOOL {
 	return 0
 }
 
-
-// ff:
-// cstr:
 func UTF16PtrToString(cstr *uint16) string {
 	if cstr != nil {
 		us := make([]uint16, 0, 256)
@@ -103,9 +74,6 @@ func UTF16PtrToString(cstr *uint16) string {
 	return ""
 }
 
-
-// ff:
-// unknown:
 func ComAddRef(unknown *IUnknown) int32 {
 	ret, _, _ := syscall.Syscall(unknown.lpVtbl.pAddRef, 1,
 		uintptr(unsafe.Pointer(unknown)),
@@ -114,9 +82,6 @@ func ComAddRef(unknown *IUnknown) int32 {
 	return int32(ret)
 }
 
-
-// ff:
-// unknown:
 func ComRelease(unknown *IUnknown) int32 {
 	ret, _, _ := syscall.Syscall(unknown.lpVtbl.pRelease, 1,
 		uintptr(unsafe.Pointer(unknown)),
@@ -125,10 +90,6 @@ func ComRelease(unknown *IUnknown) int32 {
 	return int32(ret)
 }
 
-
-// ff:
-// id:
-// unknown:
 func ComQueryInterface(unknown *IUnknown, id *GUID) *IDispatch {
 	var disp *IDispatch
 	hr, _, _ := syscall.Syscall(unknown.lpVtbl.pQueryInterface, 3,
@@ -141,10 +102,6 @@ func ComQueryInterface(unknown *IUnknown, id *GUID) *IDispatch {
 	return disp
 }
 
-
-// ff:
-// names:
-// disp:
 func ComGetIDsOfName(disp *IDispatch, names []string) []int32 {
 	wnames := make([]*uint16, len(names))
 	dispid := make([]int32, len(names))
@@ -164,13 +121,6 @@ func ComGetIDsOfName(disp *IDispatch, names []string) []int32 {
 	return dispid
 }
 
-
-// ff:
-// result:
-// params:
-// dispatch:
-// dispid:
-// disp:
 func ComInvoke(disp *IDispatch, dispid int32, dispatch int16, params ...interface{}) (result *VARIANT) {
 	var dispparams DISPPARAMS
 

@@ -66,7 +66,7 @@ func X退出(上下文 context.Context) {
 		log.Fatalf("Error calling 'runtime.Quit': %s", contextError)
 	}
 	appFrontend := getFrontend(上下文)
-	appFrontend.X退出()
+	appFrontend.Quit()
 }
 
 // Hide the application
@@ -75,7 +75,7 @@ func X隐藏(上下文 context.Context) {
 		log.Fatalf("Error calling 'runtime.Hide': %s", contextError)
 	}
 	appFrontend := getFrontend(上下文)
-	appFrontend.X隐藏()
+	appFrontend.Hide()
 }
 
 // 如果应用程序是隐藏的，则显示它
@@ -84,7 +84,7 @@ func X显示(上下文 context.Context) {
 		log.Fatalf("Error calling 'runtime.Show': %s", contextError)
 	}
 	appFrontend := getFrontend(上下文)
-	appFrontend.X显示()
+	appFrontend.Show()
 }
 
 // EnvironmentInfo 包含有关环境的信息

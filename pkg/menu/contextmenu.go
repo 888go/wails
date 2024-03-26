@@ -5,8 +5,6 @@ type ContextMenu struct {
 	X菜单 *Menu //hs:菜单
 }
 
-
-// ID:
 func X创建上下文菜单(ID string, 菜单 *Menu) *ContextMenu {
 	return &ContextMenu{
 		ID:  ID,

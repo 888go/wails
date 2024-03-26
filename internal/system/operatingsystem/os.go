@@ -8,8 +8,6 @@ type OS struct {
 }
 
 // Info 获取当前平台的信息
-
-// ff:
 func Info() (*OS, error) {
 	return platformInfo()
 }

@@ -21,9 +21,6 @@ const (
 	needsUpdating
 )
 
-
-// ff:
-// appoptions:
 func Process(appoptions *options.App) (string, error) {
 	messages := windows.X运行时默认提示()
 	if appoptions.Windows选项 != nil && appoptions.Windows选项.X用户消息 != nil {

@@ -30,16 +30,11 @@ type BackdropType int32
 const (
 	X常量_半透明类型_自动    BackdropType = 0
 	X常量_半透明类型_无    BackdropType = 1
-	X常量_半透明类型_Mica    BackdropType = 2 //hs:常量_半透明类型_Mica     
+	X常量_半透明类型_Mica    BackdropType = 2
 	X常量_半透明类型_亚克力 BackdropType = 3
-	X常量_半透明类型_Tabbed  BackdropType = 4 //hs:常量_半透明类型_Tabbed     
+	X常量_半透明类型_Tabbed  BackdropType = 4
 )
 
-
-// ff:
-// b:
-// g:
-// r:
 func RGB(r, g, b uint8) int32 {
 	col := int32(b)
 	col = col<<8 | int32(g)

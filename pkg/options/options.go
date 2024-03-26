@@ -106,11 +106,6 @@ type RGBA struct {
 }
 
 // NewRGBA 通过给定的值创建一个新的 RGBA 结构体
-
-// a:
-// b:
-// g:
-// r:
 func X创建RGBA(r, g, b, a uint8) *RGBA {
 	return &RGBA{
 		R: r,
@@ -121,10 +116,6 @@ func X创建RGBA(r, g, b, a uint8) *RGBA {
 }
 
 // NewRGB 通过给定的值创建一个新的 RGBA 结构体，并将 Alpha 设置为 255
-
-// b:
-// g:
-// r:
 func X创建RGB(r, g, b uint8) *RGBA {
 	return &RGBA{
 		R: r,
@@ -135,8 +126,6 @@ func X创建RGB(r, g, b uint8) *RGBA {
 }
 
 // MergeDefaults 将为应用程序设置最小的默认值
-
-// ff:
 func MergeDefaults(app选项 *App) {
 	// Do set defaults
 	if app选项.X宽度 <= 0 {
@@ -190,8 +179,6 @@ type SecondInstanceData struct {
 	WorkingDirectory string
 }
 
-
-// ff:
 func NewSecondInstanceData() (*SecondInstanceData, error) {
 	ex, err := os.Executable()
 	if err != nil {

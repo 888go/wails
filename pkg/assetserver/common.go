@@ -13,9 +13,6 @@ import (
 	"golang.org/x/net/html"
 )
 
-
-// ff:
-// appOptions:
 func BuildAssetServerConfig(appOptions *options.App) (assetserver.Options, error) {
 	var options assetserver.Options
 	if opt := appOptions.AssetServer; opt != nil {

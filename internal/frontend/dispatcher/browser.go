@@ -14,7 +14,7 @@ func (d *Dispatcher) processBrowserMessage(message string, sender frontend.Front
 	switch message[1] {
 	case 'O':
 		url := message[3:]
-		go sender.X默认浏览器打开url(url)
+		go sender.BrowserOpenURL(url)
 	default:
 		d.log.Error("unknown Browser message: %s", message)
 	}

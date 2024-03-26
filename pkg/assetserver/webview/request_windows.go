@@ -13,9 +13,6 @@ import (
 )
 
 // NewRequest 创建一个新的 WebViewRequest 用于 Chromium。这个方法必须在主线程中调用！
-
-// Request:
-// fn:
 func X创建请求对象(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
 	req, err := args.GetRequest()
 	if err != nil {
@@ -52,7 +49,7 @@ func X创建请求对象(env *edge.ICoreWebView2Environment, args *edge.ICoreWeb
 		r.bodyErr = err
 	} else if content != nil {
 		// 从另一个线程安全地访问 Content：https://learn.microsoft.com/zh-cn/microsoft-edge/webview2/concepts/threading-model#线程安全性
-		// （该注释表明，在Go语言代码中，可以安全地在不同的线程中访问“Content”，其线程安全特性参照Microsoft Edge WebView2的线程模型文档中的“线程安全性”部分。）
+// （该注释表明，在Go语言代码中，可以安全地在不同的线程中访问“Content”，其线程安全特性参照Microsoft Edge WebView2的线程模型文档中的“线程安全性”部分。）
 		r.body = &iStreamReleaseCloser{stream: content}
 	}
 
@@ -81,8 +78,6 @@ type request struct {
 	invokeSync func(fn func())
 }
 
-
-// ff:
 func (r *request) URL() (string, error) {
 	return r.url, r.urlErr
 }
@@ -151,9 +146,6 @@ type iStreamReleaseCloser struct {
 	closed bool
 }
 
-
-// ff:
-// p:
 func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	if i.closed {
 		return 0, io.ErrClosedPipe
@@ -161,8 +153,6 @@ func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	return i.stream.Read(p)
 }
 
-
-// ff:
 func (i *iStreamReleaseCloser) Close() error {
 	if i.closed {
 		return nil
@@ -205,9 +195,9 @@ func getHeaders(req *edge.ICoreWebView2WebResourceRequest) (http.Header, error) 
 		}
 	}
 
-	// 当WebView2接收到一个304状态码的请求时，可能会出现一些问题，
-	// 导致WebView2在处理其他请求（包括IPC调用）时会挂起。
-	// 为避免这种情况发生，通过移除与缓存配合使用的头部信息，防止返回304状态码。
+// 当WebView2接收到一个304状态码的请求时，可能会出现一些问题，
+// 导致WebView2在处理其他请求（包括IPC调用）时会挂起。
+// 为避免这种情况发生，通过移除与缓存配合使用的头部信息，防止返回304状态码。
 	header.Del("If-Modified-Since")
 	header.Del("If-None-Match")
 	return header, nil

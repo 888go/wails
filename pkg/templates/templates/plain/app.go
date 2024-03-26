@@ -11,8 +11,6 @@ type App struct {
 }
 
 // NewApp 创建一个新的 App 应用程序结构体
-
-// ff:
 func NewApp() *App {
 	return &App{}
 }
@@ -41,9 +39,6 @@ func (a *App) shutdown(ctx context.Context) {
 }
 
 // Greet 函数为给定的名字返回一个问候语
-
-// ff:
-// name:
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }

@@ -19,8 +19,6 @@ import (
 
 // NewRequest 创建一个新的 WebViewRequest，基于 `WebKitURISchemeRequest` 指针
 // 这个函数根据给定的 WebKitURISchemeRequest 指针创建一个新的 WebViewRequest 对象
-
-// webKitURISchemeRequest:
 func X创建请求对象(webKitURISchemeRequest unsafe.Pointer) Request {
 	webkitReq := (*C.WebKitURISchemeRequest)(webKitURISchemeRequest)
 	C.g_object_ref(C.gpointer(webkitReq))
@@ -39,8 +37,6 @@ type request struct {
 	rw     *responseWriter
 }
 
-
-// ff:
 func (r *request) URL() (string, error) {
 	return C.GoString(C.webkit_uri_scheme_request_get_uri(r.req)), nil
 }

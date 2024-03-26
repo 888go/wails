@@ -28,7 +28,6 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
-// ff:运行
 func (a *App) Run() error {
 	err := a.frontend.Run(a.ctx)
 	a.frontend.RunMainLoop()
@@ -40,9 +39,6 @@ func (a *App) Run() error {
 }
 
 // CreateApp creates the app!
-
-// ff:
-// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	var err error
 
@@ -51,8 +47,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	ctx = context.WithValue(ctx, "devtoolsEnabled", true)
 
 	// Set up logger
-	myLogger := logger.New(appoptions.Logger)
-	myLogger.SetLogLevel(appoptions.LogLevel)
+	myLogger := logger.New(appoptions.X日志记录器)
+	myLogger.SetLogLevel(appoptions.X日志级别)
 
 	// Check for CLI Flags
 	devFlags := flag.NewFlagSet("dev", flag.ContinueOnError)
@@ -165,8 +161,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	}
 
 	// Migrate deprecated options to the new AssetServer option
-	appoptions.Assets = nil
-	appoptions.AssetsHandler = nil
+	appoptions.Assets弃用 = nil
+	appoptions.AssetsHandler弃用 = nil
 	appoptions.AssetServer = &assetConfig
 
 	if devServer != "" {
@@ -174,7 +170,7 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	}
 
 	if loglevel != "" {
-		level, err := pkglogger.StringToLogLevel(loglevel)
+		level, err := pkglogger.X字符串到日志级别(loglevel)
 		if err != nil {
 			return nil, err
 		}
@@ -197,10 +193,10 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	var menuManager *menumanager.Manager
 
 	// Process the application menu
-	if appoptions.Menu != nil {
+	if appoptions.X菜单 != nil {
 		// Create the menu manager
 		menuManager = menumanager.NewManager()
-		err = menuManager.SetApplicationMenu(appoptions.Menu)
+		err = menuManager.SetApplicationMenu(appoptions.X菜单)
 		if err != nil {
 			return nil, err
 		}
@@ -208,10 +204,10 @@ func CreateApp(appoptions *options.App) (*App, error) {
 
 	// Create binding exemptions - Ugly hack. There must be a better way
 	bindingExemptions := []interface{}{
-		appoptions.OnStartup,
-		appoptions.OnShutdown,
-		appoptions.OnDomReady,
-		appoptions.OnBeforeClose,
+		appoptions.X启动前回调函数,
+		appoptions.X应用退出回调函数,
+		appoptions.DOM就绪回调函数,
+		appoptions.X应用关闭前回调函数,
 	}
 	appBindings := binding.NewBindings(myLogger, appoptions.Bind, bindingExemptions, false, appoptions.EnumBind)
 
@@ -231,8 +227,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 		frontend:         appFrontend,
 		logger:           myLogger,
 		menuManager:      menuManager,
-		startupCallback:  appoptions.OnStartup,
-		shutdownCallback: appoptions.OnShutdown,
+		startupCallback:  appoptions.X启动前回调函数,
+		shutdownCallback: appoptions.X应用退出回调函数,
 		debug:            true,
 		devtoolsEnabled:  true,
 	}

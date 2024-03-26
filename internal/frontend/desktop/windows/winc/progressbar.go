@@ -14,9 +14,6 @@ type ProgressBar struct {
 	ControlBase
 }
 
-
-// ff:
-// parent:
 func NewProgressBar(parent Controller) *ProgressBar {
 	pb := new(ProgressBar)
 
@@ -27,43 +24,25 @@ func NewProgressBar(parent Controller) *ProgressBar {
 	return pb
 }
 
-
-// ff:
 func (pr *ProgressBar) Value() int {
 	ret := w32.SendMessage(pr.hwnd, w32.PBM_GETPOS, 0, 0)
 	return int(ret)
 }
 
-
-// ff:
-// v:
 func (pr *ProgressBar) SetValue(v int) {
 	w32.SendMessage(pr.hwnd, w32.PBM_SETPOS, uintptr(v), 0)
 }
 
-
-// ff:
-// max:
-// min:
 func (pr *ProgressBar) Range() (min, max uint) {
 	min = uint(w32.SendMessage(pr.hwnd, w32.PBM_GETRANGE, uintptr(w32.BoolToBOOL(true)), 0))
 	max = uint(w32.SendMessage(pr.hwnd, w32.PBM_GETRANGE, uintptr(w32.BoolToBOOL(false)), 0))
 	return
 }
 
-
-// ff:
-// max:
-// min:
 func (pr *ProgressBar) SetRange(min, max int) {
 	w32.SendMessage(pr.hwnd, w32.PBM_SETRANGE32, uintptr(min), uintptr(max))
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (pr *ProgressBar) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	return w32.DefWindowProc(pr.hwnd, msg, wparam, lparam)
 }

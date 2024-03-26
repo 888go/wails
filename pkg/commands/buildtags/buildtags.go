@@ -43,9 +43,6 @@ func X解析(标签字符串 string) ([]string, error) {
 }
 
 // Stringify 将给定的标签切片转换为与 go build -tags 标志兼容的字符串
-
-// ff:
-// tags:
 func Stringify(tags []string) string {
 	tags = lo.Map(tags, func(tag string, _ int) string {
 		return strings.TrimSpace(tag)

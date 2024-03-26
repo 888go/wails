@@ -26,9 +26,6 @@ type Options struct {
 }
 
 // GenerateBindings 为给定 Wails 项目目录生成绑定。如果未指定项目目录，则使用当前工作目录。
-
-// ff:
-// options:
 func GenerateBindings(options Options) (string, error) {
 	filename, _ := lo.Coalesce(options.Filename, "wailsbindings")
 	if runtime.GOOS == "windows" {

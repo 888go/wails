@@ -14,7 +14,6 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
-// ff:运行
 func (a *App) Run() error {
 	err := a.frontend.Run(a.ctx)
 	a.frontend.RunMainLoop()
@@ -26,9 +25,6 @@ func (a *App) Run() error {
 }
 
 // CreateApp 创建应用！
-
-// ff:
-// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	var err error
 
@@ -43,9 +39,9 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	ctx = context.WithValue(ctx, "devtoolsEnabled", devtoolsEnabled)
 
 	// Set up logger
-	myLogger := logger.New(appoptions.Logger)
+	myLogger := logger.New(appoptions.X日志记录器)
 	if IsDebug() {
-		myLogger.SetLogLevel(appoptions.LogLevel)
+		myLogger.SetLogLevel(appoptions.X日志级别)
 	} else {
 		myLogger.SetLogLevel(appoptions.LogLevelProduction)
 	}
@@ -62,8 +58,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	menuManager := menumanager.NewManager()
 
 	// 处理应用程序菜单
-	if appoptions.Menu != nil {
-		err = menuManager.SetApplicationMenu(appoptions.Menu)
+	if appoptions.X菜单 != nil {
+		err = menuManager.SetApplicationMenu(appoptions.X菜单)
 		if err != nil {
 			return nil, err
 		}
@@ -71,10 +67,10 @@ func CreateApp(appoptions *options.App) (*App, error) {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
 	bindingExemptions := []interface{}{
-		appoptions.OnStartup,
-		appoptions.OnShutdown,
-		appoptions.OnDomReady,
-		appoptions.OnBeforeClose,
+		appoptions.X启动前回调函数,
+		appoptions.X应用退出回调函数,
+		appoptions.DOM就绪回调函数,
+		appoptions.X应用关闭前回调函数,
 	}
 	appBindings := binding.NewBindings(myLogger, appoptions.Bind, bindingExemptions, IsObfuscated(), appoptions.EnumBind)
 	eventHandler := runtime.NewEvents(myLogger)
@@ -96,8 +92,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 		frontend:         appFrontend,
 		logger:           myLogger,
 		menuManager:      menuManager,
-		startupCallback:  appoptions.OnStartup,
-		shutdownCallback: appoptions.OnShutdown,
+		startupCallback:  appoptions.X启动前回调函数,
+		shutdownCallback: appoptions.X应用退出回调函数,
 		debug:            debug,
 		devtoolsEnabled:  devtoolsEnabled,
 		options:          appoptions,

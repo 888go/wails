@@ -36,8 +36,6 @@ type Dependency struct {
 type DependencyList []*Dependency
 
 // InstallAllRequiredCommand 返回你需要使用的命令，以便安装所有必需的依赖项
-
-// ff:
 func (d DependencyList) InstallAllRequiredCommand() string {
 	result := ""
 	for _, dependency := range d {
@@ -50,8 +48,6 @@ func (d DependencyList) InstallAllRequiredCommand() string {
 }
 
 // InstallAllOptionalCommand 返回用于安装所有可选依赖项的命令
-
-// ff:
 func (d DependencyList) InstallAllOptionalCommand() string {
 	result := ""
 	for _, dependency := range d {

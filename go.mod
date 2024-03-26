@@ -2,6 +2,7 @@ module github.com/888go/wails
 
 go 1.20
 
+
 require (
 	github.com/Masterminds/semver v1.5.0
 	github.com/bep/debounce v1.2.1
