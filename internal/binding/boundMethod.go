@@ -16,16 +16,23 @@ type BoundMethod struct {
 }
 
 // InputCount 返回此绑定方法的输入参数个数
+
+// ff:
 func (b *BoundMethod) InputCount() int {
 	return len(b.Inputs)
 }
 
 // OutputCount 返回该绑定方法的输出数量
+
+// ff:
 func (b *BoundMethod) OutputCount() int {
 	return len(b.Outputs)
 }
 
 // ParseArgs 方法将输入的 JSON 转换为该方法期望的类型
+
+// ff:
+// args:
 func (b *BoundMethod) ParseArgs(args []json.RawMessage) ([]interface{}, error) {
 	result := make([]interface{}, b.InputCount())
 	if len(args) != b.InputCount() {
@@ -48,6 +55,9 @@ func (b *BoundMethod) ParseArgs(args []json.RawMessage) ([]interface{}, error) {
 }
 
 // Call 将尝试使用给定的参数调用此绑定方法
+
+// ff:
+// args:
 func (b *BoundMethod) Call(args []interface{}) (interface{}, error) {
 	// Check inputs
 	expectedInputLength := len(b.Inputs)

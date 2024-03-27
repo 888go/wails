@@ -22,31 +22,31 @@ import (
 type WindowStartState int
 
 const (
-	X常量_正常     WindowStartState = 0
-	X常量_最大化  WindowStartState = 1
-	X常量_最小化  WindowStartState = 2
-	X常量_全屏 WindowStartState = 3
+	X常量_正常  WindowStartState = 0
+	X常量_最大化 WindowStartState = 1
+	X常量_最小化 WindowStartState = 2
+	X常量_全屏  WindowStartState = 3
 )
 
 type Experimental struct{}
 
 // App 包含用于创建 App 的选项
 type App struct {
-	X标题             string
-	X宽度             int
-	X高度            int
-	X禁用调整大小     bool
-	X全屏        bool
-	X无边框         bool
-	X最小宽度          int
-	X最小高度         int
-	X最大宽度          int
-	X最大高度         int
-	X启动时隐藏窗口       bool
+	X标题      string
+	X宽度      int
+	X高度      int
+	X禁用调整大小  bool
+	X全屏      bool
+	X无边框     bool
+	X最小宽度    int
+	X最小高度    int
+	X最大宽度    int
+	X最大高度    int
+	X启动时隐藏窗口 bool
 	X关闭时隐藏窗口 bool
-	X始终置顶       bool
-// BackgroundColour 是窗口的背景颜色
-// 你可以使用 options.NewRGB 和 options.NewRGBA 函数来创建新的颜色
+	X始终置顶    bool
+	// BackgroundColour 是窗口的背景颜色
+	// 你可以使用 options.NewRGB 和 options.NewRGBA 函数来创建新的颜色
 	X背景颜色 *RGBA
 	// 已弃用：请改用 AssetServer.Assets。
 	Assets弃用 fs.FS
@@ -54,17 +54,17 @@ type App struct {
 	AssetsHandler弃用 http.Handler
 	// AssetServer 配置应用所需的资源
 	AssetServer        *assetserver.Options
-	X菜单               *menu.Menu
+	X菜单                *menu.Menu
 	X日志记录器             logger.Logger `json:"-"`
-	X日志级别           logger.LogLevel
-	LogLevelProduction logger.LogLevel
-	X启动前回调函数          func(ctx context.Context)                `json:"-"`
-	DOM就绪回调函数         func(ctx context.Context)                `json:"-"`
-	X应用退出回调函数         func(ctx context.Context)                `json:"-"`
-	X应用关闭前回调函数      func(ctx context.Context) (prevent bool) `json:"-"`
+	X日志级别              logger.LogLevel
+	LogLevelProduction logger.LogLevel                          //hs:生产日志级别
+	X启动前回调函数           func(ctx context.Context)                `json:"-"`
+	DOM就绪回调函数          func(ctx context.Context)                `json:"-"`
+	X应用退出回调函数          func(ctx context.Context)                `json:"-"`
+	X应用关闭前回调函数         func(ctx context.Context) (prevent bool) `json:"-"`
 	Bind               []interface{}
 	EnumBind           []interface{}
-	X窗口启动状态   WindowStartState
+	X窗口启动状态            WindowStartState
 
 	// ErrorFormatter 重写后端方法返回错误的格式化方式
 	ErrorFormatter ErrorFormatter
@@ -75,12 +75,12 @@ type App struct {
 	// CSSDragProperty必须拥有的CSS值才能被拖动，例如："drag"
 	CSS拖动值 string
 
-// EnableDefaultContextMenu 在生产环境中启用浏览器的默认右键菜单
-// 在开发和调试版本中，此菜单已经默认启用
+	// EnableDefaultContextMenu 在生产环境中启用浏览器的默认右键菜单
+	// 在开发和调试版本中，此菜单已经默认启用
 	X右键菜单 bool
 
-// EnableFraudulentWebsiteDetection 启用欺诈网站检测功能，该功能会扫描诸如恶意软件或网络钓鱼企图等欺诈内容。
-// 这些服务可能会从您的应用中发送信息，例如访问过的URL以及其他可能的内容到苹果和微软的云端服务。
+	// EnableFraudulentWebsiteDetection 启用欺诈网站检测功能，该功能会扫描诸如恶意软件或网络钓鱼企图等欺诈内容。
+	// 这些服务可能会从您的应用中发送信息，例如访问过的URL以及其他可能的内容到苹果和微软的云端服务。
 	X启用欺诈网站检测 bool
 
 	X单实例锁 *SingleInstanceLock
@@ -106,6 +106,11 @@ type RGBA struct {
 }
 
 // NewRGBA 通过给定的值创建一个新的 RGBA 结构体
+
+// a:
+// b:
+// g:
+// r:
 func X创建RGBA(r, g, b, a uint8) *RGBA {
 	return &RGBA{
 		R: r,
@@ -116,6 +121,10 @@ func X创建RGBA(r, g, b, a uint8) *RGBA {
 }
 
 // NewRGB 通过给定的值创建一个新的 RGBA 结构体，并将 Alpha 设置为 255
+
+// b:
+// g:
+// r:
 func X创建RGB(r, g, b uint8) *RGBA {
 	return &RGBA{
 		R: r,
@@ -126,6 +135,8 @@ func X创建RGB(r, g, b uint8) *RGBA {
 }
 
 // MergeDefaults 将为应用程序设置最小的默认值
+
+// ff:
 func MergeDefaults(app选项 *App) {
 	// Do set defaults
 	if app选项.X宽度 <= 0 {
@@ -179,6 +190,7 @@ type SecondInstanceData struct {
 	WorkingDirectory string
 }
 
+// ff:
 func NewSecondInstanceData() (*SecondInstanceData, error) {
 	ex, err := os.Executable()
 	if err != nil {

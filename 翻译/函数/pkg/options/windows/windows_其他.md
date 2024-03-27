@@ -92,3 +92,36 @@ hs=禁用RendererCodeIntegrity
 
 [EnableSwipeGestures bool]
 hs=启用滑动手势
+
+[InstallationRequired string]
+hs=WebView2需安装
+
+[UpdateRequired       string]
+hs=WebView2需更新
+
+[MissingRequirements  string]
+hs=缺少必要组件
+
+[Webview2NotInstalled string]
+hs=WebView2未安装
+
+[Error                string]
+hs=出错
+
+[FailedToInstall      string]
+hs=安装失败
+
+[DownloadPage         string]
+hs=跳转WebView2下载页面
+
+[PressOKToInstall     string]
+hs=按OK安装
+
+[ContactAdmin         string]
+hs=联系管理员
+
+[InvalidFixedWebview2 string]
+hs=WebView2指定目录无效
+
+[WebView2ProcessCrash string]
+hs=WebView2进程崩溃

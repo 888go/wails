@@ -22,6 +22,9 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
+
+// ff:
+// uniqueID:
 func SetupSingleInstance(uniqueID string) {
 	lockFilePath := getTempDir()
 	lockFileName := uniqueID + ".lock"
@@ -51,6 +54,9 @@ func SetupSingleInstance(uniqueID string) {
 //export HandleSecondInstanceData
 // 导出HandleSecondInstanceData函数，以便在C语言或其他外部语言中调用
 // （由于上下文不完整，无法提供更详尽的翻译，但大体上，Go语言中的`//export`注释是用来标记一个函数，表示该函数需要被cgo暴露给C代码或者其他使用CGO的环境，使得它们可以调用Go编写的这个函数。）
+
+// ff:
+// secondInstanceMessage:
 func HandleSecondInstanceData(secondInstanceMessage *C.char) {
 	message := C.GoString(secondInstanceMessage)
 

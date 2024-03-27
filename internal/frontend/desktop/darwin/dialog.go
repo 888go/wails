@@ -32,6 +32,9 @@ var (
 )
 
 // OpenDirectoryDialog 提示用户选择一个目录
+
+// ff:
+// options:
 func (f *Frontend) OpenDirectoryDialog(options frontend.OpenDialogOptions) (string, error) {
 	results, err := f.openDialog(&options, false, false, true)
 	if err != nil {
@@ -86,6 +89,9 @@ func (f *Frontend) openDialog(options *frontend.OpenDialogOptions, multiple bool
 }
 
 // OpenFileDialog 提示用户选择一个文件
+
+// ff:
+// options:
 func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, error) {
 	results, err := f.openDialog(&options, false, true, false)
 	if err != nil {
@@ -99,11 +105,17 @@ func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, e
 }
 
 // OpenMultipleFilesDialog 提示用户选择一个或多个文件
+
+// ff:
+// options:
 func (f *Frontend) OpenMultipleFilesDialog(options frontend.OpenDialogOptions) ([]string, error) {
 	return f.openDialog(&options, true, true, false)
 }
 
 // SaveFileDialog 弹出文件选择对话框，提示用户选择一个文件
+
+// ff:
+// options:
 func (f *Frontend) SaveFileDialog(options frontend.SaveDialogOptions) (string, error) {
 	dialogLock.Lock()
 	defer dialogLock.Unlock()
@@ -139,6 +151,9 @@ func (f *Frontend) SaveFileDialog(options frontend.SaveDialogOptions) (string, e
 }
 
 // MessageDialog 向用户展示一条消息对话框
+
+// ff:
+// options:
 func (f *Frontend) MessageDialog(options frontend.MessageDialogOptions) (string, error) {
 	dialogLock.Lock()
 	defer dialogLock.Unlock()

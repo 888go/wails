@@ -12,5 +12,29 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func DefaultMessages() *Messages {]
-ff=运行时默认提示
+[func Key(key string) *Accelerator {]
+ff=按键
+key=按键字符
+
+[func CmdOrCtrl(key string) *Accelerator {]
+ff=组合按键Cmd或Ctrl
+key=按键字符
+
+[func OptionOrAlt(key string) *Accelerator {]
+ff=组合按键Option或Alt键
+key=按键字符
+
+[func Shift(key string) *Accelerator {]
+ff=组合按键Shift
+key=按键字符
+
+[func Control(key string) *Accelerator {]
+ff=组合按键Ctrl键
+key=按键字符
+
+[func Combo(key string, modifier1 Modifier, modifier2 Modifier, rest ...Modifier) *Accelerator {]
+ff=组合按键
+rest=组合键s
+modifier2=组合键2
+modifier1=组合键1
+key=按键字符

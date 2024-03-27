@@ -20,6 +20,9 @@ import (
 	"github.com/888go/wails/pkg/menu"
 )
 
+
+// ff:
+// label:
 func GtkMenuItemWithLabel(label string) *C.GtkWidget {
 	cLabel := C.CString(label)
 	result := C.gtk_menu_item_new_with_label(cLabel)
@@ -27,6 +30,9 @@ func GtkMenuItemWithLabel(label string) *C.GtkWidget {
 	return result
 }
 
+
+// ff:
+// label:
 func GtkCheckMenuItemWithLabel(label string) *C.GtkWidget {
 	cLabel := C.CString(label)
 	result := C.gtk_check_menu_item_new_with_label(cLabel)
@@ -34,6 +40,10 @@ func GtkCheckMenuItemWithLabel(label string) *C.GtkWidget {
 	return result
 }
 
+
+// ff:
+// group:
+// label:
 func GtkRadioMenuItemWithLabel(label string, group *C.GSList) *C.GtkWidget {
 	cLabel := C.CString(label)
 	result := C.gtk_radio_menu_item_new_with_label(group, cLabel)

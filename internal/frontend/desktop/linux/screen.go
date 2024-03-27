@@ -51,6 +51,9 @@ import (
 
 type Screen = frontend.Screen
 
+
+// ff:
+// window:
 func GetAllScreens(window *C.GtkWindow) ([]Screen, error) {
 	if window == nil {
 		return nil, errors.New("window is nil, cannot perform screen operations")

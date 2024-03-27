@@ -37,4 +37,5 @@
     <tree path="/pkg/menu/contextmenu.go" title="上下文菜单"/>
     <tree path="/pkg/buildassets/build" title="构建编译"/>
     <tree path="/pkg/commands/build/desktop.go" title="内部方法"/>
+    <tree path="/pkg/menu/keys/keys.go" title="快捷键"/>
 </trees>

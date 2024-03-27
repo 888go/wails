@@ -38,6 +38,9 @@ const (
 	ProfileNotFound           = 21
 )
 
+
+// ff:
+// s:
 func GetGpStatus(s int32) string {
 	switch s {
 	case Ok:
@@ -103,6 +106,9 @@ var (
 	procGdiplusStartup               = modgdiplus.NewProc("GdiplusStartup")
 )
 
+
+// ff:
+// filename:
 func GdipCreateBitmapFromFile(filename string) (*uintptr, error) {
 	var bitmap *uintptr
 	ret, _, _ := procGdipCreateBitmapFromFile.Call(
@@ -116,6 +122,10 @@ func GdipCreateBitmapFromFile(filename string) (*uintptr, error) {
 	return bitmap, nil
 }
 
+
+// ff:
+// resId:
+// instance:
 func GdipCreateBitmapFromResource(instance HINSTANCE, resId *uint16) (*uintptr, error) {
 	var bitmap *uintptr
 	ret, _, _ := procGdipCreateBitmapFromResource.Call(
@@ -130,6 +140,9 @@ func GdipCreateBitmapFromResource(instance HINSTANCE, resId *uint16) (*uintptr, 
 	return bitmap, nil
 }
 
+
+// ff:
+// stream:
 func GdipCreateBitmapFromStream(stream *IStream) (*uintptr, error) {
 	var bitmap *uintptr
 	ret, _, _ := procGdipCreateBitmapFromStream.Call(
@@ -143,6 +156,11 @@ func GdipCreateBitmapFromStream(stream *IStream) (*uintptr, error) {
 	return bitmap, nil
 }
 
+
+// ff:
+// HBITMAP:
+// background:
+// bitmap:
 func GdipCreateHBITMAPFromBitmap(bitmap *uintptr, background uint32) (HBITMAP, error) {
 	var hbitmap HBITMAP
 	ret, _, _ := procGdipCreateHBITMAPFromBitmap.Call(
@@ -157,14 +175,23 @@ func GdipCreateHBITMAPFromBitmap(bitmap *uintptr, background uint32) (HBITMAP, e
 	return hbitmap, nil
 }
 
+
+// ff:
+// image:
 func GdipDisposeImage(image *uintptr) {
 	procGdipDisposeImage.Call(uintptr(unsafe.Pointer(image)))
 }
 
+
+// ff:
 func GdiplusShutdown() {
 	procGdiplusShutdown.Call(token)
 }
 
+
+// ff:
+// output:
+// input:
 func GdiplusStartup(input *GdiplusStartupInput, output *GdiplusStartupOutput) {
 	ret, _, _ := procGdiplusStartup.Call(
 		uintptr(unsafe.Pointer(&token)),

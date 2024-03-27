@@ -19,6 +19,9 @@ type Icon struct {
 	handle w32.HICON
 }
 
+
+// ff:
+// path:
 func NewIconFromFile(path string) (*Icon, error) {
 	ico := new(Icon)
 	var err error
@@ -28,6 +31,10 @@ func NewIconFromFile(path string) (*Icon, error) {
 	return ico, err
 }
 
+
+// ff:
+// resId:
+// instance:
 func NewIconFromResource(instance w32.HINSTANCE, resId uint16) (*Icon, error) {
 	ico := new(Icon)
 	var err error
@@ -37,6 +44,10 @@ func NewIconFromResource(instance w32.HINSTANCE, resId uint16) (*Icon, error) {
 	return ico, err
 }
 
+
+// ff:
+// index:
+// fileName:
 func ExtractIcon(fileName string, index int) (*Icon, error) {
 	ico := new(Icon)
 	var err error
@@ -46,10 +57,14 @@ func ExtractIcon(fileName string, index int) (*Icon, error) {
 	return ico, err
 }
 
+
+// ff:
 func (ic *Icon) Destroy() bool {
 	return w32.DestroyIcon(ic.handle)
 }
 
+
+// ff:
 func (ic *Icon) Handle() w32.HICON {
 	return ic.handle
 }

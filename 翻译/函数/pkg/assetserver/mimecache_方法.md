@@ -12,5 +12,7 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func DefaultMessages() *Messages {]
-ff=运行时默认提示
+[func GetMimetype(filename string, data #左中括号##右中括号#byte) string {]
+ff=取文件Mimetype
+data=字节集值
+filename=文件名

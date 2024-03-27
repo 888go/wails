@@ -22,6 +22,10 @@ type COPYDATASTRUCT struct {
 // WMCOPYDATA_SINGLE_INSTANCE_DATA 定义我们自己的 WM_COPYDATA 消息类型
 const WMCOPYDATA_SINGLE_INSTANCE_DATA = 1542
 
+
+// ff:
+// data:
+// hwnd:
 func SendMessage(hwnd w32.HWND, data string) {
 	arrUtf16, _ := syscall.UTF16FromString(data)
 
@@ -34,6 +38,9 @@ func SendMessage(hwnd w32.HWND, data string) {
 }
 
 // SetupSingleInstance 设置单实例Windows应用程序
+
+// ff:
+// uniqueId:
 func SetupSingleInstance(uniqueId string) {
 	id := "wails-app-" + uniqueId
 

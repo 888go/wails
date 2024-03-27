@@ -47,6 +47,10 @@ type ProcessedMenuItem struct {
 	*/
 }
 
+
+// ff:
+// menuItem:
+// menuItemMap:
 func NewProcessedMenuItem(menuItemMap *MenuItemMap, menuItem *menu.MenuItem) *ProcessedMenuItem {
 	ID := menuItemMap.menuItemToIDMap[menuItem]
 
@@ -91,6 +95,10 @@ type ProcessedMenu struct {
 	Items []*ProcessedMenuItem
 }
 
+
+// ff:
+// menu:
+// menuItemMap:
 func NewProcessedMenu(menuItemMap *MenuItemMap, menu *menu.Menu) *ProcessedMenu {
 	result := &ProcessedMenu{}
 	if menu != nil {
@@ -116,6 +124,10 @@ type RadioGroup struct {
 	Length  int
 }
 
+
+// ff:
+// menu:
+// menuItemMap:
 func NewWailsMenu(menuItemMap *MenuItemMap, menu *menu.Menu) *WailsMenu {
 	result := &WailsMenu{}
 
@@ -128,6 +140,8 @@ func NewWailsMenu(menuItemMap *MenuItemMap, menu *menu.Menu) *WailsMenu {
 	return result
 }
 
+
+// ff:
 func (w *WailsMenu) AsJSON() (string, error) {
 	menuAsJSON, err := json.Marshal(w)
 	if err != nil {

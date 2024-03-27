@@ -157,6 +157,10 @@ func X构建项目(选项 *Options) (string, error) {
 	return compileBinary, nil
 }
 
+
+// ff:
+// buildOptions:
+// cwd:
 func CreateEmbedDirectories(cwd string, buildOptions *Options) error {
 	path := cwd
 	if buildOptions.ProjectData != nil {
@@ -210,6 +214,9 @@ func printBulletPoint(text string, args ...any) {
 	pterm.Printf(t, args...)
 }
 
+
+// ff:
+// buildOptions:
 func GenerateBindings(buildOptions *Options) error {
 	obfuscated := buildOptions.Obfuscated
 	if obfuscated {

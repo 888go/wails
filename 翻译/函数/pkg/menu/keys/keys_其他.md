@@ -14,3 +14,18 @@
 
 [Key       string]
 hs=名称
+
+[CmdOrCtrlKey Modifier = "cmdorctrl"]
+hs=常量_组合键_Cmd或Ctrl键
+
+[OptionOrAltKey Modifier = "optionoralt"]
+hs=常量_组合键_Option或Alt键
+
+[ShiftKey Modifier = "shift"]
+hs=常量_组合键_Shift键
+
+[ControlKey Modifier = "ctrl"]
+hs=常量_组合键_Ctrl键
+
+[Modifiers #左中括号##右中括号#Modifier]
+hs=修饰符

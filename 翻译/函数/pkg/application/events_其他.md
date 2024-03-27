@@ -12,5 +12,11 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func DefaultMessages() *Messages {]
-ff=运行时默认提示
+[StartUp  EventType = iota]
+hs=常量_事件类型_启动前
+
+[ShutDown]
+hs=常量_事件类型_应用退出
+
+[DomReady]
+hs=常量_事件类型_DOM就绪

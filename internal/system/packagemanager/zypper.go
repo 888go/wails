@@ -18,6 +18,9 @@ type Zypper struct {
 }
 
 // NewZypper 创建一个新的 Zypper 实例
+
+// ff:
+// osid:
 func NewZypper(osid string) *Zypper {
 	return &Zypper{
 		name: "zypper",
@@ -27,6 +30,8 @@ func NewZypper(osid string) *Zypper {
 
 // Packages 返回 Wails 编译所需的库
 // 在不同的发行版或版本中，这些库可能会有所不同
+
+// ff:
 func (z *Zypper) Packages() packagemap {
 	return packagemap{
 		"libgtk-3": []*Package{
@@ -54,11 +59,16 @@ func (z *Zypper) Packages() packagemap {
 }
 
 // Name 返回包管理器的名称
+
+// ff:
 func (z *Zypper) Name() string {
 	return z.name
 }
 
 // PackageInstalled 测试给定的包名是否已安装
+
+// ff:
+// pkg:
 func (z *Zypper) PackageInstalled(pkg *Package) (bool, error) {
 	if pkg.SystemPackage == false {
 		return false, nil
@@ -84,6 +94,9 @@ func (z *Zypper) PackageInstalled(pkg *Package) (bool, error) {
 }
 
 // PackageAvailable 测试给定的包是否可供安装
+
+// ff:
+// pkg:
 func (z *Zypper) PackageAvailable(pkg *Package) (bool, error) {
 	if pkg.SystemPackage == false {
 		return false, nil
@@ -109,6 +122,9 @@ func (z *Zypper) PackageAvailable(pkg *Package) (bool, error) {
 }
 
 // InstallCommand 返回特定包管理器用于安装包的命令
+
+// ff:
+// pkg:
 func (z *Zypper) InstallCommand(pkg *Package) string {
 	if pkg.SystemPackage == false {
 		return pkg.InstallCommand[z.osid]

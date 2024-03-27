@@ -99,6 +99,9 @@ func X窗口设置置顶(上下文 context.Context, 置顶 bool) {
 }
 
 // WindowSetPosition 设置窗口的位置
+
+// y:
+// x:
 func X窗口设置位置(上下文 context.Context, x int, y int) {
 	appFrontend := getFrontend(上下文)
 	appFrontend.WindowSetPosition(x, y)
@@ -169,6 +172,11 @@ func X窗口执行JS(上下文 context.Context, js代码 string) {
 	appFrontend.ExecJS(js代码)
 }
 
+
+// A:
+// B:
+// G:
+// R:
 func X窗口设置背景色(上下文 context.Context, R, G, B, A uint8) {
 	appFrontend := getFrontend(上下文)
 	col := &options.RGBA{

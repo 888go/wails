@@ -7,6 +7,8 @@ import (
 	"github.com/888go/wails/pkg/options/windows"
 )
 
+
+// ff:
 func (w *Window) UpdateTheme() {
 
 	// 如果主题没有变化，则不要重绘

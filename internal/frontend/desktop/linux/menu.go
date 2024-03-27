@@ -44,14 +44,22 @@ var gtkRadioMenuCache map[*menu.MenuItem][]*C.GtkWidget
 var gtkSignalHandlers map[*C.GtkWidget]C.gulong
 var gtkSignalToMenuItem map[*C.GtkWidget]*menu.MenuItem
 
+
+// ff:
+// menu:
 func (f *Frontend) MenuSetApplicationMenu(menu *menu.Menu) {
 	f.mainWindow.SetApplicationMenu(menu)
 }
 
+
+// ff:
 func (f *Frontend) MenuUpdateApplicationMenu() {
 	f.mainWindow.SetApplicationMenu(f.mainWindow.applicationMenu)
 }
 
+
+// ff:
+// inmenu:
 func (w *Window) SetApplicationMenu(inmenu *menu.Menu) {
 	if inmenu == nil {
 		return

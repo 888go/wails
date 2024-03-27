@@ -57,6 +57,8 @@ func (m *Menu) X加入子菜单最前(菜单项 *MenuItem) {
 	m.Items = append([]*MenuItem{菜单项}, m.Items...)
 }
 
+
+// first:
 func X创建菜单并按菜单项(first *MenuItem, 第一个 ...*MenuItem) *Menu {
 	result := X创建()
 	result.X加入(first)

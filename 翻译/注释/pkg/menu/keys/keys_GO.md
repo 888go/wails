@@ -45,11 +45,6 @@
 // SuperKey 表示在 Mac 上的 Command 键，在其他平台（如 Windows）上表示 Windows 键
 // SuperKey Modifier = "super"
 // ControlKey 代表在所有系统上的控制键
-// 注释翻译：
-// ```go
-// SuperKey 代表在 Mac 操作系统中的 Command 键，在非 Mac 平台（如 Windows 系统）上则代表 Windows 键
-// SuperKey 对应的修饰键名称为 "super"
-// ControlKey 在所有操作系统中均表示控制键
 # <翻译结束>
 
 

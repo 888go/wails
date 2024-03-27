@@ -49,6 +49,9 @@ type DevWebServer struct {
 	devServerAddr string
 }
 
+
+// ff:
+// ctx:
 func (d *DevWebServer) Run(ctx context.Context) error {
 	d.ctx = ctx
 
@@ -130,16 +133,24 @@ func (d *DevWebServer) Run(ctx context.Context) error {
 	return err
 }
 
+
+// ff:
 func (d *DevWebServer) WindowReload() {
 	d.broadcast("reload")
 	d.Frontend.WindowReload()
 }
 
+
+// ff:
 func (d *DevWebServer) WindowReloadApp() {
 	d.broadcast("reloadapp")
 	d.Frontend.WindowReloadApp()
 }
 
+
+// ff:
+// data:
+// name:
 func (d *DevWebServer) Notify(name string, data ...interface{}) {
 	d.notify(name, data...)
 }
@@ -203,6 +214,10 @@ func (d *DevWebServer) handleIPCWebSocket(c echo.Context) error {
 	return nil
 }
 
+
+// ff:
+// args:
+// message:
 func (d *DevWebServer) LogDebug(message string, args ...interface{}) {
 	d.logger.Debug("[DevWebServer] "+message, args...)
 }
@@ -280,6 +295,15 @@ func (d *DevWebServer) notifyExcludingSender(eventMessage []byte, sender *websoc
 	d.Frontend.Notify(notifyMessage.Name, notifyMessage.Data...)
 }
 
+
+// ff:
+// desktopFrontend:
+// menuManager:
+// dispatcher:
+// appBindings:
+// myLogger:
+// appoptions:
+// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher, menuManager *menumanager.Manager, desktopFrontend frontend.Frontend) *DevWebServer {
 	result := &DevWebServer{
 		ctx:              ctx,

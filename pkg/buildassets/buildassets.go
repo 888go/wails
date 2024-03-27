@@ -10,10 +10,10 @@ import (
 	"path/filepath"
 	"text/template"
 
-	"github.com/leaanthony/gosod"
-	"github.com/samber/lo"
 	"github.com/888go/wails/internal/fs"
 	"github.com/888go/wails/internal/project"
+	"github.com/leaanthony/gosod"
+	"github.com/samber/lo"
 )
 
 //go:embed build
@@ -27,6 +27,9 @@ func init() {
 }
 
 // Install 将安装所有默认项目资源
+
+// ff:
+// targetDir:
 func Install(targetDir string) error {
 	templateDir := gosod.New(assets)
 	err := templateDir.Extract(targetDir, nil)
@@ -38,12 +41,19 @@ func Install(targetDir string) error {
 }
 
 // GetLocalPath 返回请求构建资源文件的本地路径
+
+// ff:
+// file:
+// projectData:
 func GetLocalPath(projectData *project.Project, file string) string {
 	return filepath.Clean(filepath.Join(projectData.GetBuildDir(), filepath.FromSlash(file)))
 }
 
 // ReadFile 从项目构建文件夹中读取文件。
 // 如果文件不存在，则回退到嵌入的文件，并将文件写入磁盘以便进行自定义。
+
+// file:
+// projectData:
 func X读文件(projectData *project.Project, file string) ([]byte, error) {
 	localFilePath := GetLocalPath(projectData, file)
 
@@ -67,6 +77,10 @@ func X读文件(projectData *project.Project, file string) ([]byte, error) {
 // ReadFileWithProjectData 从项目构建文件夹读取文件，并在必要时替换 ProjectInfo。
 // 如果文件不存在，则回退到嵌入的文件，该文件将被写入磁盘以便进行自定义。
 // 写入的文件是原始未解析的文件。
+
+// ff:
+// file:
+// projectData:
 func ReadFileWithProjectData(projectData *project.Project, file string) ([]byte, error) {
 	content, err := X读文件(projectData, file)
 	if err != nil {
@@ -82,6 +96,10 @@ func ReadFileWithProjectData(projectData *project.Project, file string) ([]byte,
 
 // ReadOriginalFileWithProjectDataAndSave 从嵌入的资源中读取文件，并在必要时替换项目信息（ProjectInfo）。
 // 同时，它还会将解析后的最终文件写回到项目的构建目录中。
+
+// ff:
+// file:
+// projectData:
 func ReadOriginalFileWithProjectDataAndSave(projectData *project.Project, file string) ([]byte, error) {
 	content, err := iofs.ReadFile(buildAssets, file)
 	if err != nil {

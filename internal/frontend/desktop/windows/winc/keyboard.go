@@ -15,6 +15,8 @@ import (
 
 type Key uint16
 
+
+// ff:
 func (k Key) String() string {
 	return key2string[k]
 }
@@ -372,6 +374,8 @@ var key2string = map[Key]string{
 
 type Modifiers byte
 
+
+// ff:
 func (m Modifiers) String() string {
 	return modifiers2string[m]
 }
@@ -391,6 +395,8 @@ const (
 	ModAlt
 )
 
+
+// ff:
 func ModifiersDown() Modifiers {
 	var m Modifiers
 
@@ -412,6 +418,8 @@ type Shortcut struct {
 	Key       Key
 }
 
+
+// ff:
 func (s Shortcut) String() string {
 	m := s.Modifiers.String()
 	if m == "" {
@@ -427,14 +435,20 @@ func (s Shortcut) String() string {
 	return b.String()
 }
 
+
+// ff:
 func AltDown() bool {
 	return w32.GetKeyState(int32(KeyAlt))>>15 != 0
 }
 
+
+// ff:
 func ControlDown() bool {
 	return w32.GetKeyState(int32(KeyControl))>>15 != 0
 }
 
+
+// ff:
 func ShiftDown() bool {
 	return w32.GetKeyState(int32(KeyShift))>>15 != 0
 }

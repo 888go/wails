@@ -16,6 +16,8 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
+
+// ff:
 func (a *App) Run() error {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
@@ -73,6 +75,9 @@ func (a *App) Run() error {
 }
 
 // CreateApp 创建应用！
+
+// ff:
+// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	// Set up logger
 	myLogger := logger.New(appoptions.X日志记录器)

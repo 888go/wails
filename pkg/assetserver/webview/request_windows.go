@@ -13,6 +13,9 @@ import (
 )
 
 // NewRequest 创建一个新的 WebViewRequest 用于 Chromium。这个方法必须在主线程中调用！
+
+// Request:
+// fn:
 func X创建请求对象(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
 	req, err := args.GetRequest()
 	if err != nil {
@@ -78,6 +81,8 @@ type request struct {
 	invokeSync func(fn func())
 }
 
+
+// ff:
 func (r *request) URL() (string, error) {
 	return r.url, r.urlErr
 }
@@ -146,6 +151,9 @@ type iStreamReleaseCloser struct {
 	closed bool
 }
 
+
+// ff:
+// p:
 func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	if i.closed {
 		return 0, io.ErrClosedPipe
@@ -153,6 +161,8 @@ func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	return i.stream.Read(p)
 }
 
+
+// ff:
 func (i *iStreamReleaseCloser) Close() error {
 	if i.closed {
 		return nil

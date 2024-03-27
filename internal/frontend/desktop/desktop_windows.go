@@ -12,6 +12,13 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
+
+// ff:
+// dispatcher:
+// appBindings:
+// logger:
+// appoptions:
+// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, logger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher) frontend.Frontend {
 	return windows.NewFrontend(ctx, appoptions, logger, appBindings, dispatcher)
 }

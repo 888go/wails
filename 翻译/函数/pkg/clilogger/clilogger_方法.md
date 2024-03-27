@@ -26,3 +26,7 @@ message=消息
 
 [func New(writer io.Writer) *CLILogger {]
 ff=创建
+
+[func (c *CLILogger) Mute(value bool) {]
+ff=禁用日志
+value=禁用

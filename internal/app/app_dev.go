@@ -28,6 +28,8 @@ import (
 	"github.com/888go/wails/pkg/options"
 )
 
+
+// ff:
 func (a *App) Run() error {
 	err := a.frontend.Run(a.ctx)
 	a.frontend.RunMainLoop()
@@ -39,6 +41,9 @@ func (a *App) Run() error {
 }
 
 // CreateApp creates the app!
+
+// ff:
+// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	var err error
 

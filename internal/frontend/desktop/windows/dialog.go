@@ -29,6 +29,9 @@ func getDefaultFolder(folder string) (string, error) {
 }
 
 // OpenDirectoryDialog 提示用户选择一个目录
+
+// ff:
+// options:
 func (f *Frontend) OpenDirectoryDialog(options frontend.OpenDialogOptions) (string, error) {
 
 	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
@@ -54,6 +57,9 @@ func (f *Frontend) OpenDirectoryDialog(options frontend.OpenDialogOptions) (stri
 }
 
 // OpenFileDialog 提示用户选择一个文件
+
+// ff:
+// options:
 func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, error) {
 	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
 	if err != nil {
@@ -79,6 +85,9 @@ func (f *Frontend) OpenFileDialog(options frontend.OpenDialogOptions) (string, e
 }
 
 // OpenMultipleFilesDialog 提示用户选择一个或多个文件
+
+// ff:
+// options:
 func (f *Frontend) OpenMultipleFilesDialog(options frontend.OpenDialogOptions) ([]string, error) {
 
 	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
@@ -106,6 +115,9 @@ func (f *Frontend) OpenMultipleFilesDialog(options frontend.OpenDialogOptions) (
 }
 
 // SaveFileDialog 弹出文件选择对话框，提示用户选择一个文件
+
+// ff:
+// options:
 func (f *Frontend) SaveFileDialog(options frontend.SaveDialogOptions) (string, error) {
 
 	defaultFolder, err := getDefaultFolder(options.DefaultDirectory)
@@ -178,6 +190,9 @@ func calculateMessageDialogFlags(options frontend.MessageDialogOptions) uint32 {
 }
 
 // MessageDialog 向用户展示一条消息对话框
+
+// ff:
+// options:
 func (f *Frontend) MessageDialog(options frontend.MessageDialogOptions) (string, error) {
 
 	title, err := syscall.UTF16PtrFromString(options.Title)

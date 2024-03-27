@@ -3,17 +3,17 @@ package windows
 type Theme int
 
 type Messages struct {
-	InstallationRequired string
-	UpdateRequired       string
-	MissingRequirements  string
-	Webview2NotInstalled string
-	Error                string
-	FailedToInstall      string
-	DownloadPage         string
-	PressOKToInstall     string
-	ContactAdmin         string
-	InvalidFixedWebview2 string
-	WebView2ProcessCrash string
+	InstallationRequired string //hs:WebView2需安装
+	UpdateRequired       string //hs:WebView2需更新
+	MissingRequirements  string //hs:缺少必要组件
+	Webview2NotInstalled string //hs:WebView2未安装
+	Error                string //hs:出错
+	FailedToInstall      string //hs:安装失败
+	DownloadPage         string //hs:跳转WebView2下载页面
+	PressOKToInstall     string //hs:按OK安装
+	ContactAdmin         string //hs:联系管理员
+	InvalidFixedWebview2 string //hs:WebView2指定目录无效
+	WebView2ProcessCrash string //hs:WebView2进程崩溃
 }
 
 const (
@@ -28,13 +28,17 @@ const (
 type BackdropType int32
 
 const (
-	X常量_半透明类型_自动    BackdropType = 0
-	X常量_半透明类型_无    BackdropType = 1
-	X常量_半透明类型_Mica    BackdropType = 2
-	X常量_半透明类型_亚克力 BackdropType = 3
-	X常量_半透明类型_Tabbed  BackdropType = 4
+	X常量_半透明类型_自动     BackdropType = 0
+	X常量_半透明类型_无      BackdropType = 1
+	X常量_半透明类型_Mica   BackdropType = 2 //hs:常量_半透明类型_Mica
+	X常量_半透明类型_亚克力    BackdropType = 3
+	X常量_半透明类型_Tabbed BackdropType = 4 //hs:常量_半透明类型_Tabbed
 )
 
+// ff:
+// b:
+// g:
+// r:
 func RGB(r, g, b uint8) int32 {
 	col := int32(b)
 	col = col<<8 | int32(g)
@@ -62,11 +66,11 @@ type ThemeSettings struct {
 // Options 是针对 Windows 的特定选项
 type Options struct {
 	X开启Webview透明 bool
-	X开启窗口半透明  bool
-	X禁用窗口图标    bool
+	X开启窗口半透明     bool
+	X禁用窗口图标      bool
 
 	X启用缩放控制 bool
-	X缩放比例           float64
+	X缩放比例   float64
 
 	X禁用缩放 bool
 
