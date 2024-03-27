@@ -210,7 +210,7 @@ var key2string = map[Key]string{
 	KeyReturn:            "Return",
 	KeyShift:             "Shift",
 	KeyControl:           "Control",
-	KeyAlt:               "Alt / X菜单",
+	KeyAlt:               "Alt / Menu",
 	KeyPause:             "Pause",
 	KeyCapital:           "Capital",
 	KeyKana:              "Kana / Hangul",

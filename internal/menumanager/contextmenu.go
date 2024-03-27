@@ -46,7 +46,7 @@ func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 func (m *Manager) UpdateContextMenu(contextMenu *menu.ContextMenu) (string, error) {
 	contextMenuID, contextMenuKnown := m.contextMenuPointers[contextMenu]
 	if !contextMenuKnown {
-		return "", fmt.Errorf("unknown Context X菜单 '%s'. Please add the context menu using AddContextMenu()", contextMenu.ID)
+		return "", fmt.Errorf("unknown Context Menu '%s'. Please add the context menu using AddContextMenu()", contextMenu.ID)
 	}
 
 	// 创建更新后的上下文菜单

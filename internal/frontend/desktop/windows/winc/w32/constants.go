@@ -1,4 +1,4 @@
-//go:build windows
+//---build---//go:build windows
 
 /*
  * Copyright (C) 2019 The Winc Authors. All Rights Reserved.
@@ -3256,7 +3256,7 @@ type NMTCKEYDOWN struct {
 	Flags uint32
 }
 
-// X菜单 support constants
+// Menu support constants
 
 // 常量定义，用于 MENUITEMINFO 结构体中的 fMask 字段
 const (

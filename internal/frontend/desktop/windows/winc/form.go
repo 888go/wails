@@ -189,7 +189,7 @@ func (fm *Form) Fullscreen() {
 		return
 	}
 	// 根据 https://devblogs.microsoft.com/oldnewthing/20050505-04/?p=35703 ，应使用 w32.WS_POPUP | w32.WS_VISIBLE
-	// （译文：根据微软开发者博客《Old New Thing》在2005年5月5日发布的文章所述，应当使用 w32.WS_POPUP 和 w32.WS_VISIBLE 两个标志进行按位或运算。）
+// （译文：根据微软开发者博客《Old New Thing》在2005年5月5日发布的文章所述，应当使用 w32.WS_POPUP 和 w32.WS_VISIBLE 两个标志进行按位或运算。）
 	w32.SetWindowLong(fm.hwnd, w32.GWL_STYLE, fm.previousWindowStyle & ^uint32(w32.WS_OVERLAPPEDWINDOW) | (w32.WS_POPUP|w32.WS_VISIBLE))
 	w32.SetWindowLong(fm.hwnd, w32.GWL_EXSTYLE, fm.previousWindowExStyle & ^uint32(w32.WS_EX_DLGMODALFRAME))
 	fm.isFullscreen = true
@@ -254,7 +254,7 @@ func (fm *Form) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_COMMAND:
 		if lparam == 0 && w32.HIWORD(uint32(wparam)) == 0 {
-			// X菜单 support.
+			// Menu support.
 			actionID := uint16(w32.LOWORD(uint32(wparam)))
 			if action, ok := actionsByID[actionID]; ok {
 				action.onClick.Fire(NewEvent(fm, nil))
@@ -264,7 +264,7 @@ func (fm *Form) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 		// Accelerator support.
 		key := Key(wparam)
 		if uint32(lparam)>>30 == 0 {
-			// 使用TranslateAccelerators未能正常工作，因此我们暂时自行处理这些事件。
+// 使用TranslateAccelerators未能正常工作，因此我们暂时自行处理这些事件。
 			shortcut := Shortcut{ModifiersDown(), key}
 			if action, ok := shortcut2Action[shortcut]; ok {
 				if action.Enabled() {

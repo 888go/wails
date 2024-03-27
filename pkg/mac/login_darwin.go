@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/888go/wails/internal/shell"
 	"github.com/leaanthony/slicer"
 	"github.com/pkg/errors"
+	"github.com/888go/wails/internal/shell"
 )
 
 // StartAtLogin 根据给定的布尔标志，将此应用程序添加到登录项或从中移除。限制条件是当前运行的应用程序必须位于应用包中。

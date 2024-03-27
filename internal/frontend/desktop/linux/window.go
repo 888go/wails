@@ -138,7 +138,7 @@ func NewWindow(appoptions *options.App, debug bool, devtoolsEnabled bool) *Windo
 		}
 	}
 
-	// X菜单
+	// Menu
 	result.SetApplicationMenu(appoptions.Menu)
 
 	return result
