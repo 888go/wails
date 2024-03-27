@@ -122,3 +122,6 @@ hs=应用关闭前回调函数
 
 [CSSDragValue string]
 hs=CSS拖动值
+
+[LogLevelProduction logger.LogLevel]
+hs=生产日志级别
