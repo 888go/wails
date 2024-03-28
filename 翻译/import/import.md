@@ -10,9 +10,9 @@
 # 新地址=github.com/888go/gin
 
 
-[github.com/wailsapp/wails/v2/]
+[github.com/wailsapp/wails/v2]
 目录=\
-新地址=github.com/888go/wails/
+新地址=github.com/888go/wails
 
 
  
