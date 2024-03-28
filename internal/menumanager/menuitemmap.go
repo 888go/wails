@@ -18,6 +18,8 @@ type MenuItemMap struct {
 	menuIDCounterMutex sync.Mutex
 }
 
+
+// ff:
 func NewMenuItemMap() *MenuItemMap {
 	result := &MenuItemMap{
 		idToMenuItemMap: make(map[string]*menu.MenuItem),
@@ -27,6 +29,9 @@ func NewMenuItemMap() *MenuItemMap {
 	return result
 }
 
+
+// ff:
+// menu:
 func (m *MenuItemMap) AddMenu(menu *menu.Menu) {
 	if menu == nil {
 		return
@@ -36,6 +41,8 @@ func (m *MenuItemMap) AddMenu(menu *menu.Menu) {
 	}
 }
 
+
+// ff:
 func (m *MenuItemMap) Dump() {
 	println("idToMenuItemMap:")
 	for key, value := range m.idToMenuItemMap {

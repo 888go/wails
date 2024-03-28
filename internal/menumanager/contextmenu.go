@@ -14,6 +14,8 @@ type ContextMenu struct {
 	menu          *menu.Menu
 }
 
+
+// ff:
 func (t *ContextMenu) AsJSON() (string, error) {
 	data, err := json.Marshal(t)
 	if err != nil {
@@ -22,6 +24,9 @@ func (t *ContextMenu) AsJSON() (string, error) {
 	return string(data), nil
 }
 
+
+// ff:
+// contextMenu:
 func NewContextMenu(contextMenu *menu.ContextMenu) *ContextMenu {
 	result := &ContextMenu{
 		ID:          contextMenu.ID,
@@ -35,6 +40,9 @@ func NewContextMenu(contextMenu *menu.ContextMenu) *ContextMenu {
 	return result
 }
 
+
+// ff:
+// contextMenu:
 func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 	newContextMenu := NewContextMenu(contextMenu)
 
@@ -43,6 +51,9 @@ func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 	m.contextMenuPointers[contextMenu] = contextMenu.ID
 }
 
+
+// ff:
+// contextMenu:
 func (m *Manager) UpdateContextMenu(contextMenu *menu.ContextMenu) (string, error) {
 	contextMenuID, contextMenuKnown := m.contextMenuPointers[contextMenu]
 	if !contextMenuKnown {

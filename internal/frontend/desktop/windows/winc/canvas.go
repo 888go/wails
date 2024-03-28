@@ -21,6 +21,9 @@ type Canvas struct {
 
 var nullBrush = NewNullBrush()
 
+
+// ff:
+// hwnd:
 func NewCanvasFromHwnd(hwnd w32.HWND) *Canvas {
 	hdc := w32.GetDC(hwnd)
 	if hdc == 0 {
@@ -30,6 +33,9 @@ func NewCanvasFromHwnd(hwnd w32.HWND) *Canvas {
 	return &Canvas{hwnd: hwnd, hdc: hdc, doNotDispose: false}
 }
 
+
+// ff:
+// hdc:
 func NewCanvasFromHDC(hdc w32.HDC) *Canvas {
 	if hdc == 0 {
 		panic("Cannot create canvas from invalid HDC.")
@@ -38,6 +44,8 @@ func NewCanvasFromHDC(hdc w32.HDC) *Canvas {
 	return &Canvas{hdc: hdc, doNotDispose: true}
 }
 
+
+// ff:
 func (ca *Canvas) Dispose() {
 	if !ca.doNotDispose && ca.hdc != 0 {
 		if ca.hwnd == 0 {
@@ -50,6 +58,11 @@ func (ca *Canvas) Dispose() {
 	}
 }
 
+
+// ff:
+// y:
+// x:
+// bmp:
 func (ca *Canvas) DrawBitmap(bmp *Bitmap, x, y int) {
 	cdc := w32.CreateCompatibleDC(0)
 	defer w32.DeleteDC(cdc)
@@ -62,6 +75,10 @@ func (ca *Canvas) DrawBitmap(bmp *Bitmap, x, y int) {
 	w32.BitBlt(ca.hdc, x, y, w, h, cdc, 0, 0, w32.SRCCOPY)
 }
 
+
+// ff:
+// rect:
+// bmp:
 func (ca *Canvas) DrawStretchedBitmap(bmp *Bitmap, rect *Rect) {
 	cdc := w32.CreateCompatibleDC(0)
 	defer w32.DeleteDC(cdc)
@@ -75,11 +92,21 @@ func (ca *Canvas) DrawStretchedBitmap(bmp *Bitmap, rect *Rect) {
 	w32.StretchBlt(ca.hdc, int(rc.Left), int(rc.Top), int(rc.Right), int(rc.Bottom), cdc, 0, 0, w, h, w32.SRCCOPY)
 }
 
+
+// ff:
+// y:
+// x:
+// ico:
 func (ca *Canvas) DrawIcon(ico *Icon, x, y int) bool {
 	return w32.DrawIcon(ca.hdc, x, y, ico.Handle())
 }
 
 // DrawFillRect 用指定颜色绘制并填充矩形。
+
+// ff:
+// brush:
+// pen:
+// rect:
 func (ca *Canvas) DrawFillRect(rect *Rect, pen *Pen, brush *Brush) {
 	w32Rect := rect.GetW32Rect()
 
@@ -92,6 +119,10 @@ func (ca *Canvas) DrawFillRect(rect *Rect, pen *Pen, brush *Brush) {
 	w32.Rectangle(ca.hdc, w32Rect.Left, w32Rect.Top, w32Rect.Right, w32Rect.Bottom)
 }
 
+
+// ff:
+// pen:
+// rect:
 func (ca *Canvas) DrawRect(rect *Rect, pen *Pen) {
 	w32Rect := rect.GetW32Rect()
 
@@ -105,10 +136,18 @@ func (ca *Canvas) DrawRect(rect *Rect, pen *Pen) {
 	w32.Rectangle(ca.hdc, w32Rect.Left, w32Rect.Top, w32Rect.Right, w32Rect.Bottom)
 }
 
+
+// ff:
+// brush:
+// rect:
 func (ca *Canvas) FillRect(rect *Rect, brush *Brush) {
 	w32.FillRect(ca.hdc, rect.GetW32Rect(), brush.GetHBRUSH())
 }
 
+
+// ff:
+// pen:
+// rect:
 func (ca *Canvas) DrawEllipse(rect *Rect, pen *Pen) {
 	w32Rect := rect.GetW32Rect()
 
@@ -123,6 +162,11 @@ func (ca *Canvas) DrawEllipse(rect *Rect, pen *Pen) {
 }
 
 // DrawFillEllipse 用指定颜色绘制并填充椭圆。
+
+// ff:
+// brush:
+// pen:
+// rect:
 func (ca *Canvas) DrawFillEllipse(rect *Rect, pen *Pen, brush *Brush) {
 	w32Rect := rect.GetW32Rect()
 
@@ -135,6 +179,13 @@ func (ca *Canvas) DrawFillEllipse(rect *Rect, pen *Pen, brush *Brush) {
 	w32.Ellipse(ca.hdc, w32Rect.Left, w32Rect.Top, w32Rect.Right, w32Rect.Bottom)
 }
 
+
+// ff:
+// pen:
+// y2:
+// x2:
+// y:
+// x:
 func (ca *Canvas) DrawLine(x, y, x2, y2 int, pen *Pen) {
 	w32.MoveToEx(ca.hdc, x, y, nil)
 
@@ -145,6 +196,13 @@ func (ca *Canvas) DrawLine(x, y, x2, y2 int, pen *Pen) {
 }
 
 // 参考Windows 32位API的DrawText文档以了解uFormat的详细信息。
+
+// ff:
+// textColor:
+// font:
+// format:
+// rect:
+// text:
 func (ca *Canvas) DrawText(text string, rect *Rect, format uint, font *Font, textColor Color) {
 	previousFont := w32.SelectObject(ca.hdc, w32.HGDIOBJ(font.GetHFONT()))
 	defer w32.SelectObject(ca.hdc, w32.HGDIOBJ(previousFont))

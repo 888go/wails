@@ -27,6 +27,8 @@ type Manager struct {
 	radioGroups map[*menu.MenuItem][]*menu.MenuItem
 }
 
+
+// ff:
 func NewManager() *Manager {
 	return &Manager{
 		applicationMenuItemMap: NewMenuItemMap(),
@@ -42,6 +44,12 @@ func (m *Manager) getMenuItemByID(menuMap *MenuItemMap, menuId string) *menu.Men
 	return menuMap.idToMenuItemMap[menuId]
 }
 
+
+// ff:
+// parentID:
+// menuType:
+// data:
+// menuID:
 func (m *Manager) ProcessClick(menuID string, data string, menuType string, parentID string) error {
 	var menuItemMap *MenuItemMap
 

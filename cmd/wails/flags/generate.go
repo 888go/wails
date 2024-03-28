@@ -14,6 +14,8 @@ type GenerateTemplate struct {
 	Quiet    bool   `description:"Suppress output"`
 }
 
+
+// ff:
 func (c *GenerateModule) Default() *GenerateModule {
 	return &GenerateModule{
 		Compiler: "go",

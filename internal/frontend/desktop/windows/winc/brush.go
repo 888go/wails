@@ -18,6 +18,9 @@ type Brush struct {
 	logBrush w32.LOGBRUSH
 }
 
+
+// ff:
+// color:
 func NewSolidColorBrush(color Color) *Brush {
 	lb := w32.LOGBRUSH{LbStyle: w32.BS_SOLID, LbColor: w32.COLORREF(color)}
 	hBrush := w32.CreateBrushIndirect(&lb)
@@ -28,6 +31,9 @@ func NewSolidColorBrush(color Color) *Brush {
 	return &Brush{hBrush, lb}
 }
 
+
+// ff:
+// colorIndex:
 func NewSystemColorBrush(colorIndex int) *Brush {
 	// lb := w32.LOGBRUSH{LbStyle: w32.BS_SOLID, LbColor: w32.COLORREF(colorIndex)}
 // 创建一个w32.LOGBRUSH结构体变量lb，其中：
@@ -41,6 +47,9 @@ func NewSystemColorBrush(colorIndex int) *Brush {
 	return &Brush{hBrush, lb}
 }
 
+
+// ff:
+// color:
 func NewHatchedColorBrush(color Color) *Brush {
 	lb := w32.LOGBRUSH{LbStyle: w32.BS_HATCHED, LbColor: w32.COLORREF(color)}
 	hBrush := w32.CreateBrushIndirect(&lb)
@@ -51,6 +60,8 @@ func NewHatchedColorBrush(color Color) *Brush {
 	return &Brush{hBrush, lb}
 }
 
+
+// ff:
 func NewNullBrush() *Brush {
 	lb := w32.LOGBRUSH{LbStyle: w32.BS_NULL}
 	hBrush := w32.CreateBrushIndirect(&lb)
@@ -61,14 +72,20 @@ func NewNullBrush() *Brush {
 	return &Brush{hBrush, lb}
 }
 
+
+// ff:
 func (br *Brush) GetHBRUSH() w32.HBRUSH {
 	return br.hBrush
 }
 
+
+// ff:
 func (br *Brush) GetLOGBRUSH() *w32.LOGBRUSH {
 	return &br.logBrush
 }
 
+
+// ff:
 func (br *Brush) Dispose() {
 	if br.hBrush != 0 {
 		w32.DeleteObject(w32.HGDIOBJ(br.hBrush))

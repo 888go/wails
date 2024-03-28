@@ -9,25 +9,25 @@ import (
 // MenuItem 表示菜单中包含的一个菜单项
 type MenuItem struct {
 	// Label 是作为菜单文本显示的内容
-	Label string
+	Label string //hs:显示名称     
 	// Role 是一种预定义的菜单类型
-	Role Role
+	Role Role //hs:项角色     
 	// Accelerator 保存了一个键绑定的表示形式
-	Accelerator *keys.Accelerator
+	Accelerator *keys.Accelerator //hs:快捷键     
 	// MenuItem的类型，例如：复选框、文本、分隔符、单选按钮、子菜单
-	Type Type
+	Type Type //hs:常量_菜单项类型     
 	// Disabled 使项目不可选择
-	Disabled bool
+	Disabled bool //hs:是否禁用     
 	// Hidden 确保该菜单项不会在菜单中显示
-	Hidden bool
+	Hidden bool //hs:是否隐藏     
 	// Checked 表示项目是否被选中（仅用于 Checkbox 和 Radio 类型）
-	Checked bool
+	Checked bool //hs:是否选中     
 // Submenu 包含一个菜单项列表，这些菜单项将作为子菜单显示
 // SubMenu []*MenuItem `json:"SubMenu,omitempty"`
-	SubMenu *Menu
+	SubMenu *Menu //hs:子菜单     
 
 	// 菜单被点击时的回调函数
-	Click Callback
+	Click Callback //hs:单击回调函数     
 	/*
 		// Text Colour
 		RGBA string
@@ -57,11 +57,16 @@ type MenuItem struct {
 
 // Parent 返回菜单项的父级元素。
 // 若该菜单项是顶级菜单，则返回 nil。
+
+// ff:取父菜单
 func (m *MenuItem) Parent() *MenuItem {
 	return m.parent
 }
 
 // Append 尝试将给定的菜单项添加到此菜单项的子菜单项中。如果此菜单项不是子菜单，则此方法将不会添加该菜单项，而是直接返回 false。
+
+// ff:加入子菜单
+// item:菜单项
 func (m *MenuItem) Append(item *MenuItem) bool {
 	if !m.isSubMenu() {
 		return false
@@ -75,6 +80,9 @@ func (m *MenuItem) Append(item *MenuItem) bool {
 // 该菜单项的子菜单项前面。如果此菜单项不是一个
 // 子菜单，那么该方法将不会添加该项，并且
 // 简单地返回 false。
+
+// ff:加入子菜单最前
+// item:菜单项
 func (m *MenuItem) Prepend(item *MenuItem) bool {
 	if !m.isSubMenu() {
 		return false
@@ -84,6 +92,8 @@ func (m *MenuItem) Prepend(item *MenuItem) bool {
 	return true
 }
 
+
+// ff:删除
 func (m *MenuItem) Remove() {
 	// 遍历我的父节点的子节点
 	m.Parent().removeChild(m)
@@ -100,6 +110,9 @@ func (m *MenuItem) removeChild(item *MenuItem) {
 }
 
 // InsertAfter尝试在父菜单中将给定的项添加到本项之后。如果不存在父菜单（即我们是顶级菜单），则返回false
+
+// ff:插入当前后面
+// item:菜单项
 func (m *MenuItem) InsertAfter(item *MenuItem) bool {
 	// 我们需要找到我的父级
 	if m.parent == nil {
@@ -111,6 +124,9 @@ func (m *MenuItem) InsertAfter(item *MenuItem) bool {
 }
 
 // InsertBefore尝试在父菜单中将给定的项插入到当前项之前。如果不存在父菜单（即我们是一个顶级菜单），则返回false
+
+// ff:插入当前前面
+// item:菜单项
 func (m *MenuItem) InsertBefore(item *MenuItem) bool {
 	// 我们需要找到我的父级
 	if m.parent == nil {
@@ -200,6 +216,9 @@ func (m *MenuItem) insertItemAtIndex(index int, target *MenuItem) bool {
 	return true
 }
 
+
+// ff:设置显示名称
+// name:名称
 func (m *MenuItem) SetLabel(name string) {
 	if m.Label == name {
 		return
@@ -207,34 +226,51 @@ func (m *MenuItem) SetLabel(name string) {
 	m.Label = name
 }
 
+
+// ff:是否为分隔符
 func (m *MenuItem) IsSeparator() bool {
 	return m.Type == SeparatorType
 }
 
+
+// ff:是否为复选框
 func (m *MenuItem) IsCheckbox() bool {
 	return m.Type == CheckboxType
 }
 
+
+// ff:设置禁用
 func (m *MenuItem) Disable() *MenuItem {
 	m.Disabled = true
 	return m
 }
 
+
+// ff:取消禁用
 func (m *MenuItem) Enable() *MenuItem {
 	m.Disabled = false
 	return m
 }
 
+
+// ff:绑定单击事件
+// click:回调函数
 func (m *MenuItem) OnClick(click Callback) *MenuItem {
 	m.Click = click
 	return m
 }
 
+
+// ff:设置快捷键
+// acc:快捷键
 func (m *MenuItem) SetAccelerator(acc *keys.Accelerator) *MenuItem {
 	m.Accelerator = acc
 	return m
 }
 
+
+// ff:设置选中
+// value:选中
 func (m *MenuItem) SetChecked(value bool) *MenuItem {
 	m.Checked = value
 	if m.Type != RadioType {
@@ -243,20 +279,29 @@ func (m *MenuItem) SetChecked(value bool) *MenuItem {
 	return m
 }
 
+
+// ff:设置隐藏
 func (m *MenuItem) Hide() *MenuItem {
 	m.Hidden = true
 	return m
 }
 
+
+// ff:取消隐藏
 func (m *MenuItem) Show() *MenuItem {
 	m.Hidden = false
 	return m
 }
 
+
+// ff:是否为菜单项
 func (m *MenuItem) IsRadio() bool {
 	return m.Type == RadioType
 }
 
+
+// ff:创建文本菜单项
+// label:显示名称
 func Label(label string) *MenuItem {
 	return &MenuItem{
 		Type:  TextType,
@@ -265,6 +310,11 @@ func Label(label string) *MenuItem {
 }
 
 // Text 是一个辅助函数，用于创建基本的文本菜单项
+
+// ff:创建文本菜单项2
+// click:单击回调函数
+// accelerator:快捷键
+// label:显示名称
 func Text(label string, accelerator *keys.Accelerator, click Callback) *MenuItem {
 	return &MenuItem{
 		Label:       label,
@@ -275,6 +325,8 @@ func Text(label string, accelerator *keys.Accelerator, click Callback) *MenuItem
 }
 
 // Separator 提供一个菜单分隔符
+
+// ff:创建分隔符菜单项
 func Separator() *MenuItem {
 	return &MenuItem{
 		Type: SeparatorType,
@@ -282,6 +334,12 @@ func Separator() *MenuItem {
 }
 
 // Radio 是一个辅助工具，用于创建带快捷键的基本单选菜单项
+
+// ff:创建单选框菜单项
+// click:单击回调函数
+// accelerator:快捷键
+// selected:选中
+// label:显示名称
 func Radio(label string, selected bool, accelerator *keys.Accelerator, click Callback) *MenuItem {
 	return &MenuItem{
 		Label:       label,
@@ -293,6 +351,12 @@ func Radio(label string, selected bool, accelerator *keys.Accelerator, click Cal
 }
 
 // Checkbox 是一个辅助函数，用于创建基本的复选框菜单项
+
+// ff:创建复选框菜单项
+// click:单击回调函数
+// accelerator:快捷键
+// checked:选中
+// label:显示名称
 func Checkbox(label string, checked bool, accelerator *keys.Accelerator, click Callback) *MenuItem {
 	return &MenuItem{
 		Label:       label,
@@ -304,6 +368,10 @@ func Checkbox(label string, checked bool, accelerator *keys.Accelerator, click C
 }
 
 // SubMenu 是一个用于创建子菜单的辅助函数
+
+// ff:创建子菜单
+// menu:子菜单
+// label:显示名称
 func SubMenu(label string, menu *Menu) *MenuItem {
 	result := &MenuItem{
 		Label:   label,

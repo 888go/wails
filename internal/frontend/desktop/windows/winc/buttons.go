@@ -18,10 +18,17 @@ type Button struct {
 	onClick EventManager
 }
 
+
+// ff:
 func (bt *Button) OnClick() *EventManager {
 	return &bt.onClick
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (bt *Button) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_COMMAND:
@@ -37,11 +44,16 @@ func (bt *Button) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	// 返回 bt.W32Control.WndProc 方法处理的消息结果，参数分别为 msg、wparam 和 lparam
 }
 
+
+// ff:
 func (bt *Button) Checked() bool {
 	result := w32.SendMessage(bt.hwnd, w32.BM_GETCHECK, 0, 0)
 	return result == w32.BST_CHECKED
 }
 
+
+// ff:
+// checked:
 func (bt *Button) SetChecked(checked bool) {
 	wparam := w32.BST_CHECKED
 	if !checked {
@@ -51,10 +63,16 @@ func (bt *Button) SetChecked(checked bool) {
 }
 
 // SetIcon 设置按钮上的图标。建议使用的图标大小为32x32像素，颜色深度为32位。
+
+// ff:
+// ico:
 func (bt *Button) SetIcon(ico *Icon) {
 	w32.SendMessage(bt.hwnd, w32.BM_SETIMAGE, w32.IMAGE_ICON, uintptr(ico.handle))
 }
 
+
+// ff:
+// iconID:
 func (bt *Button) SetResIcon(iconID uint16) {
 	if ico, err := NewIconFromResource(GetAppInstance(), iconID); err == nil {
 		bt.SetIcon(ico)
@@ -67,6 +85,9 @@ type PushButton struct {
 	Button
 }
 
+
+// ff:
+// parent:
 func NewPushButton(parent Controller) *PushButton {
 	pb := new(PushButton)
 
@@ -81,6 +102,8 @@ func NewPushButton(parent Controller) *PushButton {
 }
 
 // SetDefault 用于对话框设置默认按钮。
+
+// ff:
 func (pb *PushButton) SetDefault() {
 	pb.SetAndClearStyleBits(w32.BS_DEFPUSHBUTTON, w32.BS_PUSHBUTTON)
 }
@@ -90,6 +113,9 @@ type IconButton struct {
 	Button
 }
 
+
+// ff:
+// parent:
 func NewIconButton(parent Controller) *IconButton {
 	pb := new(IconButton)
 
@@ -108,6 +134,9 @@ type CheckBox struct {
 	Button
 }
 
+
+// ff:
+// parent:
 func NewCheckBox(parent Controller) *CheckBox {
 	cb := new(CheckBox)
 
@@ -125,6 +154,9 @@ type RadioButton struct {
 	Button
 }
 
+
+// ff:
+// parent:
 func NewRadioButton(parent Controller) *RadioButton {
 	rb := new(RadioButton)
 
@@ -142,6 +174,9 @@ type GroupBox struct {
 	Button
 }
 
+
+// ff:
+// parent:
 func NewGroupBox(parent Controller) *GroupBox {
 	gb := new(GroupBox)
 

@@ -36,6 +36,8 @@ type ImageBox struct {
 	underMouse bool // dynamic value
 }
 
+
+// ff:
 func (b *ImageBox) Rect() *Rect {
 	return NewRect(b.X, b.Y, b.X2, b.Y2)
 }
@@ -62,6 +64,9 @@ type ImageViewBox struct {
 	onModify         EventManager
 }
 
+
+// ff:
+// parent:
 func NewImageViewBox(parent Controller) *ImageViewBox {
 	iv := new(ImageViewBox)
 
@@ -75,23 +80,43 @@ func NewImageViewBox(parent Controller) *ImageViewBox {
 	return iv
 }
 
+
+// ff:
 func (iv *ImageViewBox) OnSelectedChange() *EventManager {
 	return &iv.onSelectedChange
 }
 
+
+// ff:
 func (iv *ImageViewBox) OnAdd() *EventManager {
 	return &iv.onAdd
 }
 
+
+// ff:
 func (iv *ImageViewBox) OnModify() *EventManager {
 	return &iv.onModify
 }
 
+
+// ff:
 func (iv *ImageViewBox) IsModified() bool          { return iv.modified }
+
+// ff:
+// modified:
 func (iv *ImageViewBox) SetModified(modified bool) { iv.modified = modified }
+
+// ff:
 func (iv *ImageViewBox) IsLoaded() bool            { return iv.bmp != nil }
+
+// ff:
 func (iv *ImageViewBox) AddMode() bool             { return iv.add }
+
+// ff:
+// add:
 func (iv *ImageViewBox) SetAddMode(add bool)       { iv.add = add }
+
+// ff:
 func (iv *ImageViewBox) HasSelected() bool         { return iv.selBox != nil && iv.bmp != nil }
 
 func (iv *ImageViewBox) wasModified() {
@@ -99,6 +124,8 @@ func (iv *ImageViewBox) wasModified() {
 	iv.onModify.Fire(NewEvent(iv, nil))
 }
 
+
+// ff:
 func (iv *ImageViewBox) DeleteSelected() {
 	if iv.selBox != nil {
 		for i, b := range iv.Boxes {
@@ -114,6 +141,8 @@ func (iv *ImageViewBox) DeleteSelected() {
 	}
 }
 
+
+// ff:
 func (iv *ImageViewBox) NameSelected() string {
 	if iv.selBox != nil {
 		return iv.selBox.Name
@@ -121,6 +150,9 @@ func (iv *ImageViewBox) NameSelected() string {
 	return ""
 }
 
+
+// ff:
+// name:
 func (iv *ImageViewBox) SetNameSelected(name string) {
 	if iv.selBox != nil {
 		iv.selBox.Name = name
@@ -128,6 +160,8 @@ func (iv *ImageViewBox) SetNameSelected(name string) {
 	}
 }
 
+
+// ff:
 func (iv *ImageViewBox) TypeSelected() int {
 	if iv.selBox != nil {
 		return iv.selBox.Type
@@ -135,6 +169,9 @@ func (iv *ImageViewBox) TypeSelected() int {
 	return 0
 }
 
+
+// ff:
+// typ:
 func (iv *ImageViewBox) SetTypeSelected(typ int) {
 	if iv.selBox != nil {
 		iv.selBox.Type = typ
@@ -223,6 +260,10 @@ func (ib *ImageViewBox) drag(b *ImageBox, x, y int) {
 	ib.dragStartX, ib.dragStartY = x, y
 }
 
+
+// ff:
+// err:
+// filepath:
 func (iv *ImageViewBox) DrawImageFile(filepath string) (err error) {
 	iv.bmp, err = NewBitmapFromFile(filepath, RGB(255, 255, 0))
 	iv.selBox = nil
@@ -232,6 +273,9 @@ func (iv *ImageViewBox) DrawImageFile(filepath string) (err error) {
 	return
 }
 
+
+// ff:
+// bmp:
 func (iv *ImageViewBox) DrawImage(bmp *Bitmap) {
 	iv.bmp = bmp
 	iv.selBox = nil
@@ -240,6 +284,11 @@ func (iv *ImageViewBox) DrawImage(bmp *Bitmap) {
 	iv.onModify.Fire(NewEvent(iv, nil))
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (iv *ImageViewBox) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_SIZE, w32.WM_SIZING:

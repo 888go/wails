@@ -10,6 +10,9 @@ import (
 )
 
 // FindEmbedRootPath 在嵌入式文件系统中查找根路径。这个根路径是包含所有文件的目录。
+
+// ff:
+// fsys:
 func FindEmbedRootPath(fsys embed.FS) (string, error) {
 	stopErr := fmt.Errorf("files or multiple dirs found")
 
@@ -38,6 +41,10 @@ func FindEmbedRootPath(fsys embed.FS) (string, error) {
 	return fPath, nil
 }
 
+
+// ff:查找文件路径
+// file:
+// fsys:
 func FindPathToFile(fsys fs.FS, file string) (string, error) {
 	stat, _ := fs.Stat(fsys, file)
 	if stat != nil {

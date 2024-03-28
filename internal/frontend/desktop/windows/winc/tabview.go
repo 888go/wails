@@ -21,6 +21,9 @@ type TabView struct {
 	onSelectedChange EventManager
 }
 
+
+// ff:
+// parent:
 func NewTabView(parent Controller) *TabView {
 	tv := new(TabView)
 
@@ -35,6 +38,8 @@ func NewTabView(parent Controller) *TabView {
 	return tv
 }
 
+
+// ff:
 func (tv *TabView) Panels() *MultiPanel {
 	return tv.panels
 }
@@ -49,6 +54,9 @@ func (tv *TabView) tcitemFromPage(panel *Panel) *w32.TCITEM {
 	return item
 }
 
+
+// ff:
+// text:
 func (tv *TabView) AddPanel(text string) *Panel {
 	panel := NewPanel(tv.panels)
 	panel.SetText(text)
@@ -65,6 +73,9 @@ func (tv *TabView) AddPanel(text string) *Panel {
 	return panel
 }
 
+
+// ff:
+// index:
 func (tv *TabView) DeletePanel(index int) {
 	w32.SendMessage(tv.hwnd, w32.TCM_DELETEITEM, uintptr(index), 0)
 	tv.panels.DeletePanel(index)
@@ -76,10 +87,15 @@ func (tv *TabView) DeletePanel(index int) {
 	}
 }
 
+
+// ff:
 func (tv *TabView) Current() int {
 	return tv.panels.Current()
 }
 
+
+// ff:
+// index:
 func (tv *TabView) SetCurrent(index int) {
 	if index < 0 || index >= tv.panels.Count() {
 		panic("invalid index")
@@ -90,6 +106,11 @@ func (tv *TabView) SetCurrent(index int) {
 	tv.panels.SetCurrent(index)
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (tv *TabView) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_NOTIFY:

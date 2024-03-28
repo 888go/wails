@@ -22,6 +22,9 @@ var (
 	procCreateStdDispatch  = modoleaut32.NewProc("CreateStdDispatch")
 )
 
+
+// ff:
+// v:
 func VariantInit(v *VARIANT) {
 	hr, _, _ := procVariantInit.Call(uintptr(unsafe.Pointer(v)))
 	if hr != 0 {
@@ -30,12 +33,19 @@ func VariantInit(v *VARIANT) {
 	return
 }
 
+
+// ff:
+// ss:
+// v:
 func SysAllocString(v string) (ss *int16) {
 	pss, _, _ := procSysAllocString.Call(uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(v))))
 	ss = (*int16)(unsafe.Pointer(pss))
 	return
 }
 
+
+// ff:
+// v:
 func SysFreeString(v *int16) {
 	hr, _, _ := procSysFreeString.Call(uintptr(unsafe.Pointer(v)))
 	if hr != 0 {
@@ -44,6 +54,9 @@ func SysFreeString(v *int16) {
 	return
 }
 
+
+// ff:
+// v:
 func SysStringLen(v *int16) uint {
 	l, _, _ := procSysStringLen.Call(uintptr(unsafe.Pointer(v)))
 	return uint(l)

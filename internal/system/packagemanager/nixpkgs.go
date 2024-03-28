@@ -23,6 +23,9 @@ type NixPackageDetail struct {
 var available map[string]NixPackageDetail
 
 // NewNixpkgs 创建一个新的 Nixpkgs 实例
+
+// ff:
+// osid:
 func NewNixpkgs(osid string) *Nixpkgs {
 	available = map[string]NixPackageDetail{}
 
@@ -34,6 +37,8 @@ func NewNixpkgs(osid string) *Nixpkgs {
 
 // Packages 返回 Wails 编译所需的库
 // 在不同的发行版或版本中，这些库可能会有所不同
+
+// ff:
 func (n *Nixpkgs) Packages() packagemap {
 	// 目前，仅支持检查默认通道。
 	channel := "nixpkgs"
@@ -70,11 +75,16 @@ func (n *Nixpkgs) Packages() packagemap {
 }
 
 // Name 返回包管理器的名称
+
+// ff:
 func (n *Nixpkgs) Name() string {
 	return n.name
 }
 
 // PackageInstalled 测试给定的包名是否已安装
+
+// ff:
+// pkg:
 func (n *Nixpkgs) PackageInstalled(pkg *Package) (bool, error) {
 	if pkg.SystemPackage == false {
 		return false, nil
@@ -124,6 +134,9 @@ func (n *Nixpkgs) PackageInstalled(pkg *Package) (bool, error) {
 }
 
 // PackageAvailable 测试给定的包是否可供安装
+
+// ff:
+// pkg:
 func (n *Nixpkgs) PackageAvailable(pkg *Package) (bool, error) {
 	if pkg.SystemPackage == false {
 		return false, nil
@@ -151,6 +164,9 @@ func (n *Nixpkgs) PackageAvailable(pkg *Package) (bool, error) {
 }
 
 // InstallCommand 返回特定包管理器用于安装包的命令
+
+// ff:
+// pkg:
 func (n *Nixpkgs) InstallCommand(pkg *Package) string {
 	if pkg.SystemPackage == false {
 		return pkg.InstallCommand[n.osid]

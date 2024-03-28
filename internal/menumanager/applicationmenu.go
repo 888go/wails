@@ -2,6 +2,9 @@ package menumanager
 
 import "github.com/wailsapp/wails/v2/pkg/menu"
 
+
+// ff:
+// applicationMenu:
 func (m *Manager) SetApplicationMenu(applicationMenu *menu.Menu) error {
 	if applicationMenu == nil {
 		return nil
@@ -18,16 +21,22 @@ func (m *Manager) SetApplicationMenu(applicationMenu *menu.Menu) error {
 	return m.processApplicationMenu()
 }
 
+
+// ff:
 func (m *Manager) GetApplicationMenuJSON() string {
 	return m.applicationMenuJSON
 }
 
+
+// ff:
 func (m *Manager) GetProcessedApplicationMenu() *WailsMenu {
 	return m.processedApplicationMenu
 }
 
 // UpdateApplicationMenu 重新处理应用程序菜单以获取结构变化等信息
 // 返回更新后菜单的 JSON 表示
+
+// ff:
 func (m *Manager) UpdateApplicationMenu() (string, error) {
 	m.applicationMenuItemMap = NewMenuItemMap()
 	m.applicationMenuItemMap.AddMenu(m.applicationMenu)

@@ -21,6 +21,9 @@ const (
 	needsUpdating
 )
 
+
+// ff:
+// appoptions:
 func Process(appoptions *options.App) (string, error) {
 	messages := windows.DefaultMessages()
 	if appoptions.Windows != nil && appoptions.Windows.Messages != nil {

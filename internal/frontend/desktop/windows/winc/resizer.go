@@ -21,6 +21,9 @@ type VResizer struct {
 	drag      bool
 }
 
+
+// ff:
+// parent:
 func NewVResizer(parent Controller) *VResizer {
 	sp := new(VResizer)
 
@@ -36,6 +39,12 @@ func NewVResizer(parent Controller) *VResizer {
 	return sp
 }
 
+
+// ff:
+// minSize:
+// dir:
+// control2:
+// control1:
 func (sp *VResizer) SetControl(control1, control2 Dockable, dir Direction, minSize int) {
 	sp.control1 = control1
 	sp.control2 = control2
@@ -100,6 +109,11 @@ func (sp *VResizer) update(x int) {
 	w32.SetCursor(w32.LoadCursorWithResourceID(0, w32.IDC_ARROW))
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (sp *VResizer) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_CREATE:
@@ -141,6 +155,9 @@ type HResizer struct {
 	drag      bool
 }
 
+
+// ff:
+// parent:
 func NewHResizer(parent Controller) *HResizer {
 	sp := new(HResizer)
 
@@ -157,6 +174,12 @@ func NewHResizer(parent Controller) *HResizer {
 	return sp
 }
 
+
+// ff:
+// minSize:
+// dir:
+// control2:
+// control1:
 func (sp *HResizer) SetControl(control1, control2 Dockable, dir Direction, minSize int) {
 	sp.control1 = control1
 	sp.control2 = control2
@@ -184,6 +207,11 @@ func (sp *HResizer) update(y int) {
 	w32.SetCursor(w32.LoadCursorWithResourceID(0, w32.IDC_ARROW))
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (sp *HResizer) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_CREATE:

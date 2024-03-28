@@ -10,6 +10,9 @@ import (
 // Parse函数用于解析给定的标签字符串，并返回
 // 一个清理过的字符串切片。同时支持逗号和空格作为分隔符，
 // 但不支持混合使用，若混合使用则会返回错误。
+
+// ff:解析
+// tags:标签字符串
 func Parse(tags string) ([]string, error) {
 	if tags == "" {
 		return nil, nil
@@ -43,6 +46,9 @@ func Parse(tags string) ([]string, error) {
 }
 
 // Stringify 将给定的标签切片转换为与 go build -tags 标志兼容的字符串
+
+// ff:
+// tags:
 func Stringify(tags []string) string {
 	tags = lo.Map(tags, func(tag string, _ int) string {
 		return strings.TrimSpace(tag)

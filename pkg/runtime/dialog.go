@@ -30,6 +30,10 @@ const (
 type MessageDialogOptions = frontend.MessageDialogOptions
 
 // OpenDirectoryDialog 提示用户选择一个目录
+
+// ff:对话框选择目录
+// dialogOptions:选项
+// ctx:上下文
 func OpenDirectoryDialog(ctx context.Context, dialogOptions OpenDialogOptions) (string, error) {
 	appFrontend := getFrontend(ctx)
 	if dialogOptions.DefaultDirectory != "" {
@@ -41,6 +45,10 @@ func OpenDirectoryDialog(ctx context.Context, dialogOptions OpenDialogOptions) (
 }
 
 // OpenFileDialog 提示用户选择一个文件
+
+// ff:对话框选择文件
+// dialogOptions:选项
+// ctx:上下文
 func OpenFileDialog(ctx context.Context, dialogOptions OpenDialogOptions) (string, error) {
 	appFrontend := getFrontend(ctx)
 	if dialogOptions.DefaultDirectory != "" {
@@ -52,6 +60,10 @@ func OpenFileDialog(ctx context.Context, dialogOptions OpenDialogOptions) (strin
 }
 
 // OpenMultipleFilesDialog 提示用户选择一个或多个文件
+
+// ff:对话框多选文件
+// dialogOptions:选项
+// ctx:上下文
 func OpenMultipleFilesDialog(ctx context.Context, dialogOptions OpenDialogOptions) ([]string, error) {
 	appFrontend := getFrontend(ctx)
 	if dialogOptions.DefaultDirectory != "" {
@@ -63,6 +75,10 @@ func OpenMultipleFilesDialog(ctx context.Context, dialogOptions OpenDialogOption
 }
 
 // SaveFileDialog 弹出文件选择对话框，提示用户选择一个文件
+
+// ff:对话框保存文件
+// dialogOptions:选项
+// ctx:上下文
 func SaveFileDialog(ctx context.Context, dialogOptions SaveDialogOptions) (string, error) {
 	appFrontend := getFrontend(ctx)
 	if dialogOptions.DefaultDirectory != "" {
@@ -74,6 +90,10 @@ func SaveFileDialog(ctx context.Context, dialogOptions SaveDialogOptions) (strin
 }
 
 // MessageDialog 向用户展示一条消息对话框
+
+// ff:对话框弹出消息
+// dialogOptions:选项
+// ctx:上下文
 func MessageDialog(ctx context.Context, dialogOptions MessageDialogOptions) (string, error) {
 	appFrontend := getFrontend(ctx)
 	return appFrontend.MessageDialog(dialogOptions)

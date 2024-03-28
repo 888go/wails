@@ -124,14 +124,25 @@ type Frontend struct {
 	dispatcher frontend.Dispatcher
 }
 
+
+// ff:
 func (f *Frontend) RunMainLoop() {
 	C.gtk_main()
 }
 
+
+// ff:
 func (f *Frontend) WindowClose() {
 	f.mainWindow.Destroy()
 }
 
+
+// ff:
+// dispatcher:
+// appBindings:
+// myLogger:
+// appoptions:
+// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher) *Frontend {
 	initOnce.Do(func() {
 		runtime.LockOSThread()
@@ -214,22 +225,33 @@ func (f *Frontend) startMessageProcessor() {
 	}
 }
 
+
+// ff:
 func (f *Frontend) WindowReload() {
 	f.ExecJS("runtime.WindowReload();")
 }
 
+
+// ff:
 func (f *Frontend) WindowSetSystemDefaultTheme() {
 	return
 }
 
+
+// ff:
 func (f *Frontend) WindowSetLightTheme() {
 	return
 }
 
+
+// ff:
 func (f *Frontend) WindowSetDarkTheme() {
 	return
 }
 
+
+// ff:
+// ctx:
 func (f *Frontend) Run(ctx context.Context) error {
 	f.ctx = ctx
 
@@ -248,33 +270,55 @@ func (f *Frontend) Run(ctx context.Context) error {
 	return nil
 }
 
+
+// ff:
 func (f *Frontend) WindowCenter() {
 	f.mainWindow.Center()
 }
 
+
+// ff:
+// b:
 func (f *Frontend) WindowSetAlwaysOnTop(b bool) {
 	f.mainWindow.SetKeepAbove(b)
 }
 
+
+// ff:
+// y:
+// x:
 func (f *Frontend) WindowSetPosition(x, y int) {
 	f.mainWindow.SetPosition(x, y)
 }
+
+// ff:
 func (f *Frontend) WindowGetPosition() (int, int) {
 	return f.mainWindow.GetPosition()
 }
 
+
+// ff:
+// height:
+// width:
 func (f *Frontend) WindowSetSize(width, height int) {
 	f.mainWindow.SetSize(width, height)
 }
 
+
+// ff:
 func (f *Frontend) WindowGetSize() (int, int) {
 	return f.mainWindow.Size()
 }
 
+
+// ff:
+// title:
 func (f *Frontend) WindowSetTitle(title string) {
 	f.mainWindow.SetTitle(title)
 }
 
+
+// ff:
 func (f *Frontend) WindowFullscreen() {
 	if f.frontendOptions.Frameless && f.frontendOptions.DisableResize == false {
 		f.ExecJS("window.wails.flags.enableResize = false;")
@@ -282,6 +326,8 @@ func (f *Frontend) WindowFullscreen() {
 	f.mainWindow.Fullscreen()
 }
 
+
+// ff:
 func (f *Frontend) WindowUnfullscreen() {
 	if f.frontendOptions.Frameless && f.frontendOptions.DisableResize == false {
 		f.ExecJS("window.wails.flags.enableResize = true;")
@@ -289,48 +335,79 @@ func (f *Frontend) WindowUnfullscreen() {
 	f.mainWindow.UnFullscreen()
 }
 
+
+// ff:
 func (f *Frontend) WindowReloadApp() {
 	f.ExecJS(fmt.Sprintf("window.location.href = '%s';", f.startURL))
 }
 
+
+// ff:
 func (f *Frontend) WindowShow() {
 	f.mainWindow.Show()
 }
 
+
+// ff:
 func (f *Frontend) WindowHide() {
 	f.mainWindow.Hide()
 }
 
+
+// ff:
 func (f *Frontend) Show() {
 	f.mainWindow.Show()
 }
 
+
+// ff:
 func (f *Frontend) Hide() {
 	f.mainWindow.Hide()
 }
+
+// ff:
 func (f *Frontend) WindowMaximise() {
 	f.mainWindow.Maximise()
 }
+
+// ff:
 func (f *Frontend) WindowToggleMaximise() {
 	f.mainWindow.ToggleMaximise()
 }
+
+// ff:
 func (f *Frontend) WindowUnmaximise() {
 	f.mainWindow.UnMaximise()
 }
+
+// ff:
 func (f *Frontend) WindowMinimise() {
 	f.mainWindow.Minimise()
 }
+
+// ff:
 func (f *Frontend) WindowUnminimise() {
 	f.mainWindow.UnMinimise()
 }
 
+
+// ff:
+// height:
+// width:
 func (f *Frontend) WindowSetMinSize(width int, height int) {
 	f.mainWindow.SetMinSize(width, height)
 }
+
+// ff:
+// height:
+// width:
 func (f *Frontend) WindowSetMaxSize(width int, height int) {
 	f.mainWindow.SetMaxSize(width, height)
 }
 
+
+// ff:
+// col:
 func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 	if col == nil {
 		return
@@ -338,26 +415,38 @@ func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 	f.mainWindow.SetBackgroundColour(col.R, col.G, col.B, col.A)
 }
 
+
+// ff:
 func (f *Frontend) ScreenGetAll() ([]Screen, error) {
 	return GetAllScreens(f.mainWindow.asGTKWindow())
 }
 
+
+// ff:
 func (f *Frontend) WindowIsMaximised() bool {
 	return f.mainWindow.IsMaximised()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsMinimised() bool {
 	return f.mainWindow.IsMinimised()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsNormal() bool {
 	return f.mainWindow.IsNormal()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsFullscreen() bool {
 	return f.mainWindow.IsFullScreen()
 }
 
+
+// ff:
 func (f *Frontend) Quit() {
 	if f.frontendOptions.OnBeforeClose != nil {
 		go func() {
@@ -370,6 +459,8 @@ func (f *Frontend) Quit() {
 	f.mainWindow.Quit()
 }
 
+
+// ff:
 func (f *Frontend) WindowPrint() {
 	f.ExecJS("window.print();")
 }
@@ -379,6 +470,10 @@ type EventNotify struct {
 	Data []interface{} `json:"data"`
 }
 
+
+// ff:
+// data:
+// name:
 func (f *Frontend) Notify(name string, data ...interface{}) {
 	notification := EventNotify{
 		Name: name,
@@ -472,6 +567,9 @@ func (f *Frontend) processMessage(message string) {
 	}()
 }
 
+
+// ff:
+// message:
 func (f *Frontend) Callback(message string) {
 	escaped, err := json.Marshal(message)
 	if err != nil {
@@ -489,6 +587,9 @@ func (f *Frontend) startResize(edge uintptr) error {
 	return nil
 }
 
+
+// ff:
+// js:
 func (f *Frontend) ExecJS(js string) {
 	f.mainWindow.ExecJS(js)
 }

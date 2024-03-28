@@ -19,6 +19,13 @@ type Dispatcher struct {
 	errfmt     options.ErrorFormatter
 }
 
+
+// ff:
+// errfmt:
+// events:
+// bindings:
+// log:
+// ctx:
 func NewDispatcher(ctx context.Context, log *logger.Logger, bindings *binding.Bindings, events frontend.Events, errfmt options.ErrorFormatter) *Dispatcher {
 	return &Dispatcher{
 		log:        log,
@@ -30,6 +37,10 @@ func NewDispatcher(ctx context.Context, log *logger.Logger, bindings *binding.Bi
 	}
 }
 
+
+// ff:
+// sender:
+// message:
 func (d *Dispatcher) ProcessMessage(message string, sender frontend.Frontend) (string, error) {
 	if message == "" {
 		return "", errors.New("No message to process")

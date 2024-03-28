@@ -9,6 +9,12 @@ import (
 )
 
 // StartAtLogin 根据给定的布尔标志，将此应用程序添加到登录项或从中移除。限制条件是当前运行的应用程序必须位于应用包中。
+
+// ff:
+// sound:
+// message:
+// subtitle:
+// title:
 func ShowNotification(title string, subtitle string, message string, sound string) error {
 	command := fmt.Sprintf("display notification \"%s\"", message)
 	if len(title) > 0 {

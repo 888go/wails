@@ -12,6 +12,8 @@ type BuildCommon struct {
 	SkipModTidy  bool   `name:"m" description:"Skip mod tidy before compile"`
 }
 
+
+// ff:
 func (c BuildCommon) Default() BuildCommon {
 	return BuildCommon{
 		Compiler:  "go",

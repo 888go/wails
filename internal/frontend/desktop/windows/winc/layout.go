@@ -75,10 +75,24 @@ type LayoutState struct {
 	Controls    []*CtlState
 }
 
+
+// ff:
+// lc:
 func (lc LayoutControls) Len() int           { return len(lc) }
+
+// ff:
+// j:
+// i:
 func (lc LayoutControls) Swap(i, j int)      { lc[i], lc[j] = lc[j], lc[i] }
+
+// ff:
+// j:
+// i:
 func (lc LayoutControls) Less(i, j int) bool { return lc[i].dir < lc[j].dir }
 
+
+// ff:
+// parent:
 func NewSimpleDock(parent DockAllow) *SimpleDock {
 	d := &SimpleDock{parent: parent}
 	parent.SetLayout(d)
@@ -86,11 +100,18 @@ func NewSimpleDock(parent DockAllow) *SimpleDock {
 }
 
 // 子控件的布局管理。
+
+// ff:
+// dir:
+// child:
 func (sd *SimpleDock) Dock(child Dockable, dir Direction) {
 	sd.layoutCtl = append(sd.layoutCtl, &LayoutControl{child, dir})
 }
 
 // 保存布局的状态。仅适用于父级设置为主窗口的停靠栏。
+
+// ff:
+// w:
 func (sd *SimpleDock) SaveState(w io.Writer) error {
 	var ls LayoutState
 
@@ -123,6 +144,9 @@ func (sd *SimpleDock) SaveState(w io.Writer) error {
 }
 
 // 加载布局状态。仅适用于父级设置为主窗体的停靠栏。
+
+// ff:
+// r:
 func (sd *SimpleDock) LoadState(r io.Reader) error {
 	var ls LayoutState
 
@@ -160,6 +184,9 @@ func (sd *SimpleDock) LoadState(r io.Reader) error {
 }
 
 // SaveStateFile 便捷函数。
+
+// ff:
+// file:
 func (sd *SimpleDock) SaveStateFile(file string) error {
 	f, err := os.Create(file)
 	if err != nil {
@@ -169,6 +196,9 @@ func (sd *SimpleDock) SaveStateFile(file string) error {
 }
 
 // LoadStateFile 加载状态文件，如果文件未找到，则忽略错误。
+
+// ff:
+// file:
 func (sd *SimpleDock) LoadStateFile(file string) error {
 	f, err := os.Open(file)
 	if err != nil {
@@ -178,6 +208,8 @@ func (sd *SimpleDock) LoadStateFile(file string) error {
 }
 
 // Update 在需要根据布局方向调整子项大小时被调用。
+
+// ff:
 func (sd *SimpleDock) Update() {
 	sort.Stable(sd.layoutCtl)
 

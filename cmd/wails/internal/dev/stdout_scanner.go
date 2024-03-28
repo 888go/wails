@@ -20,6 +20,8 @@ type stdoutScanner struct {
 }
 
 // NewStdoutScanner 创建一个新的 stdoutScanner
+
+// ff:
 func NewStdoutScanner() *stdoutScanner {
 	return &stdoutScanner{
 		ViteServerURLChan:  make(chan string, 2),
@@ -28,6 +30,11 @@ func NewStdoutScanner() *stdoutScanner {
 }
 
 // 将字节写入扫描器。会将字节复制到标准输出（stdout）
+
+// ff:
+// err:
+// n:
+// data:
 func (s *stdoutScanner) Write(data []byte) (n int, err error) {
 	input := stripansi.Strip(string(data))
 	if !s.versionDetected {

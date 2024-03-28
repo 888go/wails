@@ -23,6 +23,11 @@ const (
 var openFileResults = make(chan []string)
 var messageDialogResult = make(chan string)
 
+
+// ff:
+// err:
+// result:
+// dialogOptions:
 func (f *Frontend) OpenFileDialog(dialogOptions frontend.OpenDialogOptions) (result string, err error) {
 	f.mainWindow.OpenFileDialog(dialogOptions, 0, GTK_FILE_CHOOSER_ACTION_OPEN)
 	results := <-openFileResults
@@ -32,12 +37,18 @@ func (f *Frontend) OpenFileDialog(dialogOptions frontend.OpenDialogOptions) (res
 	return "", nil
 }
 
+
+// ff:
+// dialogOptions:
 func (f *Frontend) OpenMultipleFilesDialog(dialogOptions frontend.OpenDialogOptions) ([]string, error) {
 	f.mainWindow.OpenFileDialog(dialogOptions, 1, GTK_FILE_CHOOSER_ACTION_OPEN)
 	result := <-openFileResults
 	return result, nil
 }
 
+
+// ff:
+// dialogOptions:
 func (f *Frontend) OpenDirectoryDialog(dialogOptions frontend.OpenDialogOptions) (string, error) {
 	f.mainWindow.OpenFileDialog(dialogOptions, 0, GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER)
 	result := <-openFileResults
@@ -47,6 +58,9 @@ func (f *Frontend) OpenDirectoryDialog(dialogOptions frontend.OpenDialogOptions)
 	return "", nil
 }
 
+
+// ff:
+// dialogOptions:
 func (f *Frontend) SaveFileDialog(dialogOptions frontend.SaveDialogOptions) (string, error) {
 	options := frontend.OpenDialogOptions{
 		DefaultDirectory:     dialogOptions.DefaultDirectory,
@@ -64,6 +78,9 @@ func (f *Frontend) SaveFileDialog(dialogOptions frontend.SaveDialogOptions) (str
 	return "", nil
 }
 
+
+// ff:
+// dialogOptions:
 func (f *Frontend) MessageDialog(dialogOptions frontend.MessageDialogOptions) (string, error) {
 	f.mainWindow.MessageDialog(dialogOptions)
 	return <-messageDialogResult, nil

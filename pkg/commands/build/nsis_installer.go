@@ -22,6 +22,11 @@ const (
 	nsisWebView2SetupFile = "tmp/MicrosoftEdgeWebview2Setup.exe"
 )
 
+
+// ff:生成NSIS安装程序
+// arm64Binary:
+// amd64Binary:
+// options:
 func GenerateNSISInstaller(options *Options, amd64Binary string, arm64Binary string) error {
 	outputLogger := options.Logger
 	outputLogger.Println("Creating NSIS installer\n------------------------------")

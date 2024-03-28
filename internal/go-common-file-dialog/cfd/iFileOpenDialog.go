@@ -41,14 +41,21 @@ func newIFileOpenDialog() (*iFileOpenDialog, error) {
 	}
 }
 
+
+// ff:
 func (fileOpenDialog *iFileOpenDialog) Show() error {
 	return fileOpenDialog.vtbl.show(unsafe.Pointer(fileOpenDialog), fileOpenDialog.parentWindowHandle)
 }
 
+
+// ff:
+// hwnd:
 func (fileOpenDialog *iFileOpenDialog) SetParentWindowHandle(hwnd uintptr) {
 	fileOpenDialog.parentWindowHandle = hwnd
 }
 
+
+// ff:
 func (fileOpenDialog *iFileOpenDialog) ShowAndGetResult() (string, error) {
 	isMultiselect, err := fileOpenDialog.isMultiselect()
 	if err != nil {
@@ -64,6 +71,8 @@ func (fileOpenDialog *iFileOpenDialog) ShowAndGetResult() (string, error) {
 	return fileOpenDialog.GetResult()
 }
 
+
+// ff:
 func (fileOpenDialog *iFileOpenDialog) ShowAndGetResults() ([]string, error) {
 	isMultiselect, err := fileOpenDialog.isMultiselect()
 	if err != nil {
@@ -79,10 +88,15 @@ func (fileOpenDialog *iFileOpenDialog) ShowAndGetResults() ([]string, error) {
 	return fileOpenDialog.GetResults()
 }
 
+
+// ff:
+// title:
 func (fileOpenDialog *iFileOpenDialog) SetTitle(title string) error {
 	return fileOpenDialog.vtbl.setTitle(unsafe.Pointer(fileOpenDialog), title)
 }
 
+
+// ff:
 func (fileOpenDialog *iFileOpenDialog) GetResult() (string, error) {
 	isMultiselect, err := fileOpenDialog.isMultiselect()
 	if err != nil {
@@ -95,28 +109,44 @@ func (fileOpenDialog *iFileOpenDialog) GetResult() (string, error) {
 	return fileOpenDialog.vtbl.getResultString(unsafe.Pointer(fileOpenDialog))
 }
 
+
+// ff:
 func (fileOpenDialog *iFileOpenDialog) Release() error {
 	return fileOpenDialog.vtbl.release(unsafe.Pointer(fileOpenDialog))
 }
 
+
+// ff:
+// defaultFolderPath:
 func (fileOpenDialog *iFileOpenDialog) SetDefaultFolder(defaultFolderPath string) error {
 	return fileOpenDialog.vtbl.setDefaultFolder(unsafe.Pointer(fileOpenDialog), defaultFolderPath)
 }
 
+
+// ff:
+// defaultFolderPath:
 func (fileOpenDialog *iFileOpenDialog) SetFolder(defaultFolderPath string) error {
 	return fileOpenDialog.vtbl.setFolder(unsafe.Pointer(fileOpenDialog), defaultFolderPath)
 }
 
+
+// ff:
+// filter:
 func (fileOpenDialog *iFileOpenDialog) SetFileFilters(filter []FileFilter) error {
 	return fileOpenDialog.vtbl.setFileTypes(unsafe.Pointer(fileOpenDialog), filter)
 }
 
+
+// ff:
+// role:
 func (fileOpenDialog *iFileOpenDialog) SetRole(role string) error {
 	return fileOpenDialog.vtbl.setClientGuid(unsafe.Pointer(fileOpenDialog), util.StringToUUID(role))
 }
 
 // 这段代码应当仅在用户请求多选时才可调用，因为
 // 否则会提供Dialog接口，该接口并未公开这个函数。
+
+// ff:
 func (fileOpenDialog *iFileOpenDialog) GetResults() ([]string, error) {
 	isMultiselect, err := fileOpenDialog.isMultiselect()
 	if err != nil {
@@ -129,14 +159,23 @@ func (fileOpenDialog *iFileOpenDialog) GetResults() ([]string, error) {
 	return fileOpenDialog.vtbl.getResultsStrings(unsafe.Pointer(fileOpenDialog))
 }
 
+
+// ff:
+// defaultExtension:
 func (fileOpenDialog *iFileOpenDialog) SetDefaultExtension(defaultExtension string) error {
 	return fileOpenDialog.vtbl.setDefaultExtension(unsafe.Pointer(fileOpenDialog), defaultExtension)
 }
 
+
+// ff:
+// initialFileName:
 func (fileOpenDialog *iFileOpenDialog) SetFileName(initialFileName string) error {
 	return fileOpenDialog.vtbl.setFileName(unsafe.Pointer(fileOpenDialog), initialFileName)
 }
 
+
+// ff:
+// index:
 func (fileOpenDialog *iFileOpenDialog) SetSelectedFileFilterIndex(index uint) error {
 	return fileOpenDialog.vtbl.setSelectedFileFilterIndex(unsafe.Pointer(fileOpenDialog), index)
 }

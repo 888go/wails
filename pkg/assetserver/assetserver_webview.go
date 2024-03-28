@@ -27,6 +27,9 @@ type assetServerWebView struct {
 // - `ServeWebViewRequest`函数用于异步地处理HTTP请求，通过模拟Go语言的HTTP服务端行为来实现。
 // - 如果没有对应的处理器向客户端发送响应数据，则该HTTP请求将以501（未实现）的状态码结束。
 // - `AssetServer`会获取对该HTTP请求的所有权，因此调用者不应再关闭这个请求或者以其他方式对其进行操作。
+
+// ff:
+// req:
 func (d *AssetServer) ServeWebViewRequest(req webview.Request) {
 	d.dispatchInit.Do(func() {
 		workers := d.dispatchWorkers

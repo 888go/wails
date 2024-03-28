@@ -25,6 +25,8 @@ static void SetClipboardText(gchar* text) {
 import "C"
 import "sync"
 
+
+// ff:
 func (f *Frontend) ClipboardGetText() (string, error) {
 	var text string
 	var wg sync.WaitGroup
@@ -39,6 +41,9 @@ func (f *Frontend) ClipboardGetText() (string, error) {
 	return text, nil
 }
 
+
+// ff:
+// text:
 func (f *Frontend) ClipboardSetText(text string) error {
 	invokeOnMainThread(func() {
 		ctxt := (*C.gchar)(C.CString(text))

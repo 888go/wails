@@ -14,6 +14,9 @@ var macModifierMap = map[Modifier]int{
 	ShiftKey:       NSEventModifierFlagShift,
 }
 
+
+// ff:
+// accelerator:
 func ToMacModifier(accelerator *Accelerator) int {
 	if accelerator == nil {
 		return 0

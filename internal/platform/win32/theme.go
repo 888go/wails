@@ -70,23 +70,35 @@ func dwmSetWindowAttribute(hwnd HWND, dwAttribute DWMWINDOWATTRIBUTE, pvAttribut
 	}
 }
 
+
+// ff:
 func SupportsThemes() bool {
 	// 我们无法支持Windows 17763版本之前的版本
 	return IsWindowsVersionAtLeast(10, 0, 17763)
 }
 
+
+// ff:
 func SupportsCustomThemes() bool {
 	return IsWindowsVersionAtLeast(10, 0, 17763)
 }
 
+
+// ff:
 func SupportsBackdropTypes() bool {
 	return IsWindowsVersionAtLeast(10, 0, 22621)
 }
 
+
+// ff:
 func SupportsImmersiveDarkMode() bool {
 	return IsWindowsVersionAtLeast(10, 0, 18985)
 }
 
+
+// ff:
+// useDarkMode:
+// hwnd:
 func SetTheme(hwnd HWND, useDarkMode bool) {
 	if SupportsThemes() {
 		attr := DwmwaUseImmersiveDarkModeBefore20h1
@@ -101,6 +113,9 @@ func SetTheme(hwnd HWND, useDarkMode bool) {
 	}
 }
 
+
+// ff:
+// hwnd:
 func EnableBlurBehind(hwnd HWND) {
 	var accent = ACCENT_POLICY{
 		AccentState: ACCENT_ENABLE_ACRYLICBLURBEHIND,
@@ -114,6 +129,10 @@ func EnableBlurBehind(hwnd HWND) {
 	SetWindowCompositionAttribute(hwnd, &data)
 }
 
+
+// ff:
+// data:
+// hwnd:
 func SetWindowCompositionAttribute(hwnd HWND, data *WINDOWCOMPOSITIONATTRIBDATA) bool {
 	if procSetWindowCompositionAttribute != nil {
 		ret, _, _ := procSetWindowCompositionAttribute.Call(
@@ -125,6 +144,10 @@ func SetWindowCompositionAttribute(hwnd HWND, data *WINDOWCOMPOSITIONATTRIBDATA)
 	return false
 }
 
+
+// ff:
+// backdrop:
+// hwnd:
 func EnableTranslucency(hwnd HWND, backdrop BackdropType) {
 	if SupportsBackdropTypes() {
 		dwmSetWindowAttribute(hwnd, DwmwaSystemBackdropType, unsafe.Pointer(&backdrop), unsafe.Sizeof(backdrop))
@@ -133,18 +156,35 @@ func EnableTranslucency(hwnd HWND, backdrop BackdropType) {
 	}
 }
 
+
+// ff:
+// titleBarColour:
+// hwnd:
 func SetTitleBarColour(hwnd HWND, titleBarColour int32) {
 	dwmSetWindowAttribute(hwnd, DwmwaCaptionColor, unsafe.Pointer(&titleBarColour), unsafe.Sizeof(titleBarColour))
 }
 
+
+// ff:
+// titleTextColour:
+// hwnd:
 func SetTitleTextColour(hwnd HWND, titleTextColour int32) {
 	dwmSetWindowAttribute(hwnd, DwmwaTextColor, unsafe.Pointer(&titleTextColour), unsafe.Sizeof(titleTextColour))
 }
 
+
+// ff:
+// titleBorderColour:
+// hwnd:
 func SetBorderColour(hwnd HWND, titleBorderColour int32) {
 	dwmSetWindowAttribute(hwnd, DwmwaBorderColor, unsafe.Pointer(&titleBorderColour), unsafe.Sizeof(titleBorderColour))
 }
 
+
+// ff:
+// subIdList:
+// appName:
+// hwnd:
 func SetWindowTheme(hwnd HWND, appName string, subIdList string) uintptr {
 	var subID uintptr
 	if subIdList != "" {
@@ -158,6 +198,8 @@ func SetWindowTheme(hwnd HWND, appName string, subIdList string) uintptr {
 
 	return ret
 }
+
+// ff:
 func IsCurrentlyDarkMode() bool {
 	key, err := registry.OpenKey(registry.CURRENT_USER, `SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize`, registry.QUERY_VALUE)
 	if err != nil {
@@ -178,6 +220,8 @@ type highContrast struct {
 	LpszDefaultScheme *int16
 }
 
+
+// ff:
 func IsCurrentlyHighContrastMode() bool {
 	var result highContrast
 	result.CbSize = uint32(unsafe.Sizeof(result))

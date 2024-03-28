@@ -37,14 +37,21 @@ func newIFileSaveDialog() (*iFileSaveDialog, error) {
 	}
 }
 
+
+// ff:
 func (fileSaveDialog *iFileSaveDialog) Show() error {
 	return fileSaveDialog.vtbl.show(unsafe.Pointer(fileSaveDialog), fileSaveDialog.parentWindowHandle)
 }
 
+
+// ff:
+// hwnd:
 func (fileSaveDialog *iFileSaveDialog) SetParentWindowHandle(hwnd uintptr) {
 	fileSaveDialog.parentWindowHandle = hwnd
 }
 
+
+// ff:
 func (fileSaveDialog *iFileSaveDialog) ShowAndGetResult() (string, error) {
 	if err := fileSaveDialog.Show(); err != nil {
 		return "", err
@@ -52,42 +59,70 @@ func (fileSaveDialog *iFileSaveDialog) ShowAndGetResult() (string, error) {
 	return fileSaveDialog.GetResult()
 }
 
+
+// ff:
+// title:
 func (fileSaveDialog *iFileSaveDialog) SetTitle(title string) error {
 	return fileSaveDialog.vtbl.setTitle(unsafe.Pointer(fileSaveDialog), title)
 }
 
+
+// ff:
 func (fileSaveDialog *iFileSaveDialog) GetResult() (string, error) {
 	return fileSaveDialog.vtbl.getResultString(unsafe.Pointer(fileSaveDialog))
 }
 
+
+// ff:
 func (fileSaveDialog *iFileSaveDialog) Release() error {
 	return fileSaveDialog.vtbl.release(unsafe.Pointer(fileSaveDialog))
 }
 
+
+// ff:
+// defaultFolderPath:
 func (fileSaveDialog *iFileSaveDialog) SetDefaultFolder(defaultFolderPath string) error {
 	return fileSaveDialog.vtbl.setDefaultFolder(unsafe.Pointer(fileSaveDialog), defaultFolderPath)
 }
 
+
+// ff:
+// defaultFolderPath:
 func (fileSaveDialog *iFileSaveDialog) SetFolder(defaultFolderPath string) error {
 	return fileSaveDialog.vtbl.setFolder(unsafe.Pointer(fileSaveDialog), defaultFolderPath)
 }
 
+
+// ff:
+// filter:
 func (fileSaveDialog *iFileSaveDialog) SetFileFilters(filter []FileFilter) error {
 	return fileSaveDialog.vtbl.setFileTypes(unsafe.Pointer(fileSaveDialog), filter)
 }
 
+
+// ff:
+// role:
 func (fileSaveDialog *iFileSaveDialog) SetRole(role string) error {
 	return fileSaveDialog.vtbl.setClientGuid(unsafe.Pointer(fileSaveDialog), util.StringToUUID(role))
 }
 
+
+// ff:
+// defaultExtension:
 func (fileSaveDialog *iFileSaveDialog) SetDefaultExtension(defaultExtension string) error {
 	return fileSaveDialog.vtbl.setDefaultExtension(unsafe.Pointer(fileSaveDialog), defaultExtension)
 }
 
+
+// ff:
+// initialFileName:
 func (fileSaveDialog *iFileSaveDialog) SetFileName(initialFileName string) error {
 	return fileSaveDialog.vtbl.setFileName(unsafe.Pointer(fileSaveDialog), initialFileName)
 }
 
+
+// ff:
+// index:
 func (fileSaveDialog *iFileSaveDialog) SetSelectedFileFilterIndex(index uint) error {
 	return fileSaveDialog.vtbl.setSelectedFileFilterIndex(unsafe.Pointer(fileSaveDialog), index)
 }

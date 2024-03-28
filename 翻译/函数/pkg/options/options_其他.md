@@ -82,13 +82,13 @@ hs=日志记录器
 hs=日志级别
 
 [OnStartup          func(ctx context.Context)                `json:"-"`]
-hs=启动前回调函数
+hs=绑定启动前函数
 
 [OnDomReady         func(ctx context.Context)                `json:"-"`]
-hs=DOM就绪回调函数
+hs=绑定DOM就绪函数
 
 [OnShutdown         func(ctx context.Context)                `json:"-"`]
-hs=应用退出回调函数
+hs=绑定应用退出函数
 
 [WindowStartState   WindowStartState]
 hs=窗口启动状态
@@ -118,10 +118,28 @@ hs=Linux选项
 hs=调试选项
 
 [OnBeforeClose      func(ctx context.Context) (prevent bool) `json:"-"`]
-hs=应用关闭前回调函数
+hs=绑定应用关闭前函数
 
 [CSSDragValue string]
 hs=CSS拖动值
 
 [LogLevelProduction logger.LogLevel]
 hs=生产日志级别
+
+[AssetServer        *assetserver.Options]
+hs=绑定http请求
+
+[Logger             logger.Logger                            `json:"-"`]
+hs=日志
+
+[Bind               #左中括号##右中括号#interface{}]
+hs=绑定调用方法
+
+[EnumBind           #左中括号##右中括号#interface{}]
+hs=绑定常量枚举
+
+[ErrorFormatter ErrorFormatter]
+hs=错误格式化
+
+[Experimental *Experimental]
+hs=Experimental实验性

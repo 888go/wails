@@ -20,6 +20,9 @@ var (
 	procCreateStreamOnHGlobal = modole32.NewProc("CreateStreamOnHGlobal")
 )
 
+
+// ff:
+// coInit:
 func CoInitializeEx(coInit uintptr) HRESULT {
 	ret, _, _ := procCoInitializeEx.Call(
 		0,
@@ -37,14 +40,22 @@ func CoInitializeEx(coInit uintptr) HRESULT {
 	return HRESULT(ret)
 }
 
+
+// ff:
 func CoInitialize() {
 	procCoInitialize.Call(0)
 }
 
+
+// ff:
 func CoUninitialize() {
 	procCoUninitialize.Call()
 }
 
+
+// ff:
+// fDeleteOnRelease:
+// hGlobal:
 func CreateStreamOnHGlobal(hGlobal HGLOBAL, fDeleteOnRelease bool) *IStream {
 	stream := new(IStream)
 	ret, _, _ := procCreateStreamOnHGlobal.Call(

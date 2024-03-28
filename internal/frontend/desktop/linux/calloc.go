@@ -15,11 +15,16 @@ type Calloc struct {
 }
 
 // NewCalloc 创建一个新的分配器
+
+// ff:
 func NewCalloc() Calloc {
 	return Calloc{}
 }
 
 // String 创建一个新的C风格字符串，并保留对该字符串的引用
+
+// ff:
+// in:
 func (c Calloc) String(in string) *C.char {
 	result := C.CString(in)
 	c.pool = append(c.pool, unsafe.Pointer(result))
@@ -27,6 +32,8 @@ func (c Calloc) String(in string) *C.char {
 }
 
 // Free 释放所有已分配的C语言内存
+
+// ff:
 func (c Calloc) Free() {
 	for _, str := range c.pool {
 		C.free(str)

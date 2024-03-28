@@ -31,7 +31,11 @@ type StringTreeItem struct {
 	Image int
 }
 
+
+// ff:
 func (s StringTreeItem) Text() string    { return s.Data }
+
+// ff:
 func (s StringTreeItem) ImageIndex() int { return s.Image }
 
 type TreeView struct {
@@ -48,6 +52,9 @@ type TreeView struct {
 	onViewChange     EventManager
 }
 
+
+// ff:
+// parent:
 func NewTreeView(parent Controller) *TreeView {
 	tv := new(TreeView)
 
@@ -69,6 +76,9 @@ func NewTreeView(parent Controller) *TreeView {
 	return tv
 }
 
+
+// ff:
+// enable:
 func (tv *TreeView) EnableDoubleBuffer(enable bool) {
 	if enable {
 		w32.SendMessage(tv.hwnd, w32.TVM_SETEXTENDEDSTYLE, 0, w32.TVS_EX_DOUBLEBUFFER)
@@ -78,10 +88,15 @@ func (tv *TreeView) EnableDoubleBuffer(enable bool) {
 }
 
 // SelectedItem 是在 OnSelectedChange 事件发生后当前所选的项目。
+
+// ff:
 func (tv *TreeView) SelectedItem() TreeItem {
 	return tv.currItem
 }
 
+
+// ff:
+// item:
 func (tv *TreeView) SetSelectedItem(item TreeItem) bool {
 	var handle w32.HTREEITEM
 	if item != nil {
@@ -99,6 +114,10 @@ func (tv *TreeView) SetSelectedItem(item TreeItem) bool {
 	return true
 }
 
+
+// ff:
+// y:
+// x:
 func (tv *TreeView) ItemAt(x, y int) TreeItem {
 	hti := w32.TVHITTESTINFO{Pt: w32.POINT{int32(x), int32(y)}}
 	w32.SendMessage(tv.hwnd, w32.TVM_HITTEST, 0, uintptr(unsafe.Pointer(&hti)))
@@ -108,6 +127,9 @@ func (tv *TreeView) ItemAt(x, y int) TreeItem {
 	return nil
 }
 
+
+// ff:
+// list:
 func (tv *TreeView) Items() (list []TreeItem) {
 	for item := range tv.item2Info {
 		list = append(list, item)
@@ -115,6 +137,11 @@ func (tv *TreeView) Items() (list []TreeItem) {
 	return list
 }
 
+
+// ff:
+// insertAfter:
+// parent:
+// item:
 func (tv *TreeView) InsertItem(item, parent, insertAfter TreeItem) error {
 	var tvins w32.TVINSERTSTRUCT
 	tvi := &tvins.Item
@@ -157,6 +184,9 @@ func (tv *TreeView) InsertItem(item, parent, insertAfter TreeItem) error {
 	return nil
 }
 
+
+// ff:
+// item:
 func (tv *TreeView) UpdateItem(item TreeItem) bool {
 	it := tv.item2Info[item]
 	if it == nil {
@@ -176,6 +206,9 @@ func (tv *TreeView) UpdateItem(item TreeItem) bool {
 	return true
 }
 
+
+// ff:
+// item:
 func (tv *TreeView) DeleteItem(item TreeItem) bool {
 	it := tv.item2Info[item]
 	if it == nil {
@@ -191,6 +224,8 @@ func (tv *TreeView) DeleteItem(item TreeItem) bool {
 	return true
 }
 
+
+// ff:
 func (tv *TreeView) DeleteAllItems() bool {
 	if w32.SendMessage(tv.hwnd, w32.TVM_DELETEITEM, 0, 0) == 0 {
 		return false
@@ -201,6 +236,9 @@ func (tv *TreeView) DeleteAllItems() bool {
 	return true
 }
 
+
+// ff:
+// item:
 func (tv *TreeView) Expand(item TreeItem) bool {
 	if w32.SendMessage(tv.hwnd, w32.TVM_EXPAND, w32.TVE_EXPAND, uintptr(tv.item2Info[item].handle)) == 0 {
 		return false
@@ -208,6 +246,9 @@ func (tv *TreeView) Expand(item TreeItem) bool {
 	return true
 }
 
+
+// ff:
+// item:
 func (tv *TreeView) Collapse(item TreeItem) bool {
 	if w32.SendMessage(tv.hwnd, w32.TVM_EXPAND, w32.TVE_COLLAPSE, uintptr(tv.item2Info[item].handle)) == 0 {
 		return false
@@ -215,6 +256,9 @@ func (tv *TreeView) Collapse(item TreeItem) bool {
 	return true
 }
 
+
+// ff:
+// item:
 func (tv *TreeView) EnsureVisible(item TreeItem) bool {
 	if info := tv.item2Info[item]; info != nil {
 		return w32.SendMessage(tv.hwnd, w32.TVM_ENSUREVISIBLE, 0, uintptr(info.handle)) != 0
@@ -222,6 +266,9 @@ func (tv *TreeView) EnsureVisible(item TreeItem) bool {
 	return false
 }
 
+
+// ff:
+// imageList:
 func (tv *TreeView) SetImageList(imageList *ImageList) {
 	w32.SendMessage(tv.hwnd, w32.TVM_SETIMAGELIST, 0, uintptr(imageList.Handle()))
 	tv.iml = imageList
@@ -235,23 +282,36 @@ func (tv *TreeView) applyImage(tc *w32.TVITEM, item TreeItem) {
 	}
 }
 
+
+// ff:
 func (tv *TreeView) OnSelectedChange() *EventManager {
 	return &tv.onSelectedChange
 }
 
+
+// ff:
 func (tv *TreeView) OnExpand() *EventManager {
 	return &tv.onExpand
 }
 
+
+// ff:
 func (tv *TreeView) OnCollapse() *EventManager {
 	return &tv.onCollapse
 }
 
+
+// ff:
 func (tv *TreeView) OnViewChange() *EventManager {
 	return &tv.onViewChange
 }
 
 // Message processer
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (tv *TreeView) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_NOTIFY:

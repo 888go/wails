@@ -13,6 +13,11 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
+
+// ff:
+// url:
+// options:
+// logger:
 func NewExternalAssetsHandler(logger Logger, options assetserver.Options, url *url.URL) http.Handler {
 	baseHandler := options.Handler
 

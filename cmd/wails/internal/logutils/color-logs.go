@@ -6,6 +6,10 @@ import (
 	"github.com/wailsapp/wails/v2/internal/colour"
 )
 
+
+// ff:
+// args:
+// message:
 func LogGreen(message string, args ...interface{}) {
 	if len(message) == 0 {
 		return
@@ -14,6 +18,10 @@ func LogGreen(message string, args ...interface{}) {
 	println(colour.Green(text))
 }
 
+
+// ff:
+// args:
+// message:
 func LogRed(message string, args ...interface{}) {
 	if len(message) == 0 {
 		return
@@ -22,6 +30,10 @@ func LogRed(message string, args ...interface{}) {
 	println(colour.Red(text))
 }
 
+
+// ff:
+// args:
+// message:
 func LogDarkYellow(message string, args ...interface{}) {
 	if len(message) == 0 {
 		return

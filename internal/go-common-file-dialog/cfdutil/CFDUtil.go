@@ -5,6 +5,9 @@ import (
 )
 
 // TODO doc
+
+// ff:
+// config:
 func ShowOpenFileDialog(config cfd.DialogConfig) (string, error) {
 	dialog, err := cfd.NewOpenFileDialog(config)
 	if err != nil {
@@ -17,6 +20,9 @@ func ShowOpenFileDialog(config cfd.DialogConfig) (string, error) {
 }
 
 // TODO doc
+
+// ff:
+// config:
 func ShowOpenMultipleFilesDialog(config cfd.DialogConfig) ([]string, error) {
 	dialog, err := cfd.NewOpenMultipleFilesDialog(config)
 	if err != nil {
@@ -29,6 +35,9 @@ func ShowOpenMultipleFilesDialog(config cfd.DialogConfig) ([]string, error) {
 }
 
 // TODO doc
+
+// ff:
+// config:
 func ShowPickFolderDialog(config cfd.DialogConfig) (string, error) {
 	dialog, err := cfd.NewSelectFolderDialog(config)
 	if err != nil {
@@ -41,6 +50,9 @@ func ShowPickFolderDialog(config cfd.DialogConfig) (string, error) {
 }
 
 // TODO doc
+
+// ff:
+// config:
 func ShowSaveFileDialog(config cfd.DialogConfig) (string, error) {
 	dialog, err := cfd.NewSaveFileDialog(config)
 	if err != nil {

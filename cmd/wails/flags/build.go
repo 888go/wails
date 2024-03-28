@@ -51,6 +51,8 @@ type Build struct {
 	defaultArch   string // Default architecture
 }
 
+
+// ff:
 func (b *Build) Default() *Build {
 	defaultPlatform := os.Getenv("GOOS")
 	if defaultPlatform == "" {
@@ -76,6 +78,8 @@ func (b *Build) Default() *Build {
 	return result
 }
 
+
+// ff:
 func (b *Build) GetBuildMode() build.Mode {
 	if b.Debug {
 		return build.Debug
@@ -83,10 +87,14 @@ func (b *Build) GetBuildMode() build.Mode {
 	return build.Production
 }
 
+
+// ff:
 func (b *Build) GetWebView2Strategy() string {
 	return b.wv2rtstrategy
 }
 
+
+// ff:
 func (b *Build) GetTargets() *slicer.StringSlicer {
 	var targets slicer.StringSlicer
 	targets.AddSlice(strings.Split(b.Platform, ","))
@@ -94,14 +102,20 @@ func (b *Build) GetTargets() *slicer.StringSlicer {
 	return &targets
 }
 
+
+// ff:
 func (b *Build) GetCompilerPath() string {
 	return b.compilerPath
 }
 
+
+// ff:
 func (b *Build) GetTags() []string {
 	return b.userTags
 }
 
+
+// ff:
 func (b *Build) Process() error {
 	// Lookup compiler path
 	var err error
@@ -136,6 +150,8 @@ func bool2Str(b bool) string {
 	return "false"
 }
 
+
+// ff:
 func (b *Build) GetBuildModeAsString() string {
 	if b.Debug {
 		return "debug"
@@ -143,6 +159,8 @@ func (b *Build) GetBuildModeAsString() string {
 	return "production"
 }
 
+
+// ff:
 func (b *Build) GetDefaultArch() string {
 	return b.defaultArch
 }

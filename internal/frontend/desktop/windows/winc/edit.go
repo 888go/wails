@@ -17,6 +17,9 @@ type Edit struct {
 const passwordChar = '*'
 const nopasswordChar = ' '
 
+
+// ff:
+// parent:
 func NewEdit(parent Controller) *Edit {
 	edt := new(Edit)
 
@@ -30,16 +33,24 @@ func NewEdit(parent Controller) *Edit {
 }
 
 // Events.
+
+// ff:
 func (ed *Edit) OnChange() *EventManager {
 	return &ed.onChange
 }
 
 // Public methods.
+
+// ff:
+// isReadOnly:
 func (ed *Edit) SetReadOnly(isReadOnly bool) {
 	w32.SendMessage(ed.hwnd, w32.EM_SETREADONLY, uintptr(w32.BoolToBOOL(isReadOnly)), 0)
 }
 
 // Public methods
+
+// ff:
+// isPassword:
 func (ed *Edit) SetPassword(isPassword bool) {
 	if isPassword {
 		w32.SendMessage(ed.hwnd, w32.EM_SETPASSWORDCHAR, uintptr(passwordChar), 0)
@@ -48,6 +59,11 @@ func (ed *Edit) SetPassword(isPassword bool) {
 	}
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (ed *Edit) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_COMMAND:
@@ -70,6 +86,9 @@ type MultiEdit struct {
 	onChange EventManager
 }
 
+
+// ff:
+// parent:
 func NewMultiEdit(parent Controller) *MultiEdit {
 	med := new(MultiEdit)
 
@@ -83,15 +102,23 @@ func NewMultiEdit(parent Controller) *MultiEdit {
 }
 
 // Events
+
+// ff:
 func (med *MultiEdit) OnChange() *EventManager {
 	return &med.onChange
 }
 
 // Public methods
+
+// ff:
+// isReadOnly:
 func (med *MultiEdit) SetReadOnly(isReadOnly bool) {
 	w32.SendMessage(med.hwnd, w32.EM_SETREADONLY, uintptr(w32.BoolToBOOL(isReadOnly)), 0)
 }
 
+
+// ff:
+// text:
 func (med *MultiEdit) AddLine(text string) {
 	if len(med.Text()) == 0 {
 		med.SetText(text)
@@ -100,6 +127,11 @@ func (med *MultiEdit) AddLine(text string) {
 	}
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (med *MultiEdit) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 

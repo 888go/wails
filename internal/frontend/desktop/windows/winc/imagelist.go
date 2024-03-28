@@ -17,6 +17,10 @@ type ImageList struct {
 	handle w32.HIMAGELIST
 }
 
+
+// ff:
+// cy:
+// cx:
 func NewImageList(cx, cy int) *ImageList {
 	return newImageList(cx, cy, w32.ILC_COLOR32, 0, 0)
 }
@@ -27,26 +31,41 @@ func newImageList(cx, cy int, flags uint, cInitial, cGrow int) *ImageList {
 	return imgl
 }
 
+
+// ff:
 func (im *ImageList) Handle() w32.HIMAGELIST {
 	return im.handle
 }
 
+
+// ff:
 func (im *ImageList) Destroy() bool {
 	return w32.ImageList_Destroy(im.handle)
 }
 
+
+// ff:
+// uNewCount:
 func (im *ImageList) SetImageCount(uNewCount uint) bool {
 	return w32.ImageList_SetImageCount(im.handle, uNewCount)
 }
 
+
+// ff:
 func (im *ImageList) ImageCount() int {
 	return w32.ImageList_GetImageCount(im.handle)
 }
 
+
+// ff:
+// icon:
 func (im *ImageList) AddIcon(icon *Icon) int {
 	return w32.ImageList_AddIcon(im.handle, icon.Handle())
 }
 
+
+// ff:
+// iconID:
 func (im *ImageList) AddResIcon(iconID uint16) {
 	if ico, err := NewIconFromResource(GetAppInstance(), iconID); err == nil {
 		im.AddIcon(ico)
@@ -55,10 +74,15 @@ func (im *ImageList) AddResIcon(iconID uint16) {
 	panic(fmt.Sprintf("missing icon with icon ID: %d", iconID))
 }
 
+
+// ff:
 func (im *ImageList) RemoveAll() bool {
 	return w32.ImageList_RemoveAll(im.handle)
 }
 
+
+// ff:
+// i:
 func (im *ImageList) Remove(i int) bool {
 	return w32.ImageList_Remove(im.handle, i)
 }

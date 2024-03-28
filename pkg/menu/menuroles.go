@@ -17,6 +17,8 @@ const (
 
 /*
 // About 提供了一个具有“关于”角色的MenuItem
+
+// ff:
 func About() *MenuItem {
 	return &MenuItem{
 		Role: AboutRole,
@@ -24,6 +26,8 @@ func About() *MenuItem {
 }
 
 // Undo 提供了一个具有撤销角色的 MenuItem
+
+// ff:
 func Undo() *MenuItem {
 	return &MenuItem{
 		Role: UndoRole,
@@ -31,6 +35,8 @@ func Undo() *MenuItem {
 }
 
 // Redo 提供了一个具有 Redo 角色的 MenuItem
+
+// ff:
 func Redo() *MenuItem {
 	return &MenuItem{
 		Role: RedoRole,
@@ -38,6 +44,8 @@ func Redo() *MenuItem {
 }
 
 // Cut 提供了一个具有“Cut”角色的 MenuItem
+
+// ff:
 func Cut() *MenuItem {
 	return &MenuItem{
 		Role: CutRole,
@@ -45,6 +53,8 @@ func Cut() *MenuItem {
 }
 
 // Copy 提供了一个具有“复制”角色的 MenuItem
+
+// ff:
 func Copy() *MenuItem {
 	return &MenuItem{
 		Role: CopyRole,
@@ -52,6 +62,8 @@ func Copy() *MenuItem {
 }
 
 // Paste 提供了一个具有“粘贴”角色的 MenuItem
+
+// ff:
 func Paste() *MenuItem {
 	return &MenuItem{
 		Role: PasteRole,
@@ -59,6 +71,8 @@ func Paste() *MenuItem {
 }
 
 // PasteAndMatchStyle 提供了一个具有 PasteAndMatchStyle 角色的 MenuItem
+
+// ff:
 func PasteAndMatchStyle() *MenuItem {
 	return &MenuItem{
 		Role: PasteAndMatchStyleRole,
@@ -66,6 +80,8 @@ func PasteAndMatchStyle() *MenuItem {
 }
 
 // SelectAll 提供了一个具有 SelectAll 角色的 MenuItem
+
+// ff:
 func SelectAll() *MenuItem {
 	return &MenuItem{
 		Role: SelectAllRole,
@@ -73,6 +89,8 @@ func SelectAll() *MenuItem {
 }
 
 // Delete 为具有“删除”角色的MenuItem提供功能
+
+// ff:
 func Delete() *MenuItem {
 	return &MenuItem{
 		Role: DeleteRole,
@@ -80,6 +98,8 @@ func Delete() *MenuItem {
 }
 
 // Minimize 提供了一个具有最小化角色的MenuItem
+
+// ff:
 func Minimize() *MenuItem {
 	return &MenuItem{
 		Role: MinimizeRole,
@@ -87,6 +107,8 @@ func Minimize() *MenuItem {
 }
 
 // Quit 为MenuItem提供了一个具有Quit角色的功能
+
+// ff:
 func Quit() *MenuItem {
 	return &MenuItem{
 		Role: QuitRole,
@@ -94,6 +116,8 @@ func Quit() *MenuItem {
 }
 
 // ToggleFullscreen 提供了一个具有 ToggleFullscreen 角色的 MenuItem
+
+// ff:
 func ToggleFullscreen() *MenuItem {
 	return &MenuItem{
 		Role: TogglefullscreenRole,
@@ -101,6 +125,8 @@ func ToggleFullscreen() *MenuItem {
 }
 
 // FileMenu 提供一个具有默认“文件”菜单（关闭/退出）的 MenuItem
+
+// ff:
 func FileMenu() *MenuItem {
 	return &MenuItem{
 		Role: FileMenuRole,
@@ -109,6 +135,8 @@ func FileMenu() *MenuItem {
 */
 
 // EditMenu 提供一个具有默认“编辑”菜单（撤销、复制等）的 MenuItem。
+
+// ff:创建菜单项并带编辑菜单
 func EditMenu() *MenuItem {
 	return &MenuItem{
 		Role: EditMenuRole,
@@ -117,6 +145,8 @@ func EditMenu() *MenuItem {
 
 /*
 // ViewMenu 提供一个具有默认“查看”菜单（如：重新加载、切换开发者工具等）的 MenuItem
+
+// ff:
 func ViewMenu() *MenuItem {
 	return &MenuItem{
 		Role: ViewMenuRole,
@@ -126,6 +156,8 @@ func ViewMenu() *MenuItem {
 
 // WindowMenu 提供一个带有默认“窗口”菜单（最小化、缩放等）的 MenuItem。
 // 在 MacOS 中，如果窗口无边框，则当前其中的所有选项将无法正常工作。
+
+// ff:创建菜单项并带窗口菜单
 func WindowMenu() *MenuItem {
 	return &MenuItem{
 		Role: WindowMenuRole,
@@ -135,6 +167,8 @@ func WindowMenu() *MenuItem {
 // 这些角色仅适用于Mac系统
 
 // AppMenu 提供一个具有默认“应用”菜单（关于、服务等）的 MenuItem
+
+// ff:创建菜单项并带应用菜单
 func AppMenu() *MenuItem {
 	return &MenuItem{
 		Role: AppMenuRole,
@@ -143,6 +177,8 @@ func AppMenu() *MenuItem {
 
 /*
 // Hide 提供了一个MenuItem，该MenuItem映射到隐藏动作。
+
+// ff:
 func Hide() *MenuItem {
 	return &MenuItem{
 		Role: HideRole,
@@ -150,6 +186,8 @@ func Hide() *MenuItem {
 }
 
 // HideOthers 提供了一个MenuItem，该MenuItem映射到 hideOtherApplications 动作。
+
+// ff:
 func HideOthers() *MenuItem {
 	return &MenuItem{
 		Role: HideOthersRole,
@@ -157,6 +195,8 @@ func HideOthers() *MenuItem {
 }
 
 // UnHide 提供了一个MenuItem，该MenuItem映射到unHideAllApplications动作。
+
+// ff:
 func UnHide() *MenuItem {
 	return &MenuItem{
 		Role: UnhideRole,
@@ -164,6 +204,8 @@ func UnHide() *MenuItem {
 }
 
 // Front 提供了一个 MenuItem，该 MenuItem 与 arrangeInFront 动作相对应。
+
+// ff:
 func Front() *MenuItem {
 	return &MenuItem{
 		Role: FrontRole,
@@ -171,6 +213,8 @@ func Front() *MenuItem {
 }
 
 // Zoom 提供了一个MenuItem，该MenuItem映射到执行缩放操作的performZoom动作。
+
+// ff:
 func Zoom() *MenuItem {
 	return &MenuItem{
 		Role: ZoomRole,
@@ -178,6 +222,8 @@ func Zoom() *MenuItem {
 }
 
 // WindowSubMenu 提供一个具有“窗口”子菜单的 MenuItem。
+
+// ff:
 func WindowSubMenu() *MenuItem {
 	return &MenuItem{
 		Role: WindowSubMenuRole,
@@ -185,6 +231,8 @@ func WindowSubMenu() *MenuItem {
 }
 
 // HelpSubMenu 提供了一个带有“帮助”子菜单的 MenuItem。
+
+// ff:
 func HelpSubMenu() *MenuItem {
 	return &MenuItem{
 		Role: HelpSubMenuRole,

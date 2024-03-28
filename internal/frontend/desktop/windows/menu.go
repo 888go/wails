@@ -39,6 +39,9 @@ func addRadioItemToMap(menuItem *menu.MenuItem, wincMenuItem *winc.MenuItem) {
 	radioGroupMap[menuItem] = append(radioGroupMap[menuItem], wincMenuItem)
 }
 
+
+// ff:
+// menu:
 func (w *Window) SetApplicationMenu(menu *menu.Menu) {
 	w.applicationMenu = menu
 	processMenu(w, menu)
@@ -123,10 +126,15 @@ func processMenuItem(parent *winc.MenuItem, menuItem *menu.MenuItem) {
 	}
 }
 
+
+// ff:
+// menu:
 func (f *Frontend) MenuSetApplicationMenu(menu *menu.Menu) {
 	f.mainWindow.SetApplicationMenu(menu)
 }
 
+
+// ff:
 func (f *Frontend) MenuUpdateApplicationMenu() {
 	processMenu(f.mainWindow, f.mainWindow.applicationMenu)
 }

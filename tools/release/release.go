@@ -46,6 +46,10 @@ func runCommand(name string, arg ...string) {
 	checkError(err)
 }
 
+
+// ff:
+// newVersion:
+// currentVersion:
 func IsPointRelease(currentVersion string, newVersion string) bool {
 	// 版本的前n-1部分应保持相同
 	if currentVersion[:len(currentVersion)-2] != newVersion[:len(newVersion)-2] {

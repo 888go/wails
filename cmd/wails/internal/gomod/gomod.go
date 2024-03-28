@@ -13,6 +13,10 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/clilogger"
 )
 
+
+// ff:
+// updateWailsVersion:
+// logger:
 func SyncGoMod(logger *clilogger.CLILogger, updateWailsVersion bool) error {
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -62,6 +66,10 @@ func SyncGoMod(logger *clilogger.CLILogger, updateWailsVersion bool) error {
 	return nil
 }
 
+
+// ff:
+// args:
+// message:
 func LogGreen(message string, args ...interface{}) {
 	text := fmt.Sprintf(message, args...)
 	println(colour.Green(text))

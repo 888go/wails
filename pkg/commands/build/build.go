@@ -72,6 +72,9 @@ type Options struct {
 }
 
 // Build the project!
+
+// ff:构建项目
+// options:选项
 func Build(options *Options) (string, error) {
 	// Extract logger
 	outputLogger := options.Logger
@@ -157,6 +160,10 @@ func Build(options *Options) (string, error) {
 	return compileBinary, nil
 }
 
+
+// ff:
+// buildOptions:
+// cwd:
 func CreateEmbedDirectories(cwd string, buildOptions *Options) error {
 	path := cwd
 	if buildOptions.ProjectData != nil {
@@ -210,6 +217,9 @@ func printBulletPoint(text string, args ...any) {
 	pterm.Printf(t, args...)
 }
 
+
+// ff:
+// buildOptions:
 func GenerateBindings(buildOptions *Options) error {
 	obfuscated := buildOptions.Obfuscated
 	if obfuscated {

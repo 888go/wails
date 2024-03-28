@@ -32,37 +32,74 @@ type ToolButton struct {
 	onClick EventManager
 }
 
+
+// ff:
 func (bt *ToolButton) OnClick() *EventManager {
 	return &bt.onClick
 }
 
 func (bt *ToolButton) update() { bt.tb.update(bt) }
 
+
+// ff:
 func (bt *ToolButton) IsSeparator() bool { return bt.text == "-" }
+
+// ff:
 func (bt *ToolButton) SetSeparator()     { bt.text = "-" }
 
+
+// ff:
 func (bt *ToolButton) Enabled() bool     { return bt.enabled }
+
+// ff:
+// b:
 func (bt *ToolButton) SetEnabled(b bool) { bt.enabled = b; bt.update() }
 
+
+// ff:
 func (bt *ToolButton) Checkable() bool     { return bt.checkable }
+
+// ff:
+// b:
 func (bt *ToolButton) SetCheckable(b bool) { bt.checkable = b; bt.update() }
 
+
+// ff:
 func (bt *ToolButton) Checked() bool     { return bt.checked }
+
+// ff:
+// b:
 func (bt *ToolButton) SetChecked(b bool) { bt.checked = b; bt.update() }
 
+
+// ff:
 func (bt *ToolButton) Text() string     { return bt.text }
+
+// ff:
+// s:
 func (bt *ToolButton) SetText(s string) { bt.text = s; bt.update() }
 
+
+// ff:
 func (bt *ToolButton) Image() int     { return bt.image }
+
+// ff:
+// i:
 func (bt *ToolButton) SetImage(i int) { bt.image = i; bt.update() }
 
 // NewHToolbar 创建一个水平工具栏，其中文本与图像位于同一行。
+
+// ff:
+// parent:
 func NewHToolbar(parent Controller) *Toolbar {
 	return newToolbar(parent, w32.CCS_NODIVIDER|w32.TBSTYLE_FLAT|w32.TBSTYLE_TOOLTIPS|w32.TBSTYLE_WRAPABLE|
 		w32.WS_CHILD|w32.TBSTYLE_LIST)
 }
 
 // NewToolbar 创建一个带有文本在图片下方的工具栏。
+
+// ff:
+// parent:
 func NewToolbar(parent Controller) *Toolbar {
 	return newToolbar(parent, w32.CCS_NODIVIDER|w32.TBSTYLE_FLAT|w32.TBSTYLE_TOOLTIPS|w32.TBSTYLE_WRAPABLE|
 		w32.WS_CHILD /*|w32.TBSTYLE_TRANSPARENT*/)
@@ -85,6 +122,9 @@ func newToolbar(parent Controller, style uint) *Toolbar {
 	return tb
 }
 
+
+// ff:
+// imageList:
 func (tb *Toolbar) SetImageList(imageList *ImageList) {
 	w32.SendMessage(tb.hwnd, w32.TB_SETIMAGELIST, 0, uintptr(imageList.Handle()))
 	tb.iml = imageList
@@ -137,11 +177,17 @@ func (tb *Toolbar) update(btn *ToolButton) {
 	}
 }
 
+
+// ff:
 func (tb *Toolbar) AddSeparator() {
 	tb.AddButton("-", 0)
 }
 
 // AddButton 创建并添加一个按钮到工具栏。使用返回的 toolbutton 来设置 OnClick 事件。
+
+// ff:
+// image:
+// text:
 func (tb *Toolbar) AddButton(text string, image int) *ToolButton {
 	bt := &ToolButton{
 		tb:      tb, // points to parent
@@ -167,6 +213,11 @@ func (tb *Toolbar) AddButton(text string, image int) *ToolButton {
 	return bt
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (tb *Toolbar) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_COMMAND:

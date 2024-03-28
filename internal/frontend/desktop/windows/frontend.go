@@ -66,6 +66,13 @@ type Frontend struct {
 	resizeDebouncer func(f func())
 }
 
+
+// ff:
+// dispatcher:
+// appBindings:
+// myLogger:
+// appoptions:
+// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher) *Frontend {
 
 	// 获取Windows构建号
@@ -120,22 +127,33 @@ func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.
 	return result
 }
 
+
+// ff:
 func (f *Frontend) WindowReload() {
 	f.ExecJS("runtime.WindowReload();")
 }
 
+
+// ff:
 func (f *Frontend) WindowSetSystemDefaultTheme() {
 	f.mainWindow.SetTheme(windows.SystemDefault)
 }
 
+
+// ff:
 func (f *Frontend) WindowSetLightTheme() {
 	f.mainWindow.SetTheme(windows.Light)
 }
 
+
+// ff:
 func (f *Frontend) WindowSetDarkTheme() {
 	f.mainWindow.SetTheme(windows.Dark)
 }
 
+
+// ff:
+// ctx:
 func (f *Frontend) Run(ctx context.Context) error {
 	f.ctx = ctx
 
@@ -198,57 +216,83 @@ func (f *Frontend) Run(ctx context.Context) error {
 	return nil
 }
 
+
+// ff:
 func (f *Frontend) WindowClose() {
 	if f.mainWindow != nil {
 		f.mainWindow.Close()
 	}
 }
 
+
+// ff:
 func (f *Frontend) RunMainLoop() {
 	_ = winc.RunMainLoop()
 }
 
+
+// ff:
 func (f *Frontend) WindowCenter() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.Center()
 }
 
+
+// ff:
+// b:
 func (f *Frontend) WindowSetAlwaysOnTop(b bool) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetAlwaysOnTop(b)
 }
 
+
+// ff:
+// y:
+// x:
 func (f *Frontend) WindowSetPosition(x, y int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetPos(x, y)
 }
+
+// ff:
 func (f *Frontend) WindowGetPosition() (int, int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	return f.mainWindow.Pos()
 }
 
+
+// ff:
+// height:
+// width:
 func (f *Frontend) WindowSetSize(width, height int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetSize(width, height)
 }
 
+
+// ff:
 func (f *Frontend) WindowGetSize() (int, int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	return f.mainWindow.Size()
 }
 
+
+// ff:
+// title:
 func (f *Frontend) WindowSetTitle(title string) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetText(title)
 }
 
+
+// ff:
 func (f *Frontend) WindowFullscreen() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -258,10 +302,14 @@ func (f *Frontend) WindowFullscreen() {
 	f.mainWindow.Fullscreen()
 }
 
+
+// ff:
 func (f *Frontend) WindowReloadApp() {
 	f.ExecJS(fmt.Sprintf("window.location.href = '%s';", f.startURL))
 }
 
+
+// ff:
 func (f *Frontend) WindowUnfullscreen() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -271,18 +319,24 @@ func (f *Frontend) WindowUnfullscreen() {
 	f.mainWindow.UnFullscreen()
 }
 
+
+// ff:
 func (f *Frontend) WindowShow() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.ShowWindow()
 }
 
+
+// ff:
 func (f *Frontend) WindowHide() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.Hide()
 }
 
+
+// ff:
 func (f *Frontend) WindowMaximise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -295,6 +349,8 @@ func (f *Frontend) WindowMaximise() {
 	}
 }
 
+
+// ff:
 func (f *Frontend) WindowToggleMaximise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -308,6 +364,8 @@ func (f *Frontend) WindowToggleMaximise() {
 	}
 }
 
+
+// ff:
 func (f *Frontend) WindowUnmaximise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -317,6 +375,8 @@ func (f *Frontend) WindowUnmaximise() {
 	f.mainWindow.Restore()
 }
 
+
+// ff:
 func (f *Frontend) WindowMinimise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -327,6 +387,8 @@ func (f *Frontend) WindowMinimise() {
 	}
 }
 
+
+// ff:
 func (f *Frontend) WindowUnminimise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -336,17 +398,28 @@ func (f *Frontend) WindowUnminimise() {
 	f.mainWindow.Restore()
 }
 
+
+// ff:
+// height:
+// width:
 func (f *Frontend) WindowSetMinSize(width int, height int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetMinSize(width, height)
 }
+
+// ff:
+// height:
+// width:
 func (f *Frontend) WindowSetMaxSize(width int, height int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetMaxSize(width, height)
 }
 
+
+// ff:
+// col:
 func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 	if col == nil {
 		return
@@ -382,6 +455,8 @@ func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 
 }
 
+
+// ff:
 func (f *Frontend) ScreenGetAll() ([]Screen, error) {
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -396,30 +471,44 @@ func (f *Frontend) ScreenGetAll() ([]Screen, error) {
 	return screens, err
 }
 
+
+// ff:
 func (f *Frontend) Show() {
 	f.mainWindow.Show()
 }
 
+
+// ff:
 func (f *Frontend) Hide() {
 	f.mainWindow.Hide()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsMaximised() bool {
 	return f.mainWindow.IsMaximised()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsMinimised() bool {
 	return f.mainWindow.IsMinimised()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsNormal() bool {
 	return f.mainWindow.IsNormal()
 }
 
+
+// ff:
 func (f *Frontend) WindowIsFullscreen() bool {
 	return f.mainWindow.IsFullScreen()
 }
 
+
+// ff:
 func (f *Frontend) Quit() {
 	if f.frontendOptions.OnBeforeClose != nil && f.frontendOptions.OnBeforeClose(f.ctx) {
 		return
@@ -429,6 +518,8 @@ func (f *Frontend) Quit() {
 	f.mainWindow.Invoke(winc.Exit)
 }
 
+
+// ff:
 func (f *Frontend) WindowPrint() {
 	f.ExecJS("window.print();")
 }
@@ -576,6 +667,10 @@ type EventNotify struct {
 	Data []interface{} `json:"data"`
 }
 
+
+// ff:
+// data:
+// name:
 func (f *Frontend) Notify(name string, data ...interface{}) {
 	notification := EventNotify{
 		Name: name,
@@ -712,6 +807,9 @@ func (f *Frontend) processMessage(message string) {
 	}()
 }
 
+
+// ff:
+// message:
 func (f *Frontend) Callback(message string) {
 	escaped, err := json.Marshal(message)
 	if err != nil {
@@ -740,6 +838,9 @@ func (f *Frontend) startResize(border uintptr) error {
 	return nil
 }
 
+
+// ff:
+// js:
 func (f *Frontend) ExecJS(js string) {
 	f.mainWindow.Invoke(func() {
 		f.chromium.Eval(js)
@@ -798,6 +899,8 @@ func (f *Frontend) navigationCompleted(sender *edge.ICoreWebView2, args *edge.IC
 
 }
 
+
+// ff:
 func (f *Frontend) ShowWindow() {
 	f.mainWindow.Invoke(func() {
 		if !f.mainWindow.hasBeenShown {

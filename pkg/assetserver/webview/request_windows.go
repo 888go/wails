@@ -13,6 +13,10 @@ import (
 )
 
 // NewRequest 创建一个新的 WebViewRequest 用于 Chromium。这个方法必须在主线程中调用！
+
+// ff:创建请求对象
+// Request:
+// fn:
 func NewRequest(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
 	req, err := args.GetRequest()
 	if err != nil {
@@ -78,22 +82,32 @@ type request struct {
 	invokeSync func(fn func())
 }
 
+
+// ff:
 func (r *request) URL() (string, error) {
 	return r.url, r.urlErr
 }
 
+
+// ff:请求方法
 func (r *request) Method() (string, error) {
 	return r.method, r.methodErr
 }
 
+
+// ff:请求头
 func (r *request) Header() (http.Header, error) {
 	return r.header, r.headerErr
 }
 
+
+// ff:请求体
 func (r *request) Body() (io.ReadCloser, error) {
 	return r.body, r.bodyErr
 }
 
+
+// ff:请求响应
 func (r *request) Response() ResponseWriter {
 	if r.rw != nil {
 		return r.rw
@@ -103,6 +117,8 @@ func (r *request) Response() ResponseWriter {
 	return r.rw
 }
 
+
+// ff:关闭
 func (r *request) Close() error {
 	var errs []error
 	if r.body != nil {
@@ -146,6 +162,9 @@ type iStreamReleaseCloser struct {
 	closed bool
 }
 
+
+// ff:
+// p:
 func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	if i.closed {
 		return 0, io.ErrClosedPipe
@@ -153,6 +172,8 @@ func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	return i.stream.Read(p)
 }
 
+
+// ff:
 func (i *iStreamReleaseCloser) Close() error {
 	if i.closed {
 		return nil

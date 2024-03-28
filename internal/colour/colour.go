@@ -9,6 +9,10 @@ import (
 
 var ColourEnabled = true
 
+
+// ff:
+// text:
+// col:
 func Col(col ctc.Color, text string) string {
 	if !ColourEnabled {
 		return text
@@ -16,6 +20,9 @@ func Col(col ctc.Color, text string) string {
 	return fmt.Sprintf("%s%s%s", col, text, ctc.Reset)
 }
 
+
+// ff:
+// text:
 func Yellow(text string) string {
 	if !ColourEnabled {
 		return text
@@ -23,6 +30,9 @@ func Yellow(text string) string {
 	return Col(ctc.ForegroundBrightYellow, text)
 }
 
+
+// ff:
+// text:
 func Red(text string) string {
 	if !ColourEnabled {
 		return text
@@ -30,6 +40,9 @@ func Red(text string) string {
 	return Col(ctc.ForegroundBrightRed, text)
 }
 
+
+// ff:
+// text:
 func Blue(text string) string {
 	if !ColourEnabled {
 		return text
@@ -37,6 +50,9 @@ func Blue(text string) string {
 	return Col(ctc.ForegroundBrightBlue, text)
 }
 
+
+// ff:
+// text:
 func Green(text string) string {
 	if !ColourEnabled {
 		return text
@@ -44,6 +60,9 @@ func Green(text string) string {
 	return Col(ctc.ForegroundBrightGreen, text)
 }
 
+
+// ff:
+// text:
 func Cyan(text string) string {
 	if !ColourEnabled {
 		return text
@@ -51,6 +70,9 @@ func Cyan(text string) string {
 	return Col(ctc.ForegroundBrightCyan, text)
 }
 
+
+// ff:
+// text:
 func Magenta(text string) string {
 	if !ColourEnabled {
 		return text
@@ -58,6 +80,9 @@ func Magenta(text string) string {
 	return Col(ctc.ForegroundBrightMagenta, text)
 }
 
+
+// ff:
+// text:
 func White(text string) string {
 	if !ColourEnabled {
 		return text
@@ -65,6 +90,9 @@ func White(text string) string {
 	return Col(ctc.ForegroundBrightWhite, text)
 }
 
+
+// ff:
+// text:
 func Black(text string) string {
 	if !ColourEnabled {
 		return text
@@ -72,6 +100,9 @@ func Black(text string) string {
 	return Col(ctc.ForegroundBrightBlack, text)
 }
 
+
+// ff:
+// text:
 func DarkYellow(text string) string {
 	if !ColourEnabled {
 		return text
@@ -79,6 +110,9 @@ func DarkYellow(text string) string {
 	return Col(ctc.ForegroundYellow, text)
 }
 
+
+// ff:
+// text:
 func DarkRed(text string) string {
 	if !ColourEnabled {
 		return text
@@ -86,6 +120,9 @@ func DarkRed(text string) string {
 	return Col(ctc.ForegroundRed, text)
 }
 
+
+// ff:
+// text:
 func DarkBlue(text string) string {
 	if !ColourEnabled {
 		return text
@@ -93,6 +130,9 @@ func DarkBlue(text string) string {
 	return Col(ctc.ForegroundBlue, text)
 }
 
+
+// ff:
+// text:
 func DarkGreen(text string) string {
 	if !ColourEnabled {
 		return text
@@ -100,6 +140,9 @@ func DarkGreen(text string) string {
 	return Col(ctc.ForegroundGreen, text)
 }
 
+
+// ff:
+// text:
 func DarkCyan(text string) string {
 	if !ColourEnabled {
 		return text
@@ -107,6 +150,9 @@ func DarkCyan(text string) string {
 	return Col(ctc.ForegroundCyan, text)
 }
 
+
+// ff:
+// text:
 func DarkMagenta(text string) string {
 	if !ColourEnabled {
 		return text
@@ -114,6 +160,9 @@ func DarkMagenta(text string) string {
 	return Col(ctc.ForegroundMagenta, text)
 }
 
+
+// ff:
+// text:
 func DarkWhite(text string) string {
 	if !ColourEnabled {
 		return text
@@ -121,6 +170,9 @@ func DarkWhite(text string) string {
 	return Col(ctc.ForegroundWhite, text)
 }
 
+
+// ff:
+// text:
 func DarkBlack(text string) string {
 	if !ColourEnabled {
 		return text
@@ -130,6 +182,9 @@ func DarkBlack(text string) string {
 
 var rainbowCols = []func(string) string{Red, Yellow, Green, Cyan, Blue, Magenta}
 
+
+// ff:
+// text:
 func Rainbow(text string) string {
 	if !ColourEnabled {
 		return text

@@ -18,6 +18,9 @@ type ToolTip struct {
 	ControlBase
 }
 
+
+// ff:
+// parent:
 func NewToolTip(parent Controller) *ToolTip {
 	tp := new(ToolTip)
 
@@ -27,6 +30,10 @@ func NewToolTip(parent Controller) *ToolTip {
 	return tp
 }
 
+
+// ff:
+// tip:
+// tool:
 func (tp *ToolTip) SetTip(tool Controller, tip string) bool {
 	var ti w32.TOOLINFO
 	ti.CbSize = uint32(unsafe.Sizeof(ti))
@@ -40,6 +47,11 @@ func (tp *ToolTip) SetTip(tool Controller, tip string) bool {
 	return w32.SendMessage(tp.Handle(), w32.TTM_ADDTOOL, 0, uintptr(unsafe.Pointer(&ti))) != w32.FALSE
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (tp *ToolTip) WndProc(msg uint, wparam, lparam uintptr) uintptr {
 	return w32.DefWindowProc(tp.hwnd, uint32(msg), wparam, lparam)
 }

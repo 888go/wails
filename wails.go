@@ -9,6 +9,9 @@ import (
 )
 
 // Run 根据给定的配置创建应用程序并执行它
+
+// ff:运行
+// options:配置
 func Run(options *options.App) error {
 	mainApp := application.NewWithOptions(options)
 	return mainApp.Run()

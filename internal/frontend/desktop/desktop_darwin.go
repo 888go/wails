@@ -15,6 +15,13 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
+
+// ff:
+// dispatcher:
+// appBindings:
+// logger:
+// appoptions:
+// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, logger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher) frontend.Frontend {
 	return darwin.NewFrontend(ctx, appoptions, logger, appBindings, dispatcher)
 }

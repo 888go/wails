@@ -22,6 +22,9 @@ type Application struct {
 }
 
 // NewWithOptions 使用给定的选项创建一个新的Application
+
+// ff:创建并按选项
+// options:App选项
 func NewWithOptions(options *options.App) *Application {
 	if options == nil {
 		return New()
@@ -32,6 +35,8 @@ func NewWithOptions(options *options.App) *Application {
 }
 
 // New 创建一个使用默认选项的新 Application
+
+// ff:创建并按默认选项
 func New() *Application {
 	return &Application{
 		options: &options.App{},
@@ -39,6 +44,9 @@ func New() *Application {
 }
 
 // 设置应用菜单 将设置应用程序的菜单
+
+// ff:设置菜单
+// appMenu:菜单
 func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {
 	if a.running {
 		a.application.SetApplicationMenu(appMenu)
@@ -49,6 +57,8 @@ func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {
 }
 
 // Run 启动应用程序
+
+// ff:运行
 func (a *Application) Run() error {
 	err := applicationInit()
 	if err != nil {
@@ -75,6 +85,8 @@ func (a *Application) Run() error {
 }
 
 // Quit 将关闭应用程序
+
+// ff:退出
 func (a *Application) Quit() {
 	a.shutdown.Do(func() {
 		a.application.Shutdown()
@@ -82,10 +94,17 @@ func (a *Application) Quit() {
 }
 
 // 将给定的结构体绑定到应用程序
+
+// ff:
+// boundStruct:
 func (a *Application) Bind(boundStruct any) {
 	a.options.Bind = append(a.options.Bind, boundStruct)
 }
 
+
+// ff:
+// callback:
+// eventType:
 func (a *Application) On(eventType EventType, callback func()) {
 	c := func(ctx context.Context) {
 		callback()

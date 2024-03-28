@@ -13,14 +13,20 @@ type RuntimeAssets struct {
 	runtimeDesktopJS []byte
 }
 
+
+// ff:
 func (r *RuntimeAssets) DesktopIPC() []byte {
 	return r.desktopIPC
 }
 
+
+// ff:
 func (r *RuntimeAssets) WebsocketIPC() []byte {
 	return r.websocketIPC
 }
 
+
+// ff:
 func (r *RuntimeAssets) RuntimeDesktopJS() []byte {
 	return r.runtimeDesktopJS
 }

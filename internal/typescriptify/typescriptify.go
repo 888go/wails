@@ -52,12 +52,19 @@ type StructType struct {
 	FieldOptions map[reflect.Type]TypeOptions
 }
 
+
+// ff:
+// i:
 func NewStruct(i interface{}) *StructType {
 	return &StructType{
 		Type: reflect.TypeOf(i),
 	}
 }
 
+
+// ff:
+// opts:
+// i:
 func (st *StructType) WithFieldOpts(i interface{}, opts TypeOptions) *StructType {
 	if st.FieldOptions == nil {
 		st.FieldOptions = map[reflect.Type]TypeOptions{}
@@ -107,6 +114,8 @@ type TypeScriptify struct {
 	KnownEnums   *slicer.StringSlicer
 }
 
+
+// ff:
 func New() *TypeScriptify {
 	result := new(TypeScriptify)
 	result.Indent = "\t"
@@ -183,6 +192,10 @@ func (ts TypeScriptify) logf(depth int, s string, args ...interface{}) {
 // ManageType 可以为指定类型的字段定义自定义选项。
 //
 // 可以使用此方法替代为某种特定类型的所有字段设置 ts_type 和 ts_transform。
+
+// ff:
+// opts:
+// fld:
 func (t *TypeScriptify) ManageType(fld interface{}, opts TypeOptions) *TypeScriptify {
 	var typ reflect.Type
 	switch t := fld.(type) {
@@ -198,6 +211,8 @@ func (t *TypeScriptify) ManageType(fld interface{}, opts TypeOptions) *TypeScrip
 	return t
 }
 
+
+// ff:
 func (t *TypeScriptify) GetGeneratedStructs() []string {
 	var result []string
 	for key := range t.alreadyConverted {
@@ -206,41 +221,65 @@ func (t *TypeScriptify) GetGeneratedStructs() []string {
 	return result
 }
 
+
+// ff:
+// b:
 func (t *TypeScriptify) WithCreateFromMethod(b bool) *TypeScriptify {
 	t.CreateFromMethod = b
 	return t
 }
 
+
+// ff:
+// b:
 func (t *TypeScriptify) WithInterface(b bool) *TypeScriptify {
 	t.CreateInterface = b
 	return t
 }
 
+
+// ff:
+// b:
 func (t *TypeScriptify) WithConstructor(b bool) *TypeScriptify {
 	t.CreateConstructor = b
 	return t
 }
 
+
+// ff:
+// i:
 func (t *TypeScriptify) WithIndent(i string) *TypeScriptify {
 	t.Indent = i
 	return t
 }
 
+
+// ff:
+// b:
 func (t *TypeScriptify) WithBackupDir(b string) *TypeScriptify {
 	t.BackupDir = b
 	return t
 }
 
+
+// ff:
+// p:
 func (t *TypeScriptify) WithPrefix(p string) *TypeScriptify {
 	t.Prefix = p
 	return t
 }
 
+
+// ff:
+// s:
 func (t *TypeScriptify) WithSuffix(s string) *TypeScriptify {
 	t.Suffix = s
 	return t
 }
 
+
+// ff:
+// obj:
 func (t *TypeScriptify) Add(obj interface{}) *TypeScriptify {
 	switch ty := obj.(type) {
 	case StructType:
@@ -255,11 +294,18 @@ func (t *TypeScriptify) Add(obj interface{}) *TypeScriptify {
 	return t
 }
 
+
+// ff:
+// typeOf:
 func (t *TypeScriptify) AddType(typeOf reflect.Type) *TypeScriptify {
 	t.structTypes = append(t.structTypes, StructType{Type: typeOf})
 	return t
 }
 
+
+// ff:
+// field:
+// fieldName:
 func (t *typeScriptClassBuilder) AddMapField(fieldName string, field reflect.StructField) {
 	keyType := field.Type.Key()
 	valueType := field.Type.Elem()
@@ -304,6 +350,9 @@ func (t *typeScriptClassBuilder) AddMapField(fieldName string, field reflect.Str
 	}
 }
 
+
+// ff:
+// values:
 func (t *TypeScriptify) AddEnum(values interface{}) *TypeScriptify {
 	if t.enums == nil {
 		t.enums = map[reflect.Type][]enumElement{}
@@ -349,11 +398,18 @@ func (t *TypeScriptify) AddEnum(values interface{}) *TypeScriptify {
 }
 
 // AddEnumValues 已废弃，使用 `AddEnum()`
+
+// ff:
+// values:
+// typeOf:
 func (t *TypeScriptify) AddEnumValues(typeOf reflect.Type, values interface{}) *TypeScriptify {
 	t.AddEnum(values)
 	return t
 }
 
+
+// ff:
+// customCode:
 func (t *TypeScriptify) Convert(customCode map[string]string) (string, error) {
 	t.alreadyConverted = make(map[string]bool)
 	depth := 0
@@ -445,6 +501,10 @@ func (t TypeScriptify) backup(fileName string) error {
 	return ioutil.WriteFile(backupFn, bytes, os.FileMode(0o700))
 }
 
+
+// ff:
+// packageName:
+// fileName:
 func (t TypeScriptify) ConvertToFile(fileName string, packageName string) error {
 	if len(t.BackupDir) > 0 {
 		err := t.backup(fileName)
@@ -778,6 +838,9 @@ func (t *TypeScriptify) convertType(depth int, typeOf reflect.Type, customCode m
 	return result, nil
 }
 
+
+// ff:
+// i:
 func (t *TypeScriptify) AddImport(i string) {
 	for _, cimport := range t.customImports {
 		if cimport == i {
@@ -798,6 +861,12 @@ type typeScriptClassBuilder struct {
 	namespace            string
 }
 
+
+// ff:
+// opts:
+// arrayDepth:
+// field:
+// fieldName:
 func (t *typeScriptClassBuilder) AddSimpleArrayField(fieldName string, field reflect.StructField, arrayDepth int, opts TypeOptions) error {
 	fieldType, kind := field.Type.Elem().Name(), field.Type.Elem().Kind()
 	typeScriptType := t.types[kind]
@@ -818,6 +887,11 @@ func (t *typeScriptClassBuilder) AddSimpleArrayField(fieldName string, field ref
 	return fmt.Errorf("cannot find type for %s (%s/%s)", kind.String(), fieldName, fieldType)
 }
 
+
+// ff:
+// opts:
+// field:
+// fieldName:
 func (t *typeScriptClassBuilder) AddSimpleField(fieldName string, field reflect.StructField, opts TypeOptions) error {
 	fieldType, kind := field.Type.Name(), field.Type.Kind()
 
@@ -842,6 +916,10 @@ func (t *typeScriptClassBuilder) AddSimpleField(fieldName string, field reflect.
 	return fmt.Errorf("cannot find type for %s (%s/%s)", kind.String(), fieldName, fieldType)
 }
 
+
+// ff:
+// field:
+// fieldName:
 func (t *typeScriptClassBuilder) AddEnumField(fieldName string, field reflect.StructField) {
 	fieldType := field.Type.Name()
 	t.addField(fieldName, t.prefix+fieldType+t.suffix, false)
@@ -849,6 +927,11 @@ func (t *typeScriptClassBuilder) AddEnumField(fieldName string, field reflect.St
 	t.addInitializerFieldLine(strippedFieldName, fmt.Sprintf("source[\"%s\"]", strippedFieldName))
 }
 
+
+// ff:
+// isAnyType:
+// field:
+// fieldName:
 func (t *typeScriptClassBuilder) AddStructField(fieldName string, field reflect.StructField, isAnyType bool) {
 	strippedFieldName := strings.ReplaceAll(fieldName, "?", "")
 	classname := "null"
@@ -871,6 +954,11 @@ func (t *typeScriptClassBuilder) AddStructField(fieldName string, field reflect.
 	t.addInitializerFieldLine(strippedFieldName, fmt.Sprintf("this.convertValues(source[\"%s\"], %s)", strippedFieldName, classname))
 }
 
+
+// ff:
+// arrayDepth:
+// field:
+// fieldName:
 func (t *typeScriptClassBuilder) AddArrayOfStructsField(fieldName string, field reflect.StructField, arrayDepth int) {
 	fieldType := field.Type.Elem().Name()
 	if differentNamespaces(t.namespace, field.Type.Elem()) {

@@ -34,6 +34,10 @@ var (
 	}
 )
 
+
+// ff:取文件Mimetype
+// data:字节集值
+// filename:文件名
 func GetMimetype(filename string, data []byte) string {
 	mimeMutex.Lock()
 	defer mimeMutex.Unlock()

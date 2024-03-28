@@ -21,6 +21,8 @@ func newRequestFinalizer(r Request) Request {
 	return rf
 }
 
+
+// ff:关闭
 func (r *requestFinalizer) Close() error {
 	return r.close(false)
 }

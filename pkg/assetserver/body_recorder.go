@@ -14,6 +14,9 @@ type bodyRecorder struct {
 	wroteHeader bool
 }
 
+
+// ff:
+// buf:
 func (rw *bodyRecorder) Write(buf []byte) (int, error) {
 	rw.writeHeader(buf, http.StatusOK)
 	if rw.body != nil {
@@ -22,14 +25,21 @@ func (rw *bodyRecorder) Write(buf []byte) (int, error) {
 	return rw.ResponseWriter.Write(buf)
 }
 
+
+// ff:
+// code:
 func (rw *bodyRecorder) WriteHeader(code int) {
 	rw.writeHeader(nil, code)
 }
 
+
+// ff:
 func (rw *bodyRecorder) Code() int {
 	return rw.code
 }
 
+
+// ff:请求体
 func (rw *bodyRecorder) Body() *bytes.Buffer {
 	return rw.body
 }

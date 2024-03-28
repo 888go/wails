@@ -39,6 +39,12 @@ type Window struct {
 	chromium *edge.Chromium
 }
 
+
+// ff:
+// chromium:
+// versionInfo:
+// appoptions:
+// parent:
 func NewWindow(parent winc.Controller, appoptions *options.App, versionInfo *operatingsystem.WindowsVersionInfo, chromium *edge.Chromium) *Window {
 	windowsOptions := appoptions.Windows
 
@@ -135,6 +141,8 @@ func NewWindow(parent winc.Controller, appoptions *options.App, versionInfo *ope
 	return result
 }
 
+
+// ff:
 func (w *Window) Fullscreen() {
 	if w.Form.IsFullScreen() {
 		return
@@ -147,6 +155,8 @@ func (w *Window) Fullscreen() {
 	w.Form.Fullscreen()
 }
 
+
+// ff:
 func (w *Window) UnFullscreen() {
 	if !w.Form.IsFullScreen() {
 		return
@@ -159,6 +169,8 @@ func (w *Window) UnFullscreen() {
 	w.SetMaxSize(w.maxWidth, w.maxHeight)
 }
 
+
+// ff:
 func (w *Window) Restore() {
 	if w.Form.IsFullScreen() {
 		w.UnFullscreen()
@@ -167,22 +179,37 @@ func (w *Window) Restore() {
 	}
 }
 
+
+// ff:
+// minHeight:
+// minWidth:
 func (w *Window) SetMinSize(minWidth int, minHeight int) {
 	w.minWidth = minWidth
 	w.minHeight = minHeight
 	w.Form.SetMinSize(minWidth, minHeight)
 }
 
+
+// ff:
+// maxHeight:
+// maxWidth:
 func (w *Window) SetMaxSize(maxWidth int, maxHeight int) {
 	w.maxWidth = maxWidth
 	w.maxHeight = maxHeight
 	w.Form.SetMaxSize(maxWidth, maxHeight)
 }
 
+
+// ff:
 func (w *Window) IsVisible() bool {
 	return win32.IsVisible(w.Handle())
 }
 
+
+// ff:
+// lparam:
+// wparam:
+// msg:
 func (w *Window) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 
 	switch msg {
@@ -296,22 +323,33 @@ func (w *Window) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	return w.Form.WndProc(msg, wparam, lparam)
 }
 
+
+// ff:
 func (w *Window) IsMaximised() bool {
 	return win32.IsWindowMaximised(w.Handle())
 }
 
+
+// ff:
 func (w *Window) IsMinimised() bool {
 	return win32.IsWindowMinimised(w.Handle())
 }
 
+
+// ff:
 func (w *Window) IsNormal() bool {
 	return win32.IsWindowNormal(w.Handle())
 }
 
+
+// ff:
 func (w *Window) IsFullScreen() bool {
 	return win32.IsWindowFullScreen(w.Handle())
 }
 
+
+// ff:
+// theme:
 func (w *Window) SetTheme(theme winoptions.Theme) {
 	w.theme = theme
 	w.themeChanged = true

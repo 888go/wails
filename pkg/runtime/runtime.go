@@ -61,6 +61,9 @@ func getEvents(ctx context.Context) frontend.Events {
 }
 
 // Quit the application
+
+// ff:退出
+// ctx:上下文
 func Quit(ctx context.Context) {
 	if ctx == nil {
 		log.Fatalf("Error calling 'runtime.Quit': %s", contextError)
@@ -70,6 +73,9 @@ func Quit(ctx context.Context) {
 }
 
 // Hide the application
+
+// ff:隐藏
+// ctx:上下文
 func Hide(ctx context.Context) {
 	if ctx == nil {
 		log.Fatalf("Error calling 'runtime.Hide': %s", contextError)
@@ -79,6 +85,9 @@ func Hide(ctx context.Context) {
 }
 
 // 如果应用程序是隐藏的，则显示它
+
+// ff:显示
+// ctx:上下文
 func Show(ctx context.Context) {
 	if ctx == nil {
 		log.Fatalf("Error calling 'runtime.Show': %s", contextError)
@@ -89,12 +98,15 @@ func Show(ctx context.Context) {
 
 // EnvironmentInfo 包含有关环境的信息
 type EnvironmentInfo struct {
-	BuildType string `json:"buildType"`
-	Platform  string `json:"platform"`
-	Arch      string `json:"arch"`
+	BuildType string `json:"buildType"` //hs:构建类型     
+	Platform  string `json:"platform"` //hs:平台     
+	Arch      string `json:"arch"` //hs:架构     
 }
 
 // Environment 返回关于环境的信息
+
+// ff:取环境信息
+// ctx:上下文
 func Environment(ctx context.Context) EnvironmentInfo {
 	var result EnvironmentInfo
 	buildType := ctx.Value("buildtype")

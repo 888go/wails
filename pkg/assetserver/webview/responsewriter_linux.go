@@ -33,6 +33,8 @@ type responseWriter struct {
 	wErr error
 }
 
+
+// ff:请求头
 func (rw *responseWriter) Header() http.Header {
 	if rw.header == nil {
 		rw.header = http.Header{}
@@ -40,6 +42,9 @@ func (rw *responseWriter) Header() http.Header {
 	return rw.header
 }
 
+
+// ff:
+// buf:
 func (rw *responseWriter) Write(buf []byte) (int, error) {
 	if rw.finished {
 		return 0, errResponseFinished
@@ -52,6 +57,9 @@ func (rw *responseWriter) Write(buf []byte) (int, error) {
 	return rw.w.Write(buf)
 }
 
+
+// ff:
+// code:
 func (rw *responseWriter) WriteHeader(code int) {
 	if rw.wroteHeader || rw.finished {
 		return
@@ -83,6 +91,8 @@ func (rw *responseWriter) WriteHeader(code int) {
 	}
 }
 
+
+// ff:
 func (rw *responseWriter) Finish() error {
 	if !rw.wroteHeader {
 		rw.WriteHeader(http.StatusNotImplemented)
@@ -116,6 +126,8 @@ type nopCloser struct {
 	io.Writer
 }
 
+
+// ff:关闭
 func (nopCloser) Close() error { return nil }
 
 func pipe() (r int, w *os.File, err error) {

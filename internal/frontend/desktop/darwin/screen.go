@@ -90,6 +90,9 @@ import (
 	"github.com/wailsapp/wails/v2/internal/frontend"
 )
 
+
+// ff:
+// wailsContext:
 func GetAllScreens(wailsContext unsafe.Pointer) ([]frontend.Screen, error) {
 	err := error(nil)
 	screens := []frontend.Screen{}

@@ -37,6 +37,8 @@ type Dev struct {
 	projectConfig *project.Project
 }
 
+
+// ff:
 func (*Dev) Default() *Dev {
 	result := &Dev{
 		Extensions: "go",
@@ -46,6 +48,8 @@ func (*Dev) Default() *Dev {
 	return result
 }
 
+
+// ff:
 func (d *Dev) Process() error {
 	var err error
 	err = d.loadAndMergeProjectConfig()
@@ -115,6 +119,8 @@ func (d *Dev) loadAndMergeProjectConfig() error {
 }
 
 // GenerateBuildOptions 根据标志生成 build.Options
+
+// ff:
 func (d *Dev) GenerateBuildOptions() *build.Options {
 	result := &build.Options{
 		OutputType:     "dev",
@@ -137,10 +143,14 @@ func (d *Dev) GenerateBuildOptions() *build.Options {
 	return result
 }
 
+
+// ff:
 func (d *Dev) ProjectConfig() *project.Project {
 	return d.projectConfig
 }
 
+
+// ff:
 func (d *Dev) DevServerURL() *url.URL {
 	return d.devServerURL
 }

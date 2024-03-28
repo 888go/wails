@@ -13,6 +13,8 @@ type Init struct {
 	List         bool   `name:"l" description:"List templates"`
 }
 
+
+// ff:
 func (i *Init) Default() *Init {
 	result := &Init{
 		TemplateName: "vanilla",

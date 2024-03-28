@@ -10,6 +10,10 @@ import (
 	"unsafe"
 )
 
+
+// ff:
+// res:
+// instance:
 func LoadIconWithResourceID(instance HINSTANCE, res uintptr) HICON {
 	ret, _, _ := procLoadIcon.Call(
 		uintptr(instance),
@@ -18,6 +22,10 @@ func LoadIconWithResourceID(instance HINSTANCE, res uintptr) HICON {
 	return HICON(ret)
 }
 
+
+// ff:
+// res:
+// instance:
 func LoadCursorWithResourceID(instance HINSTANCE, res uintptr) HCURSOR {
 	ret, _, _ := procLoadCursor.Call(
 		uintptr(instance),
@@ -26,11 +34,19 @@ func LoadCursorWithResourceID(instance HINSTANCE, res uintptr) HCURSOR {
 	return HCURSOR(ret)
 }
 
+
+// ff:
+// wndClassEx:
 func RegisterClassEx(wndClassEx *WNDCLASSEX) ATOM {
 	ret, _, _ := procRegisterClassEx.Call(uintptr(unsafe.Pointer(wndClassEx)))
 	return ATOM(ret)
 }
 
+
+// ff:
+// instance:
+// wndproc:
+// className:
 func RegisterClass(className string, wndproc uintptr, instance HINSTANCE) error {
 	classNamePtr, err := syscall.UTF16PtrFromString(className)
 	if err != nil {
@@ -57,6 +73,13 @@ func RegisterClass(className string, wndproc uintptr, instance HINSTANCE) error 
 	return nil
 }
 
+
+// ff:
+// style:
+// exStyle:
+// parent:
+// instance:
+// className:
 func CreateWindow(className string, instance HINSTANCE, parent HWND, exStyle, style uint) HWND {
 
 	classNamePtr := lo.Must(syscall.UTF16PtrFromString(className))
@@ -83,6 +106,8 @@ func CreateWindow(className string, instance HINSTANCE, parent HWND, exStyle, st
 	return result
 }
 
+
+// ff:
 func CreateWindowEx(exStyle uint, className, windowName *uint16,
 	style uint, x, y, width, height int, parent HWND, menu HMENU,
 	instance HINSTANCE, param unsafe.Pointer) HWND {
@@ -103,6 +128,9 @@ func CreateWindowEx(exStyle uint, className, windowName *uint16,
 	return HWND(ret)
 }
 
+
+// ff:
+// input:
 func MustStringToUTF16Ptr(input string) *uint16 {
 	ret, err := syscall.UTF16PtrFromString(input)
 	if err != nil {
@@ -111,6 +139,9 @@ func MustStringToUTF16Ptr(input string) *uint16 {
 	return ret
 }
 
+
+// ff:
+// input:
 func MustStringToUTF16uintptr(input string) uintptr {
 	ret, err := syscall.UTF16PtrFromString(input)
 	if err != nil {
@@ -119,6 +150,9 @@ func MustStringToUTF16uintptr(input string) uintptr {
 	return uintptr(unsafe.Pointer(ret))
 }
 
+
+// ff:
+// input:
 func MustUTF16FromString(input string) []uint16 {
 	ret, err := syscall.UTF16FromString(input)
 	if err != nil {
@@ -127,10 +161,16 @@ func MustUTF16FromString(input string) []uint16 {
 	return ret
 }
 
+
+// ff:
+// input:
 func UTF16PtrToString(input uintptr) string {
 	return windows.UTF16PtrToString((*uint16)(unsafe.Pointer(input)))
 }
 
+
+// ff:
+// wnd:
 func SetForegroundWindow(wnd HWND) bool {
 	ret, _, _ := procSetForegroundWindow.Call(
 		uintptr(wnd),
