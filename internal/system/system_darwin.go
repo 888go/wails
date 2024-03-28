@@ -9,8 +9,8 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
-	"github.com/wailsapp/wails/v2/internal/system/packagemanager"
+	"github.com/888go/wails/internal/system/operatingsystem"
+	"github.com/888go/wails/internal/system/packagemanager"
 )
 
 // 判断应用程序是否在苹果硅芯片上运行

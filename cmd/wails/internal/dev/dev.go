@@ -20,22 +20,22 @@ import (
 	"time"
 
 	"github.com/samber/lo"
-	"github.com/wailsapp/wails/v2/cmd/wails/flags"
-	"github.com/wailsapp/wails/v2/cmd/wails/internal/gomod"
-	"github.com/wailsapp/wails/v2/cmd/wails/internal/logutils"
+	"github.com/888go/wails/cmd/wails/flags"
+	"github.com/888go/wails/cmd/wails/internal/gomod"
+	"github.com/888go/wails/cmd/wails/internal/logutils"
 	"golang.org/x/mod/semver"
 
-	"github.com/wailsapp/wails/v2/pkg/commands/buildtags"
+	"github.com/888go/wails/pkg/commands/buildtags"
 
 	"github.com/google/shlex"
 
 	"github.com/pkg/browser"
 
 	"github.com/fsnotify/fsnotify"
-	"github.com/wailsapp/wails/v2/internal/fs"
-	"github.com/wailsapp/wails/v2/internal/process"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
-	"github.com/wailsapp/wails/v2/pkg/commands/build"
+	"github.com/888go/wails/internal/fs"
+	"github.com/888go/wails/internal/process"
+	"github.com/888go/wails/pkg/clilogger"
+	"github.com/888go/wails/pkg/commands/build"
 )
 
 const (
@@ -75,7 +75,7 @@ func Application(f *flags.Dev, logger *clilogger.CLILogger) error {
 	buildOptions := f.GenerateBuildOptions()
 	buildOptions.Logger = logger
 
-	userTags, err := buildtags.Parse(f.Tags)
+	userTags, err := buildtags.X解析(f.Tags)
 	if err != nil {
 		return err
 	}
@@ -93,7 +93,7 @@ func Application(f *flags.Dev, logger *clilogger.CLILogger) error {
 	ignoreFrontend := buildOptions.IgnoreFrontend
 	if !ignoreFrontend {
 		buildOptions.IgnoreApplication = true
-		if _, err := build.Build(buildOptions); err != nil {
+		if _, err := build.X构建项目(buildOptions); err != nil {
 			return err
 		}
 		buildOptions.IgnoreApplication = false
@@ -123,7 +123,7 @@ func Application(f *flags.Dev, logger *clilogger.CLILogger) error {
 	}
 
 	// 只针对应用程序进行首次构建
-	logger.Println("Building application for development...")
+	logger.X日志输出并换行("Building application for development...")
 	buildOptions.IgnoreFrontend = true
 	debugBinaryProcess, appBinary, err := restartApp(buildOptions, nil, f, exitCodeChannel, legacyUseDevServerInsteadofCustomScheme)
 	buildOptions.IgnoreFrontend = ignoreFrontend || f.FrontendDevServerURL != ""
@@ -276,7 +276,7 @@ func runFrontendDevWatcherCommand(frontendDirectory string, devCommand string, d
 
 // restartApp 当文件发生更改时，执行应用程序的实际重建工作
 func restartApp(buildOptions *build.Options, debugBinaryProcess *process.Process, f *flags.Dev, exitCodeChannel chan int, legacyUseDevServerInsteadofCustomScheme bool) (*process.Process, string, error) {
-	appBinary, err := build.Build(buildOptions)
+	appBinary, err := build.X构建项目(buildOptions)
 	println()
 	if err != nil {
 		logutils.LogRed("Build error - " + err.Error())
@@ -294,7 +294,7 @@ func restartApp(buildOptions *build.Options, debugBinaryProcess *process.Process
 		killError := debugBinaryProcess.Kill()
 
 		if killError != nil {
-			buildOptions.Logger.Fatal("Unable to kill debug binary (PID: %d)!", debugBinaryProcess.PID())
+			buildOptions.Logger.X日志输出并停止("Unable to kill debug binary (PID: %d)!", debugBinaryProcess.PID())
 		}
 
 		debugBinaryProcess = nil
@@ -303,7 +303,7 @@ func restartApp(buildOptions *build.Options, debugBinaryProcess *process.Process
 	// parse appargs if any
 	args, err := shlex.Split(f.AppArgs)
 	if err != nil {
-		buildOptions.Logger.Fatal("Unable to parse appargs: %s", err.Error())
+		buildOptions.Logger.X日志输出并停止("Unable to parse appargs: %s", err.Error())
 	}
 
 	// 根据实际情况设置环境变量
@@ -320,10 +320,10 @@ func restartApp(buildOptions *build.Options, debugBinaryProcess *process.Process
 		if fs.FileExists(appBinary) {
 			deleteError := fs.DeleteFile(appBinary)
 			if deleteError != nil {
-				buildOptions.Logger.Fatal("Unable to delete app binary: " + appBinary)
+				buildOptions.Logger.X日志输出并停止("Unable to delete app binary: " + appBinary)
 			}
 		}
-		buildOptions.Logger.Fatal("Unable to start application: %s", err.Error())
+		buildOptions.Logger.X日志输出并停止("Unable to start application: %s", err.Error())
 	}
 
 	return newProcess, appBinary, nil
@@ -439,7 +439,7 @@ func doWatcherLoop(cwd string, buildOptions *build.Options, debugBinaryProcess *
 					if !strings.Contains(item.Name, "node_modules") {
 						err := watcher.Add(item.Name)
 						if err != nil {
-							buildOptions.Logger.Fatal("%s", err.Error())
+							buildOptions.Logger.X日志输出并停止("%s", err.Error())
 						}
 						logutils.LogGreen("Added new directory to watcher: %s", item.Name)
 					}

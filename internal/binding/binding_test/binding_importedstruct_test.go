@@ -1,6 +1,6 @@
 package binding_test
 
-import "github.com/wailsapp/wails/v2/internal/binding/binding_test/binding_test_import"
+import "github.com/888go/wails/internal/binding/binding_test/binding_test_import"
 
 type ImportedStruct struct {
 	AWrapperContainer binding_test_import.AWrapper `json:"AWrapperContainer"`

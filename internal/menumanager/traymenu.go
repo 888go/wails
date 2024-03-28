@@ -10,7 +10,7 @@ import (
 	"github.com/leaanthony/go-ansi-parser"
 
 	"github.com/pkg/errors"
-	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/888go/wails/pkg/menu"
 )
 
 var (
@@ -60,7 +60,7 @@ func (t *TrayMenu) AsJSON() (string, error) {
 func NewTrayMenu(trayMenu *menu.TrayMenu) *TrayMenu {
 	// Parse ANSI text
 	var styledLabel []*ansi.StyledText
-	tempLabel := trayMenu.Label
+	tempLabel := trayMenu.X显示名称
 	if strings.Contains(tempLabel, "\033[") {
 		parsedLabel, err := ansi.Parse(tempLabel)
 		if err == nil {
@@ -69,21 +69,21 @@ func NewTrayMenu(trayMenu *menu.TrayMenu) *TrayMenu {
 	}
 
 	result := &TrayMenu{
-		Label:            trayMenu.Label,
-		FontName:         trayMenu.FontName,
-		FontSize:         trayMenu.FontSize,
-		Disabled:         trayMenu.Disabled,
-		Tooltip:          trayMenu.Tooltip,
-		Image:            trayMenu.Image,
-		MacTemplateImage: trayMenu.MacTemplateImage,
-		menu:             trayMenu.Menu,
+		Label:            trayMenu.X显示名称,
+		FontName:         trayMenu.X字体名称,
+		FontSize:         trayMenu.X字体大小,
+		Disabled:         trayMenu.X是否禁用,
+		Tooltip:          trayMenu.X提示,
+		Image:            trayMenu.X图标名称,
+		MacTemplateImage: trayMenu.Mac模板图标,
+		menu:             trayMenu.X菜单,
 		RGBA:             trayMenu.RGBA,
 		menuItemMap:      NewMenuItemMap(),
 		trayMenu:         trayMenu,
 		StyledLabel:      styledLabel,
 	}
 
-	result.menuItemMap.AddMenu(trayMenu.Menu)
+	result.menuItemMap.AddMenu(trayMenu.X菜单)
 	result.ProcessedMenu = NewWailsMenu(result.menuItemMap, result.menu)
 
 	return result
@@ -97,10 +97,10 @@ func (m *Manager) OnTrayMenuOpen(id string) {
 	if !ok {
 		return
 	}
-	if trayMenu.trayMenu.OnOpen == nil {
+	if trayMenu.trayMenu.X打开回调函数 == nil {
 		return
 	}
-	go trayMenu.trayMenu.OnOpen()
+	go trayMenu.trayMenu.X打开回调函数()
 }
 
 
@@ -111,10 +111,10 @@ func (m *Manager) OnTrayMenuClose(id string) {
 	if !ok {
 		return
 	}
-	if trayMenu.trayMenu.OnClose == nil {
+	if trayMenu.trayMenu.X关闭回调函数 == nil {
 		return
 	}
-	go trayMenu.trayMenu.OnClose()
+	go trayMenu.trayMenu.X关闭回调函数()
 }
 
 
@@ -186,7 +186,7 @@ func (m *Manager) GetTrayMenus() ([]string, error) {
 func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 	trayID, trayMenuKnown := m.trayMenuPointers[trayMenu]
 	if !trayMenuKnown {
-		return "", fmt.Errorf("[UpdateTrayMenuLabel] unknown tray id for tray %s", trayMenu.Label)
+		return "", fmt.Errorf("[UpdateTrayMenuLabel] unknown tray id for tray %s", trayMenu.X显示名称)
 	}
 
 	type LabelUpdate struct {
@@ -204,7 +204,7 @@ func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 
 	// Parse ANSI text
 	var styledLabel []*ansi.StyledText
-	tempLabel := trayMenu.Label
+	tempLabel := trayMenu.X显示名称
 	if strings.Contains(tempLabel, "\033[") {
 		parsedLabel, err := ansi.Parse(tempLabel)
 		if err == nil {
@@ -214,13 +214,13 @@ func (m *Manager) UpdateTrayMenuLabel(trayMenu *menu.TrayMenu) (string, error) {
 
 	update := &LabelUpdate{
 		ID:               trayID,
-		Label:            trayMenu.Label,
-		FontName:         trayMenu.FontName,
-		FontSize:         trayMenu.FontSize,
-		Disabled:         trayMenu.Disabled,
-		Tooltip:          trayMenu.Tooltip,
-		Image:            trayMenu.Image,
-		MacTemplateImage: trayMenu.MacTemplateImage,
+		Label:            trayMenu.X显示名称,
+		FontName:         trayMenu.X字体名称,
+		FontSize:         trayMenu.X字体大小,
+		Disabled:         trayMenu.X是否禁用,
+		Tooltip:          trayMenu.X提示,
+		Image:            trayMenu.X图标名称,
+		MacTemplateImage: trayMenu.Mac模板图标,
 		RGBA:             trayMenu.RGBA,
 		StyledLabel:      styledLabel,
 	}

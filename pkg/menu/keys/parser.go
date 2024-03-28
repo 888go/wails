@@ -66,7 +66,7 @@ func Parse(shortcut string) (*Accelerator, error) {
 			if !validKey {
 				return nil, fmt.Errorf("'%s' is not a valid key", component)
 			}
-			result.Key = processedkey
+			result.X名称 = processedkey
 			continue
 		}
 
@@ -82,7 +82,7 @@ func Parse(shortcut string) (*Accelerator, error) {
 		}
 
 		// Save this data
-		result.Modifiers = append(result.Modifiers, thisModifier)
+		result.X修饰符 = append(result.X修饰符, thisModifier)
 		modifiersProcessed.Add(lowercaseComponent)
 	}
 

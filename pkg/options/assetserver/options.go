@@ -12,7 +12,7 @@ type Options struct {
 	// 如果Assets针对该文件返回`os.ErrNotExist`错误，则请求处理将回退到Handler，并尝试从中提供GET请求的服务。
 	//
 	// 如果设置为nil，所有GET请求都将转发到Handler。
-	Assets fs.FS //hs:静态资源
+	X静态资源 fs.FS //hs:静态资源
 
 	// Handler 函数会在以下两种情况下被调用：
 	// 1. 当接收到 GET 请求但无法通过 Assets 服务提供资源时（由于返回错误 `os.ErrNotExist`）；
@@ -20,7 +20,7 @@ type Options struct {
 	// 若未定义此 Handler，则在原本应当调用 Handler 的场景下，其默认行为如下：
 	//   - GET 请求：返回状态码 `http.StatusNotFound`（404，未找到）
 	//   - 非 GET 请求：返回状态码 `http.StatusMethodNotAllowed`（405，不允许的方法）
-	Handler http.Handler //hs:请求处理器
+	X请求处理器 http.Handler //hs:请求处理器
 
 	// Middleware 是一个HTTP中间件，它允许接入AssetServer请求处理链。它支持动态跳过默认请求处理器，例如实现特殊路由等功能。
 	// 当构建AssetServer所使用的新的`http.Handler`时会调用此Middleware，并且它还会接收到AssetServer所使用的默认处理器作为参数。
@@ -29,14 +29,14 @@ type Options struct {
 	//
 	// 可以通过以下方式将多个Middleware串联起来：
 	//   ChainMiddleware(middleware ...Middleware) Middleware
-	Middleware Middleware //hs:中间件
+	X中间件 Middleware //hs:中间件
 }
 
 // Validate the options
 
 // ff:验证是否有效
-func (o Options) Validate() error {
-	if o.Assets == nil && o.Handler == nil && o.Middleware == nil {
+func (o Options) X验证是否有效() error {
+	if o.X静态资源 == nil && o.X请求处理器 == nil && o.X中间件 == nil {
 		return fmt.Errorf("AssetServer options invalid: either Assets, Handler or Middleware must be set")
 	}
 

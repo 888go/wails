@@ -12,8 +12,8 @@ import (
 
 	"github.com/leaanthony/gosod"
 	"github.com/samber/lo"
-	"github.com/wailsapp/wails/v2/internal/fs"
-	"github.com/wailsapp/wails/v2/internal/project"
+	"github.com/888go/wails/internal/fs"
+	"github.com/888go/wails/internal/project"
 )
 
 //go:embed build
@@ -55,7 +55,7 @@ func GetLocalPath(projectData *project.Project, file string) string {
 // ff:读文件
 // file:
 // projectData:
-func ReadFile(projectData *project.Project, file string) ([]byte, error) {
+func X读文件(projectData *project.Project, file string) ([]byte, error) {
 	localFilePath := GetLocalPath(projectData, file)
 
 	content, err := os.ReadFile(localFilePath)
@@ -83,7 +83,7 @@ func ReadFile(projectData *project.Project, file string) ([]byte, error) {
 // file:
 // projectData:
 func ReadFileWithProjectData(projectData *project.Project, file string) ([]byte, error) {
-	content, err := ReadFile(projectData, file)
+	content, err := X读文件(projectData, file)
 	if err != nil {
 		return nil, err
 	}

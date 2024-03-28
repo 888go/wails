@@ -8,9 +8,9 @@ import (
 	"runtime"
 
 	"github.com/samber/lo"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/internal/shell"
-	"github.com/wailsapp/wails/v2/pkg/commands/buildtags"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/internal/shell"
+	"github.com/888go/wails/pkg/commands/buildtags"
 )
 
 // 用于生成绑定的选项

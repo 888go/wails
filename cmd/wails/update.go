@@ -6,11 +6,11 @@ import (
 
 	"github.com/labstack/gommon/color"
 	"github.com/pterm/pterm"
-	"github.com/wailsapp/wails/v2/cmd/wails/flags"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/cmd/wails/flags"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/internal/shell"
 
-	"github.com/wailsapp/wails/v2/internal/github"
+	"github.com/888go/wails/internal/github"
 )
 
 // AddSubcommand 向 Wails 应用程序添加 `init` 子命令

@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 )
 
 // ListItem 表示 ListView 小部件中的一个项目。

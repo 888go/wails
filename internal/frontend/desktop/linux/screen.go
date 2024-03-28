@@ -46,7 +46,7 @@ import (
 	"sync"
 
 	"github.com/pkg/errors"
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 type Screen = frontend.Screen

@@ -60,7 +60,7 @@ func (r *webkitRequestBody) Read(p []byte) (int, error) {
 
 
 // ff:关闭
-func (r *webkitRequestBody) Close() error {
+func (r *webkitRequestBody) X关闭() error {
 	if r.closed {
 		return nil
 	}

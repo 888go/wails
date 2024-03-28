@@ -7,7 +7,7 @@
 
 package winc
 
-import "github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+import "github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 
 // 此对话框将以最高级窗口的方式显示，直到被关闭。
 // 同时，它会禁用父窗口，使其无法被点击。

@@ -7,11 +7,11 @@ import (
 
 type Request interface {
 	URL() (string, error)
-	Method() (string, error) //hs:请求方法     
-	Header() (http.Header, error) //hs:请求头     
-	Body() (io.ReadCloser, error) //hs:请求体     
+	X请求方法() (string, error) //hs:请求方法     
+	X请求头() (http.Header, error) //hs:请求头     
+	X请求体() (io.ReadCloser, error) //hs:请求体     
 
-	Response() ResponseWriter //hs:请求响应     
+	X请求响应() ResponseWriter //hs:请求响应     
 
-	Close() error //hs:关闭     
+	X关闭() error //hs:关闭     
 }

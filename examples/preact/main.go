@@ -4,8 +4,8 @@ import (
 	"embed"
 
 	"github.com/wailsapp/wails/v2"
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/888go/wails/pkg/options"
+	"github.com/888go/wails/pkg/options/assetserver"
 )
 
 //go:embed all:frontend/dist
@@ -21,16 +21,16 @@ func main() {
 	app := NewApp()
 
 	// 使用选项创建应用程序
-	err := wails.Run(&options.App{
-		Title:  "preact",
-		Width:  1024,
-		Height: 768,
-		AssetServer: &assetserver.Options{
-			Assets: assets,
+	err := wails.X运行(&options.App{
+		X标题:  "preact",
+		X宽度:  1024,
+		X高度: 768,
+		X绑定http请求: &assetserver.Options{
+			X静态资源: assets,
 		},
-		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		OnStartup:        app.startup,
-		Bind: []interface{}{
+		X背景颜色: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		X绑定启动前函数:        app.startup,
+		X绑定调用方法: []interface{}{
 			app,
 		},
 	})

@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/internal/shell"
 )
 
 // Zypper代表Zypper包管理器

@@ -13,16 +13,16 @@ import (
 
 // ff:解析
 // tags:标签字符串
-func Parse(tags string) ([]string, error) {
-	if tags == "" {
+func X解析(标签字符串 string) ([]string, error) {
+	if 标签字符串 == "" {
 		return nil, nil
 	}
 
 	separator := ""
-	if strings.Contains(tags, ",") {
+	if strings.Contains(标签字符串, ",") {
 		separator = ","
 	}
-	if strings.Contains(tags, " ") {
+	if strings.Contains(标签字符串, " ") {
 		if separator != "" {
 			return nil, errors.New("cannot use both space and comma separated values with `-tags` flag")
 		}
@@ -32,11 +32,11 @@ func Parse(tags string) ([]string, error) {
 // 我们未能找到任何分隔符，因此将整个字符串作为用户标签使用
 // 否则最终我们将得到一个包含标签字符串中每个单字符的列表，
 // 例如：`t,e,s,t`
-		return []string{tags}, nil
+		return []string{标签字符串}, nil
 	}
 
 	var userTags []string
-	for _, tag := range strings.Split(tags, separator) {
+	for _, tag := range strings.Split(标签字符串, separator) {
 		thisTag := strings.TrimSpace(tag)
 		if thisTag != "" {
 			userTags = append(userTags, thisTag)

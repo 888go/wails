@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/888go/wails/pkg/menu"
 )
 
 type ContextMenu struct {
@@ -30,11 +30,11 @@ func (t *ContextMenu) AsJSON() (string, error) {
 func NewContextMenu(contextMenu *menu.ContextMenu) *ContextMenu {
 	result := &ContextMenu{
 		ID:          contextMenu.ID,
-		menu:        contextMenu.Menu,
+		menu:        contextMenu.X菜单,
 		menuItemMap: NewMenuItemMap(),
 	}
 
-	result.menuItemMap.AddMenu(contextMenu.Menu)
+	result.menuItemMap.AddMenu(contextMenu.X菜单)
 	result.ProcessedMenu = NewWailsMenu(result.menuItemMap, result.menu)
 
 	return result

@@ -5,7 +5,7 @@ package packagemanager
 
 import (
 	"encoding/json"
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/internal/shell"
 )
 
 // Nixpkgs 表示 Nixpkgs 管理器

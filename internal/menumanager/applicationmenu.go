@@ -1,6 +1,6 @@
 package menumanager
 
-import "github.com/wailsapp/wails/v2/pkg/menu"
+import "github.com/888go/wails/pkg/menu"
 
 
 // ff:

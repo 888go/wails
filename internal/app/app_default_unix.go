@@ -5,7 +5,7 @@ package app
 import (
 	"fmt"
 
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/888go/wails/pkg/options"
 )
 
 

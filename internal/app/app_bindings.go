@@ -8,12 +8,12 @@ import (
 	"path/filepath"
 
 	"github.com/leaanthony/gosod"
-	"github.com/wailsapp/wails/v2/internal/binding"
-	"github.com/wailsapp/wails/v2/internal/frontend/runtime/wrapper"
-	"github.com/wailsapp/wails/v2/internal/fs"
-	"github.com/wailsapp/wails/v2/internal/logger"
-	"github.com/wailsapp/wails/v2/internal/project"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/888go/wails/internal/binding"
+	"github.com/888go/wails/internal/frontend/runtime/wrapper"
+	"github.com/888go/wails/internal/fs"
+	"github.com/888go/wails/internal/logger"
+	"github.com/888go/wails/internal/project"
+	"github.com/888go/wails/pkg/options"
 )
 
 
@@ -22,10 +22,10 @@ func (a *App) Run() error {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
 	bindingExemptions := []interface{}{
-		a.options.OnStartup,
-		a.options.OnShutdown,
-		a.options.OnDomReady,
-		a.options.OnBeforeClose,
+		a.options.X绑定启动前函数,
+		a.options.X绑定应用退出函数,
+		a.options.X绑定DOM就绪函数,
+		a.options.X绑定应用关闭前函数,
 	}
 
 	// Check for CLI Flags
@@ -61,7 +61,7 @@ func (a *App) Run() error {
 		tsOutputType = *tsOutputTypeFlag
 	}
 
-	appBindings := binding.NewBindings(a.logger, a.options.Bind, bindingExemptions, IsObfuscated(), a.options.EnumBind)
+	appBindings := binding.NewBindings(a.logger, a.options.X绑定调用方法, bindingExemptions, IsObfuscated(), a.options.X绑定常量枚举)
 
 	appBindings.SetTsPrefix(tsPrefix)
 	appBindings.SetTsSuffix(tsSuffix)
@@ -80,8 +80,8 @@ func (a *App) Run() error {
 // appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	// Set up logger
-	myLogger := logger.New(appoptions.Logger)
-	myLogger.SetLogLevel(appoptions.LogLevel)
+	myLogger := logger.New(appoptions.X日志记录器)
+	myLogger.SetLogLevel(appoptions.X日志级别)
 
 	result := &App{
 		logger:  myLogger,

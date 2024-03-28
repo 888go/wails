@@ -8,10 +8,10 @@ const (
 )
 
 var macModifierMap = map[Modifier]int{
-	CmdOrCtrlKey:   NSEventModifierFlagCommand,
-	ControlKey:     NSEventModifierFlagControl,
-	OptionOrAltKey: NSEventModifierFlagOption,
-	ShiftKey:       NSEventModifierFlagShift,
+	X常量_组合键_Cmd或Ctrl键:   NSEventModifierFlagCommand,
+	X常量_组合键_Ctrl键:     NSEventModifierFlagControl,
+	X常量_组合键_Option或Alt键: NSEventModifierFlagOption,
+	X常量_组合键_Shift键:       NSEventModifierFlagShift,
 }
 
 
@@ -22,7 +22,7 @@ func ToMacModifier(accelerator *Accelerator) int {
 		return 0
 	}
 	result := 0
-	for _, modifier := range accelerator.Modifiers {
+	for _, modifier := range accelerator.X修饰符 {
 		result |= macModifierMap[modifier]
 	}
 	return result

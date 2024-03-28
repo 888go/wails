@@ -9,8 +9,8 @@ import (
 	"unsafe"
 
 	"github.com/pkg/errors"
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 )
 
 

@@ -10,7 +10,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/888go/wails/pkg/options/assetserver"
 )
 
 
@@ -19,7 +19,7 @@ import (
 // options:
 // logger:
 func NewExternalAssetsHandler(logger Logger, options assetserver.Options, url *url.URL) http.Handler {
-	baseHandler := options.Handler
+	baseHandler := options.X请求处理器
 
 	errSkipProxy := fmt.Errorf("skip proxying")
 
@@ -77,7 +77,7 @@ func NewExternalAssetsHandler(logger Logger, options assetserver.Options, url *u
 			rw.WriteHeader(http.StatusMethodNotAllowed)
 		})
 
-	if middleware := options.Middleware; middleware != nil {
+	if middleware := options.X中间件; middleware != nil {
 		result = middleware(result)
 	}
 

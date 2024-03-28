@@ -13,12 +13,12 @@ import (
 	"github.com/leaanthony/slicer"
 	"github.com/pkg/errors"
 	"github.com/pterm/pterm"
-	"github.com/wailsapp/wails/v2/cmd/wails/flags"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/pkg/buildassets"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
-	"github.com/wailsapp/wails/v2/pkg/git"
-	"github.com/wailsapp/wails/v2/pkg/templates"
+	"github.com/888go/wails/cmd/wails/flags"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/pkg/buildassets"
+	"github.com/888go/wails/pkg/clilogger"
+	"github.com/888go/wails/pkg/git"
+	"github.com/888go/wails/pkg/templates"
 )
 
 func initProject(f *flags.Init) error {
@@ -30,8 +30,8 @@ func initProject(f *flags.Init) error {
 	quiet := f.Quiet
 
 	// Create logger
-	logger := clilogger.New(os.Stdout)
-	logger.Mute(quiet)
+	logger := clilogger.X创建(os.Stdout)
+	logger.X禁用日志(quiet)
 
 	// 我们是否正在列出模板？
 	if f.List {
@@ -232,13 +232,13 @@ func initGit(options *templates.Options) error {
 // findAuthorDetails尝试从gitconfig中查找用户的名字和邮箱
 // 如果找到这些信息，它会将它们存储在项目选项中
 func findAuthorDetails(options *templates.Options) {
-	if git.IsInstalled() {
-		name, err := git.Name()
+	if git.X是否已安装() {
+		name, err := git.X取名称()
 		if err == nil {
 			options.AuthorName = strings.TrimSpace(name)
 		}
 
-		email, err := git.Email()
+		email, err := git.X取邮件地址()
 		if err == nil {
 			options.AuthorEmail = strings.TrimSpace(email)
 		}

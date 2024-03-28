@@ -85,7 +85,7 @@ type responseWriter struct {
 
 
 // ff:请求头
-func (rw *responseWriter) Header() http.Header {
+func (rw *responseWriter) X请求头() http.Header {
 	if rw.header == nil {
 		rw.header = http.Header{}
 	}
@@ -125,8 +125,8 @@ func (rw *responseWriter) WriteHeader(code int) {
 	rw.wroteHeader = true
 
 	header := map[string]string{}
-	for k := range rw.Header() {
-		header[k] = rw.Header().Get(k)
+	for k := range rw.X请求头() {
+		header[k] = rw.X请求头().Get(k)
 	}
 	headerData, _ := json.Marshal(header)
 

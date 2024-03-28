@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 )
 
 // TreeItem 代表 TreeView 小部件中的一个项目。

@@ -5,8 +5,8 @@ import (
 	"log"
 	goruntime "runtime"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
-	"github.com/wailsapp/wails/v2/internal/logger"
+	"github.com/888go/wails/internal/frontend"
+	"github.com/888go/wails/internal/logger"
 )
 
 const contextError = `An invalid context was passed. This method requires the specific context given in the lifecycle hooks:
@@ -64,11 +64,11 @@ func getEvents(ctx context.Context) frontend.Events {
 
 // ff:退出
 // ctx:上下文
-func Quit(ctx context.Context) {
-	if ctx == nil {
+func X退出(上下文 context.Context) {
+	if 上下文 == nil {
 		log.Fatalf("Error calling 'runtime.Quit': %s", contextError)
 	}
-	appFrontend := getFrontend(ctx)
+	appFrontend := getFrontend(上下文)
 	appFrontend.Quit()
 }
 
@@ -76,11 +76,11 @@ func Quit(ctx context.Context) {
 
 // ff:隐藏
 // ctx:上下文
-func Hide(ctx context.Context) {
-	if ctx == nil {
+func X隐藏(上下文 context.Context) {
+	if 上下文 == nil {
 		log.Fatalf("Error calling 'runtime.Hide': %s", contextError)
 	}
-	appFrontend := getFrontend(ctx)
+	appFrontend := getFrontend(上下文)
 	appFrontend.Hide()
 }
 
@@ -88,32 +88,32 @@ func Hide(ctx context.Context) {
 
 // ff:显示
 // ctx:上下文
-func Show(ctx context.Context) {
-	if ctx == nil {
+func X显示(上下文 context.Context) {
+	if 上下文 == nil {
 		log.Fatalf("Error calling 'runtime.Show': %s", contextError)
 	}
-	appFrontend := getFrontend(ctx)
+	appFrontend := getFrontend(上下文)
 	appFrontend.Show()
 }
 
 // EnvironmentInfo 包含有关环境的信息
 type EnvironmentInfo struct {
-	BuildType string `json:"buildType"` //hs:构建类型     
-	Platform  string `json:"platform"` //hs:平台     
-	Arch      string `json:"arch"` //hs:架构     
+	X构建类型 string `json:"buildType"` //hs:构建类型     
+	X平台  string `json:"platform"` //hs:平台     
+	X架构      string `json:"arch"` //hs:架构     
 }
 
 // Environment 返回关于环境的信息
 
 // ff:取环境信息
 // ctx:上下文
-func Environment(ctx context.Context) EnvironmentInfo {
+func X取环境信息(上下文 context.Context) EnvironmentInfo {
 	var result EnvironmentInfo
-	buildType := ctx.Value("buildtype")
+	buildType := 上下文.Value("buildtype")
 	if buildType != nil {
-		result.BuildType = buildType.(string)
+		result.X构建类型 = buildType.(string)
 	}
-	result.Platform = goruntime.GOOS
-	result.Arch = goruntime.GOARCH
+	result.X平台 = goruntime.GOOS
+	result.X架构 = goruntime.GOARCH
 	return result
 }

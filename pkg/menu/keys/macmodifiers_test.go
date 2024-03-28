@@ -12,14 +12,14 @@ func TestToMacModifier(t *testing.T) {
 		// TODO: Add test cases.
 		{"nil", nil, 0},
 		{"empty", &Accelerator{}, 0},
-		{"key", &Accelerator{Key: "p"}, 0},
-		{"cmd", CmdOrCtrl(""), NSEventModifierFlagCommand},
-		{"ctrl", Control(""), NSEventModifierFlagControl},
-		{"shift", Shift(""), NSEventModifierFlagShift},
-		{"option", OptionOrAlt(""), NSEventModifierFlagOption},
-		{"cmd+ctrl", Combo("", CmdOrCtrlKey, ControlKey), NSEventModifierFlagCommand | NSEventModifierFlagControl},
-		{"cmd+ctrl+shift", Combo("", CmdOrCtrlKey, ControlKey, ShiftKey), NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagShift},
-		{"cmd+ctrl+shift+option", Combo("", CmdOrCtrlKey, ControlKey, ShiftKey, OptionOrAltKey), NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagShift | NSEventModifierFlagOption},
+		{"key", &Accelerator{X名称: "p"}, 0},
+		{"cmd", X组合按键Cmd或Ctrl(""), NSEventModifierFlagCommand},
+		{"ctrl", X组合按键Ctrl键(""), NSEventModifierFlagControl},
+		{"shift", X组合按键Shift(""), NSEventModifierFlagShift},
+		{"option", X组合按键Option或Alt键(""), NSEventModifierFlagOption},
+		{"cmd+ctrl", X组合按键("", X常量_组合键_Cmd或Ctrl键, X常量_组合键_Ctrl键), NSEventModifierFlagCommand | NSEventModifierFlagControl},
+		{"cmd+ctrl+shift", X组合按键("", X常量_组合键_Cmd或Ctrl键, X常量_组合键_Ctrl键, X常量_组合键_Shift键), NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagShift},
+		{"cmd+ctrl+shift+option", X组合按键("", X常量_组合键_Cmd或Ctrl键, X常量_组合键_Ctrl键, X常量_组合键_Shift键, X常量_组合键_Option或Alt键), NSEventModifierFlagCommand | NSEventModifierFlagControl | NSEventModifierFlagShift | NSEventModifierFlagOption},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

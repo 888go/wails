@@ -3,7 +3,7 @@ package runtime
 import (
 	"context"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 type Screen = frontend.Screen
@@ -12,7 +12,7 @@ type Screen = frontend.Screen
 
 // ff:取屏幕信息
 // ctx:上下文
-func ScreenGetAll(ctx context.Context) ([]Screen, error) {
-	appFrontend := getFrontend(ctx)
+func X取屏幕信息(上下文 context.Context) ([]Screen, error) {
+	appFrontend := getFrontend(上下文)
 	return appFrontend.ScreenGetAll()
 }

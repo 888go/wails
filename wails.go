@@ -3,16 +3,16 @@
 package wails
 
 import (
-	_ "github.com/wailsapp/wails/v2/internal/goversion" // 添加编译时版本检查，确保最低Go版本
-	"github.com/wailsapp/wails/v2/pkg/application"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	_ "github.com/888go/wails/internal/goversion" // 添加编译时版本检查，确保最低Go版本
+	"github.com/888go/wails/pkg/application"
+	"github.com/888go/wails/pkg/options"
 )
 
 // Run 根据给定的配置创建应用程序并执行它
 
 // ff:运行
 // options:配置
-func Run(options *options.App) error {
-	mainApp := application.NewWithOptions(options)
-	return mainApp.Run()
+func X运行(配置 *options.App) error {
+	mainApp := application.X创建并按选项(配置)
+	return mainApp.X运行()
 }

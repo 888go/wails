@@ -6,7 +6,7 @@
 
 package winc
 
-import "github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+import "github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 
 type ImageView struct {
 	ControlBase

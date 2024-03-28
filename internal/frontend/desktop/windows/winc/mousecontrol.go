@@ -7,7 +7,7 @@
 package winc
 
 import (
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 )
 
 // MouseControl 用于创建自定义控件，这些控件需要鼠标悬停或鼠标离开事件。

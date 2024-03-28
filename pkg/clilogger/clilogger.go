@@ -5,7 +5,7 @@ import (
 	"io"
 	"os"
 
-	"github.com/wailsapp/wails/v2/internal/colour"
+	"github.com/888go/wails/internal/colour"
 )
 
 // CLILogger 是被 cli 使用的
@@ -18,7 +18,7 @@ type CLILogger struct {
 
 // ff:创建
 // writer:
-func New(writer io.Writer) *CLILogger {
+func X创建(writer io.Writer) *CLILogger {
 	return &CLILogger{
 		Writer: writer,
 	}
@@ -28,8 +28,8 @@ func New(writer io.Writer) *CLILogger {
 
 // ff:禁用日志
 // value:禁用
-func (c *CLILogger) Mute(value bool) {
-	c.mute = value
+func (c *CLILogger) X禁用日志(禁用 bool) {
+	c.mute = 禁用
 }
 
 // Print 函数类似于 Printf 函数
@@ -37,14 +37,14 @@ func (c *CLILogger) Mute(value bool) {
 // ff:日志输出
 // args:
 // message:消息
-func (c *CLILogger) Print(message string, args ...interface{}) {
+func (c *CLILogger) X日志输出(消息 string, args ...interface{}) {
 	if c.mute {
 		return
 	}
 
-	_, err := fmt.Fprintf(c.Writer, message, args...)
+	_, err := fmt.Fprintf(c.Writer, 消息, args...)
 	if err != nil {
-		c.Fatal("FATAL: " + err.Error())
+		c.X日志输出并停止("FATAL: " + err.Error())
 	}
 }
 
@@ -53,14 +53,14 @@ func (c *CLILogger) Print(message string, args ...interface{}) {
 // ff:日志输出并换行
 // args:
 // message:消息
-func (c *CLILogger) Println(message string, args ...interface{}) {
+func (c *CLILogger) X日志输出并换行(消息 string, args ...interface{}) {
 	if c.mute {
 		return
 	}
-	temp := fmt.Sprintf(message, args...)
+	temp := fmt.Sprintf(消息, args...)
 	_, err := fmt.Fprintln(c.Writer, temp)
 	if err != nil {
-		c.Fatal("FATAL: " + err.Error())
+		c.X日志输出并停止("FATAL: " + err.Error())
 	}
 }
 
@@ -69,8 +69,8 @@ func (c *CLILogger) Println(message string, args ...interface{}) {
 // ff:日志输出并停止
 // args:
 // message:消息
-func (c *CLILogger) Fatal(message string, args ...interface{}) {
-	temp := fmt.Sprintf(message, args...)
+func (c *CLILogger) X日志输出并停止(消息 string, args ...interface{}) {
+	temp := fmt.Sprintf(消息, args...)
 	_, err := fmt.Fprintln(c.Writer, colour.Red("FATAL: "+temp))
 	if err != nil {
 		println(colour.Red("FATAL: " + err.Error()))

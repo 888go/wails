@@ -48,7 +48,7 @@ type Messages struct {
 
 
 // ff:运行时默认提示
-func DefaultMessages() *Messages {
+func X运行时默认提示() *Messages {
 	return &Messages{
 		WebKit2GTKMinRequired: "This application requires at least WebKit2GTK %s to be installed.",
 	}

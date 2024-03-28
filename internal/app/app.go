@@ -3,11 +3,11 @@ package app
 import (
 	"context"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
-	"github.com/wailsapp/wails/v2/internal/logger"
-	"github.com/wailsapp/wails/v2/internal/menumanager"
-	"github.com/wailsapp/wails/v2/pkg/menu"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/888go/wails/internal/frontend"
+	"github.com/888go/wails/internal/logger"
+	"github.com/888go/wails/internal/menumanager"
+	"github.com/888go/wails/pkg/menu"
+	"github.com/888go/wails/pkg/options"
 )
 
 // App 定义了一个Wails应用程序结构

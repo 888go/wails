@@ -11,7 +11,7 @@ package linux
 */
 import "C"
 import (
-	"github.com/wailsapp/wails/v2/pkg/menu/keys"
+	"github.com/888go/wails/pkg/menu/keys"
 )
 
 var namedKeysToGTK = map[string]C.guint{

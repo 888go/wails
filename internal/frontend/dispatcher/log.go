@@ -2,16 +2,16 @@ package dispatcher
 
 import (
 	"github.com/pkg/errors"
-	"github.com/wailsapp/wails/v2/internal/logger"
-	pkgLogger "github.com/wailsapp/wails/v2/pkg/logger"
+	"github.com/888go/wails/internal/logger"
+	pkgLogger "github.com/888go/wails/pkg/logger"
 )
 
 var logLevelMap = map[byte]logger.LogLevel{
-	'1': pkgLogger.TRACE,
-	'2': pkgLogger.DEBUG,
-	'3': pkgLogger.INFO,
-	'4': pkgLogger.WARNING,
-	'5': pkgLogger.ERROR,
+	'1': pkgLogger.X常量_日志级别_追踪,
+	'2': pkgLogger.X常量_日志级别_调试,
+	'3': pkgLogger.X常量_日志级别_信息,
+	'4': pkgLogger.X常量_日志级别_警告,
+	'5': pkgLogger.X常量_日志级别_错误,
 }
 
 func (d *Dispatcher) processLogMessage(message string) (string, error) {

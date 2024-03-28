@@ -5,30 +5,30 @@ package wv2installer
 
 import (
 	"fmt"
-	"github.com/wailsapp/wails/v2/internal/webview2runtime"
-	"github.com/wailsapp/wails/v2/pkg/options/windows"
+	"github.com/888go/wails/internal/webview2runtime"
+	"github.com/888go/wails/pkg/options/windows"
 )
 
 func doInstallationStrategy(installStatus installationStatus, messages *windows.Messages) error {
-	message := messages.InstallationRequired
+	message := messages.WebView2需安装
 	if installStatus == needsUpdating {
-		message = messages.UpdateRequired
+		message = messages.WebView2需更新
 	}
-	message += messages.PressOKToInstall
-	confirmed, err := webview2runtime.Confirm(message, messages.MissingRequirements)
+	message += messages.X按OK安装
+	confirmed, err := webview2runtime.Confirm(message, messages.X缺少必要组件)
 	if err != nil {
 		return err
 	}
 	if !confirmed {
-		return fmt.Errorf(messages.Webview2NotInstalled)
+		return fmt.Errorf(messages.WebView2未安装)
 	}
 	installedCorrectly, err := webview2runtime.InstallUsingEmbeddedBootstrapper()
 	if err != nil {
-		_ = webview2runtime.Error(err.Error(), messages.Error)
+		_ = webview2runtime.Error(err.Error(), messages.X出错)
 		return err
 	}
 	if !installedCorrectly {
-		err = webview2runtime.Error(messages.FailedToInstall, messages.Error)
+		err = webview2runtime.Error(messages.X安装失败, messages.X出错)
 		return err
 	}
 	return nil

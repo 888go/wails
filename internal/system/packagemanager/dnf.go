@@ -7,7 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/internal/shell"
 )
 
 // Dnf代表了Dnf管理器

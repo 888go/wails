@@ -9,7 +9,7 @@ import (
 // ff:默认浏览器打开url
 // url:
 // ctx:上下文
-func BrowserOpenURL(ctx context.Context, url string) {
-	appFrontend := getFrontend(ctx)
+func X默认浏览器打开url(上下文 context.Context, url string) {
+	appFrontend := getFrontend(上下文)
 	appFrontend.BrowserOpenURL(url)
 }

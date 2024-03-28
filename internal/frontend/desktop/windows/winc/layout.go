@@ -14,7 +14,7 @@ import (
 	"sort"
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 )
 
 // 可停靠组件必须满足接口要求才能被停靠。

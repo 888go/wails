@@ -5,12 +5,12 @@ import (
 	"os"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/cmd/wails/internal"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/internal/fs"
-	"github.com/wailsapp/wails/v2/internal/gomod"
-	"github.com/wailsapp/wails/v2/internal/goversion"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
+	"github.com/888go/wails/cmd/wails/internal"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/internal/fs"
+	"github.com/888go/wails/internal/gomod"
+	"github.com/888go/wails/internal/goversion"
+	"github.com/888go/wails/pkg/clilogger"
 )
 
 
@@ -55,7 +55,7 @@ func SyncGoMod(logger *clilogger.CLILogger, updateWailsVersion bool) error {
 				return err
 			}
 
-			logger.Println("Warning: go.mod is using Wails '%s' but the CLI is '%s'. Consider updating your project's `go.mod` file.\n", gomodversion.String(), internal.Version)
+			logger.X日志输出并换行("Warning: go.mod is using Wails '%s' but the CLI is '%s'. Consider updating your project's `go.mod` file.\n", gomodversion.String(), internal.Version)
 		}
 	}
 

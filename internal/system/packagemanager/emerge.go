@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/internal/shell"
 )
 
 // Emerge 代表了 Emerge 包管理器

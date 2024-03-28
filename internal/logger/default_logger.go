@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/wailsapp/wails/v2/pkg/logger"
+	"github.com/888go/wails/pkg/logger"
 )
 
 // LogLevel 是 public LogLevel 的别名
@@ -23,10 +23,10 @@ type Logger struct {
 // output:
 func New(output logger.Logger) *Logger {
 	if output == nil {
-		output = logger.NewDefaultLogger()
+		output = logger.X创建并按默认()
 	}
 	result := &Logger{
-		logLevel:       logger.INFO,
+		logLevel:       logger.X常量_日志级别_信息,
 		showLevelInLog: true,
 		output:         output,
 	}
@@ -63,7 +63,7 @@ func (l *Logger) SetLogLevel(level LogLevel) {
 // ff:
 // message:
 func (l *Logger) Writeln(message string) {
-	l.output.Print(message)
+	l.output.X日志(message)
 }
 
 // Write 直接将内容写入输出，不带有日志级别
@@ -71,7 +71,7 @@ func (l *Logger) Writeln(message string) {
 // ff:
 // message:
 func (l *Logger) Write(message string) {
-	l.output.Print(message)
+	l.output.X日志(message)
 }
 
 // Print 直接将内容写入输出，不带有日志级别
@@ -90,8 +90,8 @@ func (l *Logger) Print(message string) {
 // args:
 // format:
 func (l *Logger) Trace(format string, args ...interface{}) {
-	if l.logLevel <= logger.TRACE {
-		l.output.Trace(fmt.Sprintf(format, args...))
+	if l.logLevel <= logger.X常量_日志级别_追踪 {
+		l.output.X日志追踪(fmt.Sprintf(format, args...))
 	}
 }
 
@@ -101,8 +101,8 @@ func (l *Logger) Trace(format string, args ...interface{}) {
 // args:
 // format:
 func (l *Logger) Debug(format string, args ...interface{}) {
-	if l.logLevel <= logger.DEBUG {
-		l.output.Debug(fmt.Sprintf(format, args...))
+	if l.logLevel <= logger.X常量_日志级别_调试 {
+		l.output.X日志调试(fmt.Sprintf(format, args...))
 	}
 }
 
@@ -112,8 +112,8 @@ func (l *Logger) Debug(format string, args ...interface{}) {
 // args:
 // format:
 func (l *Logger) Info(format string, args ...interface{}) {
-	if l.logLevel <= logger.INFO {
-		l.output.Info(fmt.Sprintf(format, args...))
+	if l.logLevel <= logger.X常量_日志级别_信息 {
+		l.output.X日志信息(fmt.Sprintf(format, args...))
 	}
 }
 
@@ -123,8 +123,8 @@ func (l *Logger) Info(format string, args ...interface{}) {
 // args:
 // format:
 func (l *Logger) Warning(format string, args ...interface{}) {
-	if l.logLevel <= logger.WARNING {
-		l.output.Warning(fmt.Sprintf(format, args...))
+	if l.logLevel <= logger.X常量_日志级别_警告 {
+		l.output.X日志警告(fmt.Sprintf(format, args...))
 	}
 }
 
@@ -134,8 +134,8 @@ func (l *Logger) Warning(format string, args ...interface{}) {
 // args:
 // format:
 func (l *Logger) Error(format string, args ...interface{}) {
-	if l.logLevel <= logger.ERROR {
-		l.output.Error(fmt.Sprintf(format, args...))
+	if l.logLevel <= logger.X常量_日志级别_错误 {
+		l.output.X日志错误(fmt.Sprintf(format, args...))
 	}
 }
 
@@ -145,6 +145,6 @@ func (l *Logger) Error(format string, args ...interface{}) {
 // args:
 // format:
 func (l *Logger) Fatal(format string, args ...interface{}) {
-	l.output.Fatal(fmt.Sprintf(format, args...))
+	l.output.X日志致命(fmt.Sprintf(format, args...))
 	os.Exit(1)
 }

@@ -16,12 +16,12 @@ func TestParse(t *testing.T) {
 	}
 
 	gooddata := []args{
-		{"CmdOrCtrl+A", CmdOrCtrl("A")},
-		{"SHIFT+.", Shift(".")},
-		{"CTRL+plus", Control("+")},
-		{"CTRL+SHIFT+escApe", Combo("escape", ControlKey, ShiftKey)},
-		{";", Key(";")},
-		{"OptionOrAlt+Page Down", OptionOrAlt("Page Down")},
+		{"CmdOrCtrl+A", X组合按键Cmd或Ctrl("A")},
+		{"SHIFT+.", X组合按键Shift(".")},
+		{"CTRL+plus", X组合按键Ctrl键("+")},
+		{"CTRL+SHIFT+escApe", X组合按键("escape", X常量_组合键_Ctrl键, X常量_组合键_Shift键)},
+		{";", X按键(";")},
+		{"OptionOrAlt+Page Down", X组合按键Option或Alt键("Page Down")},
 	}
 	for _, tt := range gooddata {
 		result, err := Parse(tt.Input)

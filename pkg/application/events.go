@@ -3,7 +3,7 @@ package application
 type EventType int
 
 const (
-	StartUp EventType = iota
-	ShutDown //hs:常量_事件类型_应用退出     
-	DomReady //hs:常量_事件类型_DOM就绪     
+	X常量_事件类型_启动前 EventType = iota
+	X常量_事件类型_应用退出 //hs:常量_事件类型_应用退出     
+	X常量_事件类型_DOM就绪 //hs:常量_事件类型_DOM就绪     
 )

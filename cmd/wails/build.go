@@ -9,12 +9,12 @@ import (
 
 	"github.com/leaanthony/slicer"
 	"github.com/pterm/pterm"
-	"github.com/wailsapp/wails/v2/cmd/wails/flags"
-	"github.com/wailsapp/wails/v2/cmd/wails/internal/gomod"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/internal/project"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
-	"github.com/wailsapp/wails/v2/pkg/commands/build"
+	"github.com/888go/wails/cmd/wails/flags"
+	"github.com/888go/wails/cmd/wails/internal/gomod"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/internal/project"
+	"github.com/888go/wails/pkg/clilogger"
+	"github.com/888go/wails/pkg/commands/build"
 )
 
 func buildApplication(f *flags.Build) error {
@@ -26,8 +26,8 @@ func buildApplication(f *flags.Build) error {
 	quiet := f.Verbosity == flags.Quiet
 
 	// Create logger
-	logger := clilogger.New(os.Stdout)
-	logger.Mute(quiet)
+	logger := clilogger.X创建(os.Stdout)
+	logger.X禁用日志(quiet)
 
 	if quiet {
 		pterm.DisableOutput()
@@ -153,7 +153,7 @@ func buildApplication(f *flags.Build) error {
 		}
 
 		if !validPlatformArch.Contains(platform) {
-			buildOptions.Logger.Println("platform '%s' is not supported - skipping. Supported platforms: %s", platform, validPlatformArch.Join(","))
+			buildOptions.Logger.X日志输出并换行("platform '%s' is not supported - skipping. Supported platforms: %s", platform, validPlatformArch.Join(","))
 			return
 		}
 
@@ -224,7 +224,7 @@ func buildApplication(f *flags.Build) error {
 			// Start Time
 			start := time.Now()
 
-			compiledBinary, err := build.Build(buildOptions)
+			compiledBinary, err := build.X构建项目(buildOptions)
 			if err != nil {
 				pterm.Error.Println(err.Error())
 				targetErr = err
@@ -235,7 +235,7 @@ func buildApplication(f *flags.Build) error {
 			buildOptions.CleanBinDirectory = false
 
 			// Output stats
-			buildOptions.Logger.Println(fmt.Sprintf("Built '%s' in %s.\n", compiledBinary, time.Since(start).Round(time.Millisecond).String()))
+			buildOptions.Logger.X日志输出并换行(fmt.Sprintf("Built '%s' in %s.\n", compiledBinary, time.Since(start).Round(time.Millisecond).String()))
 
 			outputBinaries[buildOptions.Platform+"/"+buildOptions.Arch] = compiledBinary
 		} else {
@@ -258,7 +258,7 @@ func buildApplication(f *flags.Build) error {
 			return fmt.Errorf("cannot build nsis installer - no windows targets")
 		}
 
-		if err := build.GenerateNSISInstaller(buildOptions, amd64Binary, arm64Binary); err != nil {
+		if err := build.X生成NSIS安装程序(buildOptions, amd64Binary, arm64Binary); err != nil {
 			return err
 		}
 	}

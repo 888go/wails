@@ -10,23 +10,23 @@ type Modifier string
 
 const (
 	// CmdOrCtrlKey 表示在 Mac 平台上代表 Command 键，在其他平台上代表 Control 键
-	CmdOrCtrlKey Modifier = "cmdorctrl" //hs:常量_组合键_Cmd或Ctrl键     
+	X常量_组合键_Cmd或Ctrl键 Modifier = "cmdorctrl" //hs:常量_组合键_Cmd或Ctrl键     
 	// OptionOrAltKey 表示在 Mac 平台上代表 Option 键，在其他平台上代表 Alt 键
-	OptionOrAltKey Modifier = "optionoralt" //hs:常量_组合键_Option或Alt键     
+	X常量_组合键_Option或Alt键 Modifier = "optionoralt" //hs:常量_组合键_Option或Alt键     
 	// ShiftKey 表示在所有系统上的 shift 键
-	ShiftKey Modifier = "shift" //hs:常量_组合键_Shift键     
+	X常量_组合键_Shift键 Modifier = "shift" //hs:常量_组合键_Shift键     
 // SuperKey 表示在 Mac 上的 Command 键，在其他平台（如 Windows）上表示 Windows 键
 // SuperKey Modifier = "super"
 // ControlKey 代表在所有系统上的控制键
-	ControlKey Modifier = "ctrl" //hs:常量_组合键_Ctrl键     
+	X常量_组合键_Ctrl键 Modifier = "ctrl" //hs:常量_组合键_Ctrl键     
 )
 
 var modifierMap = map[string]Modifier{
-	"cmdorctrl":   CmdOrCtrlKey,
-	"optionoralt": OptionOrAltKey,
-	"shift":       ShiftKey,
+	"cmdorctrl":   X常量_组合键_Cmd或Ctrl键,
+	"optionoralt": X常量_组合键_Option或Alt键,
+	"shift":       X常量_组合键_Shift键,
 	// "super":       超级键，
-	"ctrl": ControlKey,
+	"ctrl": X常量_组合键_Ctrl键,
 }
 
 func parseModifier(text string) (*Modifier, error) {
@@ -41,17 +41,17 @@ func parseModifier(text string) (*Modifier, error) {
 
 // Accelerator 保存了菜单项的键盘快捷键
 type Accelerator struct {
-	Key       string //hs:名称     
-	Modifiers []Modifier //hs:修饰符     
+	X名称       string //hs:名称     
+	X修饰符 []Modifier //hs:修饰符     
 }
 
 // Key 创建一个标准的键Accelerator
 
 // ff:按键
 // key:按键字符
-func Key(key string) *Accelerator {
+func X按键(按键字符 string) *Accelerator {
 	return &Accelerator{
-		Key: strings.ToLower(key),
+		X名称: strings.ToLower(按键字符),
 	}
 }
 
@@ -59,10 +59,10 @@ func Key(key string) *Accelerator {
 
 // ff:组合按键Cmd或Ctrl
 // key:按键字符
-func CmdOrCtrl(key string) *Accelerator {
+func X组合按键Cmd或Ctrl(按键字符 string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
-		Modifiers: []Modifier{CmdOrCtrlKey},
+		X名称:       strings.ToLower(按键字符),
+		X修饰符: []Modifier{X常量_组合键_Cmd或Ctrl键},
 	}
 }
 
@@ -70,10 +70,10 @@ func CmdOrCtrl(key string) *Accelerator {
 
 // ff:组合按键Option或Alt键
 // key:按键字符
-func OptionOrAlt(key string) *Accelerator {
+func X组合按键Option或Alt键(按键字符 string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
-		Modifiers: []Modifier{OptionOrAltKey},
+		X名称:       strings.ToLower(按键字符),
+		X修饰符: []Modifier{X常量_组合键_Option或Alt键},
 	}
 }
 
@@ -81,10 +81,10 @@ func OptionOrAlt(key string) *Accelerator {
 
 // ff:组合按键Shift
 // key:按键字符
-func Shift(key string) *Accelerator {
+func X组合按键Shift(按键字符 string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
-		Modifiers: []Modifier{ShiftKey},
+		X名称:       strings.ToLower(按键字符),
+		X修饰符: []Modifier{X常量_组合键_Shift键},
 	}
 }
 
@@ -92,10 +92,10 @@ func Shift(key string) *Accelerator {
 
 // ff:组合按键Ctrl键
 // key:按键字符
-func Control(key string) *Accelerator {
+func X组合按键Ctrl键(按键字符 string) *Accelerator {
 	return &Accelerator{
-		Key:       strings.ToLower(key),
-		Modifiers: []Modifier{ControlKey},
+		X名称:       strings.ToLower(按键字符),
+		X修饰符: []Modifier{X常量_组合键_Ctrl键},
 	}
 }
 
@@ -116,11 +116,11 @@ func Control(key string) *Accelerator {
 // modifier2:组合键2
 // modifier1:组合键1
 // key:按键字符
-func Combo(key string, modifier1 Modifier, modifier2 Modifier, rest ...Modifier) *Accelerator {
+func X组合按键(按键字符 string, 组合键1 Modifier, 组合键2 Modifier, 组合键s ...Modifier) *Accelerator {
 	result := &Accelerator{
-		Key:       key,
-		Modifiers: []Modifier{modifier1, modifier2},
+		X名称:       按键字符,
+		X修饰符: []Modifier{组合键1, 组合键2},
 	}
-	result.Modifiers = append(result.Modifiers, rest...)
+	result.X修饰符 = append(result.X修饰符, 组合键s...)
 	return result
 }

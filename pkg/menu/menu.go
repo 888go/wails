@@ -1,6 +1,6 @@
 package menu
 
-import "github.com/wailsapp/wails/v2/pkg/menu/keys"
+import "github.com/888go/wails/pkg/menu/keys"
 
 type Menu struct {
 	Items []*MenuItem
@@ -8,23 +8,23 @@ type Menu struct {
 
 
 // ff:创建
-func NewMenu() *Menu {
+func X创建() *Menu {
 	return &Menu{}
 }
 
 
 // ff:加入
 // item:菜单项
-func (m *Menu) Append(item *MenuItem) {
-	m.Items = append(m.Items, item)
+func (m *Menu) X加入(菜单项 *MenuItem) {
+	m.Items = append(m.Items, 菜单项)
 }
 
 // Merge将会把给定菜单中的项目追加到此菜单中
 
 // ff:合并
 // menu:菜单
-func (m *Menu) Merge(menu *Menu) {
-	m.Items = append(m.Items, menu.Items...)
+func (m *Menu) X合并(菜单 *Menu) {
+	m.Items = append(m.Items, 菜单.Items...)
 }
 
 // AddText 向菜单中添加一个 TextMenu 项
@@ -33,9 +33,9 @@ func (m *Menu) Merge(menu *Menu) {
 // click:单击回调函数
 // accelerator:快捷键
 // label:显示名称
-func (m *Menu) AddText(label string, accelerator *keys.Accelerator, click Callback) *MenuItem {
-	item := Text(label, accelerator, click)
-	m.Append(item)
+func (m *Menu) X加入文本菜单项(显示名称 string, 快捷键 *keys.Accelerator, 单击回调函数 Callback) *MenuItem {
+	item := X创建文本菜单项2(显示名称, 快捷键, 单击回调函数)
+	m.X加入(item)
 	return item
 }
 
@@ -46,9 +46,9 @@ func (m *Menu) AddText(label string, accelerator *keys.Accelerator, click Callba
 // accelerator:快捷键
 // checked:选中
 // label:显示名称
-func (m *Menu) AddCheckbox(label string, checked bool, accelerator *keys.Accelerator, click Callback) *MenuItem {
-	item := Checkbox(label, checked, accelerator, click)
-	m.Append(item)
+func (m *Menu) X加入复选框(显示名称 string, 选中 bool, 快捷键 *keys.Accelerator, 单击回调函数 Callback) *MenuItem {
+	item := X创建复选框菜单项(显示名称, 选中, 快捷键, 单击回调函数)
+	m.X加入(item)
 	return item
 }
 
@@ -59,46 +59,46 @@ func (m *Menu) AddCheckbox(label string, checked bool, accelerator *keys.Acceler
 // accelerator:快捷键
 // checked:选中
 // label:显示名称
-func (m *Menu) AddRadio(label string, checked bool, accelerator *keys.Accelerator, click Callback) *MenuItem {
-	item := Radio(label, checked, accelerator, click)
-	m.Append(item)
+func (m *Menu) X加入单选框(显示名称 string, 选中 bool, 快捷键 *keys.Accelerator, 单击回调函数 Callback) *MenuItem {
+	item := X创建单选框菜单项(显示名称, 选中, 快捷键, 单击回调函数)
+	m.X加入(item)
 	return item
 }
 
 // AddSeparator 向菜单添加一个分隔符
 
 // ff:加入分隔符
-func (m *Menu) AddSeparator() {
-	item := Separator()
-	m.Append(item)
+func (m *Menu) X加入分隔符() {
+	item := X创建分隔符菜单项()
+	m.X加入(item)
 }
 
 
 // ff:加入子菜单
 // label:显示名称
-func (m *Menu) AddSubmenu(label string) *Menu {
-	submenu := NewMenu()
-	item := SubMenu(label, submenu)
-	m.Append(item)
+func (m *Menu) X加入子菜单(显示名称 string) *Menu {
+	submenu := X创建()
+	item := X创建子菜单(显示名称, submenu)
+	m.X加入(item)
 	return submenu
 }
 
 
 // ff:加入子菜单最前
 // item:菜单项
-func (m *Menu) Prepend(item *MenuItem) {
-	m.Items = append([]*MenuItem{item}, m.Items...)
+func (m *Menu) X加入子菜单最前(菜单项 *MenuItem) {
+	m.Items = append([]*MenuItem{菜单项}, m.Items...)
 }
 
 
 // ff:创建菜单并按菜单项
 // rest:第一个
 // first:
-func NewMenuFromItems(first *MenuItem, rest ...*MenuItem) *Menu {
-	result := NewMenu()
-	result.Append(first)
-	for _, item := range rest {
-		result.Append(item)
+func X创建菜单并按菜单项(first *MenuItem, 第一个 ...*MenuItem) *Menu {
+	result := X创建()
+	result.X加入(first)
+	for _, item := range 第一个 {
+		result.X加入(item)
 	}
 
 	return result

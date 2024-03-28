@@ -2,16 +2,16 @@ package menu
 
 type ContextMenu struct {
 	ID   string
-	Menu *Menu //hs:菜单     
+	X菜单 *Menu //hs:菜单     
 }
 
 
 // ff:创建上下文菜单
 // menu:菜单
 // ID:
-func NewContextMenu(ID string, menu *Menu) *ContextMenu {
+func X创建上下文菜单(ID string, 菜单 *Menu) *ContextMenu {
 	return &ContextMenu{
 		ID:   ID,
-		Menu: menu,
+		X菜单: 菜单,
 	}
 }

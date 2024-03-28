@@ -1,4 +1,4 @@
-module github.com/wailsapp/wails/v2
+module github.com/888go/wails
 
 go 1.20
 

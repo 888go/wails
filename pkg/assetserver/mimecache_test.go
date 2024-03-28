@@ -39,7 +39,7 @@ func TestGetMimetype(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetMimetype(tt.args.filename, tt.args.data); got != tt.want {
+			if got := X取文件Mimetype(tt.args.filename, tt.args.data); got != tt.want {
 				t.Errorf("GetMimetype() = '%v', want '%v'", got, tt.want)
 			}
 		})

@@ -3,9 +3,9 @@
 package app
 
 import (
-	"github.com/wailsapp/wails/v2/internal/logger"
-	"github.com/wailsapp/wails/v2/internal/wv2installer"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/888go/wails/internal/logger"
+	"github.com/888go/wails/internal/wv2installer"
+	"github.com/888go/wails/pkg/options"
 )
 
 

@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/888go/wails/pkg/menu"
 )
 
 // MenuItemMap 保存了 menuIDs 和菜单项之间的映射关系
@@ -64,8 +64,8 @@ func (m *MenuItemMap) generateMenuID() string {
 }
 
 func (m *MenuItemMap) processMenuItem(item *menu.MenuItem) {
-	if item.SubMenu != nil {
-		for _, submenuitem := range item.SubMenu.Items {
+	if item.X子菜单 != nil {
+		for _, submenuitem := range item.X子菜单.Items {
 			m.processMenuItem(submenuitem)
 		}
 	}

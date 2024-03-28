@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/internal/shell"
 )
 
 // 一系列包管理器命令

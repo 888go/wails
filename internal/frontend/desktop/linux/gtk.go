@@ -17,7 +17,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/888go/wails/pkg/menu"
 )
 
 

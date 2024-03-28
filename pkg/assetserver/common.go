@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/888go/wails/pkg/options"
+	"github.com/888go/wails/pkg/options/assetserver"
 	"golang.org/x/net/html"
 )
 
@@ -18,20 +18,20 @@ import (
 // appOptions:
 func BuildAssetServerConfig(appOptions *options.App) (assetserver.Options, error) {
 	var options assetserver.Options
-	if opt := appOptions.AssetServer; opt != nil {
-		if appOptions.Assets != nil || appOptions.AssetsHandler != nil {
+	if opt := appOptions.X绑定http请求; opt != nil {
+		if appOptions.Assets弃用 != nil || appOptions.AssetsHandler弃用 != nil {
 			panic("It's not possible to use the deprecated Assets and AssetsHandler options and the new AssetServer option at the same time. Please migrate all your Assets options to the AssetServer option.")
 		}
 
 		options = *opt
 	} else {
 		options = assetserver.Options{
-			Assets:  appOptions.Assets,
-			Handler: appOptions.AssetsHandler,
+			X静态资源:  appOptions.Assets弃用,
+			X请求处理器: appOptions.AssetsHandler弃用,
 		}
 	}
 
-	return options, options.Validate()
+	return options, options.X验证是否有效()
 }
 
 const (
@@ -49,7 +49,7 @@ func serveFile(rw http.ResponseWriter, filename string, blob []byte) error {
 	header := rw.Header()
 	header.Set(HeaderContentLength, strconv.Itoa(len(blob)))
 	if mimeType := header.Get(HeaderContentType); mimeType == "" {
-		mimeType = GetMimetype(filename, blob)
+		mimeType = X取文件Mimetype(filename, blob)
 		header.Set(HeaderContentType, mimeType)
 	}
 

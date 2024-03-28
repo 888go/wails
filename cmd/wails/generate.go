@@ -9,14 +9,14 @@ import (
 	"github.com/leaanthony/gosod"
 	"github.com/pterm/pterm"
 	"github.com/tidwall/sjson"
-	"github.com/wailsapp/wails/v2/cmd/wails/flags"
-	"github.com/wailsapp/wails/v2/cmd/wails/internal/template"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/internal/fs"
-	"github.com/wailsapp/wails/v2/internal/project"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
-	"github.com/wailsapp/wails/v2/pkg/commands/bindings"
-	"github.com/wailsapp/wails/v2/pkg/commands/buildtags"
+	"github.com/888go/wails/cmd/wails/flags"
+	"github.com/888go/wails/cmd/wails/internal/template"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/internal/fs"
+	"github.com/888go/wails/internal/project"
+	"github.com/888go/wails/pkg/clilogger"
+	"github.com/888go/wails/pkg/commands/bindings"
+	"github.com/888go/wails/pkg/commands/buildtags"
 )
 
 func generateModule(f *flags.GenerateModule) error {
@@ -26,10 +26,10 @@ func generateModule(f *flags.GenerateModule) error {
 	}
 
 	quiet := f.Verbosity == flags.Quiet
-	logger := clilogger.New(os.Stdout)
-	logger.Mute(quiet)
+	logger := clilogger.X创建(os.Stdout)
+	logger.X禁用日志(quiet)
 
-	buildTags, err := buildtags.Parse(f.Tags)
+	buildTags, err := buildtags.X解析(f.Tags)
 	if err != nil {
 		return err
 	}
@@ -67,8 +67,8 @@ func generateTemplate(f *flags.GenerateTemplate) error {
 	}
 
 	quiet := f.Quiet
-	logger := clilogger.New(os.Stdout)
-	logger.Mute(quiet)
+	logger := clilogger.X创建(os.Stdout)
+	logger.X禁用日志(quiet)
 
 	// name is mandatory
 	if f.Name == "" {

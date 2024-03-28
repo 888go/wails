@@ -8,9 +8,9 @@ import (
 	"strings"
 
 	"github.com/leaanthony/slicer"
-	"github.com/wailsapp/wails/v2/internal/system"
-	"github.com/wailsapp/wails/v2/pkg/commands/build"
-	"github.com/wailsapp/wails/v2/pkg/commands/buildtags"
+	"github.com/888go/wails/internal/system"
+	"github.com/888go/wails/pkg/commands/build"
+	"github.com/888go/wails/pkg/commands/buildtags"
 )
 
 const (
@@ -125,7 +125,7 @@ func (b *Build) Process() error {
 	}
 
 	// Process User Tags
-	b.userTags, err = buildtags.Parse(b.Tags)
+	b.userTags, err = buildtags.X解析(b.Tags)
 	if err != nil {
 		return err
 	}

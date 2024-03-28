@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/wailsapp/wails/v2/pkg/assetserver/webview"
+	"github.com/888go/wails/pkg/assetserver/webview"
 )
 
 type assetServerWebView struct {
@@ -62,7 +62,7 @@ func (d *AssetServer) ServeWebViewRequest(req webview.Request) {
 func (d *AssetServer) processWebViewRequest(r webview.Request) {
 	uri, _ := r.URL()
 	d.processWebViewRequestInternal(r)
-	if err := r.Close(); err != nil {
+	if err := r.X关闭(); err != nil {
 		d.logError("Unable to call close for request for uri '%s'", uri)
 	}
 }
@@ -73,7 +73,7 @@ func (d *AssetServer) processWebViewRequestInternal(r webview.Request) {
 	uri := "unknown"
 	var err error
 
-	wrw := r.Response()
+	wrw := r.X请求响应()
 	defer func() {
 		if err := wrw.Finish(); err != nil {
 			d.logError("Error finishing request '%s': %s", uri, err)
@@ -90,19 +90,19 @@ func (d *AssetServer) processWebViewRequestInternal(r webview.Request) {
 		return
 	}
 
-	method, err := r.Method()
+	method, err := r.X请求方法()
 	if err != nil {
 		d.webviewRequestErrorHandler(uri, rw, fmt.Errorf("HTTP-Method: %w", err))
 		return
 	}
 
-	header, err := r.Header()
+	header, err := r.X请求头()
 	if err != nil {
 		d.webviewRequestErrorHandler(uri, rw, fmt.Errorf("HTTP-Header: %w", err))
 		return
 	}
 
-	body, err := r.Body()
+	body, err := r.X请求体()
 	if err != nil {
 		d.webviewRequestErrorHandler(uri, rw, fmt.Errorf("HTTP-Body: %w", err))
 		return

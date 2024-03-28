@@ -5,13 +5,13 @@ package app
 import (
 	"context"
 
-	"github.com/wailsapp/wails/v2/internal/binding"
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop"
-	"github.com/wailsapp/wails/v2/internal/frontend/dispatcher"
-	"github.com/wailsapp/wails/v2/internal/frontend/runtime"
-	"github.com/wailsapp/wails/v2/internal/logger"
-	"github.com/wailsapp/wails/v2/internal/menumanager"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/888go/wails/internal/binding"
+	"github.com/888go/wails/internal/frontend/desktop"
+	"github.com/888go/wails/internal/frontend/dispatcher"
+	"github.com/888go/wails/internal/frontend/runtime"
+	"github.com/888go/wails/internal/logger"
+	"github.com/888go/wails/internal/menumanager"
+	"github.com/888go/wails/pkg/options"
 )
 
 
@@ -44,11 +44,11 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	ctx = context.WithValue(ctx, "devtoolsEnabled", devtoolsEnabled)
 
 	// Set up logger
-	myLogger := logger.New(appoptions.Logger)
+	myLogger := logger.New(appoptions.X日志记录器)
 	if IsDebug() {
-		myLogger.SetLogLevel(appoptions.LogLevel)
+		myLogger.SetLogLevel(appoptions.X日志级别)
 	} else {
-		myLogger.SetLogLevel(appoptions.LogLevelProduction)
+		myLogger.SetLogLevel(appoptions.X生产日志级别)
 	}
 	ctx = context.WithValue(ctx, "logger", myLogger)
 	ctx = context.WithValue(ctx, "obfuscated", IsObfuscated())
@@ -63,8 +63,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	menuManager := menumanager.NewManager()
 
 	// 处理应用程序菜单
-	if appoptions.Menu != nil {
-		err = menuManager.SetApplicationMenu(appoptions.Menu)
+	if appoptions.X菜单 != nil {
+		err = menuManager.SetApplicationMenu(appoptions.X菜单)
 		if err != nil {
 			return nil, err
 		}
@@ -72,12 +72,12 @@ func CreateApp(appoptions *options.App) (*App, error) {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
 	bindingExemptions := []interface{}{
-		appoptions.OnStartup,
-		appoptions.OnShutdown,
-		appoptions.OnDomReady,
-		appoptions.OnBeforeClose,
+		appoptions.X绑定启动前函数,
+		appoptions.X绑定应用退出函数,
+		appoptions.X绑定DOM就绪函数,
+		appoptions.X绑定应用关闭前函数,
 	}
-	appBindings := binding.NewBindings(myLogger, appoptions.Bind, bindingExemptions, IsObfuscated(), appoptions.EnumBind)
+	appBindings := binding.NewBindings(myLogger, appoptions.X绑定调用方法, bindingExemptions, IsObfuscated(), appoptions.X绑定常量枚举)
 	eventHandler := runtime.NewEvents(myLogger)
 	ctx = context.WithValue(ctx, "events", eventHandler)
 	// 将日志器附加到上下文中
@@ -87,7 +87,7 @@ func CreateApp(appoptions *options.App) (*App, error) {
 		ctx = context.WithValue(ctx, "buildtype", "production")
 	}
 
-	messageDispatcher := dispatcher.NewDispatcher(ctx, myLogger, appBindings, eventHandler, appoptions.ErrorFormatter)
+	messageDispatcher := dispatcher.NewDispatcher(ctx, myLogger, appBindings, eventHandler, appoptions.X错误格式化)
 	appFrontend := desktop.NewFrontend(ctx, appoptions, myLogger, appBindings, messageDispatcher)
 	eventHandler.AddFrontend(appFrontend)
 
@@ -97,8 +97,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 		frontend:         appFrontend,
 		logger:           myLogger,
 		menuManager:      menuManager,
-		startupCallback:  appoptions.OnStartup,
-		shutdownCallback: appoptions.OnShutdown,
+		startupCallback:  appoptions.X绑定启动前函数,
+		shutdownCallback: appoptions.X绑定应用退出函数,
 		debug:            debug,
 		devtoolsEnabled:  devtoolsEnabled,
 		options:          appoptions,

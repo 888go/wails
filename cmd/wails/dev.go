@@ -4,10 +4,10 @@ import (
 	"os"
 
 	"github.com/pterm/pterm"
-	"github.com/wailsapp/wails/v2/cmd/wails/flags"
-	"github.com/wailsapp/wails/v2/cmd/wails/internal/dev"
-	"github.com/wailsapp/wails/v2/internal/colour"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
+	"github.com/888go/wails/cmd/wails/flags"
+	"github.com/888go/wails/cmd/wails/internal/dev"
+	"github.com/888go/wails/internal/colour"
+	"github.com/888go/wails/pkg/clilogger"
 )
 
 func devApplication(f *flags.Dev) error {
@@ -19,8 +19,8 @@ func devApplication(f *flags.Dev) error {
 	quiet := f.Verbosity == flags.Quiet
 
 	// Create logger
-	logger := clilogger.New(os.Stdout)
-	logger.Mute(quiet)
+	logger := clilogger.X创建(os.Stdout)
+	logger.X禁用日志(quiet)
 
 	if quiet {
 		pterm.DisableOutput()

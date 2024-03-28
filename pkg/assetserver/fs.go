@@ -45,7 +45,7 @@ func FindEmbedRootPath(fsys embed.FS) (string, error) {
 // ff:查找文件路径
 // file:
 // fsys:
-func FindPathToFile(fsys fs.FS, file string) (string, error) {
+func X查找文件路径(fsys fs.FS, file string) (string, error) {
 	stat, _ := fs.Stat(fsys, file)
 	if stat != nil {
 		return ".", nil

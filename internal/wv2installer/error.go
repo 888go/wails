@@ -5,11 +5,11 @@ package wv2installer
 
 import (
 	"fmt"
-	"github.com/wailsapp/wails/v2/internal/webview2runtime"
-	"github.com/wailsapp/wails/v2/pkg/options/windows"
+	"github.com/888go/wails/internal/webview2runtime"
+	"github.com/888go/wails/pkg/options/windows"
 )
 
 func doInstallationStrategy(installStatus installationStatus, messages *windows.Messages) error {
-	_ = webview2runtime.Error(messages.ContactAdmin, messages.Error)
-	return fmt.Errorf(messages.Webview2NotInstalled)
+	_ = webview2runtime.Error(messages.X联系管理员, messages.X出错)
+	return fmt.Errorf(messages.WebView2未安装)
 }

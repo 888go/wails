@@ -120,7 +120,7 @@ import (
 
 // ff:创建请求对象
 // wkURLSchemeTask:
-func NewRequest(wkURLSchemeTask unsafe.Pointer) Request {
+func X创建请求对象(wkURLSchemeTask unsafe.Pointer) Request {
 	C.URLSchemeTaskRetain(wkURLSchemeTask)
 	return newRequestFinalizer(&request{task: wkURLSchemeTask})
 }
@@ -143,13 +143,13 @@ func (r *request) URL() (string, error) {
 
 
 // ff:请求方法
-func (r *request) Method() (string, error) {
+func (r *request) X请求方法() (string, error) {
 	return C.GoString(C.URLSchemeTaskRequestMethod(r.task)), nil
 }
 
 
 // ff:请求头
-func (r *request) Header() (http.Header, error) {
+func (r *request) X请求头() (http.Header, error) {
 	if r.header != nil {
 		return r.header, nil
 	}
@@ -174,7 +174,7 @@ func (r *request) Header() (http.Header, error) {
 
 
 // ff:请求体
-func (r *request) Body() (io.ReadCloser, error) {
+func (r *request) X请求体() (io.ReadCloser, error) {
 	if r.body != nil {
 		return r.body, nil
 	}
@@ -196,7 +196,7 @@ func (r *request) Body() (io.ReadCloser, error) {
 
 
 // ff:请求响应
-func (r *request) Response() ResponseWriter {
+func (r *request) X请求响应() ResponseWriter {
 	if r.rw != nil {
 		return r.rw
 	}
@@ -207,12 +207,12 @@ func (r *request) Response() ResponseWriter {
 
 
 // ff:关闭
-func (r *request) Close() error {
+func (r *request) X关闭() error {
 	var err error
 	if r.body != nil {
 		err = r.body.Close()
 	}
-	err = r.Response().Finish()
+	err = r.X请求响应().Finish()
 	if err != nil {
 		return err
 	}
@@ -262,7 +262,7 @@ func (r *requestBodyStreamReader) Read(p []byte) (n int, err error) {
 
 
 // ff:关闭
-func (r *requestBodyStreamReader) Close() error {
+func (r *requestBodyStreamReader) X关闭() error {
 	if r.closed {
 		return nil
 	}

@@ -137,9 +137,9 @@ func FileMenu() *MenuItem {
 // EditMenu 提供一个具有默认“编辑”菜单（撤销、复制等）的 MenuItem。
 
 // ff:创建菜单项并带编辑菜单
-func EditMenu() *MenuItem {
+func X创建菜单项并带编辑菜单() *MenuItem {
 	return &MenuItem{
-		Role: EditMenuRole,
+		X项角色: EditMenuRole,
 	}
 }
 
@@ -158,9 +158,9 @@ func ViewMenu() *MenuItem {
 // 在 MacOS 中，如果窗口无边框，则当前其中的所有选项将无法正常工作。
 
 // ff:创建菜单项并带窗口菜单
-func WindowMenu() *MenuItem {
+func X创建菜单项并带窗口菜单() *MenuItem {
 	return &MenuItem{
-		Role: WindowMenuRole,
+		X项角色: WindowMenuRole,
 	}
 }
 
@@ -169,9 +169,9 @@ func WindowMenu() *MenuItem {
 // AppMenu 提供一个具有默认“应用”菜单（关于、服务等）的 MenuItem
 
 // ff:创建菜单项并带应用菜单
-func AppMenu() *MenuItem {
+func X创建菜单项并带应用菜单() *MenuItem {
 	return &MenuItem{
-		Role: AppMenuRole,
+		X项角色: AppMenuRole,
 	}
 }
 

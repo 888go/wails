@@ -12,18 +12,18 @@ import (
 
 	"github.com/pterm/pterm"
 
-	"github.com/wailsapp/wails/v2/internal/system"
+	"github.com/888go/wails/internal/system"
 
 	"github.com/leaanthony/gosod"
-	"github.com/wailsapp/wails/v2/internal/frontend/runtime/wrapper"
+	"github.com/888go/wails/internal/frontend/runtime/wrapper"
 
 	"github.com/pkg/errors"
 
 	"github.com/leaanthony/slicer"
-	"github.com/wailsapp/wails/v2/internal/fs"
-	"github.com/wailsapp/wails/v2/internal/project"
-	"github.com/wailsapp/wails/v2/internal/shell"
-	"github.com/wailsapp/wails/v2/pkg/clilogger"
+	"github.com/888go/wails/internal/fs"
+	"github.com/888go/wails/internal/project"
+	"github.com/888go/wails/internal/shell"
+	"github.com/888go/wails/pkg/clilogger"
 )
 
 const (
@@ -603,7 +603,7 @@ func (b *BaseBuilder) BuildFrontend(outputLogger *clilogger.CLILogger) error {
 		if err := b.NpmInstallUsingCommand(frontendDir, installCommand, verbose); err != nil {
 			return err
 		}
-		outputLogger.Println("Done.")
+		outputLogger.X日志输出并换行("Done.")
 	}
 
 	// 检查是否存在构建命令

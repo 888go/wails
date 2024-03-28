@@ -3,7 +3,7 @@ package dispatcher
 import (
 	"errors"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 // processBrowserMessage 处理浏览器消息

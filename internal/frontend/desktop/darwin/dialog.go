@@ -20,7 +20,7 @@ import (
 	"unsafe"
 
 	"github.com/leaanthony/slicer"
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 // Obj-C 对话方法将响应发送到此通道

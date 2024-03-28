@@ -17,7 +17,7 @@ import (
 // ff:创建请求对象
 // Request:
 // fn:
-func NewRequest(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
+func X创建请求对象(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
 	req, err := args.GetRequest()
 	if err != nil {
 		return nil, fmt.Errorf("GetRequest failed: %s", err)
@@ -90,25 +90,25 @@ func (r *request) URL() (string, error) {
 
 
 // ff:请求方法
-func (r *request) Method() (string, error) {
+func (r *request) X请求方法() (string, error) {
 	return r.method, r.methodErr
 }
 
 
 // ff:请求头
-func (r *request) Header() (http.Header, error) {
+func (r *request) X请求头() (http.Header, error) {
 	return r.header, r.headerErr
 }
 
 
 // ff:请求体
-func (r *request) Body() (io.ReadCloser, error) {
+func (r *request) X请求体() (io.ReadCloser, error) {
 	return r.body, r.bodyErr
 }
 
 
 // ff:请求响应
-func (r *request) Response() ResponseWriter {
+func (r *request) X请求响应() ResponseWriter {
 	if r.rw != nil {
 		return r.rw
 	}
@@ -119,7 +119,7 @@ func (r *request) Response() ResponseWriter {
 
 
 // ff:关闭
-func (r *request) Close() error {
+func (r *request) X关闭() error {
 	var errs []error
 	if r.body != nil {
 		if err := r.body.Close(); err != nil {
@@ -128,7 +128,7 @@ func (r *request) Close() error {
 		r.body = nil
 	}
 
-	if err := r.Response().Finish(); err != nil {
+	if err := r.X请求响应().Finish(); err != nil {
 		errs = append(errs, err)
 	}
 

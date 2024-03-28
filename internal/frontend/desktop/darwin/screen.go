@@ -87,7 +87,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 

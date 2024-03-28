@@ -9,7 +9,7 @@ package win32
 
 import (
 	"bytes"
-	"github.com/wailsapp/wails/v2/pkg/menu/keys"
+	"github.com/888go/wails/pkg/menu/keys"
 	"strings"
 	"unsafe"
 )
@@ -607,10 +607,10 @@ func ShiftDown() bool {
 }
 
 var ModifierMap = map[keys.Modifier]Modifiers{
-	keys.ShiftKey:       ModShift,
-	keys.ControlKey:     ModControl,
-	keys.OptionOrAltKey: ModAlt,
-	keys.CmdOrCtrlKey:   ModControl,
+	keys.X常量_组合键_Shift键:       ModShift,
+	keys.X常量_组合键_Ctrl键:     ModControl,
+	keys.X常量_组合键_Option或Alt键: ModAlt,
+	keys.X常量_组合键_Cmd或Ctrl键:   ModControl,
 }
 
 var NoShortcut = Shortcut{}
@@ -623,7 +623,7 @@ func AcceleratorToShortcut(accelerator *keys.Accelerator) Shortcut {
 	if accelerator == nil {
 		return NoShortcut
 	}
-	inKey := strings.ToUpper(accelerator.Key)
+	inKey := strings.ToUpper(accelerator.X名称)
 	key, exists := KeyMap[inKey]
 	if !exists {
 		return NoShortcut
@@ -632,7 +632,7 @@ func AcceleratorToShortcut(accelerator *keys.Accelerator) Shortcut {
 	if _, exists := shiftMap[inKey]; exists {
 		modifiers = ModShift
 	}
-	for _, mod := range accelerator.Modifiers {
+	for _, mod := range accelerator.X修饰符 {
 		modifiers |= ModifierMap[mod]
 	}
 	return Shortcut{

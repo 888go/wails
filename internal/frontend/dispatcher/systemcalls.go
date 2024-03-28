@@ -6,9 +6,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/pkg/runtime"
+	"github.com/888go/wails/pkg/runtime"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 const systemCallPrefix = ":wails:"
@@ -45,7 +45,7 @@ func (d *Dispatcher) processSystemCall(payload callMessage, sender frontend.Fron
 	case "WindowIsFullscreen":
 		return sender.WindowIsFullscreen(), nil
 	case "Environment":
-		return runtime.Environment(d.ctx), nil
+		return runtime.X取环境信息(d.ctx), nil
 	case "ClipboardGetText":
 		t, err := sender.ClipboardGetText()
 		return t, err

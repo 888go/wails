@@ -9,7 +9,7 @@ package winc
 import (
 	"fmt"
 
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
 )
 
 type Panel struct {

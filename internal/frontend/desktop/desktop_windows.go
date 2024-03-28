@@ -5,11 +5,11 @@ package desktop
 
 import (
 	"context"
-	"github.com/wailsapp/wails/v2/internal/binding"
-	"github.com/wailsapp/wails/v2/internal/frontend"
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows"
-	"github.com/wailsapp/wails/v2/internal/logger"
-	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/888go/wails/internal/binding"
+	"github.com/888go/wails/internal/frontend"
+	"github.com/888go/wails/internal/frontend/desktop/windows"
+	"github.com/888go/wails/internal/logger"
+	"github.com/888go/wails/pkg/options"
 )
 
 

@@ -4,16 +4,16 @@
 package windows
 
 import (
-	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
-	"github.com/wailsapp/wails/v2/pkg/menu/keys"
+	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
+	"github.com/888go/wails/pkg/menu/keys"
 	"strings"
 )
 
 var ModifierMap = map[keys.Modifier]winc.Modifiers{
-	keys.ShiftKey:       winc.ModShift,
-	keys.ControlKey:     winc.ModControl,
-	keys.OptionOrAltKey: winc.ModAlt,
-	keys.CmdOrCtrlKey:   winc.ModControl,
+	keys.X常量_组合键_Shift键:       winc.ModShift,
+	keys.X常量_组合键_Ctrl键:     winc.ModControl,
+	keys.X常量_组合键_Option或Alt键: winc.ModAlt,
+	keys.X常量_组合键_Cmd或Ctrl键:   winc.ModControl,
 }
 
 func acceleratorToWincShortcut(accelerator *keys.Accelerator) winc.Shortcut {
@@ -21,7 +21,7 @@ func acceleratorToWincShortcut(accelerator *keys.Accelerator) winc.Shortcut {
 	if accelerator == nil {
 		return winc.NoShortcut
 	}
-	inKey := strings.ToUpper(accelerator.Key)
+	inKey := strings.ToUpper(accelerator.X名称)
 	key, exists := keyMap[inKey]
 	if !exists {
 		return winc.NoShortcut
@@ -30,7 +30,7 @@ func acceleratorToWincShortcut(accelerator *keys.Accelerator) winc.Shortcut {
 	if _, exists := shiftMap[inKey]; exists {
 		modifiers = winc.ModShift
 	}
-	for _, mod := range accelerator.Modifiers {
+	for _, mod := range accelerator.X修饰符 {
 		modifiers |= ModifierMap[mod]
 	}
 	return winc.Shortcut{

@@ -3,7 +3,7 @@ package logutils
 import (
 	"fmt"
 
-	"github.com/wailsapp/wails/v2/internal/colour"
+	"github.com/888go/wails/internal/colour"
 )
 
 

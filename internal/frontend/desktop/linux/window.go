@@ -22,10 +22,10 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
-	"github.com/wailsapp/wails/v2/pkg/menu"
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/linux"
+	"github.com/888go/wails/internal/frontend"
+	"github.com/888go/wails/pkg/menu"
+	"github.com/888go/wails/pkg/options"
+	"github.com/888go/wails/pkg/options/linux"
 )
 
 func gtkBool(input bool) C.gboolean {

@@ -38,23 +38,23 @@ var (
 // ff:取文件Mimetype
 // data:字节集值
 // filename:文件名
-func GetMimetype(filename string, data []byte) string {
+func X取文件Mimetype(文件名 string, 字节集值 []byte) string {
 	mimeMutex.Lock()
 	defer mimeMutex.Unlock()
 
-	result := mimeTypesByExt[filepath.Ext(filename)]
+	result := mimeTypesByExt[filepath.Ext(文件名)]
 	if result != "" {
 		return result
 	}
 
-	result = mimeCache[filename]
+	result = mimeCache[文件名]
 	if result != "" {
 		return result
 	}
 
-	detect := mimetype.Detect(data)
+	detect := mimetype.Detect(字节集值)
 	if detect == nil {
-		result = http.DetectContentType(data)
+		result = http.DetectContentType(字节集值)
 	} else {
 		result = detect.String()
 	}
@@ -63,6 +63,6 @@ func GetMimetype(filename string, data []byte) string {
 		result = "application/octet-stream"
 	}
 
-	mimeCache[filename] = result
+	mimeCache[文件名] = result
 	return result
 }

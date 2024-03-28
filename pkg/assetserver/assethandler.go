@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/888go/wails/pkg/options/assetserver"
 )
 
 type Logger interface {
@@ -42,13 +42,13 @@ type assetHandler struct {
 // log:
 // options:
 func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, error) {
-	vfs := options.Assets
+	vfs := options.X静态资源
 	if vfs != nil {
 		if _, err := vfs.Open("."); err != nil {
 			return nil, err
 		}
 
-		subDir, err := FindPathToFile(vfs, indexHTML)
+		subDir, err := X查找文件路径(vfs, indexHTML)
 		if err != nil {
 			if errors.Is(err, os.ErrNotExist) {
 				msg := "no `index.html` could be found in your Assets fs.FS"
@@ -71,11 +71,11 @@ func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, err
 
 	var result http.Handler = &assetHandler{
 		fs:      vfs,
-		handler: options.Handler,
+		handler: options.X请求处理器,
 		logger:  log,
 	}
 
-	if middleware := options.Middleware; middleware != nil {
+	if middleware := options.X中间件; middleware != nil {
 		result = middleware(result)
 	}
 
@@ -170,7 +170,7 @@ func (d *assetHandler) serveFSFile(rw http.ResponseWriter, req *http.Request, fi
 		}
 
 // 即使在 io.ReadSeeker 的情况下 http.ServeContent 会执行自定义 MimeType 探测，我们也进行自定义 MimeType 探测操作。我们希望在这两种情况下都具有一致的行为。
-		if contentType := GetMimetype(filename, buf[:n]); contentType != "" {
+		if contentType := X取文件Mimetype(filename, buf[:n]); contentType != "" {
 			rw.Header().Set(HeaderContentType, contentType)
 		}
 	}

@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	"github.com/samber/lo"
-	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/888go/wails/internal/frontend"
 )
 
 type Logger interface {

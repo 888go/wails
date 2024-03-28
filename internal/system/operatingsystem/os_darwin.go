@@ -3,7 +3,7 @@ package operatingsystem
 import (
 	"strings"
 
-	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/888go/wails/internal/shell"
 )
 
 func getSysctlValue(key string) (string, error) {

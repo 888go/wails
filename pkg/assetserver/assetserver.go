@@ -10,8 +10,8 @@ import (
 	"golang.org/x/net/html"
 	"html/template"
 
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/888go/wails/pkg/options"
+	"github.com/888go/wails/pkg/options/assetserver"
 )
 
 const (
@@ -186,7 +186,7 @@ func (d *AssetServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 		handler.ServeHTTP(recorder, req)
 
-		body := recorder.Body()
+		body := recorder.X请求体()
 		if body == nil {
 			// 已经流式传输了主体且未被记录，我们已经完成
 			return

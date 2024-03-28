@@ -10,7 +10,7 @@ type DefaultLogger struct{}
 // NewDefaultLogger 创建一个新的 Logger。
 
 // ff:创建并按默认
-func NewDefaultLogger() Logger {
+func X创建并按默认() Logger {
 	return &DefaultLogger{}
 }
 
@@ -18,8 +18,8 @@ func NewDefaultLogger() Logger {
 
 // ff:日志
 // message:消息
-func (l *DefaultLogger) Print(message string) {
-	println(message)
+func (l *DefaultLogger) X日志(消息 string) {
+	println(消息)
 }
 
 // 以下是将该段Go语言代码注释翻译成中文：
@@ -27,47 +27,47 @@ func (l *DefaultLogger) Print(message string) {
 
 // ff:日志追踪
 // message:消息
-func (l *DefaultLogger) Trace(message string) {
-	println("TRA | " + message)
+func (l *DefaultLogger) X日志追踪(消息 string) {
+	println("TRA | " + 消息)
 }
 
 // 调试级别日志记录。其工作方式类似于 Sprintf（格式化字符串并写入）。
 
 // ff:日志调试
 // message:消息
-func (l *DefaultLogger) Debug(message string) {
-	println("DEB | " + message)
+func (l *DefaultLogger) X日志调试(消息 string) {
+	println("DEB | " + 消息)
 }
 
 // 信息级别日志记录。功能类似于 Sprintf。
 
 // ff:日志信息
 // message:消息
-func (l *DefaultLogger) Info(message string) {
-	println("INF | " + message)
+func (l *DefaultLogger) X日志信息(消息 string) {
+	println("INF | " + 消息)
 }
 
 // 警告级别日志记录。其工作方式类似于 Sprintf（格式化字符串输出）。
 
 // ff:日志警告
 // message:消息
-func (l *DefaultLogger) Warning(message string) {
-	println("WAR | " + message)
+func (l *DefaultLogger) X日志警告(消息 string) {
+	println("WAR | " + 消息)
 }
 
 // 错误级别日志记录。其工作方式类似于 Sprintf（格式化字符串并输出）。
 
 // ff:日志错误
 // message:消息
-func (l *DefaultLogger) Error(message string) {
-	println("ERR | " + message)
+func (l *DefaultLogger) X日志错误(消息 string) {
+	println("ERR | " + 消息)
 }
 
 // Fatal级别日志记录。其工作方式类似于Sprintf。
 
 // ff:日志致命
 // message:消息
-func (l *DefaultLogger) Fatal(message string) {
-	println("FAT | " + message)
+func (l *DefaultLogger) X日志致命(消息 string) {
+	println("FAT | " + 消息)
 	os.Exit(1)
 }

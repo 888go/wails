@@ -129,9 +129,7 @@ hs=生产日志级别
 [AssetServer        *assetserver.Options]
 hs=绑定http请求
 
-[Logger             logger.Logger                            `json:"-"`]
-hs=日志
-
+ 
 [Bind               #左中括号##右中括号#interface{}]
 hs=绑定调用方法
 

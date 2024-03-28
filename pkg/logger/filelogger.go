@@ -14,9 +14,9 @@ type FileLogger struct {
 
 // ff:创建文件日志
 // filename:文件路径
-func NewFileLogger(filename string) Logger {
+func X创建文件日志(文件路径 string) Logger {
 	return &FileLogger{
-		filename: filename,
+		filename: 文件路径,
 	}
 }
 
@@ -24,12 +24,12 @@ func NewFileLogger(filename string) Logger {
 
 // ff:日志
 // message:消息
-func (l *FileLogger) Print(message string) {
+func (l *FileLogger) X日志(消息 string) {
 	f, err := os.OpenFile(l.filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.WriteString(message); err != nil {
+	if _, err := f.WriteString(消息); err != nil {
 		f.Close()
 		log.Fatal(err)
 	}
@@ -39,8 +39,8 @@ func (l *FileLogger) Print(message string) {
 
 // ff:日志并换行
 // message:消息
-func (l *FileLogger) Println(message string) {
-	l.Print(message + "\n")
+func (l *FileLogger) X日志并换行(消息 string) {
+	l.X日志(消息 + "\n")
 }
 
 // 以下是将该段Go语言代码注释翻译成中文：
@@ -48,47 +48,47 @@ func (l *FileLogger) Println(message string) {
 
 // ff:日志追踪
 // message:消息
-func (l *FileLogger) Trace(message string) {
-	l.Println("TRACE | " + message)
+func (l *FileLogger) X日志追踪(消息 string) {
+	l.X日志并换行("TRACE | " + 消息)
 }
 
 // 调试级别日志记录。其工作方式类似于 Sprintf（格式化字符串并写入）。
 
 // ff:日志调试
 // message:消息
-func (l *FileLogger) Debug(message string) {
-	l.Println("DEBUG | " + message)
+func (l *FileLogger) X日志调试(消息 string) {
+	l.X日志并换行("DEBUG | " + 消息)
 }
 
 // 信息级别日志记录。功能类似于 Sprintf。
 
 // ff:日志信息
 // message:消息
-func (l *FileLogger) Info(message string) {
-	l.Println("INFO  | " + message)
+func (l *FileLogger) X日志信息(消息 string) {
+	l.X日志并换行("INFO  | " + 消息)
 }
 
 // 警告级别日志记录。其工作方式类似于 Sprintf（格式化字符串输出）。
 
 // ff:日志警告
 // message:消息
-func (l *FileLogger) Warning(message string) {
-	l.Println("WARN  | " + message)
+func (l *FileLogger) X日志警告(消息 string) {
+	l.X日志并换行("WARN  | " + 消息)
 }
 
 // 错误级别日志记录。其工作方式类似于 Sprintf（格式化字符串并输出）。
 
 // ff:日志错误
 // message:消息
-func (l *FileLogger) Error(message string) {
-	l.Println("ERROR | " + message)
+func (l *FileLogger) X日志错误(消息 string) {
+	l.X日志并换行("ERROR | " + 消息)
 }
 
 // Fatal级别日志记录。其工作方式类似于Sprintf。
 
 // ff:日志致命
 // message:消息
-func (l *FileLogger) Fatal(message string) {
-	l.Println("FATAL | " + message)
+func (l *FileLogger) X日志致命(消息 string) {
+	l.X日志并换行("FATAL | " + 消息)
 	os.Exit(1)
 }

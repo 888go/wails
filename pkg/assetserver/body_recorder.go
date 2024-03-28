@@ -40,7 +40,7 @@ func (rw *bodyRecorder) Code() int {
 
 
 // ff:请求体
-func (rw *bodyRecorder) Body() *bytes.Buffer {
+func (rw *bodyRecorder) X请求体() *bytes.Buffer {
 	return rw.body
 }
 
