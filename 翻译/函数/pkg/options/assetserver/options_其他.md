@@ -12,5 +12,11 @@
 # zz= 正则表达式,用于结构名称替换或者复杂替换
 #     如待替换: type authPair struct { //zz:^type *authPair
 
-[func (o Options) Validate() error {]
-ff=验证是否有效
+[Assets fs.FS]
+hs=静态资源
+
+[Handler http.Handler]
+hs=请求处理器
+
+[Middleware Middleware]
+hs=中间件
