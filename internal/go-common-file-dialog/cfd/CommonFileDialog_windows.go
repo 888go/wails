@@ -11,10 +11,6 @@ func initialize() {
 }
 
 // TODO doc
-
-// ff:
-// OpenFileDialog:
-// config:
 func NewOpenFileDialog(config DialogConfig) (OpenFileDialog, error) {
 	initialize()
 
@@ -30,10 +26,6 @@ func NewOpenFileDialog(config DialogConfig) (OpenFileDialog, error) {
 }
 
 // TODO doc
-
-// ff:
-// OpenMultipleFilesDialog:
-// config:
 func NewOpenMultipleFilesDialog(config DialogConfig) (OpenMultipleFilesDialog, error) {
 	initialize()
 
@@ -53,10 +45,6 @@ func NewOpenMultipleFilesDialog(config DialogConfig) (OpenMultipleFilesDialog, e
 }
 
 // TODO doc
-
-// ff:
-// SelectFolderDialog:
-// config:
 func NewSelectFolderDialog(config DialogConfig) (SelectFolderDialog, error) {
 	initialize()
 
@@ -76,10 +64,6 @@ func NewSelectFolderDialog(config DialogConfig) (SelectFolderDialog, error) {
 }
 
 // TODO doc
-
-// ff:
-// SaveFileDialog:
-// config:
 func NewSaveFileDialog(config DialogConfig) (SaveFileDialog, error) {
 	initialize()
 

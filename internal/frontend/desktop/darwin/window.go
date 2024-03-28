@@ -21,9 +21,9 @@ import (
 	"strings"
 	"unsafe"
 
-	"github.com/888go/wails/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu"
 
-	"github.com/888go/wails/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
 func init() {
@@ -46,11 +46,6 @@ func bool2CboolPtr(value bool) *C.bool {
 	return &v
 }
 
-
-// ff:
-// devtools:
-// debug:
-// frontendOptions:
 func NewWindow(frontendOptions *options.App, debug bool, devtools bool) *Window {
 	c := NewCalloc()
 	defer c.Free()
@@ -65,7 +60,7 @@ func NewWindow(frontendOptions *options.App, debug bool, devtools bool) *Window 
 	defaultContextMenuEnabled := bool2Cint(debug || frontendOptions.EnableDefaultContextMenu)
 	singleInstanceEnabled := bool2Cint(frontendOptions.SingleInstanceLock != nil)
 
-	var fullSizeContent, hideTitleBar, hideTitle, useToolbar, webviewIsTransparent C.int
+	var fullSizeContent, hideTitleBar, zoomable, hideTitle, useToolbar, webviewIsTransparent C.int
 	var titlebarAppearsTransparent, hideToolbarSeparator, windowIsTranslucent C.int
 	var appearance, title *C.char
 	var preferences C.struct_Preferences
@@ -113,12 +108,14 @@ func NewWindow(frontendOptions *options.App, debug bool, devtools bool) *Window 
 			}
 		}
 
+		zoomable = bool2Cint(!frontendOptions.Mac.DisableZoom)
+
 		windowIsTranslucent = bool2Cint(mac.WindowIsTranslucent)
 		webviewIsTransparent = bool2Cint(mac.WebviewIsTransparent)
 
 		appearance = c.String(string(mac.Appearance))
 	}
-	var context *C.WailsContext = C.Create(title, width, height, frameless, resizable, fullscreen, fullSizeContent,
+	var context *C.WailsContext = C.Create(title, width, height, frameless, resizable, zoomable, fullscreen, fullSizeContent,
 		hideTitleBar, titlebarAppearsTransparent, hideTitle, useToolbar, hideToolbarSeparator, webviewIsTransparent,
 		alwaysOnTop, hideWindowOnClose, appearance, windowIsTranslucent, devtoolsEnabled, defaultContextMenuEnabled,
 		windowStartState, startsHidden, minWidth, minHeight, maxWidth, maxHeight, enableFraudulentWebsiteWarnings,
@@ -156,180 +153,112 @@ func NewWindow(frontendOptions *options.App, debug bool, devtools bool) *Window 
 	return result
 }
 
-
-// ff:
 func (w *Window) Center() {
 	C.Center(w.context)
 }
 
-
-// ff:
-// url:
 func (w *Window) Run(url string) {
 	_url := C.CString(url)
 	C.Run(w.context, _url)
 	C.free(unsafe.Pointer(_url))
 }
 
-
-// ff:
 func (w *Window) Quit() {
 	C.Quit(w.context)
 }
 
-
-// ff:
-// a:
-// b:
-// g:
-// r:
 func (w *Window) SetBackgroundColour(r uint8, g uint8, b uint8, a uint8) {
 	C.SetBackgroundColour(w.context, C.int(r), C.int(g), C.int(b), C.int(a))
 }
 
-
-// ff:
-// js:
 func (w *Window) ExecJS(js string) {
 	_js := C.CString(js)
 	C.ExecJS(w.context, _js)
 	C.free(unsafe.Pointer(_js))
 }
 
-
-// ff:
-// y:
-// x:
 func (w *Window) SetPosition(x int, y int) {
 	C.SetPosition(w.context, C.int(x), C.int(y))
 }
 
-
-// ff:
-// height:
-// width:
 func (w *Window) SetSize(width int, height int) {
 	C.SetSize(w.context, C.int(width), C.int(height))
 }
 
-
-// ff:
-// onTop:
 func (w *Window) SetAlwaysOnTop(onTop bool) {
 	C.SetAlwaysOnTop(w.context, bool2Cint(onTop))
 }
 
-
-// ff:
-// title:
 func (w *Window) SetTitle(title string) {
 	t := C.CString(title)
 	C.SetTitle(w.context, t)
 	C.free(unsafe.Pointer(t))
 }
 
-
-// ff:
 func (w *Window) Maximise() {
 	C.Maximise(w.context)
 }
 
-
-// ff:
 func (w *Window) ToggleMaximise() {
 	C.ToggleMaximise(w.context)
 }
 
-
-// ff:
 func (w *Window) UnMaximise() {
 	C.UnMaximise(w.context)
 }
 
-
-// ff:
 func (w *Window) IsMaximised() bool {
 	return (bool)(C.IsMaximised(w.context))
 }
 
-
-// ff:
 func (w *Window) Minimise() {
 	C.Minimise(w.context)
 }
 
-
-// ff:
 func (w *Window) UnMinimise() {
 	C.UnMinimise(w.context)
 }
 
-
-// ff:
 func (w *Window) IsMinimised() bool {
 	return (bool)(C.IsMinimised(w.context))
 }
 
-
-// ff:
 func (w *Window) IsNormal() bool {
 	return !w.IsMaximised() && !w.IsMinimised() && !w.IsFullScreen()
 }
 
-
-// ff:
-// height:
-// width:
 func (w *Window) SetMinSize(width int, height int) {
 	C.SetMinSize(w.context, C.int(width), C.int(height))
 }
 
-
-// ff:
-// height:
-// width:
 func (w *Window) SetMaxSize(width int, height int) {
 	C.SetMaxSize(w.context, C.int(width), C.int(height))
 }
 
-
-// ff:
 func (w *Window) Fullscreen() {
 	C.Fullscreen(w.context)
 }
 
-
-// ff:
 func (w *Window) UnFullscreen() {
 	C.UnFullscreen(w.context)
 }
 
-
-// ff:
 func (w *Window) IsFullScreen() bool {
 	return (bool)(C.IsFullScreen(w.context))
 }
 
-
-// ff:
 func (w *Window) Show() {
 	C.Show(w.context)
 }
 
-
-// ff:
 func (w *Window) Hide() {
 	C.Hide(w.context)
 }
 
-
-// ff:
 func (w *Window) ShowApplication() {
 	C.ShowApplication(w.context)
 }
 
-
-// ff:
 func (w *Window) HideApplication() {
 	C.HideApplication(w.context)
 }
@@ -347,39 +276,28 @@ func parseIntDuo(temp string) (int, int) {
 	return x, y
 }
 
-
-// ff:
 func (w *Window) GetPosition() (int, int) {
 	var _result *C.char = C.GetPosition(w.context)
 	temp := C.GoString(_result)
 	return parseIntDuo(temp)
 }
 
-
-// ff:
 func (w *Window) Size() (int, int) {
 	var _result *C.char = C.GetSize(w.context)
 	temp := C.GoString(_result)
 	return parseIntDuo(temp)
 }
 
-
-// ff:
-// inMenu:
 func (w *Window) SetApplicationMenu(inMenu *menu.Menu) {
 	mainMenu := NewNSMenu(w.context, "")
 	processMenu(mainMenu, inMenu)
 	C.SetAsApplicationMenu(w.context, mainMenu.nsmenu)
 }
 
-
-// ff:
 func (w *Window) UpdateApplicationMenu() {
 	C.UpdateApplicationMenu(w.context)
 }
 
-
-// ff:
 func (w Window) Print() {
 	C.WindowPrint(w.context)
 }

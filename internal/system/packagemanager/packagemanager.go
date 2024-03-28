@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/888go/wails/internal/shell"
+	"github.com/wailsapp/wails/v2/internal/shell"
 )
 
 // 一系列包管理器命令
@@ -22,9 +22,6 @@ var pmcommands = []string{
 }
 
 // Find 尝试查找系统包管理器
-
-// ff:
-// osid:
 func Find(osid string) PackageManager {
 
 	// Loop over pmcommands
@@ -59,10 +56,6 @@ func newPackageManager(pmname string, osid string) PackageManager {
 // Dependencies 扫描系统以查找所需的依赖项
 // 返回一个依赖项列表，包含已搜索的依赖项、它们是否被找到
 // 以及它们是否已被安装
-
-// ff:
-// DependencyList:
-// p:
 func Dependencies(p PackageManager) (DependencyList, error) {
 
 	var dependencies DependencyList
@@ -108,9 +101,6 @@ func Dependencies(p PackageManager) (DependencyList, error) {
 }
 
 // AppVersion 返回与给定包相关的应用程序的版本
-
-// ff:
-// name:
 func AppVersion(name string) string {
 
 	if name == "gcc" {

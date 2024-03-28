@@ -9,91 +9,91 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/888go/wails/pkg/options/assetserver"
-	"github.com/888go/wails/pkg/options/linux"
-	"github.com/888go/wails/pkg/options/mac"
-	"github.com/888go/wails/pkg/options/windows"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options/linux"
+	"github.com/wailsapp/wails/v2/pkg/options/mac"
+	"github.com/wailsapp/wails/v2/pkg/options/windows"
 
-	"github.com/888go/wails/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu"
 
-	"github.com/888go/wails/pkg/logger"
+	"github.com/wailsapp/wails/v2/pkg/logger"
 )
 
 type WindowStartState int
 
 const (
-	X常量_正常  WindowStartState = 0
-	X常量_最大化 WindowStartState = 1
-	X常量_最小化 WindowStartState = 2
-	X常量_全屏  WindowStartState = 3
+	Normal     WindowStartState = 0
+	Maximised  WindowStartState = 1
+	Minimised  WindowStartState = 2
+	Fullscreen WindowStartState = 3
 )
 
 type Experimental struct{}
 
 // App 包含用于创建 App 的选项
 type App struct {
-	X标题      string
-	X宽度      int
-	X高度      int
-	X禁用调整大小  bool
-	X全屏      bool
-	X无边框     bool
-	X最小宽度    int
-	X最小高度    int
-	X最大宽度    int
-	X最大高度    int
-	X启动时隐藏窗口 bool
-	X关闭时隐藏窗口 bool
-	X始终置顶    bool
-	// BackgroundColour 是窗口的背景颜色
-	// 你可以使用 options.NewRGB 和 options.NewRGBA 函数来创建新的颜色
-	X背景颜色 *RGBA
+	Title             string
+	Width             int
+	Height            int
+	DisableResize     bool
+	Fullscreen        bool
+	Frameless         bool
+	MinWidth          int
+	MinHeight         int
+	MaxWidth          int
+	MaxHeight         int
+	StartHidden       bool
+	HideWindowOnClose bool
+	AlwaysOnTop       bool
+// BackgroundColour 是窗口的背景颜色
+// 你可以使用 options.NewRGB 和 options.NewRGBA 函数来创建新的颜色
+	BackgroundColour *RGBA
 	// 已弃用：请改用 AssetServer.Assets。
-	Assets弃用 fs.FS
+	Assets fs.FS
 	// 已弃用：请改用 AssetServer.Handler。
-	AssetsHandler弃用 http.Handler
+	AssetsHandler http.Handler
 	// AssetServer 配置应用所需的资源
 	AssetServer        *assetserver.Options
-	X菜单                *menu.Menu
-	X日志记录器             logger.Logger `json:"-"`
-	X日志级别              logger.LogLevel
-	LogLevelProduction logger.LogLevel                          //hs:生产日志级别
-	X启动前回调函数           func(ctx context.Context)                `json:"-"`
-	DOM就绪回调函数          func(ctx context.Context)                `json:"-"`
-	X应用退出回调函数          func(ctx context.Context)                `json:"-"`
-	X应用关闭前回调函数         func(ctx context.Context) (prevent bool) `json:"-"`
+	Menu               *menu.Menu
+	Logger             logger.Logger `json:"-"`
+	LogLevel           logger.LogLevel
+	LogLevelProduction logger.LogLevel
+	OnStartup          func(ctx context.Context)                `json:"-"`
+	OnDomReady         func(ctx context.Context)                `json:"-"`
+	OnShutdown         func(ctx context.Context)                `json:"-"`
+	OnBeforeClose      func(ctx context.Context) (prevent bool) `json:"-"`
 	Bind               []interface{}
 	EnumBind           []interface{}
-	X窗口启动状态            WindowStartState
+	WindowStartState   WindowStartState
 
 	// ErrorFormatter 重写后端方法返回错误的格式化方式
 	ErrorFormatter ErrorFormatter
 
 	// CSS属性，用于检测可拖动元素。默认值为 "--wails-draggable"
-	CSS拖动属性 string
+	CSSDragProperty string
 
 	// CSSDragProperty必须拥有的CSS值才能被拖动，例如："drag"
-	CSS拖动值 string
+	CSSDragValue string
 
-	// EnableDefaultContextMenu 在生产环境中启用浏览器的默认右键菜单
-	// 在开发和调试版本中，此菜单已经默认启用
-	X右键菜单 bool
+// EnableDefaultContextMenu 在生产环境中启用浏览器的默认右键菜单
+// 在开发和调试版本中，此菜单已经默认启用
+	EnableDefaultContextMenu bool
 
-	// EnableFraudulentWebsiteDetection 启用欺诈网站检测功能，该功能会扫描诸如恶意软件或网络钓鱼企图等欺诈内容。
-	// 这些服务可能会从您的应用中发送信息，例如访问过的URL以及其他可能的内容到苹果和微软的云端服务。
-	X启用欺诈网站检测 bool
+// EnableFraudulentWebsiteDetection 启用欺诈网站检测功能，该功能会扫描诸如恶意软件或网络钓鱼企图等欺诈内容。
+// 这些服务可能会从您的应用中发送信息，例如访问过的URL以及其他可能的内容到苹果和微软的云端服务。
+	EnableFraudulentWebsiteDetection bool
 
-	X单实例锁 *SingleInstanceLock
+	SingleInstanceLock *SingleInstanceLock
 
-	Windows选项 *windows.Options
-	Mac选项     *mac.Options
-	Linux选项   *linux.Options
+	Windows *windows.Options
+	Mac     *mac.Options
+	Linux   *linux.Options
 
 	// Experimental options
 	Experimental *Experimental
 
 	// 用于调试构建的调试选项。在生产构建中，这些选项将被忽略。
-	X调试选项 Debug
+	Debug Debug
 }
 
 type ErrorFormatter func(error) any
@@ -106,12 +106,7 @@ type RGBA struct {
 }
 
 // NewRGBA 通过给定的值创建一个新的 RGBA 结构体
-
-// a:
-// b:
-// g:
-// r:
-func X创建RGBA(r, g, b, a uint8) *RGBA {
+func NewRGBA(r, g, b, a uint8) *RGBA {
 	return &RGBA{
 		R: r,
 		G: g,
@@ -121,11 +116,7 @@ func X创建RGBA(r, g, b, a uint8) *RGBA {
 }
 
 // NewRGB 通过给定的值创建一个新的 RGBA 结构体，并将 Alpha 设置为 255
-
-// b:
-// g:
-// r:
-func X创建RGB(r, g, b uint8) *RGBA {
+func NewRGB(r, g, b uint8) *RGBA {
 	return &RGBA{
 		R: r,
 		G: g,
@@ -135,33 +126,31 @@ func X创建RGB(r, g, b uint8) *RGBA {
 }
 
 // MergeDefaults 将为应用程序设置最小的默认值
-
-// ff:
-func MergeDefaults(app选项 *App) {
+func MergeDefaults(appoptions *App) {
 	// Do set defaults
-	if app选项.X宽度 <= 0 {
-		app选项.X宽度 = 1024
+	if appoptions.Width <= 0 {
+		appoptions.Width = 1024
 	}
-	if app选项.X高度 <= 0 {
-		app选项.X高度 = 768
+	if appoptions.Height <= 0 {
+		appoptions.Height = 768
 	}
-	if app选项.X日志记录器 == nil {
-		app选项.X日志记录器 = logger.X创建并按默认()
+	if appoptions.Logger == nil {
+		appoptions.Logger = logger.NewDefaultLogger()
 	}
-	if app选项.X日志级别 == 0 {
-		app选项.X日志级别 = logger.X常量_日志级别_信息
+	if appoptions.LogLevel == 0 {
+		appoptions.LogLevel = logger.INFO
 	}
-	if app选项.LogLevelProduction == 0 {
-		app选项.LogLevelProduction = logger.X常量_日志级别_错误
+	if appoptions.LogLevelProduction == 0 {
+		appoptions.LogLevelProduction = logger.ERROR
 	}
-	if app选项.CSS拖动属性 == "" {
-		app选项.CSS拖动属性 = "--wails-draggable"
+	if appoptions.CSSDragProperty == "" {
+		appoptions.CSSDragProperty = "--wails-draggable"
 	}
-	if app选项.CSS拖动值 == "" {
-		app选项.CSS拖动值 = "drag"
+	if appoptions.CSSDragValue == "" {
+		appoptions.CSSDragValue = "drag"
 	}
-	if app选项.X背景颜色 == nil {
-		app选项.X背景颜色 = &RGBA{
+	if appoptions.BackgroundColour == nil {
+		appoptions.BackgroundColour = &RGBA{
 			R: 255,
 			G: 255,
 			B: 255,
@@ -170,13 +159,13 @@ func MergeDefaults(app选项 *App) {
 	}
 
 	// 确保max和min的有效性
-	processMinMaxConstraints(app选项)
+	processMinMaxConstraints(appoptions)
 
 	// Default menus
-	processMenus(app选项)
+	processMenus(appoptions)
 
 	// Process Drag Options
-	processDragOptions(app选项)
+	processDragOptions(appoptions)
 }
 
 type SingleInstanceLock struct {
@@ -190,7 +179,6 @@ type SecondInstanceData struct {
 	WorkingDirectory string
 }
 
-// ff:
 func NewSecondInstanceData() (*SecondInstanceData, error) {
 	ex, err := os.Executable()
 	if err != nil {
@@ -207,46 +195,46 @@ func NewSecondInstanceData() (*SecondInstanceData, error) {
 func processMenus(appoptions *App) {
 	switch runtime.GOOS {
 	case "darwin":
-		if appoptions.X菜单 == nil {
+		if appoptions.Menu == nil {
 			items := []*menu.MenuItem{
-				menu.X创建菜单项并带编辑菜单(),
+				menu.EditMenu(),
 			}
-			if !appoptions.X无边框 {
-				items = append(items, menu.X创建菜单项并带窗口菜单()) // 当前“窗口”菜单中的选项仅在非无边框模式下生效
+			if !appoptions.Frameless {
+				items = append(items, menu.WindowMenu()) // 当前“窗口”菜单中的选项仅在非无边框模式下生效
 			}
 
-			appoptions.X菜单 = menu.X创建菜单并按菜单项(menu.X创建菜单项并带应用菜单(), items...)
+			appoptions.Menu = menu.NewMenuFromItems(menu.AppMenu(), items...)
 		}
 	}
 }
 
 func processMinMaxConstraints(appoptions *App) {
-	if appoptions.X最小宽度 > 0 && appoptions.X最大宽度 > 0 {
-		if appoptions.X最小宽度 > appoptions.X最大宽度 {
-			appoptions.X最小宽度 = appoptions.X最大宽度
+	if appoptions.MinWidth > 0 && appoptions.MaxWidth > 0 {
+		if appoptions.MinWidth > appoptions.MaxWidth {
+			appoptions.MinWidth = appoptions.MaxWidth
 		}
 	}
-	if appoptions.X最小高度 > 0 && appoptions.X最大高度 > 0 {
-		if appoptions.X最小高度 > appoptions.X最大高度 {
-			appoptions.X最小高度 = appoptions.X最大高度
+	if appoptions.MinHeight > 0 && appoptions.MaxHeight > 0 {
+		if appoptions.MinHeight > appoptions.MaxHeight {
+			appoptions.MinHeight = appoptions.MaxHeight
 		}
 	}
 	// 确保当设置了最大值/最小值时，宽度和高度受到限制
-	if appoptions.X宽度 < appoptions.X最小宽度 {
-		appoptions.X宽度 = appoptions.X最小宽度
+	if appoptions.Width < appoptions.MinWidth {
+		appoptions.Width = appoptions.MinWidth
 	}
-	if appoptions.X最大宽度 > 0 && appoptions.X宽度 > appoptions.X最大宽度 {
-		appoptions.X宽度 = appoptions.X最大宽度
+	if appoptions.MaxWidth > 0 && appoptions.Width > appoptions.MaxWidth {
+		appoptions.Width = appoptions.MaxWidth
 	}
-	if appoptions.X高度 < appoptions.X最小高度 {
-		appoptions.X高度 = appoptions.X最小高度
+	if appoptions.Height < appoptions.MinHeight {
+		appoptions.Height = appoptions.MinHeight
 	}
-	if appoptions.X最大高度 > 0 && appoptions.X高度 > appoptions.X最大高度 {
-		appoptions.X高度 = appoptions.X最大高度
+	if appoptions.MaxHeight > 0 && appoptions.Height > appoptions.MaxHeight {
+		appoptions.Height = appoptions.MaxHeight
 	}
 }
 
 func processDragOptions(appoptions *App) {
-	appoptions.CSS拖动属性 = html.EscapeString(appoptions.CSS拖动属性)
-	appoptions.CSS拖动值 = html.EscapeString(appoptions.CSS拖动值)
+	appoptions.CSSDragProperty = html.EscapeString(appoptions.CSSDragProperty)
+	appoptions.CSSDragValue = html.EscapeString(appoptions.CSSDragValue)
 }

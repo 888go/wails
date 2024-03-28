@@ -25,14 +25,14 @@ import (
 	"net/url"
 	"unsafe"
 
-	"github.com/888go/wails/pkg/assetserver"
-	"github.com/888go/wails/pkg/assetserver/webview"
+	"github.com/wailsapp/wails/v2/pkg/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/assetserver/webview"
 
-	"github.com/888go/wails/internal/binding"
-	"github.com/888go/wails/internal/frontend"
-	"github.com/888go/wails/internal/frontend/runtime"
-	"github.com/888go/wails/internal/logger"
-	"github.com/888go/wails/pkg/options"
+	"github.com/wailsapp/wails/v2/internal/binding"
+	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/frontend/runtime"
+	"github.com/wailsapp/wails/v2/internal/logger"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
 const startURL = "wails://wails/"
@@ -65,25 +65,14 @@ type Frontend struct {
 	dispatcher frontend.Dispatcher
 }
 
-
-// ff:
 func (f *Frontend) RunMainLoop() {
 	C.RunMainLoop()
 }
 
-
-// ff:
 func (f *Frontend) WindowClose() {
 	C.ReleaseContext(f.mainWindow.context)
 }
 
-
-// ff:
-// dispatcher:
-// appBindings:
-// myLogger:
-// appoptions:
-// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher) *Frontend {
 	result := &Frontend{
 		frontendOptions: appoptions,
@@ -176,36 +165,23 @@ func (f *Frontend) startCallbackProcessor() {
 	}
 }
 
-
-// ff:
 func (f *Frontend) WindowReload() {
 	f.ExecJS("runtime.WindowReload();")
 }
 
-
-// ff:
 func (f *Frontend) WindowReloadApp() {
 	f.ExecJS(fmt.Sprintf("window.location.href = '%s';", f.startURL))
 }
 
-
-// ff:
 func (f *Frontend) WindowSetSystemDefaultTheme() {
 }
 
-
-// ff:
 func (f *Frontend) WindowSetLightTheme() {
 }
 
-
-// ff:
 func (f *Frontend) WindowSetDarkTheme() {
 }
 
-
-// ff:
-// ctx:
 func (f *Frontend) Run(ctx context.Context) error {
 	f.ctx = ctx
 
@@ -236,139 +212,86 @@ func (f *Frontend) Run(ctx context.Context) error {
 	return nil
 }
 
-
-// ff:
 func (f *Frontend) WindowCenter() {
 	f.mainWindow.Center()
 }
 
-
-// ff:
-// onTop:
 func (f *Frontend) WindowSetAlwaysOnTop(onTop bool) {
 	f.mainWindow.SetAlwaysOnTop(onTop)
 }
 
-
-// ff:
-// y:
-// x:
 func (f *Frontend) WindowSetPosition(x, y int) {
 	f.mainWindow.SetPosition(x, y)
 }
 
-
-// ff:
 func (f *Frontend) WindowGetPosition() (int, int) {
 	return f.mainWindow.GetPosition()
 }
 
-
-// ff:
-// height:
-// width:
 func (f *Frontend) WindowSetSize(width, height int) {
 	f.mainWindow.SetSize(width, height)
 }
 
-
-// ff:
 func (f *Frontend) WindowGetSize() (int, int) {
 	return f.mainWindow.Size()
 }
 
-
-// ff:
-// title:
 func (f *Frontend) WindowSetTitle(title string) {
 	f.mainWindow.SetTitle(title)
 }
 
-
-// ff:
 func (f *Frontend) WindowFullscreen() {
 	f.mainWindow.Fullscreen()
 }
 
-
-// ff:
 func (f *Frontend) WindowUnfullscreen() {
 	f.mainWindow.UnFullscreen()
 }
 
-
-// ff:
 func (f *Frontend) WindowShow() {
 	f.mainWindow.Show()
 }
 
-
-// ff:
 func (f *Frontend) WindowHide() {
 	f.mainWindow.Hide()
 }
 
-
-// ff:
 func (f *Frontend) Show() {
 	f.mainWindow.ShowApplication()
 }
 
-
-// ff:
 func (f *Frontend) Hide() {
 	f.mainWindow.HideApplication()
 }
 
-
-// ff:
 func (f *Frontend) WindowMaximise() {
 	f.mainWindow.Maximise()
 }
 
-
-// ff:
 func (f *Frontend) WindowToggleMaximise() {
 	f.mainWindow.ToggleMaximise()
 }
 
-
-// ff:
 func (f *Frontend) WindowUnmaximise() {
 	f.mainWindow.UnMaximise()
 }
 
-
-// ff:
 func (f *Frontend) WindowMinimise() {
 	f.mainWindow.Minimise()
 }
 
-
-// ff:
 func (f *Frontend) WindowUnminimise() {
 	f.mainWindow.UnMinimise()
 }
 
-
-// ff:
-// height:
-// width:
 func (f *Frontend) WindowSetMinSize(width int, height int) {
 	f.mainWindow.SetMinSize(width, height)
 }
 
-
-// ff:
-// height:
-// width:
 func (f *Frontend) WindowSetMaxSize(width int, height int) {
 	f.mainWindow.SetMaxSize(width, height)
 }
 
-
-// ff:
-// col:
 func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 	if col == nil {
 		return
@@ -376,38 +299,26 @@ func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 	f.mainWindow.SetBackgroundColour(col.R, col.G, col.B, col.A)
 }
 
-
-// ff:
 func (f *Frontend) ScreenGetAll() ([]frontend.Screen, error) {
 	return GetAllScreens(f.mainWindow.context)
 }
 
-
-// ff:
 func (f *Frontend) WindowIsMaximised() bool {
 	return f.mainWindow.IsMaximised()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsMinimised() bool {
 	return f.mainWindow.IsMinimised()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsNormal() bool {
 	return f.mainWindow.IsNormal()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsFullscreen() bool {
 	return f.mainWindow.IsFullScreen()
 }
 
-
-// ff:
 func (f *Frontend) Quit() {
 	if f.frontendOptions.OnBeforeClose != nil {
 		go func() {
@@ -420,8 +331,6 @@ func (f *Frontend) Quit() {
 	f.mainWindow.Quit()
 }
 
-
-// ff:
 func (f *Frontend) WindowPrint() {
 	f.mainWindow.Print()
 }
@@ -431,10 +340,6 @@ type EventNotify struct {
 	Data []interface{} `json:"data"`
 }
 
-
-// ff:
-// data:
-// name:
 func (f *Frontend) Notify(name string, data ...interface{}) {
 	notification := EventNotify{
 		Name: name,
@@ -493,27 +398,18 @@ func (f *Frontend) processMessage(message string) {
 	}()
 }
 
-
-// ff:
-// filePath:
 func (f *Frontend) ProcessOpenFileEvent(filePath string) {
 	if f.frontendOptions.Mac != nil && f.frontendOptions.Mac.OnFileOpen != nil {
 		f.frontendOptions.Mac.OnFileOpen(filePath)
 	}
 }
 
-
-// ff:
-// url:
 func (f *Frontend) ProcessOpenUrlEvent(url string) {
 	if f.frontendOptions.Mac != nil && f.frontendOptions.Mac.OnUrlOpen != nil {
 		f.frontendOptions.Mac.OnUrlOpen(url)
 	}
 }
 
-
-// ff:
-// message:
 func (f *Frontend) Callback(message string) {
 	escaped, err := json.Marshal(message)
 	if err != nil {
@@ -522,9 +418,6 @@ func (f *Frontend) Callback(message string) {
 	f.ExecJS(`window.wails.Callback(` + string(escaped) + `);`)
 }
 
-
-// ff:
-// js:
 func (f *Frontend) ExecJS(js string) {
 	f.mainWindow.ExecJS(js)
 }
@@ -562,9 +455,6 @@ func processURLRequest(_ unsafe.Pointer, wkURLSchemeTask unsafe.Pointer) {
 }
 
 //export HandleOpenFile
-
-// ff:
-// filePath:
 func HandleOpenFile(filePath *C.char) {
 	goFilepath := C.GoString(filePath)
 	openFilepathBuffer <- goFilepath
@@ -573,9 +463,6 @@ func HandleOpenFile(filePath *C.char) {
 //export HandleCustomProtocol
 // 导出HandleCustomProtocol函数，以便在C语言或其他外部环境中调用
 // （该注释表明这个Go函数是用于被C语言或者其他需要与Go互操作的环境调用的，通过`//export`标记，Go构建工具会生成相应的导出符号，使得该函数可以在其他语言中被调用。）
-
-// ff:
-// url:
 func HandleCustomProtocol(url *C.char) {
 	goUrl := C.GoString(url)
 	openUrlBuffer <- goUrl

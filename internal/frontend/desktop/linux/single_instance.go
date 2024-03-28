@@ -6,7 +6,7 @@ package linux
 import (
 	"encoding/json"
 	"github.com/godbus/dbus/v5"
-	"github.com/888go/wails/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options"
 	"log"
 	"os"
 	"strings"
@@ -14,17 +14,11 @@ import (
 
 type dbusHandler func(string)
 
-
-// ff:
-// message:
 func (f dbusHandler) SendMessage(message string) *dbus.Error {
 	f(message)
 	return nil
 }
 
-
-// ff:
-// uniqueID:
 func SetupSingleInstance(uniqueID string) {
 	id := "wails_app_" + strings.ReplaceAll(strings.ReplaceAll(uniqueID, "-", "_"), ".", "_")
 

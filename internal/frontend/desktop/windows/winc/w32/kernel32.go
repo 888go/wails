@@ -49,9 +49,6 @@ var (
 	procGetSystemTime              = modkernel32.NewProc("GetSystemTime")
 )
 
-
-// ff:
-// modulename:
 func GetModuleHandle(modulename string) HINSTANCE {
 	var mn uintptr
 	if modulename == "" {
@@ -63,11 +60,6 @@ func GetModuleHandle(modulename string) HINSTANCE {
 	return HINSTANCE(ret)
 }
 
-
-// ff:
-// denominator:
-// numerator:
-// number:
 func MulDiv(number, numerator, denominator int) int {
 	ret, _, _ := procMulDiv.Call(
 		uintptr(number),
@@ -77,69 +69,48 @@ func MulDiv(number, numerator, denominator int) int {
 	return int(ret)
 }
 
-
-// ff:
 func GetConsoleWindow() HWND {
 	ret, _, _ := procGetConsoleWindow.Call()
 
 	return HWND(ret)
 }
 
-
-// ff:
 func GetCurrentThread() HANDLE {
 	ret, _, _ := procGetCurrentThread.Call()
 
 	return HANDLE(ret)
 }
 
-
-// ff:
 func GetCurrentThreadId() HANDLE {
 	ret, _, _ := procGetCurrentThreadId.Call()
 
 	return HANDLE(ret)
 }
 
-
-// ff:
 func GetLogicalDrives() uint32 {
 	ret, _, _ := procGetLogicalDrives.Call()
 
 	return uint32(ret)
 }
 
-
-// ff:
 func GetUserDefaultLCID() uint32 {
 	ret, _, _ := procGetUserDefaultLCID.Call()
 
 	return uint32(ret)
 }
 
-
-// ff:
-// lpString:
 func Lstrlen(lpString *uint16) int {
 	ret, _, _ := procLstrlen.Call(uintptr(unsafe.Pointer(lpString)))
 
 	return int(ret)
 }
 
-
-// ff:
-// lpString:
-// buf:
 func Lstrcpy(buf []uint16, lpString *uint16) {
 	procLstrcpy.Call(
 		uintptr(unsafe.Pointer(&buf[0])),
 		uintptr(unsafe.Pointer(lpString)))
 }
 
-
-// ff:
-// dwBytes:
-// uFlags:
 func GlobalAlloc(uFlags uint, dwBytes uint32) HGLOBAL {
 	ret, _, _ := procGlobalAlloc.Call(
 		uintptr(uFlags),
@@ -152,9 +123,6 @@ func GlobalAlloc(uFlags uint, dwBytes uint32) HGLOBAL {
 	return HGLOBAL(ret)
 }
 
-
-// ff:
-// hMem:
 func GlobalFree(hMem HGLOBAL) {
 	ret, _, _ := procGlobalFree.Call(uintptr(hMem))
 
@@ -163,9 +131,6 @@ func GlobalFree(hMem HGLOBAL) {
 	}
 }
 
-
-// ff:
-// hMem:
 func GlobalLock(hMem HGLOBAL) unsafe.Pointer {
 	ret, _, _ := procGlobalLock.Call(uintptr(hMem))
 
@@ -176,20 +141,12 @@ func GlobalLock(hMem HGLOBAL) unsafe.Pointer {
 	return unsafe.Pointer(ret)
 }
 
-
-// ff:
-// hMem:
 func GlobalUnlock(hMem HGLOBAL) bool {
 	ret, _, _ := procGlobalUnlock.Call(uintptr(hMem))
 
 	return ret != 0
 }
 
-
-// ff:
-// length:
-// source:
-// destination:
 func MoveMemory(destination, source unsafe.Pointer, length uint32) {
 	procMoveMemory.Call(
 		uintptr(unsafe.Pointer(destination)),
@@ -197,12 +154,6 @@ func MoveMemory(destination, source unsafe.Pointer, length uint32) {
 		uintptr(length))
 }
 
-
-// ff:
-// HRSRC:
-// lpType:
-// lpName:
-// hModule:
 func FindResource(hModule HMODULE, lpName, lpType *uint16) (HRSRC, error) {
 	ret, _, _ := procFindResource.Call(
 		uintptr(hModule),
@@ -216,10 +167,6 @@ func FindResource(hModule HMODULE, lpName, lpType *uint16) (HRSRC, error) {
 	return HRSRC(ret), nil
 }
 
-
-// ff:
-// hResInfo:
-// hModule:
 func SizeofResource(hModule HMODULE, hResInfo HRSRC) uint32 {
 	ret, _, _ := procSizeofResource.Call(
 		uintptr(hModule),
@@ -232,9 +179,6 @@ func SizeofResource(hModule HMODULE, hResInfo HRSRC) uint32 {
 	return uint32(ret)
 }
 
-
-// ff:
-// hResData:
 func LockResource(hResData HGLOBAL) unsafe.Pointer {
 	ret, _, _ := procLockResource.Call(uintptr(hResData))
 
@@ -245,10 +189,6 @@ func LockResource(hResData HGLOBAL) unsafe.Pointer {
 	return unsafe.Pointer(ret)
 }
 
-
-// ff:
-// hResInfo:
-// hModule:
 func LoadResource(hModule HMODULE, hResInfo HRSRC) HGLOBAL {
 	ret, _, _ := procLoadResource.Call(
 		uintptr(hModule),
@@ -261,18 +201,11 @@ func LoadResource(hModule HMODULE, hResInfo HRSRC) HGLOBAL {
 	return HGLOBAL(ret)
 }
 
-
-// ff:
 func GetLastError() uint32 {
 	ret, _, _ := procGetLastError.Call()
 	return uint32(ret)
 }
 
-
-// ff:
-// processId:
-// inheritHandle:
-// desiredAccess:
 func OpenProcess(desiredAccess uint32, inheritHandle bool, processId uint32) HANDLE {
 	inherit := 0
 	if inheritHandle {
@@ -286,10 +219,6 @@ func OpenProcess(desiredAccess uint32, inheritHandle bool, processId uint32) HAN
 	return HANDLE(ret)
 }
 
-
-// ff:
-// uExitCode:
-// hProcess:
 func TerminateProcess(hProcess HANDLE, uExitCode uint) bool {
 	ret, _, _ := procTerminateProcess.Call(
 		uintptr(hProcess),
@@ -297,19 +226,12 @@ func TerminateProcess(hProcess HANDLE, uExitCode uint) bool {
 	return ret != 0
 }
 
-
-// ff:
-// object:
 func CloseHandle(object HANDLE) bool {
 	ret, _, _ := procCloseHandle.Call(
 		uintptr(object))
 	return ret != 0
 }
 
-
-// ff:
-// processId:
-// flags:
 func CreateToolhelp32Snapshot(flags, processId uint32) HANDLE {
 	ret, _, _ := procCreateToolhelp32Snapshot.Call(
 		uintptr(flags),
@@ -322,10 +244,6 @@ func CreateToolhelp32Snapshot(flags, processId uint32) HANDLE {
 	return HANDLE(ret)
 }
 
-
-// ff:
-// me:
-// snapshot:
 func Module32First(snapshot HANDLE, me *MODULEENTRY32) bool {
 	ret, _, _ := procModule32First.Call(
 		uintptr(snapshot),
@@ -334,10 +252,6 @@ func Module32First(snapshot HANDLE, me *MODULEENTRY32) bool {
 	return ret != 0
 }
 
-
-// ff:
-// me:
-// snapshot:
 func Module32Next(snapshot HANDLE, me *MODULEENTRY32) bool {
 	ret, _, _ := procModule32Next.Call(
 		uintptr(snapshot),
@@ -346,11 +260,6 @@ func Module32Next(snapshot HANDLE, me *MODULEENTRY32) bool {
 	return ret != 0
 }
 
-
-// ff:
-// lpUserTime:
-// lpKernelTime:
-// lpIdleTime:
 func GetSystemTimes(lpIdleTime, lpKernelTime, lpUserTime *FILETIME) bool {
 	ret, _, _ := procGetSystemTimes.Call(
 		uintptr(unsafe.Pointer(lpIdleTime)),
@@ -360,13 +269,6 @@ func GetSystemTimes(lpIdleTime, lpKernelTime, lpUserTime *FILETIME) bool {
 	return ret != 0
 }
 
-
-// ff:
-// lpUserTime:
-// lpKernelTime:
-// lpExitTime:
-// lpCreationTime:
-// hProcess:
 func GetProcessTimes(hProcess HANDLE, lpCreationTime, lpExitTime, lpKernelTime, lpUserTime *FILETIME) bool {
 	ret, _, _ := procGetProcessTimes.Call(
 		uintptr(hProcess),
@@ -378,9 +280,6 @@ func GetProcessTimes(hProcess HANDLE, lpCreationTime, lpExitTime, lpKernelTime, 
 	return ret != 0
 }
 
-
-// ff:
-// hConsoleOutput:
 func GetConsoleScreenBufferInfo(hConsoleOutput HANDLE) *CONSOLE_SCREEN_BUFFER_INFO {
 	var csbi CONSOLE_SCREEN_BUFFER_INFO
 	ret, _, _ := procGetConsoleScreenBufferInfo.Call(
@@ -392,10 +291,6 @@ func GetConsoleScreenBufferInfo(hConsoleOutput HANDLE) *CONSOLE_SCREEN_BUFFER_IN
 	return &csbi
 }
 
-
-// ff:
-// wAttributes:
-// hConsoleOutput:
 func SetConsoleTextAttribute(hConsoleOutput HANDLE, wAttributes uint16) bool {
 	ret, _, _ := procSetConsoleTextAttribute.Call(
 		uintptr(hConsoleOutput),
@@ -403,9 +298,6 @@ func SetConsoleTextAttribute(hConsoleOutput HANDLE, wAttributes uint16) bool {
 	return ret != 0
 }
 
-
-// ff:
-// dirName:
 func GetDiskFreeSpaceEx(dirName string) (r bool,
 	freeBytesAvailable, totalNumberOfBytes, totalNumberOfFreeBytes uint64) {
 	ret, _, _ := procGetDiskFreeSpaceEx.Call(
@@ -417,8 +309,6 @@ func GetDiskFreeSpaceEx(dirName string) (r bool,
 		freeBytesAvailable, totalNumberOfBytes, totalNumberOfFreeBytes
 }
 
-
-// ff:
 func GetSystemTime() *SYSTEMTIME {
 	var time SYSTEMTIME
 	procGetSystemTime.Call(
@@ -426,19 +316,12 @@ func GetSystemTime() *SYSTEMTIME {
 	return &time
 }
 
-
-// ff:
-// time:
 func SetSystemTime(time *SYSTEMTIME) bool {
 	ret, _, _ := procSetSystemTime.Call(
 		uintptr(unsafe.Pointer(time)))
 	return ret != 0
 }
 
-
-// ff:
-// lpBuffer:
-// nBufferLength:
 func GetLogicalDriveStrings(nBufferLength uint32, lpBuffer *uint16) uint32 {
 	ret, _, _ := procGetLogicalDriveStrings.Call(
 		uintptr(nBufferLength),

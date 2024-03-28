@@ -19,18 +19,18 @@ import (
 
 	"github.com/bep/debounce"
 	"github.com/wailsapp/go-webview2/pkg/edge"
-	"github.com/888go/wails/internal/binding"
-	"github.com/888go/wails/internal/frontend"
-	"github.com/888go/wails/internal/frontend/desktop/windows/win32"
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
-	wailsruntime "github.com/888go/wails/internal/frontend/runtime"
-	"github.com/888go/wails/internal/logger"
-	"github.com/888go/wails/internal/system/operatingsystem"
-	"github.com/888go/wails/pkg/assetserver"
-	"github.com/888go/wails/pkg/assetserver/webview"
-	"github.com/888go/wails/pkg/options"
-	"github.com/888go/wails/pkg/options/windows"
+	"github.com/wailsapp/wails/v2/internal/binding"
+	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/win32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	wailsruntime "github.com/wailsapp/wails/v2/internal/frontend/runtime"
+	"github.com/wailsapp/wails/v2/internal/logger"
+	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
+	"github.com/wailsapp/wails/v2/pkg/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/assetserver/webview"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
 const startURL = "http://wails.localhost/"
@@ -66,13 +66,6 @@ type Frontend struct {
 	resizeDebouncer func(f func())
 }
 
-
-// ff:
-// dispatcher:
-// appBindings:
-// myLogger:
-// appoptions:
-// ctx:
 func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.Logger, appBindings *binding.Bindings, dispatcher frontend.Dispatcher) *Frontend {
 
 	// 获取Windows构建号
@@ -87,9 +80,9 @@ func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.
 		versionInfo:     versionInfo,
 	}
 
-	if appoptions.Windows选项 != nil {
-		if appoptions.Windows选项.X重置尺寸防抖间隔 > 0 {
-			result.resizeDebouncer = debounce.New(time.Duration(appoptions.Windows选项.X重置尺寸防抖间隔) * time.Millisecond)
+	if appoptions.Windows != nil {
+		if appoptions.Windows.ResizeDebounceMS > 0 {
+			result.resizeDebouncer = debounce.New(time.Duration(appoptions.Windows.ResizeDebounceMS) * time.Millisecond)
 		}
 	}
 
@@ -127,40 +120,29 @@ func NewFrontend(ctx context.Context, appoptions *options.App, myLogger *logger.
 	return result
 }
 
-
-// ff:
 func (f *Frontend) WindowReload() {
 	f.ExecJS("runtime.WindowReload();")
 }
 
-
-// ff:
 func (f *Frontend) WindowSetSystemDefaultTheme() {
-	f.mainWindow.SetTheme(windows.X常量_win主题_默认)
+	f.mainWindow.SetTheme(windows.SystemDefault)
 }
 
-
-// ff:
 func (f *Frontend) WindowSetLightTheme() {
-	f.mainWindow.SetTheme(windows.X常量_win主题_浅色)
+	f.mainWindow.SetTheme(windows.Light)
 }
 
-
-// ff:
 func (f *Frontend) WindowSetDarkTheme() {
-	f.mainWindow.SetTheme(windows.X常量_win主题_暗黑)
+	f.mainWindow.SetTheme(windows.Dark)
 }
 
-
-// ff:
-// ctx:
 func (f *Frontend) Run(ctx context.Context) error {
 	f.ctx = ctx
 
 	f.chromium = edge.NewChromium()
 
-	if f.frontendOptions.X单实例锁 != nil {
-		SetupSingleInstance(f.frontendOptions.X单实例锁.UniqueId)
+	if f.frontendOptions.SingleInstanceLock != nil {
+		SetupSingleInstance(f.frontendOptions.SingleInstanceLock.UniqueId)
 	}
 
 	mainWindow := NewWindow(nil, f.frontendOptions, f.versionInfo, f.chromium)
@@ -180,7 +162,7 @@ func (f *Frontend) Run(ctx context.Context) error {
 	f.setupChromium()
 
 	mainWindow.OnSize().Bind(func(arg *winc.Event) {
-		if f.frontendOptions.X无边框 {
+		if f.frontendOptions.Frameless {
 // 如果窗口是无边框的并且我们正在进行最小化操作，那么我们需要抑制WebView2上的Resize事件。如果不这样做，在恢复窗口大小时无法按预期工作，并且在恢复动画期间首先会以错误的尺寸还原，直到动画完成后才会完全渲染。这高度依赖于WebView中的内容，详细信息参见 https://github.com/wailsapp/wails/issues/1319
 			event, _ := arg.Data.(*winc.SizeEventData)
 			if event != nil && event.Type == w32.SIZE_MINIMIZED {
@@ -200,7 +182,7 @@ func (f *Frontend) Run(ctx context.Context) error {
 	})
 
 	mainWindow.OnClose().Bind(func(arg *winc.Event) {
-		if f.frontendOptions.X关闭时隐藏窗口 {
+		if f.frontendOptions.HideWindowOnClose {
 			f.WindowHide()
 		} else {
 			f.Quit()
@@ -208,149 +190,111 @@ func (f *Frontend) Run(ctx context.Context) error {
 	})
 
 	go func() {
-		if f.frontendOptions.X启动前回调函数 != nil {
-			f.frontendOptions.X启动前回调函数(f.ctx)
+		if f.frontendOptions.OnStartup != nil {
+			f.frontendOptions.OnStartup(f.ctx)
 		}
 	}()
 	mainWindow.UpdateTheme()
 	return nil
 }
 
-
-// ff:
 func (f *Frontend) WindowClose() {
 	if f.mainWindow != nil {
 		f.mainWindow.Close()
 	}
 }
 
-
-// ff:
 func (f *Frontend) RunMainLoop() {
 	_ = winc.RunMainLoop()
 }
 
-
-// ff:
 func (f *Frontend) WindowCenter() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.Center()
 }
 
-
-// ff:
-// b:
 func (f *Frontend) WindowSetAlwaysOnTop(b bool) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetAlwaysOnTop(b)
 }
 
-
-// ff:
-// y:
-// x:
 func (f *Frontend) WindowSetPosition(x, y int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetPos(x, y)
 }
-
-// ff:
 func (f *Frontend) WindowGetPosition() (int, int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	return f.mainWindow.Pos()
 }
 
-
-// ff:
-// height:
-// width:
 func (f *Frontend) WindowSetSize(width, height int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetSize(width, height)
 }
 
-
-// ff:
 func (f *Frontend) WindowGetSize() (int, int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	return f.mainWindow.Size()
 }
 
-
-// ff:
-// title:
 func (f *Frontend) WindowSetTitle(title string) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetText(title)
 }
 
-
-// ff:
 func (f *Frontend) WindowFullscreen() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
-	if f.frontendOptions.X无边框 && f.frontendOptions.X禁用调整大小 == false {
+	if f.frontendOptions.Frameless && f.frontendOptions.DisableResize == false {
 		f.ExecJS("window.wails.flags.enableResize = false;")
 	}
 	f.mainWindow.Fullscreen()
 }
 
-
-// ff:
 func (f *Frontend) WindowReloadApp() {
 	f.ExecJS(fmt.Sprintf("window.location.href = '%s';", f.startURL))
 }
 
-
-// ff:
 func (f *Frontend) WindowUnfullscreen() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
-	if f.frontendOptions.X无边框 && f.frontendOptions.X禁用调整大小 == false {
+	if f.frontendOptions.Frameless && f.frontendOptions.DisableResize == false {
 		f.ExecJS("window.wails.flags.enableResize = true;")
 	}
 	f.mainWindow.UnFullscreen()
 }
 
-
-// ff:
 func (f *Frontend) WindowShow() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.ShowWindow()
 }
 
-
-// ff:
 func (f *Frontend) WindowHide() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.Hide()
 }
 
-
-// ff:
 func (f *Frontend) WindowMaximise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	if f.hasStarted {
-		if !f.frontendOptions.X禁用调整大小 {
+		if !f.frontendOptions.DisableResize {
 			f.mainWindow.Maximise()
 		}
 	} else {
-		f.frontendOptions.X窗口启动状态 = options.X常量_最大化
+		f.frontendOptions.WindowStartState = options.Maximised
 	}
 }
 
-
-// ff:
 func (f *Frontend) WindowToggleMaximise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -364,8 +308,6 @@ func (f *Frontend) WindowToggleMaximise() {
 	}
 }
 
-
-// ff:
 func (f *Frontend) WindowUnmaximise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -375,20 +317,16 @@ func (f *Frontend) WindowUnmaximise() {
 	f.mainWindow.Restore()
 }
 
-
-// ff:
 func (f *Frontend) WindowMinimise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	if f.hasStarted {
 		f.mainWindow.Minimise()
 	} else {
-		f.frontendOptions.X窗口启动状态 = options.X常量_最小化
+		f.frontendOptions.WindowStartState = options.Minimised
 	}
 }
 
-
-// ff:
 func (f *Frontend) WindowUnminimise() {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
@@ -398,28 +336,17 @@ func (f *Frontend) WindowUnminimise() {
 	f.mainWindow.Restore()
 }
 
-
-// ff:
-// height:
-// width:
 func (f *Frontend) WindowSetMinSize(width int, height int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetMinSize(width, height)
 }
-
-// ff:
-// height:
-// width:
 func (f *Frontend) WindowSetMaxSize(width int, height int) {
 	runtime.LockOSThread()
 	defer runtime.UnlockOSThread()
 	f.mainWindow.SetMaxSize(width, height)
 }
 
-
-// ff:
-// col:
 func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 	if col == nil {
 		return
@@ -443,7 +370,7 @@ func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 			backgroundCol.A = 255
 		}
 
-		if f.frontendOptions.Windows选项 != nil && f.frontendOptions.Windows选项.X开启Webview透明 {
+		if f.frontendOptions.Windows != nil && f.frontendOptions.Windows.WebviewIsTransparent {
 			backgroundCol.A = 0
 		}
 
@@ -455,8 +382,6 @@ func (f *Frontend) WindowSetBackgroundColour(col *options.RGBA) {
 
 }
 
-
-// ff:
 func (f *Frontend) ScreenGetAll() ([]Screen, error) {
 	var wg sync.WaitGroup
 	wg.Add(1)
@@ -471,46 +396,32 @@ func (f *Frontend) ScreenGetAll() ([]Screen, error) {
 	return screens, err
 }
 
-
-// ff:
 func (f *Frontend) Show() {
 	f.mainWindow.Show()
 }
 
-
-// ff:
 func (f *Frontend) Hide() {
 	f.mainWindow.Hide()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsMaximised() bool {
 	return f.mainWindow.IsMaximised()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsMinimised() bool {
 	return f.mainWindow.IsMinimised()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsNormal() bool {
 	return f.mainWindow.IsNormal()
 }
 
-
-// ff:
 func (f *Frontend) WindowIsFullscreen() bool {
 	return f.mainWindow.IsFullScreen()
 }
 
-
-// ff:
 func (f *Frontend) Quit() {
-	if f.frontendOptions.X应用关闭前回调函数 != nil && f.frontendOptions.X应用关闭前回调函数(f.ctx) {
+	if f.frontendOptions.OnBeforeClose != nil && f.frontendOptions.OnBeforeClose(f.ctx) {
 		return
 	}
 // Exit 必须在主线程上调用。它会调用 PostQuitMessage，该函数向线程的消息队列发送 WM_QUIT 消息，
@@ -518,8 +429,6 @@ func (f *Frontend) Quit() {
 	f.mainWindow.Invoke(winc.Exit)
 }
 
-
-// ff:
 func (f *Frontend) WindowPrint() {
 	f.ExecJS("window.print();")
 }
@@ -528,18 +437,18 @@ func (f *Frontend) setupChromium() {
 	chromium := f.chromium
 
 	disableFeatues := []string{}
-	if !f.frontendOptions.X启用欺诈网站检测 {
+	if !f.frontendOptions.EnableFraudulentWebsiteDetection {
 		disableFeatues = append(disableFeatues, "msSmartScreenProtection")
 	}
 
-	if opts := f.frontendOptions.Windows选项; opts != nil {
-		chromium.DataPath = opts.Webview用户数据路径
-		chromium.BrowserPath = opts.Webview浏览器路径
+	if opts := f.frontendOptions.Windows; opts != nil {
+		chromium.DataPath = opts.WebviewUserDataPath
+		chromium.BrowserPath = opts.WebviewBrowserPath
 
-		if opts.X禁用GPU加速 {
+		if opts.WebviewGpuIsDisabled {
 			chromium.AdditionalBrowserArgs = append(chromium.AdditionalBrowserArgs, "--disable-gpu")
 		}
-		if opts.X禁用RendererCodeIntegrity {
+		if opts.WebviewDisableRendererCodeIntegrity {
 			disableFeatues = append(disableFeatues, "RendererCodeIntegrity")
 		}
 	}
@@ -579,9 +488,9 @@ func (f *Frontend) setupChromium() {
 		switch kind {
 		case edge.COREWEBVIEW2_PROCESS_FAILED_KIND_BROWSER_PROCESS_EXITED:
 			// => 为了从这个故障中恢复，应用必须重新创建一个新的WebView。
-			messages := windows.X运行时默认提示()
-			if f.frontendOptions.Windows选项 != nil && f.frontendOptions.Windows选项.X用户消息 != nil {
-				messages = f.frontendOptions.Windows选项.X用户消息
+			messages := windows.DefaultMessages()
+			if f.frontendOptions.Windows != nil && f.frontendOptions.Windows.Messages != nil {
+				messages = f.frontendOptions.Windows.Messages
 			}
 			winc.Errorf(f.mainWindow, messages.WebView2ProcessCrash)
 			os.Exit(-1)
@@ -603,7 +512,7 @@ func (f *Frontend) setupChromium() {
 	chromium.Embed(f.mainWindow.Handle())
 
 	if chromium.HasCapability(edge.SwipeNavigation) {
-		swipeGesturesEnabled := f.frontendOptions.Windows选项 != nil && f.frontendOptions.Windows选项.X启用滑动手势
+		swipeGesturesEnabled := f.frontendOptions.Windows != nil && f.frontendOptions.Windows.EnableSwipeGestures
 		err := chromium.PutIsSwipeNavigationEnabled(swipeGesturesEnabled)
 		if err != nil {
 			log.Fatal(err)
@@ -614,7 +523,7 @@ func (f *Frontend) setupChromium() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = settings.PutAreDefaultContextMenusEnabled(f.debug || f.frontendOptions.X右键菜单)
+	err = settings.PutAreDefaultContextMenusEnabled(f.debug || f.frontendOptions.EnableDefaultContextMenu)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -623,15 +532,15 @@ func (f *Frontend) setupChromium() {
 		log.Fatal(err)
 	}
 
-	if opts := f.frontendOptions.Windows选项; opts != nil {
-		if opts.X缩放比例 > 0.0 {
-			chromium.PutZoomFactor(opts.X缩放比例)
+	if opts := f.frontendOptions.Windows; opts != nil {
+		if opts.ZoomFactor > 0.0 {
+			chromium.PutZoomFactor(opts.ZoomFactor)
 		}
-		err = settings.PutIsZoomControlEnabled(opts.X启用缩放控制)
+		err = settings.PutIsZoomControlEnabled(opts.IsZoomControlEnabled)
 		if err != nil {
 			log.Fatal(err)
 		}
-		err = settings.PutIsPinchZoomEnabled(!opts.X禁用缩放)
+		err = settings.PutIsPinchZoomEnabled(!opts.DisablePinchZoom)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -646,7 +555,7 @@ func (f *Frontend) setupChromium() {
 		log.Fatal(err)
 	}
 
-	if f.debug && f.frontendOptions.X调试选项.OpenInspectorOnStartup {
+	if f.debug && f.frontendOptions.Debug.OpenInspectorOnStartup {
 		chromium.OpenDevToolsWindow()
 	}
 
@@ -655,7 +564,7 @@ func (f *Frontend) setupChromium() {
 	onFocus.Bind(f.onFocus)
 
 	// Set background colour
-	f.WindowSetBackgroundColour(f.frontendOptions.X背景颜色)
+	f.WindowSetBackgroundColour(f.frontendOptions.BackgroundColour)
 
 	chromium.SetGlobalPermission(edge.CoreWebView2PermissionStateAllow)
 	chromium.AddWebResourceRequestedFilter("*", edge.COREWEBVIEW2_WEB_RESOURCE_CONTEXT_ALL)
@@ -667,10 +576,6 @@ type EventNotify struct {
 	Data []interface{} `json:"data"`
 }
 
-
-// ff:
-// data:
-// name:
 func (f *Frontend) Notify(name string, data ...interface{}) {
 	notification := EventNotify{
 		Name: name,
@@ -715,7 +620,7 @@ func (f *Frontend) processRequest(req *edge.ICoreWebView2WebResourceRequest, arg
 		return
 	}
 
-	webviewRequest, err := webview.X创建请求对象(
+	webviewRequest, err := webview.NewRequest(
 		f.chromium.Environment(),
 		args,
 		func(fn func()) {
@@ -765,7 +670,7 @@ func (f *Frontend) processMessage(message string) {
 	}
 
 	if message == "runtime:ready" {
-		cmd := fmt.Sprintf("window.wails.setCSSDragProperties('%s', '%s');", f.frontendOptions.CSS拖动属性, f.frontendOptions.CSS拖动值)
+		cmd := fmt.Sprintf("window.wails.setCSSDragProperties('%s', '%s');", f.frontendOptions.CSSDragProperty, f.frontendOptions.CSSDragValue)
 		f.ExecJS(cmd)
 		return
 	}
@@ -807,9 +712,6 @@ func (f *Frontend) processMessage(message string) {
 	}()
 }
 
-
-// ff:
-// message:
 func (f *Frontend) Callback(message string) {
 	escaped, err := json.Marshal(message)
 	if err != nil {
@@ -838,9 +740,6 @@ func (f *Frontend) startResize(border uintptr) error {
 	return nil
 }
 
-
-// ff:
-// js:
 func (f *Frontend) ExecJS(js string) {
 	f.mainWindow.Invoke(func() {
 		f.chromium.Eval(js)
@@ -848,11 +747,11 @@ func (f *Frontend) ExecJS(js string) {
 }
 
 func (f *Frontend) navigationCompleted(sender *edge.ICoreWebView2, args *edge.ICoreWebView2NavigationCompletedEventArgs) {
-	if f.frontendOptions.DOM就绪回调函数 != nil {
-		go f.frontendOptions.DOM就绪回调函数(f.ctx)
+	if f.frontendOptions.OnDomReady != nil {
+		go f.frontendOptions.OnDomReady(f.ctx)
 	}
 
-	if f.frontendOptions.X无边框 && f.frontendOptions.X禁用调整大小 == false {
+	if f.frontendOptions.Frameless && f.frontendOptions.DisableResize == false {
 		f.ExecJS("window.wails.flags.enableResize = true;")
 	}
 
@@ -872,24 +771,24 @@ func (f *Frontend) navigationCompleted(sender *edge.ICoreWebView2, args *edge.IC
 		log.Fatal(err)
 	}
 
-	if f.frontendOptions.X启动时隐藏窗口 {
+	if f.frontendOptions.StartHidden {
 		return
 	}
 
-	switch f.frontendOptions.X窗口启动状态 {
-	case options.X常量_最大化:
-		if !f.frontendOptions.X禁用调整大小 {
+	switch f.frontendOptions.WindowStartState {
+	case options.Maximised:
+		if !f.frontendOptions.DisableResize {
 			win32.ShowWindowMaximised(f.mainWindow.Handle())
 		} else {
 			win32.ShowWindow(f.mainWindow.Handle())
 		}
-	case options.X常量_最小化:
+	case options.Minimised:
 		win32.ShowWindowMinimised(f.mainWindow.Handle())
-	case options.X常量_全屏:
+	case options.Fullscreen:
 		f.mainWindow.Fullscreen()
 		win32.ShowWindow(f.mainWindow.Handle())
 	default:
-		if f.frontendOptions.X全屏 {
+		if f.frontendOptions.Fullscreen {
 			f.mainWindow.Fullscreen()
 		}
 		win32.ShowWindow(f.mainWindow.Handle())
@@ -899,26 +798,24 @@ func (f *Frontend) navigationCompleted(sender *edge.ICoreWebView2, args *edge.IC
 
 }
 
-
-// ff:
 func (f *Frontend) ShowWindow() {
 	f.mainWindow.Invoke(func() {
 		if !f.mainWindow.hasBeenShown {
 			f.mainWindow.hasBeenShown = true
-			switch f.frontendOptions.X窗口启动状态 {
-			case options.X常量_最大化:
-				if !f.frontendOptions.X禁用调整大小 {
+			switch f.frontendOptions.WindowStartState {
+			case options.Maximised:
+				if !f.frontendOptions.DisableResize {
 					win32.ShowWindowMaximised(f.mainWindow.Handle())
 				} else {
 					win32.ShowWindow(f.mainWindow.Handle())
 				}
-			case options.X常量_最小化:
+			case options.Minimised:
 				win32.RestoreWindow(f.mainWindow.Handle())
-			case options.X常量_全屏:
+			case options.Fullscreen:
 				f.mainWindow.Fullscreen()
 				win32.ShowWindow(f.mainWindow.Handle())
 			default:
-				if f.frontendOptions.X全屏 {
+				if f.frontendOptions.Fullscreen {
 					f.mainWindow.Fullscreen()
 				}
 				win32.ShowWindow(f.mainWindow.Handle())
@@ -942,9 +839,9 @@ func (f *Frontend) onFocus(arg *winc.Event) {
 
 func (f *Frontend) startSecondInstanceProcessor() {
 	for secondInstanceData := range secondInstanceBuffer {
-		if f.frontendOptions.X单实例锁 != nil &&
-			f.frontendOptions.X单实例锁.OnSecondInstanceLaunch != nil {
-			f.frontendOptions.X单实例锁.OnSecondInstanceLaunch(secondInstanceData)
+		if f.frontendOptions.SingleInstanceLock != nil &&
+			f.frontendOptions.SingleInstanceLock.OnSecondInstanceLaunch != nil {
+			f.frontendOptions.SingleInstanceLock.OnSecondInstanceLaunch(secondInstanceData)
 		}
 	}
 }

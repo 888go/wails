@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/888go/wails/internal/binding"
-	"github.com/888go/wails/internal/logger"
+	"github.com/wailsapp/wails/v2/internal/binding"
+	"github.com/wailsapp/wails/v2/internal/logger"
 )
 
 const expectedPromiseBindings = `// Cynhyrchwyd y ffeil hon yn awtomatig. PEIDIWCH Â MODIWL

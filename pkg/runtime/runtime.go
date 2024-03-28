@@ -5,8 +5,8 @@ import (
 	"log"
 	goruntime "runtime"
 
-	"github.com/888go/wails/internal/frontend"
-	"github.com/888go/wails/internal/logger"
+	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/logger"
 )
 
 const contextError = `An invalid context was passed. This method requires the specific context given in the lifecycle hooks:
@@ -61,47 +61,47 @@ func getEvents(ctx context.Context) frontend.Events {
 }
 
 // Quit the application
-func X退出(上下文 context.Context) {
-	if 上下文 == nil {
+func Quit(ctx context.Context) {
+	if ctx == nil {
 		log.Fatalf("Error calling 'runtime.Quit': %s", contextError)
 	}
-	appFrontend := getFrontend(上下文)
+	appFrontend := getFrontend(ctx)
 	appFrontend.Quit()
 }
 
 // Hide the application
-func X隐藏(上下文 context.Context) {
-	if 上下文 == nil {
+func Hide(ctx context.Context) {
+	if ctx == nil {
 		log.Fatalf("Error calling 'runtime.Hide': %s", contextError)
 	}
-	appFrontend := getFrontend(上下文)
+	appFrontend := getFrontend(ctx)
 	appFrontend.Hide()
 }
 
 // 如果应用程序是隐藏的，则显示它
-func X显示(上下文 context.Context) {
-	if 上下文 == nil {
+func Show(ctx context.Context) {
+	if ctx == nil {
 		log.Fatalf("Error calling 'runtime.Show': %s", contextError)
 	}
-	appFrontend := getFrontend(上下文)
+	appFrontend := getFrontend(ctx)
 	appFrontend.Show()
 }
 
 // EnvironmentInfo 包含有关环境的信息
 type EnvironmentInfo struct {
-	X构建类型 string `json:"buildType"`
-	X平台  string `json:"platform"`
-	X架构      string `json:"arch"`
+	BuildType string `json:"buildType"`
+	Platform  string `json:"platform"`
+	Arch      string `json:"arch"`
 }
 
 // Environment 返回关于环境的信息
-func X取环境信息(上下文 context.Context) EnvironmentInfo {
+func Environment(ctx context.Context) EnvironmentInfo {
 	var result EnvironmentInfo
-	buildType := 上下文.Value("buildtype")
+	buildType := ctx.Value("buildtype")
 	if buildType != nil {
-		result.X构建类型 = buildType.(string)
+		result.BuildType = buildType.(string)
 	}
-	result.X平台 = goruntime.GOOS
-	result.X架构 = goruntime.GOARCH
+	result.Platform = goruntime.GOOS
+	result.Arch = goruntime.GOARCH
 	return result
 }

@@ -17,8 +17,8 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/888go/wails/pkg/menu"
-	"github.com/888go/wails/pkg/menu/keys"
+	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu/keys"
 )
 
 type NSMenu struct {
@@ -26,10 +26,6 @@ type NSMenu struct {
 	nsmenu  unsafe.Pointer
 }
 
-
-// ff:
-// name:
-// context:
 func NewNSMenu(context unsafe.Pointer, name string) *NSMenu {
 	c := NewCalloc()
 	defer c.Free()
@@ -41,18 +37,12 @@ func NewNSMenu(context unsafe.Pointer, name string) *NSMenu {
 	}
 }
 
-
-// ff:
-// label:
 func (m *NSMenu) AddSubMenu(label string) *NSMenu {
 	result := NewNSMenu(m.context, label)
 	C.AppendSubmenu(m.nsmenu, result.nsmenu)
 	return result
 }
 
-
-// ff:
-// role:
 func (m *NSMenu) AppendRole(role menu.Role) {
 	C.AppendRole(m.context, m.nsmenu, C.int(role))
 }
@@ -64,9 +54,6 @@ type MenuItem struct {
 	radioGroupMembers []*MenuItem
 }
 
-
-// ff:
-// menuItem:
 func (m *NSMenu) AddMenuItem(menuItem *menu.MenuItem) *MenuItem {
 	c := NewCalloc()
 	defer c.Free()
@@ -150,15 +137,10 @@ func processMenuItem(parent *NSMenu, menuItem *menu.MenuItem) *MenuItem {
 	return parent.AddMenuItem(menuItem)
 }
 
-
-// ff:
-// menu:
 func (f *Frontend) MenuSetApplicationMenu(menu *menu.Menu) {
 	f.mainWindow.SetApplicationMenu(menu)
 }
 
-
-// ff:
 func (f *Frontend) MenuUpdateApplicationMenu() {
 	f.mainWindow.UpdateApplicationMenu()
 }

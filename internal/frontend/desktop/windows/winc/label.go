@@ -7,16 +7,13 @@
 package winc
 
 import (
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 type Label struct {
 	ControlBase
 }
 
-
-// ff:
-// parent:
 func NewLabel(parent Controller) *Label {
 	lb := new(Label)
 
@@ -29,11 +26,6 @@ func NewLabel(parent Controller) *Label {
 	return lb
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (lb *Label) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	return w32.DefWindowProc(lb.hwnd, msg, wparam, lparam)
 }

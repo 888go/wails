@@ -46,14 +46,11 @@ import (
 	"sync"
 
 	"github.com/pkg/errors"
-	"github.com/888go/wails/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/frontend"
 )
 
 type Screen = frontend.Screen
 
-
-// ff:
-// window:
 func GetAllScreens(window *C.GtkWindow) ([]Screen, error) {
 	if window == nil {
 		return nil, errors.New("window is nil, cannot perform screen operations")

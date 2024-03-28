@@ -83,16 +83,13 @@ type responseWriter struct {
 	finished bool
 }
 
-func (rw *responseWriter) X请求头() http.Header {
+func (rw *responseWriter) Header() http.Header {
 	if rw.header == nil {
 		rw.header = http.Header{}
 	}
 	return rw.header
 }
 
-
-// ff:
-// buf:
 func (rw *responseWriter) Write(buf []byte) (int, error) {
 	if rw.finished {
 		return 0, errResponseFinished
@@ -113,9 +110,6 @@ func (rw *responseWriter) Write(buf []byte) (int, error) {
 	return contentLen, nil
 }
 
-
-// ff:
-// code:
 func (rw *responseWriter) WriteHeader(code int) {
 	if rw.wroteHeader || rw.finished {
 		return
@@ -123,8 +117,8 @@ func (rw *responseWriter) WriteHeader(code int) {
 	rw.wroteHeader = true
 
 	header := map[string]string{}
-	for k := range rw.X请求头() {
-		header[k] = rw.X请求头().Get(k)
+	for k := range rw.Header() {
+		header[k] = rw.Header().Get(k)
 	}
 	headerData, _ := json.Marshal(header)
 
@@ -138,8 +132,6 @@ func (rw *responseWriter) WriteHeader(code int) {
 	C.URLSchemeTaskDidReceiveResponse(rw.r.task, C.int(code), headers, C.int(headersLen))
 }
 
-
-// ff:
 func (rw *responseWriter) Finish() error {
 	if !rw.wroteHeader {
 		rw.WriteHeader(http.StatusNotImplemented)

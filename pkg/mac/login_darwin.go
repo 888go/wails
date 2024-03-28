@@ -7,15 +7,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/888go/wails/internal/shell"
 	"github.com/leaanthony/slicer"
 	"github.com/pkg/errors"
+	"github.com/wailsapp/wails/v2/internal/shell"
 )
 
 // StartAtLogin 根据给定的布尔标志，将此应用程序添加到登录项或从中移除。限制条件是当前运行的应用程序必须位于应用包中。
-
-// ff:
-// enabled:
 func StartAtLogin(enabled bool) error {
 	exe, err := os.Executable()
 	if err != nil {
@@ -41,8 +38,6 @@ func StartAtLogin(enabled bool) error {
 
 // StartsAtLogin 表示此应用程序是否已添加至登录项。
 // 限制条件是，当前运行的应用程序必须位于应用包内。
-
-// ff:
 func StartsAtLogin() (bool, error) {
 	exe, err := os.Executable()
 	if err != nil {

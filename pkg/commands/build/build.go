@@ -11,15 +11,15 @@ import (
 	"github.com/pterm/pterm"
 	"github.com/samber/lo"
 
-	"github.com/888go/wails/internal/staticanalysis"
-	"github.com/888go/wails/pkg/commands/bindings"
+	"github.com/wailsapp/wails/v2/internal/staticanalysis"
+	"github.com/wailsapp/wails/v2/pkg/commands/bindings"
 
-	"github.com/888go/wails/internal/fs"
+	"github.com/wailsapp/wails/v2/internal/fs"
 
-	"github.com/888go/wails/internal/shell"
+	"github.com/wailsapp/wails/v2/internal/shell"
 
-	"github.com/888go/wails/internal/project"
-	"github.com/888go/wails/pkg/clilogger"
+	"github.com/wailsapp/wails/v2/internal/project"
+	"github.com/wailsapp/wails/v2/pkg/clilogger"
 )
 
 // Mode 是用于表示构建模式的类型
@@ -72,9 +72,9 @@ type Options struct {
 }
 
 // Build the project!
-func X构建项目(选项 *Options) (string, error) {
+func Build(options *Options) (string, error) {
 	// Extract logger
-	outputLogger := 选项.Logger
+	outputLogger := options.Logger
 
 	// Get working directory
 	cwd, err := os.Getwd()
@@ -83,56 +83,56 @@ func X构建项目(选项 *Options) (string, error) {
 	}
 
 	// wails js dir
-	选项.WailsJSDir = 选项.ProjectData.GetWailsJSDir()
+	options.WailsJSDir = options.ProjectData.GetWailsJSDir()
 
 	// Set build directory
-	选项.BinDirectory = filepath.Join(选项.ProjectData.GetBuildDir(), "bin")
+	options.BinDirectory = filepath.Join(options.ProjectData.GetBuildDir(), "bin")
 
 	// Save the project type
-	选项.ProjectData.OutputType = 选项.OutputType
+	options.ProjectData.OutputType = options.OutputType
 
 	// Create builder
 	var builder Builder
 
-	switch 选项.OutputType {
+	switch options.OutputType {
 	case "desktop":
-		builder = newDesktopBuilder(选项)
+		builder = newDesktopBuilder(options)
 	case "dev":
-		builder = newDesktopBuilder(选项)
+		builder = newDesktopBuilder(options)
 	default:
-		return "", fmt.Errorf("cannot build assets for output type %s", 选项.ProjectData.OutputType)
+		return "", fmt.Errorf("cannot build assets for output type %s", options.ProjectData.OutputType)
 	}
 
 	// 设置我们的清理方法
 	defer builder.CleanUp()
 
 	// Initialise Builder
-	builder.SetProjectData(选项.ProjectData)
+	builder.SetProjectData(options.ProjectData)
 
 	hookArgs := map[string]string{
-		"${platform}": 选项.Platform + "/" + 选项.Arch,
+		"${platform}": options.Platform + "/" + options.Arch,
 	}
 
-	for _, hook := range []string{选项.Platform + "/" + 选项.Arch, 选项.Platform + "/*", "*/*"} {
-		if err := execPreBuildHook(outputLogger, 选项, hook, hookArgs); err != nil {
+	for _, hook := range []string{options.Platform + "/" + options.Arch, options.Platform + "/*", "*/*"} {
+		if err := execPreBuildHook(outputLogger, options, hook, hookArgs); err != nil {
 			return "", err
 		}
 	}
 
 	// 如果嵌入式目录不存在，则创建它们
-	if err := CreateEmbedDirectories(cwd, 选项); err != nil {
+	if err := CreateEmbedDirectories(cwd, options); err != nil {
 		return "", err
 	}
 
 	// Generate bindings
-	if !选项.SkipBindings {
-		err = GenerateBindings(选项)
+	if !options.SkipBindings {
+		err = GenerateBindings(options)
 		if err != nil {
 			return "", err
 		}
 	}
 
-	if !选项.IgnoreFrontend {
+	if !options.IgnoreFrontend {
 		err = builder.BuildFrontend(outputLogger)
 		if err != nil {
 			return "", err
@@ -140,15 +140,15 @@ func X构建项目(选项 *Options) (string, error) {
 	}
 
 	compileBinary := ""
-	if !选项.IgnoreApplication {
-		compileBinary, err = execBuildApplication(builder, 选项)
+	if !options.IgnoreApplication {
+		compileBinary, err = execBuildApplication(builder, options)
 		if err != nil {
 			return "", err
 		}
 
 		hookArgs["${bin}"] = compileBinary
-		for _, hook := range []string{选项.Platform + "/" + 选项.Arch, 选项.Platform + "/*", "*/*"} {
-			if err := execPostBuildHook(outputLogger, 选项, hook, hookArgs); err != nil {
+		for _, hook := range []string{options.Platform + "/" + options.Arch, options.Platform + "/*", "*/*"} {
+			if err := execPostBuildHook(outputLogger, options, hook, hookArgs); err != nil {
 				return "", err
 			}
 		}
@@ -157,10 +157,6 @@ func X构建项目(选项 *Options) (string, error) {
 	return compileBinary, nil
 }
 
-
-// ff:
-// buildOptions:
-// cwd:
 func CreateEmbedDirectories(cwd string, buildOptions *Options) error {
 	path := cwd
 	if buildOptions.ProjectData != nil {
@@ -214,9 +210,6 @@ func printBulletPoint(text string, args ...any) {
 	pterm.Printf(t, args...)
 }
 
-
-// ff:
-// buildOptions:
 func GenerateBindings(buildOptions *Options) error {
 	obfuscated := buildOptions.Obfuscated
 	if obfuscated {
@@ -334,7 +327,7 @@ func execBuildApplication(builder Builder, options *Options) (string, error) {
 		if _, err := os.Stat(options.CompiledBinary); os.IsNotExist(err) {
 			return "", fmt.Errorf("compiled binary does not exist at path: %s", options.CompiledBinary)
 		}
-		stdout, stderr, err := shell.RunCommand(options.BinDirectory, "xattr", "-rc", options.CompiledBinary)
+		stdout, stderr, err := shell.RunCommand(options.BinDirectory, "/usr/bin/xattr", "-rc", options.CompiledBinary)
 		if err != nil {
 			return "", fmt.Errorf("%s - %s", err.Error(), stderr)
 		}

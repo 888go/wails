@@ -24,37 +24,22 @@ type IDispatch struct {
 	lpVtbl *pIDispatchVtbl
 }
 
-
-// ff:
-// id:
 func (this *IDispatch) QueryInterface(id *GUID) *IDispatch {
 	return ComQueryInterface((*IUnknown)(unsafe.Pointer(this)), id)
 }
 
-
-// ff:
 func (this *IDispatch) AddRef() int32 {
 	return ComAddRef((*IUnknown)(unsafe.Pointer(this)))
 }
 
-
-// ff:
 func (this *IDispatch) Release() int32 {
 	return ComRelease((*IUnknown)(unsafe.Pointer(this)))
 }
 
-
-// ff:
-// names:
 func (this *IDispatch) GetIDsOfName(names []string) []int32 {
 	return ComGetIDsOfName(this, names)
 }
 
-
-// ff:
-// params:
-// dispatch:
-// dispid:
 func (this *IDispatch) Invoke(dispid int32, dispatch int16, params ...interface{}) *VARIANT {
 	return ComInvoke(this, dispid, dispatch, params...)
 }

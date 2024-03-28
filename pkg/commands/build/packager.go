@@ -10,13 +10,13 @@ import (
 	"github.com/leaanthony/winicon"
 	"github.com/tc-hib/winres"
 	"github.com/tc-hib/winres/version"
-	"github.com/888go/wails/internal/project"
+	"github.com/wailsapp/wails/v2/internal/project"
 
 	"github.com/jackmordaunt/icns"
 	"github.com/pkg/errors"
-	"github.com/888go/wails/pkg/buildassets"
+	"github.com/wailsapp/wails/v2/pkg/buildassets"
 
-	"github.com/888go/wails/internal/fs"
+	"github.com/wailsapp/wails/v2/internal/fs"
 )
 
 // PackageProject 封装应用程序
@@ -131,7 +131,7 @@ func processPList(options *Options, contentsDirectory string) error {
 }
 
 func processDarwinIcon(projectData *project.Project, iconName string, resourceDir string, destIconName string) (err error) {
-	appIcon, err := buildassets.X读文件(projectData, iconName+".png")
+	appIcon, err := buildassets.ReadFile(projectData, iconName+".png")
 	if err != nil {
 		return err
 	}
@@ -189,7 +189,7 @@ func packageApplicationForLinux(_ *Options) error {
 }
 
 func generateIcoFile(options *Options, iconName string, destIconName string) error {
-	content, err := buildassets.X读文件(options.ProjectData, iconName+".png")
+	content, err := buildassets.ReadFile(options.ProjectData, iconName+".png")
 	if err != nil {
 		return err
 	}

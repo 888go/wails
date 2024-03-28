@@ -4,8 +4,8 @@
 package windows
 
 import (
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
-	"github.com/888go/wails/pkg/menu/keys"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
+	"github.com/wailsapp/wails/v2/pkg/menu/keys"
 	"strings"
 )
 
@@ -21,7 +21,7 @@ func acceleratorToWincShortcut(accelerator *keys.Accelerator) winc.Shortcut {
 	if accelerator == nil {
 		return winc.NoShortcut
 	}
-	inKey := strings.ToUpper(accelerator.X名称)
+	inKey := strings.ToUpper(accelerator.Key)
 	key, exists := keyMap[inKey]
 	if !exists {
 		return winc.NoShortcut

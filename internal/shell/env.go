@@ -5,12 +5,6 @@ import (
 	"strings"
 )
 
-
-// ff:
-// update:
-// v:
-// key:
-// env:
 func UpsertEnv(env []string, key string, update func(v string) string) []string {
 	newEnv := make([]string, len(env), len(env)+1)
 	found := false
@@ -30,10 +24,6 @@ func UpsertEnv(env []string, key string, update func(v string) string) []string 
 	return newEnv
 }
 
-
-// ff:
-// key:
-// env:
 func RemoveEnv(env []string, key string) []string {
 	newEnv := make([]string, 0, len(env))
 	for _, e := range env {
@@ -45,11 +35,6 @@ func RemoveEnv(env []string, key string) []string {
 	return newEnv
 }
 
-
-// ff:
-// value:
-// key:
-// env:
 func SetEnv(env []string, key string, value string) []string {
 	return UpsertEnv(env, key, func(_ string) string { return value })
 }

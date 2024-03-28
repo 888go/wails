@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/888go/wails/internal/fs"
+	"github.com/wailsapp/wails/v2/internal/fs"
 
 	"github.com/leaanthony/slicer"
 )
@@ -33,9 +33,6 @@ func init() {
 	valueTypeIndex = mapRegex.SubexpIndex("valueType")
 }
 
-
-// ff:
-// baseDir:
 func (b *Bindings) GenerateGoBindings(baseDir string) error {
 	store := b.db.store
 	var obfuscatedBindings map[string]int

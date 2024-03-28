@@ -26,9 +26,6 @@ var (
 	procTrackMouseEvent         = modcomctl32.NewProc("_TrackMouseEvent")
 )
 
-
-// ff:
-// lpInitCtrls:
 func InitCommonControlsEx(lpInitCtrls *INITCOMMONCONTROLSEX) bool {
 	ret, _, _ := procInitCommonControlsEx.Call(
 		uintptr(unsafe.Pointer(lpInitCtrls)))
@@ -36,13 +33,6 @@ func InitCommonControlsEx(lpInitCtrls *INITCOMMONCONTROLSEX) bool {
 	return ret != 0
 }
 
-
-// ff:
-// cGrow:
-// cInitial:
-// flags:
-// cy:
-// cx:
 func ImageList_Create(cx, cy int, flags uint, cInitial, cGrow int) HIMAGELIST {
 	ret, _, _ := procImageList_Create.Call(
 		uintptr(cx),
@@ -58,9 +48,6 @@ func ImageList_Create(cx, cy int, flags uint, cInitial, cGrow int) HIMAGELIST {
 	return HIMAGELIST(ret)
 }
 
-
-// ff:
-// himl:
 func ImageList_Destroy(himl HIMAGELIST) bool {
 	ret, _, _ := procImageList_Destroy.Call(
 		uintptr(himl))
@@ -68,9 +55,6 @@ func ImageList_Destroy(himl HIMAGELIST) bool {
 	return ret != 0
 }
 
-
-// ff:
-// himl:
 func ImageList_GetImageCount(himl HIMAGELIST) int {
 	ret, _, _ := procImageList_GetImageCount.Call(
 		uintptr(himl))
@@ -78,10 +62,6 @@ func ImageList_GetImageCount(himl HIMAGELIST) int {
 	return int(ret)
 }
 
-
-// ff:
-// uNewCount:
-// himl:
 func ImageList_SetImageCount(himl HIMAGELIST, uNewCount uint) bool {
 	ret, _, _ := procImageList_SetImageCount.Call(
 		uintptr(himl),
@@ -90,11 +70,6 @@ func ImageList_SetImageCount(himl HIMAGELIST, uNewCount uint) bool {
 	return ret != 0
 }
 
-
-// ff:
-// hbmMask:
-// hbmImage:
-// himl:
 func ImageList_Add(himl HIMAGELIST, hbmImage, hbmMask HBITMAP) int {
 	ret, _, _ := procImageList_Add.Call(
 		uintptr(himl),
@@ -104,11 +79,6 @@ func ImageList_Add(himl HIMAGELIST, hbmImage, hbmMask HBITMAP) int {
 	return int(ret)
 }
 
-
-// ff:
-// hicon:
-// i:
-// himl:
 func ImageList_ReplaceIcon(himl HIMAGELIST, i int, hicon HICON) int {
 	ret, _, _ := procImageList_ReplaceIcon.Call(
 		uintptr(himl),
@@ -118,18 +88,10 @@ func ImageList_ReplaceIcon(himl HIMAGELIST, i int, hicon HICON) int {
 	return int(ret)
 }
 
-
-// ff:
-// hicon:
-// himl:
 func ImageList_AddIcon(himl HIMAGELIST, hicon HICON) int {
 	return ImageList_ReplaceIcon(himl, -1, hicon)
 }
 
-
-// ff:
-// i:
-// himl:
 func ImageList_Remove(himl HIMAGELIST, i int) bool {
 	ret, _, _ := procImageList_Remove.Call(
 		uintptr(himl),
@@ -138,16 +100,10 @@ func ImageList_Remove(himl HIMAGELIST, i int) bool {
 	return ret != 0
 }
 
-
-// ff:
-// himl:
 func ImageList_RemoveAll(himl HIMAGELIST) bool {
 	return ImageList_Remove(himl, -1)
 }
 
-
-// ff:
-// tme:
 func TrackMouseEvent(tme *TRACKMOUSEEVENT) bool {
 	ret, _, _ := procTrackMouseEvent.Call(
 		uintptr(unsafe.Pointer(tme)))

@@ -117,9 +117,7 @@ import (
 )
 
 // NewRequest 根据指向 `id<WKURLSchemeTask>` 的指针创建一个新的 WebViewRequest
-
-// wkURLSchemeTask:
-func X创建请求对象(wkURLSchemeTask unsafe.Pointer) Request {
+func NewRequest(wkURLSchemeTask unsafe.Pointer) Request {
 	C.URLSchemeTaskRetain(wkURLSchemeTask)
 	return newRequestFinalizer(&request{task: wkURLSchemeTask})
 }
@@ -134,17 +132,15 @@ type request struct {
 	rw     *responseWriter
 }
 
-
-// ff:
 func (r *request) URL() (string, error) {
 	return C.GoString(C.URLSchemeTaskRequestURL(r.task)), nil
 }
 
-func (r *request) X请求方法() (string, error) {
+func (r *request) Method() (string, error) {
 	return C.GoString(C.URLSchemeTaskRequestMethod(r.task)), nil
 }
 
-func (r *request) X请求头() (http.Header, error) {
+func (r *request) Header() (http.Header, error) {
 	if r.header != nil {
 		return r.header, nil
 	}
@@ -167,7 +163,7 @@ func (r *request) X请求头() (http.Header, error) {
 	return header, nil
 }
 
-func (r *request) X请求体() (io.ReadCloser, error) {
+func (r *request) Body() (io.ReadCloser, error) {
 	if r.body != nil {
 		return r.body, nil
 	}
@@ -187,7 +183,7 @@ func (r *request) X请求体() (io.ReadCloser, error) {
 	return r.body, nil
 }
 
-func (r *request) X请求响应() ResponseWriter {
+func (r *request) Response() ResponseWriter {
 	if r.rw != nil {
 		return r.rw
 	}
@@ -196,12 +192,12 @@ func (r *request) X请求响应() ResponseWriter {
 	return r.rw
 }
 
-func (r *request) X关闭() error {
+func (r *request) Close() error {
 	var err error
 	if r.body != nil {
 		err = r.body.Close()
 	}
-	err = r.X请求响应().Finish()
+	err = r.Response().Finish()
 	if err != nil {
 		return err
 	}
@@ -217,11 +213,6 @@ type requestBodyStreamReader struct {
 }
 
 // Read 实现了 io.Reader 接口
-
-// ff:
-// err:
-// n:
-// p:
 func (r *requestBodyStreamReader) Read(p []byte) (n int, err error) {
 	var content unsafe.Pointer
 	var contentLen int
@@ -249,7 +240,7 @@ func (r *requestBodyStreamReader) Read(p []byte) (n int, err error) {
 	}
 }
 
-func (r *requestBodyStreamReader) X关闭() error {
+func (r *requestBodyStreamReader) Close() error {
 	if r.closed {
 		return nil
 	}

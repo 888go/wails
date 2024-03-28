@@ -1,0 +1,10 @@
+{
+  "name": "pure-javascript",
+  "outputfilename": "pure-javascript",
+  "frontend:install": "",
+  "frontend:build": "",
+  "author": {
+    "name": "admin",
+    "email": "“admin@mail.com”"
+  }
+}

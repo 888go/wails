@@ -10,14 +10,9 @@ import (
 	"net/http/httputil"
 	"net/url"
 
-	"github.com/888go/wails/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
-
-// ff:
-// url:
-// options:
-// logger:
 func NewExternalAssetsHandler(logger Logger, options assetserver.Options, url *url.URL) http.Handler {
 	baseHandler := options.Handler
 

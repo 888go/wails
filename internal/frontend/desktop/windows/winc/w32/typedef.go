@@ -235,8 +235,6 @@ type RECT struct {
 	Left, Top, Right, Bottom int32
 }
 
-
-// ff:
 func (r *RECT) String() string {
 	return fmt.Sprintf("RECT (%p): Left: %d, Top: %d, Right: %d, Bottom: %d", r, r.Left, r.Top, r.Right, r.Bottom)
 }
@@ -980,14 +978,10 @@ func (w *WINDOWINFO) isStyle(style DWORD) bool {
 	return w.DwStyle&style == style
 }
 
-
-// ff:
 func (w *WINDOWINFO) IsPopup() bool {
 	return w.isStyle(WS_POPUP)
 }
 
-
-// ff:
 func (m *MONITORINFO) Dump() {
 	fmt.Printf("MONITORINFO (%p)\n", m)
 	fmt.Printf("  CbSize   : %d\n", m.CbSize)

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/888go/wails/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu"
 )
 
 type ContextMenu struct {
@@ -14,8 +14,6 @@ type ContextMenu struct {
 	menu          *menu.Menu
 }
 
-
-// ff:
 func (t *ContextMenu) AsJSON() (string, error) {
 	data, err := json.Marshal(t)
 	if err != nil {
@@ -24,25 +22,19 @@ func (t *ContextMenu) AsJSON() (string, error) {
 	return string(data), nil
 }
 
-
-// ff:
-// contextMenu:
 func NewContextMenu(contextMenu *menu.ContextMenu) *ContextMenu {
 	result := &ContextMenu{
 		ID:          contextMenu.ID,
-		menu:        contextMenu.X菜单,
+		menu:        contextMenu.Menu,
 		menuItemMap: NewMenuItemMap(),
 	}
 
-	result.menuItemMap.AddMenu(contextMenu.X菜单)
+	result.menuItemMap.AddMenu(contextMenu.Menu)
 	result.ProcessedMenu = NewWailsMenu(result.menuItemMap, result.menu)
 
 	return result
 }
 
-
-// ff:
-// contextMenu:
 func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 	newContextMenu := NewContextMenu(contextMenu)
 
@@ -51,9 +43,6 @@ func (m *Manager) AddContextMenu(contextMenu *menu.ContextMenu) {
 	m.contextMenuPointers[contextMenu] = contextMenu.ID
 }
 
-
-// ff:
-// contextMenu:
 func (m *Manager) UpdateContextMenu(contextMenu *menu.ContextMenu) (string, error) {
 	contextMenuID, contextMenuKnown := m.contextMenuPointers[contextMenu]
 	if !contextMenuKnown {

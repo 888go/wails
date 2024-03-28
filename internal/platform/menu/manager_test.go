@@ -4,14 +4,14 @@ package menu_test
 
 import (
 	"github.com/stretchr/testify/require"
-	platformMenu "github.com/888go/wails/internal/platform/menu"
-	"github.com/888go/wails/pkg/menu"
+	platformMenu "github.com/wailsapp/wails/v2/internal/platform/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu"
 	"testing"
 )
 
 func TestManager_ProcessClick_Checkbox(t *testing.T) {
 
-	checkbox := menu.X创建文本菜单项("Checkbox").X设置选中(false)
+	checkbox := menu.Label("Checkbox").SetChecked(false)
 	menu1 := &menu.Menu{
 		Items: []*menu.MenuItem{
 			checkbox,
@@ -24,7 +24,7 @@ func TestManager_ProcessClick_Checkbox(t *testing.T) {
 	}
 	menuWithNoCheckbox := &menu.Menu{
 		Items: []*menu.MenuItem{
-			menu.X创建文本菜单项("No Checkbox"),
+			menu.Label("No Checkbox"),
 		},
 	}
 	clicked := false
@@ -124,18 +124,18 @@ func TestManager_ProcessClick_Checkbox(t *testing.T) {
 		checkMenuItemStateInMenu = func(menu *menu.Menu) {
 			for _, item := range menusUpdated[menu] {
 				if item == checkbox {
-					require.Equal(t, tt.expectedState, item.X是否选中)
+					require.Equal(t, tt.expectedState, item.Checked)
 				}
-				if item.X子菜单 != nil {
-					checkMenuItemStateInMenu(item.X子菜单)
+				if item.SubMenu != nil {
+					checkMenuItemStateInMenu(item.SubMenu)
 				}
 			}
 		}
 
 		t.Run(tt.name, func(t *testing.T) {
 			m := platformMenu.NewManager()
-			checkbox.X设置选中(tt.startState)
-			checkbox.X单击回调函数 = tt.click
+			checkbox.SetChecked(tt.startState)
+			checkbox.Click = tt.click
 			for _, thisMenu := range tt.inputs {
 				thisMenu := thisMenu
 				m.AddMenu(thisMenu, func(menuItem *menu.MenuItem) {
@@ -158,12 +158,12 @@ func TestManager_ProcessClick_Checkbox(t *testing.T) {
 
 func TestManager_ProcessClick_RadioGroups(t *testing.T) {
 
-	radio1 := menu.X创建单选框菜单项("Radio1", false, nil, nil)
-	radio2 := menu.X创建单选框菜单项("Radio2", false, nil, nil)
-	radio3 := menu.X创建单选框菜单项("Radio3", false, nil, nil)
-	radio4 := menu.X创建单选框菜单项("Radio4", false, nil, nil)
-	radio5 := menu.X创建单选框菜单项("Radio5", false, nil, nil)
-	radio6 := menu.X创建单选框菜单项("Radio6", false, nil, nil)
+	radio1 := menu.Radio("Radio1", false, nil, nil)
+	radio2 := menu.Radio("Radio2", false, nil, nil)
+	radio3 := menu.Radio("Radio3", false, nil, nil)
+	radio4 := menu.Radio("Radio4", false, nil, nil)
+	radio5 := menu.Radio("Radio5", false, nil, nil)
+	radio6 := menu.Radio("Radio6", false, nil, nil)
 
 	radioGroupOne := &menu.Menu{
 		Items: []*menu.MenuItem{
@@ -271,10 +271,10 @@ func TestManager_ProcessClick_RadioGroups(t *testing.T) {
 			m := platformMenu.NewManager()
 
 			for item, value := range tt.startState {
-				item.X设置选中(value)
+				item.SetChecked(value)
 			}
 
-			tt.selected.X单击回调函数 = tt.click
+			tt.selected.Click = tt.click
 			for _, thisMenu := range tt.inputs {
 				thisMenu := thisMenu
 				m.AddMenu(thisMenu, func(menuItem *menu.MenuItem) {
@@ -286,7 +286,7 @@ func TestManager_ProcessClick_RadioGroups(t *testing.T) {
 
 			// 检查所有菜单中的项目状态是否正确
 			for item, expectedValue := range tt.expectedState {
-				require.Equal(t, expectedValue, item.X是否选中)
+				require.Equal(t, expectedValue, item.Checked)
 			}
 
 			if tt.click != nil {

@@ -10,9 +10,6 @@ import (
 type Middleware func(next http.Handler) http.Handler
 
 // ChainMiddleware 允许将多个中间件链接到一个中间件。
-
-// ff:
-// middleware:
 func ChainMiddleware(middleware ...Middleware) Middleware {
 	return func(h http.Handler) http.Handler {
 		for i := len(middleware) - 1; i >= 0; i-- {

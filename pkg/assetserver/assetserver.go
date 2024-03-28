@@ -8,9 +8,10 @@ import (
 	"strings"
 
 	"golang.org/x/net/html"
+	"html/template"
 
-	"github.com/888go/wails/pkg/options"
-	"github.com/888go/wails/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
 const (
@@ -49,13 +50,6 @@ type AssetServer struct {
 	assetServerWebView
 }
 
-
-// ff:
-// runtime:
-// logger:
-// servingFromDisk:
-// options:
-// bindingsJSON:
 func NewAssetServerMainPage(bindingsJSON string, options *options.App, servingFromDisk bool, logger Logger, runtime RuntimeAssets) (*AssetServer, error) {
 	assetOptions, err := BuildAssetServerConfig(options)
 	if err != nil {
@@ -64,13 +58,6 @@ func NewAssetServerMainPage(bindingsJSON string, options *options.App, servingFr
 	return NewAssetServer(bindingsJSON, assetOptions, servingFromDisk, logger, runtime)
 }
 
-
-// ff:
-// runtime:
-// logger:
-// servingFromDisk:
-// options:
-// bindingsJSON:
 func NewAssetServer(bindingsJSON string, options assetserver.Options, servingFromDisk bool, logger Logger, runtime RuntimeAssets) (*AssetServer, error) {
 	handler, err := NewAssetHandler(options, logger)
 	if err != nil {
@@ -80,17 +67,12 @@ func NewAssetServer(bindingsJSON string, options assetserver.Options, servingFro
 	return NewAssetServerWithHandler(handler, bindingsJSON, servingFromDisk, logger, runtime)
 }
 
-
-// ff:
-// runtime:
-// logger:
-// servingFromDisk:
-// bindingsJSON:
-// handler:
 func NewAssetServerWithHandler(handler http.Handler, bindingsJSON string, servingFromDisk bool, logger Logger, runtime RuntimeAssets) (*AssetServer, error) {
+
 	var buffer bytes.Buffer
 	if bindingsJSON != "" {
-		buffer.WriteString(`window.wailsbindings='` + bindingsJSON + `';` + "\n")
+		escapedBindingsJSON := template.JSEscapeString(bindingsJSON)
+		buffer.WriteString(`window.wailsbindings='` + escapedBindingsJSON + `';` + "\n")
 	}
 	buffer.Write(runtime.RuntimeDesktopJS())
 
@@ -109,17 +91,10 @@ func NewAssetServerWithHandler(handler http.Handler, bindingsJSON string, servin
 	return result, nil
 }
 
-
-// ff:
-// handler:
 func (d *AssetServer) UseRuntimeHandler(handler RuntimeHandler) {
 	d.runtimeHandler = handler
 }
 
-
-// ff:
-// script:
-// pluginName:
 func (d *AssetServer) AddPluginScript(pluginName string, script string) {
 	if d.pluginScripts == nil {
 		d.pluginScripts = make(map[string]string)
@@ -130,10 +105,6 @@ func (d *AssetServer) AddPluginScript(pluginName string, script string) {
 	d.pluginScripts[pluginScriptName] = script
 }
 
-
-// ff:
-// req:
-// rw:
 func (d *AssetServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	if isWebSocket(req) {
 		// WebSockets 不被 AssetServer 支持
@@ -183,7 +154,7 @@ func (d *AssetServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 
 		handler.ServeHTTP(recorder, req)
 
-		body := recorder.X请求体()
+		body := recorder.Body()
 		if body == nil {
 			// 已经流式传输了主体且未被记录，我们已经完成
 			return

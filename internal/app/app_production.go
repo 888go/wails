@@ -5,17 +5,15 @@ package app
 import (
 	"context"
 
-	"github.com/888go/wails/internal/binding"
-	"github.com/888go/wails/internal/frontend/desktop"
-	"github.com/888go/wails/internal/frontend/dispatcher"
-	"github.com/888go/wails/internal/frontend/runtime"
-	"github.com/888go/wails/internal/logger"
-	"github.com/888go/wails/internal/menumanager"
-	"github.com/888go/wails/pkg/options"
+	"github.com/wailsapp/wails/v2/internal/binding"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop"
+	"github.com/wailsapp/wails/v2/internal/frontend/dispatcher"
+	"github.com/wailsapp/wails/v2/internal/frontend/runtime"
+	"github.com/wailsapp/wails/v2/internal/logger"
+	"github.com/wailsapp/wails/v2/internal/menumanager"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
-
-// ff:
 func (a *App) Run() error {
 	err := a.frontend.Run(a.ctx)
 	a.frontend.RunMainLoop()
@@ -27,9 +25,6 @@ func (a *App) Run() error {
 }
 
 // CreateApp 创建应用！
-
-// ff:
-// appoptions:
 func CreateApp(appoptions *options.App) (*App, error) {
 	var err error
 
@@ -44,9 +39,9 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	ctx = context.WithValue(ctx, "devtoolsEnabled", devtoolsEnabled)
 
 	// Set up logger
-	myLogger := logger.New(appoptions.X日志记录器)
+	myLogger := logger.New(appoptions.Logger)
 	if IsDebug() {
-		myLogger.SetLogLevel(appoptions.X日志级别)
+		myLogger.SetLogLevel(appoptions.LogLevel)
 	} else {
 		myLogger.SetLogLevel(appoptions.LogLevelProduction)
 	}
@@ -63,8 +58,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 	menuManager := menumanager.NewManager()
 
 	// 处理应用程序菜单
-	if appoptions.X菜单 != nil {
-		err = menuManager.SetApplicationMenu(appoptions.X菜单)
+	if appoptions.Menu != nil {
+		err = menuManager.SetApplicationMenu(appoptions.Menu)
 		if err != nil {
 			return nil, err
 		}
@@ -72,10 +67,10 @@ func CreateApp(appoptions *options.App) (*App, error) {
 
 	// 创建绑定豁免 - 丑陋的解决方案。肯定有更优的方法
 	bindingExemptions := []interface{}{
-		appoptions.X启动前回调函数,
-		appoptions.X应用退出回调函数,
-		appoptions.DOM就绪回调函数,
-		appoptions.X应用关闭前回调函数,
+		appoptions.OnStartup,
+		appoptions.OnShutdown,
+		appoptions.OnDomReady,
+		appoptions.OnBeforeClose,
 	}
 	appBindings := binding.NewBindings(myLogger, appoptions.Bind, bindingExemptions, IsObfuscated(), appoptions.EnumBind)
 	eventHandler := runtime.NewEvents(myLogger)
@@ -97,8 +92,8 @@ func CreateApp(appoptions *options.App) (*App, error) {
 		frontend:         appFrontend,
 		logger:           myLogger,
 		menuManager:      menuManager,
-		startupCallback:  appoptions.X启动前回调函数,
-		shutdownCallback: appoptions.X应用退出回调函数,
+		startupCallback:  appoptions.OnStartup,
+		shutdownCallback: appoptions.OnShutdown,
 		debug:            debug,
 		devtoolsEnabled:  devtoolsEnabled,
 		options:          appoptions,

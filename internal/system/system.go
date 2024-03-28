@@ -4,9 +4,9 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/888go/wails/internal/shell"
-	"github.com/888go/wails/internal/system/operatingsystem"
-	"github.com/888go/wails/internal/system/packagemanager"
+	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
+	"github.com/wailsapp/wails/v2/internal/system/packagemanager"
 )
 
 var IsAppleSilicon bool
@@ -20,8 +20,6 @@ type Info struct {
 
 // GetInfo 扫描系统以获取操作系统详情、
 // 系统包管理器以及必需依赖项的状态。
-
-// ff:
 func GetInfo() (*Info, error) {
 	var result Info
 	err := result.discover()

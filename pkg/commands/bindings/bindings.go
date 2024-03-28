@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/888go/wails/internal/colour"
-	"github.com/888go/wails/internal/shell"
-	"github.com/888go/wails/pkg/commands/buildtags"
 	"github.com/samber/lo"
+	"github.com/wailsapp/wails/v2/internal/colour"
+	"github.com/wailsapp/wails/v2/internal/shell"
+	"github.com/wailsapp/wails/v2/pkg/commands/buildtags"
 )
 
 // 用于生成绑定的选项
@@ -26,9 +26,6 @@ type Options struct {
 }
 
 // GenerateBindings 为给定 Wails 项目目录生成绑定。如果未指定项目目录，则使用当前工作目录。
-
-// ff:
-// options:
 func GenerateBindings(options Options) (string, error) {
 	filename, _ := lo.Coalesce(options.Filename, "wailsbindings")
 	if runtime.GOOS == "windows" {
@@ -62,7 +59,7 @@ func GenerateBindings(options Options) (string, error) {
 
 	if runtime.GOOS == "darwin" {
 		// 删除隔离属性
-		stdout, stderr, err = shell.RunCommand(workingDirectory, "xattr", "-rc", filename)
+		stdout, stderr, err = shell.RunCommand(workingDirectory, "/usr/bin/xattr", "-rc", filename)
 		if err != nil {
 			return stdout, fmt.Errorf("%s\n%s\n%s", stdout, stderr, err)
 		}

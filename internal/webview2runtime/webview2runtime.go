@@ -24,9 +24,6 @@ type Info struct {
 
 // IsOlderThan 函数在已安装版本比给定所需版本旧时返回 true。
 // 如果出现错误，将返回错误信息。
-
-// ff:
-// requiredVersion:
 func (i *Info) IsOlderThan(requiredVersion string) (bool, error) {
 	var mod = syscall.NewLazyDLL("WebView2Loader.dll")
 	var CompareBrowserVersions = mod.NewProc("CompareBrowserVersions")
@@ -74,8 +71,6 @@ func downloadBootstrapper() (string, error) {
 // 运行时的最新版本。
 // 如果安装程序运行成功，则返回 true。
 // 如果发生错误，则返回错误。
-
-// ff:
 func InstallUsingEmbeddedBootstrapper() (bool, error) {
 	installer, err := WriteInstaller(os.TempDir())
 	if err != nil {
@@ -94,8 +89,6 @@ func InstallUsingEmbeddedBootstrapper() (bool, error) {
 // 运行时的最新版本。
 // 如果安装程序成功运行，则返回 true。
 // 如果出现错误，则返回错误。
-
-// ff:
 func InstallUsingBootstrapper() (bool, error) {
 
 	installer, err := downloadBootstrapper()
@@ -132,10 +125,6 @@ func runInstaller(installer string) (bool, error) {
 // Confirm 将向用户显示一条消息以及“确定”和“取消”按钮。
 // 如果用户选择了“确定”，则返回 true。
 // 如果出现错误，则返回错误。
-
-// ff:
-// title:
-// caption:
 func Confirm(caption string, title string) (bool, error) {
 	var flags uint = 0x00000001 // MB_OKCANCEL
 	result, err := MessageBox(caption, title, flags)
@@ -147,10 +136,6 @@ func Confirm(caption string, title string) (bool, error) {
 
 // Error 将错误消息发送给用户。
 // 如果发生错误，将返回一个错误。
-
-// ff:
-// title:
-// caption:
 func Error(caption string, title string) error {
 	var flags uint = 0x00000010 // MB_ICONERROR
 	_, err := MessageBox(caption, title, flags)
@@ -160,11 +145,6 @@ func Error(caption string, title string) error {
 // MessageBox 函数以给定的标题和提示信息向用户显示对话框。
 // 可以通过参数 Flags 自定义对话框样式。
 // 如果发生错误，将返回一个错误。
-
-// ff:
-// flags:
-// title:
-// caption:
 func MessageBox(caption string, title string, flags uint) (int, error) {
 	captionUTF16, err := syscall.UTF16PtrFromString(caption)
 	if err != nil {
@@ -184,8 +164,6 @@ func MessageBox(caption string, title string, flags uint) (int, error) {
 }
 
 // OpenInstallerDownloadWebpage 将会在 WebView2 下载页面上打开浏览器
-
-// ff:
 func OpenInstallerDownloadWebpage() error {
 	cmd := exec.Command("rundll32", "url.dll,FileProtocolHandler", "https://developer.microsoft.com/en-us/microsoft-edge/webview2/")
 	return cmd.Run()

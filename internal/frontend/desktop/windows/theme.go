@@ -3,12 +3,10 @@
 package windows
 
 import (
-	"github.com/888go/wails/internal/frontend/desktop/windows/win32"
-	"github.com/888go/wails/pkg/options/windows"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/win32"
+	"github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
-
-// ff:
 func (w *Window) UpdateTheme() {
 
 	// 如果主题没有变化，则不要重绘
@@ -27,20 +25,20 @@ func (w *Window) UpdateTheme() {
 
 	var isDarkMode bool
 	switch w.theme {
-	case windows.X常量_win主题_默认:
+	case windows.SystemDefault:
 		isDarkMode = win32.IsCurrentlyDarkMode()
-	case windows.X常量_win主题_暗黑:
+	case windows.Dark:
 		isDarkMode = true
-	case windows.X常量_win主题_浅色:
+	case windows.Light:
 		isDarkMode = false
 	}
 	win32.SetTheme(w.Handle(), isDarkMode)
 
 	// 自定义主题处理
-	winOptions := w.frontendOptions.Windows选项
+	winOptions := w.frontendOptions.Windows
 	var customTheme *windows.ThemeSettings
 	if winOptions != nil {
-		customTheme = winOptions.X自定义主题
+		customTheme = winOptions.CustomTheme
 	}
 	// Custom theme
 	if win32.SupportsCustomThemes() && customTheme != nil {

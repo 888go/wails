@@ -12,10 +12,6 @@ type Event struct {
 	Data   interface{}
 }
 
-
-// ff:
-// data:
-// sender:
 func NewEvent(sender Controller, data interface{}) *Event {
 	return &Event{Sender: sender, Data: data}
 }

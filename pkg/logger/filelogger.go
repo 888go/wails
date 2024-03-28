@@ -11,57 +11,57 @@ type FileLogger struct {
 }
 
 // NewFileLogger 创建一个新的 Logger。
-func X创建文件日志(文件路径 string) Logger {
+func NewFileLogger(filename string) Logger {
 	return &FileLogger{
-		filename: 文件路径,
+		filename: filename,
 	}
 }
 
 // Print 函数的工作方式类似于 Sprintf。
-func (l *FileLogger) X日志(消息 string) {
+func (l *FileLogger) Print(message string) {
 	f, err := os.OpenFile(l.filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0o644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	if _, err := f.WriteString(消息); err != nil {
+	if _, err := f.WriteString(message); err != nil {
 		f.Close()
 		log.Fatal(err)
 	}
 	f.Close()
 }
 
-func (l *FileLogger) X日志并换行(消息 string) {
-	l.X日志(消息 + "\n")
+func (l *FileLogger) Println(message string) {
+	l.Print(message + "\n")
 }
 
 // 以下是将该段Go语言代码注释翻译成中文：
 // 跟踪级别日志记录。其工作方式类似于Sprintf（格式化字符串函数）。
-func (l *FileLogger) X日志追踪(消息 string) {
-	l.X日志并换行("TRACE | " + 消息)
+func (l *FileLogger) Trace(message string) {
+	l.Println("TRACE | " + message)
 }
 
 // 调试级别日志记录。其工作方式类似于 Sprintf（格式化字符串并写入）。
-func (l *FileLogger) X日志调试(消息 string) {
-	l.X日志并换行("DEBUG | " + 消息)
+func (l *FileLogger) Debug(message string) {
+	l.Println("DEBUG | " + message)
 }
 
 // 信息级别日志记录。功能类似于 Sprintf。
-func (l *FileLogger) X日志信息(消息 string) {
-	l.X日志并换行("INFO  | " + 消息)
+func (l *FileLogger) Info(message string) {
+	l.Println("INFO  | " + message)
 }
 
 // 警告级别日志记录。其工作方式类似于 Sprintf（格式化字符串输出）。
-func (l *FileLogger) X日志警告(消息 string) {
-	l.X日志并换行("WARN  | " + 消息)
+func (l *FileLogger) Warning(message string) {
+	l.Println("WARN  | " + message)
 }
 
 // 错误级别日志记录。其工作方式类似于 Sprintf（格式化字符串并输出）。
-func (l *FileLogger) X日志错误(消息 string) {
-	l.X日志并换行("ERROR | " + 消息)
+func (l *FileLogger) Error(message string) {
+	l.Println("ERROR | " + message)
 }
 
 // Fatal级别日志记录。其工作方式类似于Sprintf。
-func (l *FileLogger) X日志致命(消息 string) {
-	l.X日志并换行("FATAL | " + 消息)
+func (l *FileLogger) Fatal(message string) {
+	l.Println("FATAL | " + message)
 	os.Exit(1)
 }

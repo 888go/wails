@@ -9,7 +9,7 @@ package winc
 import (
 	"fmt"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 type Panel struct {
@@ -17,9 +17,6 @@ type Panel struct {
 	layoutMng LayoutManager
 }
 
-
-// ff:
-// parent:
 func NewPanel(parent Controller) *Panel {
 	pa := new(Panel)
 
@@ -35,18 +32,10 @@ func NewPanel(parent Controller) *Panel {
 }
 
 // SetLayout 面板实现了 DockAllow 接口。
-
-// ff:
-// mng:
 func (pa *Panel) SetLayout(mng LayoutManager) {
 	pa.layoutMng = mng
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (pa *Panel) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_SIZE, w32.WM_PAINT:
@@ -69,9 +58,6 @@ type ErrorPanel struct {
 }
 
 // NewErrorPanel.
-
-// ff:
-// parent:
 func NewErrorPanel(parent Controller) *ErrorPanel {
 	f := new(ErrorPanel)
 	f.init(parent)
@@ -93,34 +79,20 @@ func (epa *ErrorPanel) init(parent Controller) {
 	RegMsgHandler(epa)
 }
 
-
-// ff:
-// margin:
 func (epa *ErrorPanel) SetMargin(margin int) {
 	epa.margin = margin
 }
 
-
-// ff:
-// v:
-// format:
 func (epa *ErrorPanel) Printf(format string, v ...interface{}) {
 	epa.SetText(fmt.Sprintf(format, v...))
 	epa.ShowAsError(false)
 }
 
-
-// ff:
-// v:
-// format:
 func (epa *ErrorPanel) Errorf(format string, v ...interface{}) {
 	epa.SetText(fmt.Sprintf(format, v...))
 	epa.ShowAsError(true)
 }
 
-
-// ff:
-// show:
 func (epa *ErrorPanel) ShowAsError(show bool) {
 	if show {
 		epa.pen = errorPanelPen
@@ -130,11 +102,6 @@ func (epa *ErrorPanel) ShowAsError(show bool) {
 	epa.Invalidate(true)
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (epa *ErrorPanel) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_ERASEBKGND:
@@ -162,9 +129,6 @@ type MultiPanel struct {
 	panels  []*Panel
 }
 
-
-// ff:
-// parent:
 func NewMultiPanel(parent Controller) *MultiPanel {
 	mpa := new(MultiPanel)
 
@@ -180,14 +144,9 @@ func NewMultiPanel(parent Controller) *MultiPanel {
 	return mpa
 }
 
-
-// ff:
 func (mpa *MultiPanel) Count() int { return len(mpa.panels) }
 
 // AddPanel 将面板添加到内部列表中，其中第一个面板可见，其他所有面板均隐藏。
-
-// ff:
-// panel:
 func (mpa *MultiPanel) AddPanel(panel *Panel) {
 	if len(mpa.panels) > 0 {
 		panel.Hide()
@@ -197,31 +156,19 @@ func (mpa *MultiPanel) AddPanel(panel *Panel) {
 }
 
 // ReplacePanel 用于替换面板，适用于屏幕上的控件刷新。
-
-// ff:
-// panel:
-// index:
 func (mpa *MultiPanel) ReplacePanel(index int, panel *Panel) {
 	mpa.panels[index] = panel
 }
 
 // DeletePanel 删除面板
-
-// ff:
-// index:
 func (mpa *MultiPanel) DeletePanel(index int) {
 	mpa.panels = append(mpa.panels[:index], mpa.panels[index+1:]...)
 }
 
-
-// ff:
 func (mpa *MultiPanel) Current() int {
 	return mpa.current
 }
 
-
-// ff:
-// index:
 func (mpa *MultiPanel) SetCurrent(index int) {
 	if index >= len(mpa.panels) {
 		panic("index greater than number of panels")
@@ -240,11 +187,6 @@ func (mpa *MultiPanel) SetCurrent(index int) {
 	mpa.current = index
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (mpa *MultiPanel) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	switch msg {
 	case w32.WM_SIZE:

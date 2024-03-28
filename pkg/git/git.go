@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/888go/wails/internal/shell"
+	"github.com/wailsapp/wails/v2/internal/shell"
 )
 
 func gitcommand() string {
@@ -18,26 +18,23 @@ func gitcommand() string {
 }
 
 // IsInstalled在给定平台下，如果已安装git则返回true
-func X是否已安装() bool {
+func IsInstalled() bool {
 	return shell.CommandExists(gitcommand())
 }
 
 // Email 尝试检索
-func X取邮件地址() (string, error) {
+func Email() (string, error) {
 	stdout, _, err := shell.RunCommand(".", gitcommand(), "config", "user.email")
 	return stdout, err
 }
 
 // Name 尝试检索
-func X取名称() (string, error) {
+func Name() (string, error) {
 	stdout, _, err := shell.RunCommand(".", gitcommand(), "config", "user.name")
 	name := template.JSEscapeString(strings.TrimSpace(stdout))
 	return name, err
 }
 
-
-// ff:
-// projectDir:
 func InitRepo(projectDir string) error {
 	_, _, err := shell.RunCommand(projectDir, gitcommand(), "init")
 	return err

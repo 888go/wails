@@ -4,8 +4,8 @@
 package system
 
 import (
-	"github.com/888go/wails/internal/system/operatingsystem"
-	"github.com/888go/wails/internal/system/packagemanager"
+	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
+	"github.com/wailsapp/wails/v2/internal/system/packagemanager"
 )
 
 func checkGCC() *packagemanager.Dependency {

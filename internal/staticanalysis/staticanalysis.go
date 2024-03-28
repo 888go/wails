@@ -14,15 +14,10 @@ type EmbedDetails struct {
 	All       bool
 }
 
-
-// ff:
 func (e *EmbedDetails) GetFullPath() string {
 	return filepath.Join(e.BaseDir, e.EmbedPath)
 }
 
-
-// ff:
-// sourcePath:
 func GetEmbedDetails(sourcePath string) ([]*EmbedDetails, error) {
 // 读取项目文件，并确定用于嵌入的目录
 // 返回一个目录列表
@@ -51,10 +46,6 @@ func GetEmbedDetails(sourcePath string) ([]*EmbedDetails, error) {
 	return result, nil
 }
 
-
-// ff:
-// baseDir:
-// file:
 func GetEmbedDetailsForFile(file *ast.File, baseDir string) []*EmbedDetails {
 	var result []*EmbedDetails
 	for _, comment := range file.Comments {

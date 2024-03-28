@@ -4,10 +4,10 @@ import (
 	"context"
 
 	"github.com/pkg/errors"
-	"github.com/888go/wails/internal/binding"
-	"github.com/888go/wails/internal/frontend"
-	"github.com/888go/wails/internal/logger"
-	"github.com/888go/wails/pkg/options"
+	"github.com/wailsapp/wails/v2/internal/binding"
+	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/logger"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
 type Dispatcher struct {
@@ -19,13 +19,6 @@ type Dispatcher struct {
 	errfmt     options.ErrorFormatter
 }
 
-
-// ff:
-// errfmt:
-// events:
-// bindings:
-// log:
-// ctx:
 func NewDispatcher(ctx context.Context, log *logger.Logger, bindings *binding.Bindings, events frontend.Events, errfmt options.ErrorFormatter) *Dispatcher {
 	return &Dispatcher{
 		log:        log,
@@ -37,10 +30,6 @@ func NewDispatcher(ctx context.Context, log *logger.Logger, bindings *binding.Bi
 	}
 }
 
-
-// ff:
-// sender:
-// message:
 func (d *Dispatcher) ProcessMessage(message string, sender frontend.Frontend) (string, error) {
 	if message == "" {
 		return "", errors.New("No message to process")

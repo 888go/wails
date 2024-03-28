@@ -1,0 +1,41 @@
+# # 下一步
+
+恭喜您成功生成了模板！
+## # 完成模板的后续步骤：
+
+1. 在`template.json`文件中填写所有字段。
+   - 确保`helpurl`有效至关重要，因为这是模板使用者寻求帮助时会被引导至的网址。
+2. 更新`README.md`文件。
+3. 编辑`wails.json`并确保所有字段无误，特别是：
+   - `wailsjsdir`：生成wailsjs模块的路径
+   - `frontend:install`：安装前端依赖项的命令
+   - `frontend:build`：构建前端的命令
+4. 删除任何`public`或`dist`目录。
+5. 删除此文件。
+## # 测试模板
+
+您可以使用以下命令来测试您的模板：
+
+`wails init -n test -t {{.TemplateDir}}`
+
+#
+## # 清单
+
+生成后，请执行以下测试：
+
+- 进入新项目目录并运行 `wails build`。 应在 `build/bin` 项目目录下生成一个可运行的二进制文件。
+- 运行 `wails dev`。这将编译您的应用并运行它。
+  - 您应能在 <http://localhost:34115/> 看到正在运行的应用程序。
+## # 发布模板
+
+您可以将模板发布到 Git 仓库，并按照以下方式使用：
+
+```
+wails init -name test -t https://your/git/url
+```
+
+例如：
+
+```
+wails init -name test -t https://github.com/leaanthony/testtemplate
+```

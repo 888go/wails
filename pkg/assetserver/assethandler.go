@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/888go/wails/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
 type Logger interface {
@@ -37,10 +37,6 @@ type assetHandler struct {
 	retryMissingFiles bool
 }
 
-
-// ff:
-// log:
-// options:
 func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, error) {
 	vfs := options.Assets
 	if vfs != nil {
@@ -48,13 +44,13 @@ func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, err
 			return nil, err
 		}
 
-		subDir, err := X查找文件路径(vfs, indexHTML)
+		subDir, err := FindPathToFile(vfs, indexHTML)
 		if err != nil {
 			if errors.Is(err, os.ErrNotExist) {
-				msg := "在你的Assets文件中找不到`index.html`。FS"
+				msg := "no `index.html` could be found in your Assets fs.FS"
 				if embedFs, isEmbedFs := vfs.(embed.FS); isEmbedFs {
 					rootFolder, _ := FindEmbedRootPath(embedFs)
-					msg += fmt.Sprintf(", 请确保嵌入的目录'%s'是正确的，并且包含您的资产", rootFolder)
+					msg += fmt.Sprintf(", please make sure the embedded directory '%s' is correct and contains your assets", rootFolder)
 				}
 
 				return nil, fmt.Errorf(msg)
@@ -82,10 +78,6 @@ func NewAssetHandler(options assetserver.Options, log Logger) (http.Handler, err
 	return result, nil
 }
 
-
-// ff:
-// req:
-// rw:
 func (d *assetHandler) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 	url := req.URL.Path
 	handler := d.handler
@@ -139,8 +131,8 @@ func (d *assetHandler) serveFSFile(rw http.ResponseWriter, req *http.Request, fi
 	isDirectoryPath := url == "" || url[len(url)-1] == '/'
 	if statInfo.IsDir() {
 		if !isDirectoryPath {
-			// 如果URL末尾通常没有斜杠，正常情况下应当执行http重定向，但在当前WebKit WebViews（macOS/Linux）环境下无法正常工作。
-			// 因此，我们将这种情况视为一个特定错误进行处理
+// 如果URL末尾通常没有斜杠，正常情况下应当执行http重定向，但在当前WebKit WebViews（macOS/Linux）环境下无法正常工作。
+// 因此，我们将这种情况视为一个特定错误进行处理
 			return fmt.Errorf("a directory has been requested without a trailing slash, please add a trailing slash to your request")
 		}
 
@@ -169,7 +161,7 @@ func (d *assetHandler) serveFSFile(rw http.ResponseWriter, req *http.Request, fi
 			return err
 		}
 
-		// 即使在 io.ReadSeeker 的情况下 http.ServeContent 会执行自定义 MimeType 探测，我们也进行自定义 MimeType 探测操作。我们希望在这两种情况下都具有一致的行为。
+// 即使在 io.ReadSeeker 的情况下 http.ServeContent 会执行自定义 MimeType 探测，我们也进行自定义 MimeType 探测操作。我们希望在这两种情况下都具有一致的行为。
 		if contentType := GetMimetype(filename, buf[:n]); contentType != "" {
 			rw.Header().Set(HeaderContentType, contentType)
 		}

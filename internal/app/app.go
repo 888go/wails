@@ -3,11 +3,11 @@ package app
 import (
 	"context"
 
-	"github.com/888go/wails/internal/frontend"
-	"github.com/888go/wails/internal/logger"
-	"github.com/888go/wails/internal/menumanager"
-	"github.com/888go/wails/pkg/menu"
-	"github.com/888go/wails/pkg/options"
+	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/logger"
+	"github.com/wailsapp/wails/v2/internal/menumanager"
+	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/options"
 )
 
 // App 定义了一个Wails应用程序结构
@@ -31,8 +31,6 @@ type App struct {
 }
 
 // 关闭应用程序
-
-// ff:
 func (a *App) Shutdown() {
 	if a.frontend != nil {
 		a.frontend.Quit()
@@ -40,9 +38,6 @@ func (a *App) Shutdown() {
 }
 
 // 设置应用菜单 将设置应用程序的菜单
-
-// ff:
-// menu:
 func (a *App) SetApplicationMenu(menu *menu.Menu) {
 	if a.frontend != nil {
 		a.frontend.MenuSetApplicationMenu(menu)

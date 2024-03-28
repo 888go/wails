@@ -8,7 +8,7 @@
 package winc
 
 import (
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 func init() {

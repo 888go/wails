@@ -10,7 +10,7 @@ package winc
 import (
 	"syscall"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 const (
@@ -31,11 +31,6 @@ type Font struct {
 	style     byte
 }
 
-
-// ff:
-// style:
-// pointSize:
-// family:
 func NewFont(family string, pointSize int, style byte) *Font {
 	if style > FontBold|FontItalic|FontUnderline|FontStrikeOut {
 		panic("Invalid font style")
@@ -91,52 +86,36 @@ func (fnt *Font) createForDPI(dpi int) w32.HFONT {
 	return w32.CreateFontIndirect(&lf)
 }
 
-
-// ff:
 func (fnt *Font) GetHFONT() w32.HFONT {
 	return fnt.hfont
 }
 
-
-// ff:
 func (fnt *Font) Bold() bool {
 	return fnt.style&FontBold > 0
 }
 
-
-// ff:
 func (fnt *Font) Dispose() {
 	if fnt.hfont != 0 {
 		w32.DeleteObject(w32.HGDIOBJ(fnt.hfont))
 	}
 }
 
-
-// ff:
 func (fnt *Font) Family() string {
 	return fnt.family
 }
 
-
-// ff:
 func (fnt *Font) Italic() bool {
 	return fnt.style&FontItalic > 0
 }
 
-
-// ff:
 func (fnt *Font) StrikeOut() bool {
 	return fnt.style&FontStrikeOut > 0
 }
 
-
-// ff:
 func (fnt *Font) Underline() bool {
 	return fnt.style&FontUnderline > 0
 }
 
-
-// ff:
 func (fnt *Font) Style() byte {
 	return fnt.style
 }

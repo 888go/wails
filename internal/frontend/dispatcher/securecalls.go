@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/888go/wails/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/frontend"
 )
 
 type secureCallMessage struct {

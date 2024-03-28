@@ -13,10 +13,7 @@ import (
 )
 
 // NewRequest 创建一个新的 WebViewRequest 用于 Chromium。这个方法必须在主线程中调用！
-
-// Request:
-// fn:
-func X创建请求对象(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
+func NewRequest(env *edge.ICoreWebView2Environment, args *edge.ICoreWebView2WebResourceRequestedEventArgs, invokeSync func(fn func())) (Request, error) {
 	req, err := args.GetRequest()
 	if err != nil {
 		return nil, fmt.Errorf("GetRequest failed: %s", err)
@@ -81,25 +78,23 @@ type request struct {
 	invokeSync func(fn func())
 }
 
-
-// ff:
 func (r *request) URL() (string, error) {
 	return r.url, r.urlErr
 }
 
-func (r *request) X请求方法() (string, error) {
+func (r *request) Method() (string, error) {
 	return r.method, r.methodErr
 }
 
-func (r *request) X请求头() (http.Header, error) {
+func (r *request) Header() (http.Header, error) {
 	return r.header, r.headerErr
 }
 
-func (r *request) X请求体() (io.ReadCloser, error) {
+func (r *request) Body() (io.ReadCloser, error) {
 	return r.body, r.bodyErr
 }
 
-func (r *request) X请求响应() ResponseWriter {
+func (r *request) Response() ResponseWriter {
 	if r.rw != nil {
 		return r.rw
 	}
@@ -108,7 +103,7 @@ func (r *request) X请求响应() ResponseWriter {
 	return r.rw
 }
 
-func (r *request) X关闭() error {
+func (r *request) Close() error {
 	var errs []error
 	if r.body != nil {
 		if err := r.body.Close(); err != nil {
@@ -117,7 +112,7 @@ func (r *request) X关闭() error {
 		r.body = nil
 	}
 
-	if err := r.X请求响应().Finish(); err != nil {
+	if err := r.Response().Finish(); err != nil {
 		errs = append(errs, err)
 	}
 
@@ -151,9 +146,6 @@ type iStreamReleaseCloser struct {
 	closed bool
 }
 
-
-// ff:
-// p:
 func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	if i.closed {
 		return 0, io.ErrClosedPipe
@@ -161,8 +153,6 @@ func (i *iStreamReleaseCloser) Read(p []byte) (int, error) {
 	return i.stream.Read(p)
 }
 
-
-// ff:
 func (i *iStreamReleaseCloser) Close() error {
 	if i.closed {
 		return nil

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 
-	"github.com/888go/wails/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/frontend"
 )
 
 type EventMessage struct {

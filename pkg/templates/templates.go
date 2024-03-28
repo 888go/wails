@@ -15,10 +15,10 @@ import (
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/pkg/errors"
 
-	"github.com/888go/wails/internal/fs"
-	"github.com/888go/wails/pkg/clilogger"
 	"github.com/leaanthony/debme"
 	"github.com/leaanthony/gosod"
+	"github.com/wailsapp/wails/v2/internal/fs"
+	"github.com/wailsapp/wails/v2/pkg/clilogger"
 )
 
 //go:embed all:templates
@@ -98,8 +98,6 @@ func parseTemplate(template gofs.FS) (Template, error) {
 }
 
 // List 返回可用模板的列表
-
-// ff:
 func List() ([]Template, error) {
 	// 如果缓存未加载，则加载它
 	if templateCache == nil {
@@ -168,9 +166,6 @@ func loadTemplateCache() error {
 }
 
 // 安装给定的模板。如果模板为远程，则返回 true。
-
-// ff:
-// options:
 func Install(options *Options) (bool, *Template, error) {
 	// Get cwd
 	cwd, err := os.Getwd()
@@ -246,8 +241,8 @@ func Install(options *Options) (bool, *Template, error) {
 	// 忽略 template.json 文件
 	installer.IgnoreFile("template.json")
 
-	// 设置数据
-	// 我们使用目录名称作为二进制文件名，如同Go的风格
+// 设置数据
+// 我们使用目录名称作为二进制文件名，如同Go的风格
 	BinaryName := filepath.Base(options.TargetDir)
 	NPMProjectName := strings.ToLower(strings.ReplaceAll(BinaryName, " ", ""))
 	localWailsDirectory := fs.RelativePath("../../../../../..")

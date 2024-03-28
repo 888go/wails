@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/888go/wails/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu"
 )
 
 // MenuItemMap 保存了 menuIDs 和菜单项之间的映射关系
@@ -18,8 +18,6 @@ type MenuItemMap struct {
 	menuIDCounterMutex sync.Mutex
 }
 
-
-// ff:
 func NewMenuItemMap() *MenuItemMap {
 	result := &MenuItemMap{
 		idToMenuItemMap: make(map[string]*menu.MenuItem),
@@ -29,9 +27,6 @@ func NewMenuItemMap() *MenuItemMap {
 	return result
 }
 
-
-// ff:
-// menu:
 func (m *MenuItemMap) AddMenu(menu *menu.Menu) {
 	if menu == nil {
 		return
@@ -41,8 +36,6 @@ func (m *MenuItemMap) AddMenu(menu *menu.Menu) {
 	}
 }
 
-
-// ff:
 func (m *MenuItemMap) Dump() {
 	println("idToMenuItemMap:")
 	for key, value := range m.idToMenuItemMap {
@@ -64,8 +57,8 @@ func (m *MenuItemMap) generateMenuID() string {
 }
 
 func (m *MenuItemMap) processMenuItem(item *menu.MenuItem) {
-	if item.X子菜单 != nil {
-		for _, submenuitem := range item.X子菜单.Items {
+	if item.SubMenu != nil {
+		for _, submenuitem := range item.SubMenu.Items {
 			m.processMenuItem(submenuitem)
 		}
 	}

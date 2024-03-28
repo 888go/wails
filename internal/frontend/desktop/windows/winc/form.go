@@ -10,7 +10,7 @@ package winc
 import (
 	"unsafe"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 type LayoutManager interface {
@@ -30,11 +30,6 @@ type Form struct {
 	previousWindowPlacement w32.WINDOWPLACEMENT
 }
 
-
-// ff:
-// dwStyle:
-// exStyle:
-// parent:
 func NewCustomForm(parent Controller, exStyle int, dwStyle uint) *Form {
 	fm := new(Form)
 
@@ -68,9 +63,6 @@ func NewCustomForm(parent Controller, exStyle int, dwStyle uint) *Form {
 	return fm
 }
 
-
-// ff:
-// parent:
 func NewForm(parent Controller) *Form {
 	fm := new(Form)
 
@@ -95,24 +87,17 @@ func NewForm(parent Controller) *Form {
 	return fm
 }
 
-
-// ff:
-// mng:
 func (fm *Form) SetLayout(mng LayoutManager) {
 	fm.layoutMng = mng
 }
 
 // UpdateLayout 刷新布局
-
-// ff:
 func (fm *Form) UpdateLayout() {
 	if fm.layoutMng != nil {
 		fm.layoutMng.Update()
 	}
 }
 
-
-// ff:
 func (fm *Form) NewMenu() *Menu {
 	hMenu := w32.CreateMenu()
 	if hMenu == 0 {
@@ -125,8 +110,6 @@ func (fm *Form) NewMenu() *Menu {
 	return m
 }
 
-
-// ff:
 func (fm *Form) DisableIcon() {
 	windowInfo := getWindowInfo(fm.hwnd)
 	frameless := windowInfo.IsPopup()
@@ -144,20 +127,14 @@ func (fm *Form) DisableIcon() {
 	)
 }
 
-
-// ff:
 func (fm *Form) Maximise() {
 	w32.ShowWindow(fm.hwnd, w32.SW_MAXIMIZE)
 }
 
-
-// ff:
 func (fm *Form) Minimise() {
 	w32.ShowWindow(fm.hwnd, w32.SW_MINIMIZE)
 }
 
-
-// ff:
 func (fm *Form) Restore() {
 	// SC_RESTORE 是 WM_SYSCOMMAND 消息的一个参数，用于在应用窗口最小化时恢复应用
 	const SC_RESTORE = 0xF120
@@ -172,8 +149,6 @@ func (fm *Form) Restore() {
 }
 
 // Public methods
-
-// ff:
 func (fm *Form) Center() {
 
 	windowInfo := getWindowInfo(fm.hwnd)
@@ -196,8 +171,6 @@ func (fm *Form) Center() {
 	w32.SetWindowPos(fm.hwnd, w32.HWND_TOP, int(windowX), int(windowY), int(winWidth), int(winHeight), w32.SWP_NOSIZE)
 }
 
-
-// ff:
 func (fm *Form) Fullscreen() {
 	if fm.isFullscreen {
 		return
@@ -228,8 +201,6 @@ func (fm *Form) Fullscreen() {
 		w32.SWP_NOOWNERZORDER|w32.SWP_FRAMECHANGED)
 }
 
-
-// ff:
 func (fm *Form) UnFullscreen() {
 	if !fm.isFullscreen {
 		return
@@ -242,17 +213,11 @@ func (fm *Form) UnFullscreen() {
 		w32.SWP_NOMOVE|w32.SWP_NOSIZE|w32.SWP_NOZORDER|w32.SWP_NOOWNERZORDER|w32.SWP_FRAMECHANGED)
 }
 
-
-// ff:
 func (fm *Form) IsFullScreen() bool {
 	return fm.isFullscreen
 }
 
 // IconType: 1 - 大图标；0 - 小图标
-
-// ff:
-// icon:
-// iconType:
 func (fm *Form) SetIcon(iconType int, icon *Icon) {
 	if iconType > 1 {
 		panic("IconType is invalid")
@@ -260,37 +225,22 @@ func (fm *Form) SetIcon(iconType int, icon *Icon) {
 	w32.SendMessage(fm.hwnd, w32.WM_SETICON, uintptr(iconType), uintptr(icon.Handle()))
 }
 
-
-// ff:
-// b:
 func (fm *Form) EnableMaxButton(b bool) {
 	SetStyle(fm.hwnd, b, w32.WS_MAXIMIZEBOX)
 }
 
-
-// ff:
-// b:
 func (fm *Form) EnableMinButton(b bool) {
 	SetStyle(fm.hwnd, b, w32.WS_MINIMIZEBOX)
 }
 
-
-// ff:
-// b:
 func (fm *Form) EnableSizable(b bool) {
 	SetStyle(fm.hwnd, b, w32.WS_THICKFRAME)
 }
 
-
-// ff:
-// _:
 func (fm *Form) EnableDragMove(_ bool) {
 	//fm.isDragMove = b
 }
 
-
-// ff:
-// b:
 func (fm *Form) EnableTopMost(b bool) {
 	tag := w32.HWND_NOTOPMOST
 	if b {
@@ -299,11 +249,6 @@ func (fm *Form) EnableTopMost(b bool) {
 	w32.SetWindowPos(fm.hwnd, tag, 0, 0, 0, 0, w32.SWP_NOMOVE|w32.SWP_NOSIZE)
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (fm *Form) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 
 	switch msg {

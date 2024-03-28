@@ -6,8 +6,6 @@ import (
 	"os/exec"
 )
 
-
-// ff:
 func (f *Frontend) ClipboardGetText() (string, error) {
 	pasteCmd := exec.Command("pbpaste")
 	out, err := pasteCmd.Output()
@@ -17,9 +15,6 @@ func (f *Frontend) ClipboardGetText() (string, error) {
 	return string(out), nil
 }
 
-
-// ff:
-// text:
 func (f *Frontend) ClipboardSetText(text string) error {
 	copyCmd := exec.Command("pbcopy")
 	in, err := copyCmd.StdinPipe()

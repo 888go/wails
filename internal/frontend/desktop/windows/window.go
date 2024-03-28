@@ -7,14 +7,14 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/win32"
-	"github.com/888go/wails/internal/system/operatingsystem"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/win32"
+	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
-	"github.com/888go/wails/pkg/menu"
-	"github.com/888go/wails/pkg/options"
-	winoptions "github.com/888go/wails/pkg/options/windows"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	winoptions "github.com/wailsapp/wails/v2/pkg/options/windows"
 )
 
 type Window struct {
@@ -39,38 +39,32 @@ type Window struct {
 	chromium *edge.Chromium
 }
 
-
-// ff:
-// chromium:
-// versionInfo:
-// appoptions:
-// parent:
 func NewWindow(parent winc.Controller, appoptions *options.App, versionInfo *operatingsystem.WindowsVersionInfo, chromium *edge.Chromium) *Window {
-	windowsOptions := appoptions.Windows选项
+	windowsOptions := appoptions.Windows
 
 	result := &Window{
 		frontendOptions: appoptions,
-		minHeight:       appoptions.X最小高度,
-		minWidth:        appoptions.X最小宽度,
-		maxHeight:       appoptions.X最大高度,
-		maxWidth:        appoptions.X最大宽度,
+		minHeight:       appoptions.MinHeight,
+		minWidth:        appoptions.MinWidth,
+		maxHeight:       appoptions.MaxHeight,
+		maxWidth:        appoptions.MaxWidth,
 		versionInfo:     versionInfo,
 		isActive:        true,
 		themeChanged:    true,
 		chromium:        chromium,
 
-		framelessWithDecorations: appoptions.X无边框 && (windowsOptions == nil || !windowsOptions.X禁用无边框窗口装饰),
+		framelessWithDecorations: appoptions.Frameless && (windowsOptions == nil || !windowsOptions.DisableFramelessWindowDecorations),
 	}
 	result.SetIsForm(true)
 
 	var exStyle int
 	if windowsOptions != nil {
 		exStyle = w32.WS_EX_CONTROLPARENT | w32.WS_EX_APPWINDOW
-		if windowsOptions.X开启窗口半透明 {
+		if windowsOptions.WindowIsTranslucent {
 			exStyle |= w32.WS_EX_NOREDIRECTIONBITMAP
 		}
 	}
-	if appoptions.X始终置顶 {
+	if appoptions.AlwaysOnTop {
 		exStyle |= w32.WS_EX_TOPMOST
 	}
 
@@ -83,7 +77,7 @@ func NewWindow(parent winc.Controller, appoptions *options.App, versionInfo *ope
 	result.SetParent(parent)
 
 	loadIcon := true
-	if windowsOptions != nil && windowsOptions.X禁用窗口图标 == true {
+	if windowsOptions != nil && windowsOptions.DisableWindowIcon == true {
 		loadIcon = false
 	}
 	if loadIcon {
@@ -92,39 +86,39 @@ func NewWindow(parent winc.Controller, appoptions *options.App, versionInfo *ope
 		}
 	}
 
-	if appoptions.X背景颜色 != nil {
-		win32.SetBackgroundColour(result.Handle(), appoptions.X背景颜色.R, appoptions.X背景颜色.G, appoptions.X背景颜色.B)
+	if appoptions.BackgroundColour != nil {
+		win32.SetBackgroundColour(result.Handle(), appoptions.BackgroundColour.R, appoptions.BackgroundColour.G, appoptions.BackgroundColour.B)
 	}
 
 	if windowsOptions != nil {
-		result.theme = windowsOptions.X主题
+		result.theme = windowsOptions.Theme
 	} else {
-		result.theme = winoptions.X常量_win主题_默认
+		result.theme = winoptions.SystemDefault
 	}
 
-	result.SetSize(appoptions.X宽度, appoptions.X高度)
-	result.SetText(appoptions.X标题)
-	result.EnableSizable(!appoptions.X禁用调整大小)
-	if !appoptions.X全屏 {
-		result.EnableMaxButton(!appoptions.X禁用调整大小)
-		result.SetMinSize(appoptions.X最小宽度, appoptions.X最小高度)
-		result.SetMaxSize(appoptions.X最大宽度, appoptions.X最大高度)
+	result.SetSize(appoptions.Width, appoptions.Height)
+	result.SetText(appoptions.Title)
+	result.EnableSizable(!appoptions.DisableResize)
+	if !appoptions.Fullscreen {
+		result.EnableMaxButton(!appoptions.DisableResize)
+		result.SetMinSize(appoptions.MinWidth, appoptions.MinHeight)
+		result.SetMaxSize(appoptions.MaxWidth, appoptions.MaxHeight)
 	}
 
 	result.UpdateTheme()
 
 	if windowsOptions != nil {
-		result.OnSuspend = windowsOptions.X低功耗模式时回调函数
-		result.OnResume = windowsOptions.X低功耗模式恢复时回调函数
-		if windowsOptions.X开启窗口半透明 {
+		result.OnSuspend = windowsOptions.OnSuspend
+		result.OnResume = windowsOptions.OnResume
+		if windowsOptions.WindowIsTranslucent {
 			if !win32.SupportsBackdropTypes() {
 				result.SetTranslucentBackground()
 			} else {
-				win32.EnableTranslucency(result.Handle(), win32.BackdropType(windowsOptions.X背景半透明类型))
+				win32.EnableTranslucency(result.Handle(), win32.BackdropType(windowsOptions.BackdropType))
 			}
 		}
 
-		if windowsOptions.X禁用窗口图标 {
+		if windowsOptions.DisableWindowIcon {
 			result.DisableIcon()
 		}
 	}
@@ -134,15 +128,13 @@ func NewWindow(parent winc.Controller, appoptions *options.App, versionInfo *ope
 
 	result.SetFont(winc.DefaultFont)
 
-	if appoptions.X菜单 != nil {
-		result.SetApplicationMenu(appoptions.X菜单)
+	if appoptions.Menu != nil {
+		result.SetApplicationMenu(appoptions.Menu)
 	}
 
 	return result
 }
 
-
-// ff:
 func (w *Window) Fullscreen() {
 	if w.Form.IsFullScreen() {
 		return
@@ -155,8 +147,6 @@ func (w *Window) Fullscreen() {
 	w.Form.Fullscreen()
 }
 
-
-// ff:
 func (w *Window) UnFullscreen() {
 	if !w.Form.IsFullScreen() {
 		return
@@ -169,8 +159,6 @@ func (w *Window) UnFullscreen() {
 	w.SetMaxSize(w.maxWidth, w.maxHeight)
 }
 
-
-// ff:
 func (w *Window) Restore() {
 	if w.Form.IsFullScreen() {
 		w.UnFullscreen()
@@ -179,37 +167,22 @@ func (w *Window) Restore() {
 	}
 }
 
-
-// ff:
-// minHeight:
-// minWidth:
 func (w *Window) SetMinSize(minWidth int, minHeight int) {
 	w.minWidth = minWidth
 	w.minHeight = minHeight
 	w.Form.SetMinSize(minWidth, minHeight)
 }
 
-
-// ff:
-// maxHeight:
-// maxWidth:
 func (w *Window) SetMaxSize(maxWidth int, maxHeight int) {
 	w.maxWidth = maxWidth
 	w.maxHeight = maxHeight
 	w.Form.SetMaxSize(maxWidth, maxHeight)
 }
 
-
-// ff:
 func (w *Window) IsVisible() bool {
 	return win32.IsVisible(w.Handle())
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (w *Window) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 
 	switch msg {
@@ -258,7 +231,7 @@ func (w *Window) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 			w32.SWP_NOZORDER|w32.SWP_NOACTIVATE)
 	}
 
-	if w.frontendOptions.X无边框 {
+	if w.frontendOptions.Frameless {
 		switch msg {
 		case w32.WM_ACTIVATE:
 // 如果我们想要一个无边框的窗口，但保留默认的框架装饰样式，则扩展DWM客户端区域。
@@ -290,8 +263,8 @@ func (w *Window) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 					if monitor != 0 && w32.GetMonitorInfo(monitor, &monitorInfo) {
 						*rgrc = monitorInfo.RcWork
 
-						maxWidth := w.frontendOptions.X最大宽度
-						maxHeight := w.frontendOptions.X最大高度
+						maxWidth := w.frontendOptions.MaxWidth
+						maxHeight := w.frontendOptions.MaxHeight
 						if maxWidth > 0 || maxHeight > 0 {
 							var dpiX, dpiY uint
 							w32.GetDPIForMonitor(monitor, w32.MDT_EFFECTIVE_DPI, &dpiX, &dpiY)
@@ -323,33 +296,22 @@ func (w *Window) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	return w.Form.WndProc(msg, wparam, lparam)
 }
 
-
-// ff:
 func (w *Window) IsMaximised() bool {
 	return win32.IsWindowMaximised(w.Handle())
 }
 
-
-// ff:
 func (w *Window) IsMinimised() bool {
 	return win32.IsWindowMinimised(w.Handle())
 }
 
-
-// ff:
 func (w *Window) IsNormal() bool {
 	return win32.IsWindowNormal(w.Handle())
 }
 
-
-// ff:
 func (w *Window) IsFullScreen() bool {
 	return win32.IsWindowFullScreen(w.Handle())
 }
 
-
-// ff:
-// theme:
 func (w *Window) SetTheme(theme winoptions.Theme) {
 	w.theme = theme
 	w.themeChanged = true

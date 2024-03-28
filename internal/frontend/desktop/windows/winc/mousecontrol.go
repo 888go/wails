@@ -7,7 +7,7 @@
 package winc
 
 import (
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 // MouseControl 用于创建自定义控件，这些控件需要鼠标悬停或鼠标离开事件。
@@ -16,12 +16,6 @@ type MouseControl struct {
 	isMouseLeft bool
 }
 
-
-// ff:
-// style:
-// exStyle:
-// className:
-// parent:
 func (cc *MouseControl) Init(parent Controller, className string, exStyle, style uint) {
 	RegClassOnlyOnce(className)
 	cc.hwnd = CreateWindow(className, parent, exStyle, style)
@@ -32,11 +26,6 @@ func (cc *MouseControl) Init(parent Controller, className string, exStyle, style
 	cc.SetFont(DefaultFont)
 }
 
-
-// ff:
-// lparam:
-// wparam:
-// msg:
 func (cc *MouseControl) WndProc(msg uint32, wparam, lparam uintptr) uintptr {
 	sender := GetMsgHandler(cc.hwnd)
 	switch msg {

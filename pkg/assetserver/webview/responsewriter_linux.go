@@ -33,16 +33,13 @@ type responseWriter struct {
 	wErr error
 }
 
-func (rw *responseWriter) X请求头() http.Header {
+func (rw *responseWriter) Header() http.Header {
 	if rw.header == nil {
 		rw.header = http.Header{}
 	}
 	return rw.header
 }
 
-
-// ff:
-// buf:
 func (rw *responseWriter) Write(buf []byte) (int, error) {
 	if rw.finished {
 		return 0, errResponseFinished
@@ -55,9 +52,6 @@ func (rw *responseWriter) Write(buf []byte) (int, error) {
 	return rw.w.Write(buf)
 }
 
-
-// ff:
-// code:
 func (rw *responseWriter) WriteHeader(code int) {
 	if rw.wroteHeader || rw.finished {
 		return
@@ -65,7 +59,7 @@ func (rw *responseWriter) WriteHeader(code int) {
 	rw.wroteHeader = true
 
 	contentLength := int64(-1)
-	if sLen := rw.X请求头().Get(HeaderContentLength); sLen != "" {
+	if sLen := rw.Header().Get(HeaderContentLength); sLen != "" {
 		if pLen, _ := strconv.ParseInt(sLen, 10, 64); pLen > 0 {
 			contentLength = pLen
 		}
@@ -83,14 +77,12 @@ func (rw *responseWriter) WriteHeader(code int) {
 	stream := C.g_unix_input_stream_new(C.int(rFD), C.gboolean(1))
 	defer C.g_object_unref(C.gpointer(stream))
 
-	if err := webkit_uri_scheme_request_finish(rw.req, code, rw.X请求头(), stream, contentLength); err != nil {
+	if err := webkit_uri_scheme_request_finish(rw.req, code, rw.Header(), stream, contentLength); err != nil {
 		rw.finishWithError(http.StatusInternalServerError, fmt.Errorf("unable to finish request: %s", err))
 		return
 	}
 }
 
-
-// ff:
 func (rw *responseWriter) Finish() error {
 	if !rw.wroteHeader {
 		rw.WriteHeader(http.StatusNotImplemented)
@@ -124,7 +116,7 @@ type nopCloser struct {
 	io.Writer
 }
 
-func (nopCloser) X关闭() error { return nil }
+func (nopCloser) Close() error { return nil }
 
 func pipe() (r int, w *os.File, err error) {
 	var p [2]int

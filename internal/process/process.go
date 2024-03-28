@@ -13,10 +13,6 @@ type Process struct {
 }
 
 // NewProcess 创建一个新的 process 结构体
-
-// ff:
-// args:
-// cmd:
 func NewProcess(cmd string, args ...string) *Process {
 	result := &Process{
 		cmd:         exec.Command(cmd, args...),
@@ -28,9 +24,6 @@ func NewProcess(cmd string, args ...string) *Process {
 }
 
 // Start the process
-
-// ff:
-// exitCodeChannel:
 func (p *Process) Start(exitCodeChannel chan int) error {
 	err := p.cmd.Start()
 	if err != nil {
@@ -52,8 +45,6 @@ func (p *Process) Start(exitCodeChannel chan int) error {
 }
 
 // Kill the process
-
-// ff:
 func (p *Process) Kill() error {
 	if !p.Running {
 		return nil
@@ -74,15 +65,10 @@ func (p *Process) Kill() error {
 }
 
 // PID 返回进程的PID（进程标识符）
-
-// ff:
 func (p *Process) PID() int {
 	return p.cmd.Process.Pid
 }
 
-
-// ff:
-// dir:
 func (p *Process) SetDir(dir string) {
 	p.cmd.Dir = dir
 }

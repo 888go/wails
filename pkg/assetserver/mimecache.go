@@ -12,8 +12,8 @@ var (
 	mimeCache = map[string]string{}
 	mimeMutex sync.Mutex
 
-	// 这是Go语言标准库包"mime"中定义的，根据扩展名列出的内置MIME类型列表。
-	// Go语言标准库还会考虑从诸如'/etc/apache2/mime.types'等etc文件中加载MIME类型定义，但我们希望在所有平台上保持一致的行为，并且不依赖于任何外部文件。
+// 这是Go语言标准库包"mime"中定义的，根据扩展名列出的内置MIME类型列表。
+// Go语言标准库还会考虑从诸如'/etc/apache2/mime.types'等etc文件中加载MIME类型定义，但我们希望在所有平台上保持一致的行为，并且不依赖于任何外部文件。
 	mimeTypesByExt = map[string]string{
 		".avif": "image/avif",
 		".css":  "text/css; charset=utf-8",
@@ -34,9 +34,6 @@ var (
 	}
 )
 
-// ff:取文件Mimetype
-// data:字节集值
-// filename:文件名
 func GetMimetype(filename string, data []byte) string {
 	mimeMutex.Lock()
 	defer mimeMutex.Unlock()

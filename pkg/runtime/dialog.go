@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/888go/wails/internal/frontend"
-	"github.com/888go/wails/internal/fs"
+	"github.com/wailsapp/wails/v2/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/fs"
 )
 
 // FileFilter 定义了对话框的文件过滤器
@@ -30,51 +30,51 @@ const (
 type MessageDialogOptions = frontend.MessageDialogOptions
 
 // OpenDirectoryDialog 提示用户选择一个目录
-func X对话框选择目录(上下文 context.Context, 选项 OpenDialogOptions) (string, error) {
-	appFrontend := getFrontend(上下文)
-	if 选项.DefaultDirectory != "" {
-		if !fs.DirExists(选项.DefaultDirectory) {
-			return "", fmt.Errorf("default directory '%s' does not exist", 选项.DefaultDirectory)
+func OpenDirectoryDialog(ctx context.Context, dialogOptions OpenDialogOptions) (string, error) {
+	appFrontend := getFrontend(ctx)
+	if dialogOptions.DefaultDirectory != "" {
+		if !fs.DirExists(dialogOptions.DefaultDirectory) {
+			return "", fmt.Errorf("default directory '%s' does not exist", dialogOptions.DefaultDirectory)
 		}
 	}
-	return appFrontend.OpenDirectoryDialog(选项)
+	return appFrontend.OpenDirectoryDialog(dialogOptions)
 }
 
 // OpenFileDialog 提示用户选择一个文件
-func X对话框选择文件(上下文 context.Context, 选项 OpenDialogOptions) (string, error) {
-	appFrontend := getFrontend(上下文)
-	if 选项.DefaultDirectory != "" {
-		if !fs.DirExists(选项.DefaultDirectory) {
-			return "", fmt.Errorf("default directory '%s' does not exist", 选项.DefaultDirectory)
+func OpenFileDialog(ctx context.Context, dialogOptions OpenDialogOptions) (string, error) {
+	appFrontend := getFrontend(ctx)
+	if dialogOptions.DefaultDirectory != "" {
+		if !fs.DirExists(dialogOptions.DefaultDirectory) {
+			return "", fmt.Errorf("default directory '%s' does not exist", dialogOptions.DefaultDirectory)
 		}
 	}
-	return appFrontend.OpenFileDialog(选项)
+	return appFrontend.OpenFileDialog(dialogOptions)
 }
 
 // OpenMultipleFilesDialog 提示用户选择一个或多个文件
-func X对话框多选文件(上下文 context.Context, 选项 OpenDialogOptions) ([]string, error) {
-	appFrontend := getFrontend(上下文)
-	if 选项.DefaultDirectory != "" {
-		if !fs.DirExists(选项.DefaultDirectory) {
-			return nil, fmt.Errorf("default directory '%s' does not exist", 选项.DefaultDirectory)
+func OpenMultipleFilesDialog(ctx context.Context, dialogOptions OpenDialogOptions) ([]string, error) {
+	appFrontend := getFrontend(ctx)
+	if dialogOptions.DefaultDirectory != "" {
+		if !fs.DirExists(dialogOptions.DefaultDirectory) {
+			return nil, fmt.Errorf("default directory '%s' does not exist", dialogOptions.DefaultDirectory)
 		}
 	}
-	return appFrontend.OpenMultipleFilesDialog(选项)
+	return appFrontend.OpenMultipleFilesDialog(dialogOptions)
 }
 
 // SaveFileDialog 弹出文件选择对话框，提示用户选择一个文件
-func X对话框保存文件(上下文 context.Context, 选项 SaveDialogOptions) (string, error) {
-	appFrontend := getFrontend(上下文)
-	if 选项.DefaultDirectory != "" {
-		if !fs.DirExists(选项.DefaultDirectory) {
-			return "", fmt.Errorf("default directory '%s' does not exist", 选项.DefaultDirectory)
+func SaveFileDialog(ctx context.Context, dialogOptions SaveDialogOptions) (string, error) {
+	appFrontend := getFrontend(ctx)
+	if dialogOptions.DefaultDirectory != "" {
+		if !fs.DirExists(dialogOptions.DefaultDirectory) {
+			return "", fmt.Errorf("default directory '%s' does not exist", dialogOptions.DefaultDirectory)
 		}
 	}
-	return appFrontend.SaveFileDialog(选项)
+	return appFrontend.SaveFileDialog(dialogOptions)
 }
 
 // MessageDialog 向用户展示一条消息对话框
-func X对话框弹出消息(上下文 context.Context, 选项 MessageDialogOptions) (string, error) {
-	appFrontend := getFrontend(上下文)
-	return appFrontend.MessageDialog(选项)
+func MessageDialog(ctx context.Context, dialogOptions MessageDialogOptions) (string, error) {
+	appFrontend := getFrontend(ctx)
+	return appFrontend.MessageDialog(dialogOptions)
 }

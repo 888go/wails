@@ -13,7 +13,7 @@ import (
 	"path/filepath"
 	"syscall"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
 func knownFolderPath(id w32.CSIDL) (string, error) {
@@ -26,29 +26,19 @@ func knownFolderPath(id w32.CSIDL) (string, error) {
 	return syscall.UTF16ToString(buf[0:]), nil
 }
 
-
-// ff:
 func AppDataPath() (string, error) {
 	return knownFolderPath(w32.CSIDL_APPDATA)
 }
 
-
-// ff:
 func CommonAppDataPath() (string, error) {
 	return knownFolderPath(w32.CSIDL_COMMON_APPDATA)
 }
 
-
-// ff:
 func LocalAppDataPath() (string, error) {
 	return knownFolderPath(w32.CSIDL_LOCAL_APPDATA)
 }
 
 // EnsureAppDataPath 使用 AppDataPath 确保本地设置和数据库的存储空间。
-
-// ff:
-// product:
-// company:
 func EnsureAppDataPath(company, product string) (string, error) {
 	path, err := AppDataPath()
 	if err != nil {
@@ -65,8 +55,6 @@ func EnsureAppDataPath(company, product string) (string, error) {
 	return p, nil
 }
 
-
-// ff:
 func DriveNames() ([]string, error) {
 	bufLen := w32.GetLogicalDriveStrings(0, nil)
 	if bufLen == 0 {

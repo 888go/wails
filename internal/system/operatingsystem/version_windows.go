@@ -15,17 +15,10 @@ type WindowsVersionInfo struct {
 	DisplayVersion string
 }
 
-
-// ff:
-// buildNumber:
-// minor:
-// major:
 func (w *WindowsVersionInfo) IsWindowsVersionAtLeast(major, minor, buildNumber int) bool {
 	return w.Major >= major && w.Minor >= minor && w.Build >= buildNumber
 }
 
-
-// ff:
 func GetWindowsVersionInfo() (*WindowsVersionInfo, error) {
 	key, err := registry.OpenKey(registry.LOCAL_MACHINE, `SOFTWARE\Microsoft\Windows NT\CurrentVersion`, registry.QUERY_VALUE)
 	if err != nil {

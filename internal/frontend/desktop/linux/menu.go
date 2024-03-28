@@ -32,7 +32,7 @@ void addAccelerator(GtkWidget* menuItem, GtkAccelGroup* group, guint key, GdkMod
 }
 */
 import "C"
-import "github.com/888go/wails/pkg/menu"
+import "github.com/wailsapp/wails/v2/pkg/menu"
 import "unsafe"
 
 var menuIdCounter int
@@ -44,22 +44,14 @@ var gtkRadioMenuCache map[*menu.MenuItem][]*C.GtkWidget
 var gtkSignalHandlers map[*C.GtkWidget]C.gulong
 var gtkSignalToMenuItem map[*C.GtkWidget]*menu.MenuItem
 
-
-// ff:
-// menu:
 func (f *Frontend) MenuSetApplicationMenu(menu *menu.Menu) {
 	f.mainWindow.SetApplicationMenu(menu)
 }
 
-
-// ff:
 func (f *Frontend) MenuUpdateApplicationMenu() {
 	f.mainWindow.SetApplicationMenu(f.mainWindow.applicationMenu)
 }
 
-
-// ff:
-// inmenu:
 func (w *Window) SetApplicationMenu(inmenu *menu.Menu) {
 	if inmenu == nil {
 		return

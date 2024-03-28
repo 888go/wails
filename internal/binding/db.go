@@ -41,11 +41,6 @@ func newDB() *DB {
 
 // GetMethodFromStore 根据给定的包名/结构体名/方法名返回对应的方法
 // 如果其中任何一个不存在，则返回 nil
-
-// ff:
-// methodName:
-// structName:
-// packageName:
 func (d *DB) GetMethodFromStore(packageName string, structName string, methodName string) *BoundMethod {
 	// 在处理过程中锁定数据库，并在返回时解锁
 	d.lock.RLock()
@@ -64,9 +59,6 @@ func (d *DB) GetMethodFromStore(packageName string, structName string, methodNam
 
 // GetMethod 返回给定的完整方法名所对应的方法
 // 其中，qualifiedMethodName 的格式为 "包名.结构名.方法名"
-
-// ff:
-// qualifiedMethodName:
 func (d *DB) GetMethod(qualifiedMethodName string) *BoundMethod {
 	// 在处理过程中锁定数据库，并在返回时解锁
 	d.lock.RLock()
@@ -76,9 +68,6 @@ func (d *DB) GetMethod(qualifiedMethodName string) *BoundMethod {
 }
 
 // GetObfuscatedMethod 根据给定ID返回方法
-
-// ff:
-// id:
 func (d *DB) GetObfuscatedMethod(id int) *BoundMethod {
 	// 在处理过程中锁定数据库，并在返回时解锁
 	d.lock.RLock()
@@ -92,12 +81,6 @@ func (d *DB) GetObfuscatedMethod(id int) *BoundMethod {
 }
 
 // AddMethod 将给定的方法定义通过指定的完全限定路径添加到db中：packageName.structName.methodName
-
-// ff:
-// methodDefinition:
-// methodName:
-// structName:
-// packageName:
 func (d *DB) AddMethod(packageName string, structName string, methodName string, methodDefinition *BoundMethod) {
 	// 在处理过程中锁定数据库，并在返回时解锁
 	d.lock.Lock()
@@ -129,8 +112,6 @@ func (d *DB) AddMethod(packageName string, structName string, methodName string,
 }
 
 // ToJSON 将方法映射转换为 JSON
-
-// ff:
 func (d *DB) ToJSON() (string, error) {
 	// 在处理过程中锁定数据库，并在返回时解锁
 	d.lock.RLock()
@@ -146,8 +127,6 @@ func (d *DB) ToJSON() (string, error) {
 }
 
 // UpdateObfuscatedCallMap 设置安全调用映射
-
-// ff:
 func (d *DB) UpdateObfuscatedCallMap() map[string]int {
 	mappings := make(map[string]int)
 

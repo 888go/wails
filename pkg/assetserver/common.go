@@ -8,26 +8,23 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/888go/wails/pkg/options"
-	"github.com/888go/wails/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 	"golang.org/x/net/html"
 )
 
-
-// ff:
-// appOptions:
 func BuildAssetServerConfig(appOptions *options.App) (assetserver.Options, error) {
 	var options assetserver.Options
 	if opt := appOptions.AssetServer; opt != nil {
-		if appOptions.Assets弃用 != nil || appOptions.AssetsHandler弃用 != nil {
+		if appOptions.Assets != nil || appOptions.AssetsHandler != nil {
 			panic("It's not possible to use the deprecated Assets and AssetsHandler options and the new AssetServer option at the same time. Please migrate all your Assets options to the AssetServer option.")
 		}
 
 		options = *opt
 	} else {
 		options = assetserver.Options{
-			Assets:  appOptions.Assets弃用,
-			Handler: appOptions.AssetsHandler弃用,
+			Assets:  appOptions.Assets,
+			Handler: appOptions.AssetsHandler,
 		}
 	}
 

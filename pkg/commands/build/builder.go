@@ -1,8 +1,8 @@
 package build
 
 import (
-	"github.com/888go/wails/internal/project"
-	"github.com/888go/wails/pkg/clilogger"
+	"github.com/wailsapp/wails/v2/internal/project"
+	"github.com/wailsapp/wails/v2/pkg/clilogger"
 )
 
 // Builder 定义了一个构建器，该构建器能够构建 Wails 应用程序

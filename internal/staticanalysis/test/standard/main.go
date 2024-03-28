@@ -4,8 +4,8 @@ import (
 	"embed"
 
 	"github.com/wailsapp/wails/v2"
-	"github.com/888go/wails/pkg/options"
-	"github.com/888go/wails/pkg/options/assetserver"
+	"github.com/wailsapp/wails/v2/pkg/options"
+	"github.com/wailsapp/wails/v2/pkg/options/assetserver"
 )
 
 //go:embed all:frontend/dist
@@ -17,14 +17,14 @@ func main() {
 
 	// 使用选项创建应用程序
 	err := wails.Run(&options.App{
-		X标题:  "staticanalysis",
-		X宽度:  1024,
-		X高度: 768,
+		Title:  "staticanalysis",
+		Width:  1024,
+		Height: 768,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
-		X背景颜色: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
-		X启动前回调函数:        app.startup,
+		BackgroundColour: &options.RGBA{R: 27, G: 38, B: 54, A: 1},
+		OnStartup:        app.startup,
 		Bind: []interface{}{
 			app,
 		},

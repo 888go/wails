@@ -5,7 +5,7 @@ package win32
 import (
 	"syscall"
 
-	"github.com/888go/wails/internal/system/operatingsystem"
+	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
 )
 
 type HRESULT int32
@@ -50,11 +50,6 @@ var (
 
 var windowsVersion, _ = operatingsystem.GetWindowsVersionInfo()
 
-
-// ff:
-// buildNumber:
-// minor:
-// major:
 func IsWindowsVersionAtLeast(major, minor, buildNumber int) bool {
 	return windowsVersion.Major >= major &&
 		windowsVersion.Minor >= minor &&

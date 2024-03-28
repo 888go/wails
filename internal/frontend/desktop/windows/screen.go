@@ -9,14 +9,10 @@ import (
 	"unsafe"
 
 	"github.com/pkg/errors"
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc/w32"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc/w32"
 )
 
-
-// ff:
-// second:
-// first:
 func MonitorsEqual(first w32.MONITORINFO, second w32.MONITORINFO) bool {
 // 检查确保所有字段都相同。
 // 一个更简洁的方法是检查设备的身份。但我没找到使用win32 API实现该功能的方法。
@@ -31,9 +27,6 @@ func MonitorsEqual(first w32.MONITORINFO, second w32.MONITORINFO) bool {
 		first.RcWork.Left == second.RcWork.Left
 }
 
-
-// ff:
-// hMonitor:
 func GetMonitorInfo(hMonitor w32.HMONITOR) (*w32.MONITORINFO, error) {
 // 该段代码改编自 winc.utils.getMonitorInfo，待办：将其添加至 win32 库中
 // 参考文档：
@@ -49,12 +42,6 @@ func GetMonitorInfo(hMonitor w32.HMONITOR) (*w32.MONITORINFO, error) {
 	return &info, nil
 }
 
-
-// ff:
-// screenContainer:
-// lprcMonitor:
-// hdcMonitor:
-// hMonitor:
 func EnumProc(hMonitor w32.HMONITOR, hdcMonitor w32.HDC, lprcMonitor *w32.RECT, screenContainer *ScreenContainer) uintptr {
 	// 该代码段改编自 StackOverflow 网站上的回答：https://stackoverflow.com/a/23492886/4188138
 
@@ -123,9 +110,6 @@ type ScreenContainer struct {
 	mainWinHandle w32.HWND
 }
 
-
-// ff:
-// mainWinHandle:
 func GetAllScreens(mainWinHandle w32.HWND) ([]Screen, error) {
 	// TODO：通过在Windows与运行时之间建立合适的数据共享机制，修复容器共享的临时解决方案
 	monitorContainer := ScreenContainer{mainWinHandle: mainWinHandle}

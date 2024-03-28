@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	"github.com/samber/lo"
-	"github.com/888go/wails/internal/frontend"
+	"github.com/wailsapp/wails/v2/internal/frontend"
 )
 
 type Logger interface {
@@ -28,11 +28,6 @@ type Events struct {
 	notifyLock sync.RWMutex
 }
 
-
-// ff:
-// data:
-// name:
-// sender:
 func (e *Events) Notify(sender frontend.Frontend, name string, data ...interface{}) {
 	e.notifyBackend(name, data...)
 	for _, thisFrontend := range e.frontend {
@@ -43,35 +38,18 @@ func (e *Events) Notify(sender frontend.Frontend, name string, data ...interface
 	}
 }
 
-
-// ff:
-// callback:
-// eventName:
 func (e *Events) On(eventName string, callback func(...interface{})) func() {
 	return e.registerListener(eventName, callback, -1)
 }
 
-
-// ff:
-// counter:
-// callback:
-// eventName:
 func (e *Events) OnMultiple(eventName string, callback func(...interface{}), counter int) func() {
 	return e.registerListener(eventName, callback, counter)
 }
 
-
-// ff:
-// callback:
-// eventName:
 func (e *Events) Once(eventName string, callback func(...interface{})) func() {
 	return e.registerListener(eventName, callback, 1)
 }
 
-
-// ff:
-// data:
-// eventName:
 func (e *Events) Emit(eventName string, data ...interface{}) {
 	e.notifyBackend(eventName, data...)
 	for _, thisFrontend := range e.frontend {
@@ -79,15 +57,10 @@ func (e *Events) Emit(eventName string, data ...interface{}) {
 	}
 }
 
-
-// ff:
-// eventName:
 func (e *Events) Off(eventName string) {
 	e.unRegisterListener(eventName)
 }
 
-
-// ff:
 func (e *Events) OffAll() {
 	e.notifyLock.Lock()
 	for eventName := range e.listeners {
@@ -97,9 +70,6 @@ func (e *Events) OffAll() {
 }
 
 // NewEvents 创建一个新的日志子系统
-
-// ff:
-// log:
 func NewEvents(log Logger) *Events {
 	result := &Events{
 		log:       log,
@@ -192,9 +162,6 @@ func (e *Events) notifyBackend(eventName string, data ...interface{}) {
 	}
 }
 
-
-// ff:
-// appFrontend:
 func (e *Events) AddFrontend(appFrontend frontend.Frontend) {
 	e.frontend = append(e.frontend, appFrontend)
 }

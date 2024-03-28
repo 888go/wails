@@ -20,8 +20,8 @@ func TestMergeDefaultsWH(t *testing.T) {
 		{
 			name: "Basic width and height",
 			appoptions: &App{
-				X宽度:  800,
-				X高度: 600,
+				Width:  800,
+				Height: 600,
 			},
 			wantWidth:  800,
 			wantHeight: 600,
@@ -29,10 +29,10 @@ func TestMergeDefaultsWH(t *testing.T) {
 		{
 			name: "With MinWidth and MinHeight",
 			appoptions: &App{
-				X宽度:     200,
-				X最小宽度:  800,
-				X高度:    100,
-				X最小高度: 600,
+				Width:     200,
+				MinWidth:  800,
+				Height:    100,
+				MinHeight: 600,
 			},
 			wantWidth:  800,
 			wantHeight: 600,
@@ -40,10 +40,10 @@ func TestMergeDefaultsWH(t *testing.T) {
 		{
 			name: "With MaxWidth and MaxHeight",
 			appoptions: &App{
-				X宽度:     900,
-				X最大宽度:  800,
-				X高度:    700,
-				X最大高度: 600,
+				Width:     900,
+				MaxWidth:  800,
+				Height:    700,
+				MaxHeight: 600,
 			},
 			wantWidth:  800,
 			wantHeight: 600,
@@ -51,10 +51,10 @@ func TestMergeDefaultsWH(t *testing.T) {
 		{
 			name: "With MinWidth more than MaxWidth",
 			appoptions: &App{
-				X宽度:    900,
-				X最小宽度: 900,
-				X最大宽度: 800,
-				X高度:   600,
+				Width:    900,
+				MinWidth: 900,
+				MaxWidth: 800,
+				Height:   600,
 			},
 			wantWidth:  800,
 			wantHeight: 600,
@@ -62,10 +62,10 @@ func TestMergeDefaultsWH(t *testing.T) {
 		{
 			name: "With MinHeight more than MaxHeight",
 			appoptions: &App{
-				X宽度:     800,
-				X高度:    700,
-				X最小高度: 900,
-				X最大高度: 600,
+				Width:     800,
+				Height:    700,
+				MinHeight: 900,
+				MaxHeight: 600,
 			},
 			wantWidth:  800,
 			wantHeight: 600,
@@ -74,11 +74,11 @@ func TestMergeDefaultsWH(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			MergeDefaults(tt.appoptions)
-			if tt.appoptions.X宽度 != tt.wantWidth {
-				t.Errorf("MergeDefaults().Width =%v, want %v", tt.appoptions.X宽度, tt.wantWidth)
+			if tt.appoptions.Width != tt.wantWidth {
+				t.Errorf("MergeDefaults().Width =%v, want %v", tt.appoptions.Width, tt.wantWidth)
 			}
-			if tt.appoptions.X高度 != tt.wantHeight {
-				t.Errorf("MergeDefaults().Height =%v, want %v", tt.appoptions.X高度, tt.wantHeight)
+			if tt.appoptions.Height != tt.wantHeight {
+				t.Errorf("MergeDefaults().Height =%v, want %v", tt.appoptions.Height, tt.wantHeight)
 			}
 		})
 	}

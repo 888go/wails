@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/888go/wails/internal/frontend/desktop/windows/winc"
+	"github.com/wailsapp/wails/v2/internal/frontend/desktop/windows/winc"
 )
 
 const (
@@ -83,10 +83,6 @@ type MONITORINFO struct {
 	DwFlags   uint32
 }
 
-
-// ff:
-// extend:
-// hwnd:
 func ExtendFrameIntoClientArea(hwnd uintptr, extend bool) {
 // -1: 添加默认窗口边框样式（如Windows 11的Aero阴影和圆角等）
 //     如果窗口是透明或半透明，也会显示标题栏按钮，但这些按钮无法正常工作。
@@ -101,17 +97,11 @@ func ExtendFrameIntoClientArea(hwnd uintptr, extend bool) {
 	}
 }
 
-
-// ff:
-// hwnd:
 func IsVisible(hwnd uintptr) bool {
 	ret, _, _ := procIsWindowVisible.Call(hwnd)
 	return ret != 0
 }
 
-
-// ff:
-// hwnd:
 func IsWindowFullScreen(hwnd uintptr) bool {
 	wRect := GetWindowRect(hwnd)
 	m := MonitorFromWindow(hwnd, MONITOR_DEFAULTTOPRIMARY)
@@ -126,63 +116,36 @@ func IsWindowFullScreen(hwnd uintptr) bool {
 		wRect.Bottom == mi.RcMonitor.Bottom
 }
 
-
-// ff:
-// hwnd:
 func IsWindowMaximised(hwnd uintptr) bool {
 	style := uint32(getWindowLong(hwnd, GWL_STYLE))
 	return style&WS_MAXIMIZE != 0
 }
-
-// ff:
-// hwnd:
 func IsWindowMinimised(hwnd uintptr) bool {
 	style := uint32(getWindowLong(hwnd, GWL_STYLE))
 	return style&WS_MINIMIZE != 0
 }
 
-
-// ff:
-// hwnd:
 func RestoreWindow(hwnd uintptr) {
 	showWindow(hwnd, SW_RESTORE)
 }
 
-
-// ff:
-// hwnd:
 func ShowWindow(hwnd uintptr) {
 	showWindow(hwnd, SW_SHOW)
 }
 
-
-// ff:
-// hwnd:
 func ShowWindowMaximised(hwnd uintptr) {
 	showWindow(hwnd, SW_MAXIMIZE)
 }
-
-// ff:
-// hwnd:
 func ShowWindowMinimised(hwnd uintptr) {
 	showWindow(hwnd, SW_MINIMIZE)
 }
 
-
-// ff:
-// b:
-// g:
-// r:
-// hwnd:
 func SetBackgroundColour(hwnd uintptr, r, g, b uint8) {
 	col := winc.RGB(r, g, b)
 	hbrush, _, _ := procCreateSolidBrush.Call(uintptr(col))
 	setClassLongPtr(hwnd, GCLP_HBRBACKGROUND, hbrush)
 }
 
-
-// ff:
-// hwnd:
 func IsWindowNormal(hwnd uintptr) bool {
 	return !IsWindowMaximised(hwnd) && !IsWindowMinimised(hwnd) && !IsWindowFullScreen(hwnd)
 }
@@ -235,9 +198,6 @@ func showWindow(hwnd uintptr, cmdshow int) bool {
 	return ret != 0
 }
 
-
-// ff:
-// hwnd:
 func GetWindowRect(hwnd uintptr) *RECT {
 	var rect RECT
 	procGetWindowRect.Call(
@@ -247,10 +207,6 @@ func GetWindowRect(hwnd uintptr) *RECT {
 	return &rect
 }
 
-
-// ff:
-// dwFlags:
-// hwnd:
 func MonitorFromWindow(hwnd uintptr, dwFlags uint32) HMONITOR {
 	ret, _, _ := procMonitorFromWindow.Call(
 		hwnd,
@@ -259,10 +215,6 @@ func MonitorFromWindow(hwnd uintptr, dwFlags uint32) HMONITOR {
 	return HMONITOR(ret)
 }
 
-
-// ff:
-// lmpi:
-// hMonitor:
 func GetMonitorInfo(hMonitor HMONITOR, lmpi *MONITORINFO) bool {
 	ret, _, _ := procGetMonitorInfo.Call(
 		uintptr(hMonitor),

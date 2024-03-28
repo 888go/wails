@@ -7,7 +7,7 @@ import (
 	"syscall"
 	"unsafe"
 
-	"github.com/888go/wails/internal/system/operatingsystem"
+	"github.com/wailsapp/wails/v2/internal/system/operatingsystem"
 	"golang.org/x/sys/windows"
 )
 
@@ -394,9 +394,6 @@ const (
 	CS_HREDRAW = 0x0002
 )
 
-
-// ff:
-// msg:
 func WMMessageToString(msg uintptr) string {
 	// 将Windows消息转换为字符串
 	switch msg {
@@ -805,11 +802,6 @@ func WMMessageToString(msg uintptr) string {
 
 var windowsVersion, _ = operatingsystem.GetWindowsVersionInfo()
 
-
-// ff:
-// buildNumber:
-// minor:
-// major:
 func IsWindowsVersionAtLeast(major, minor, buildNumber int) bool {
 	return windowsVersion.Major >= major &&
 		windowsVersion.Minor >= minor &&
@@ -818,28 +810,16 @@ func IsWindowsVersionAtLeast(major, minor, buildNumber int) bool {
 
 type WindowProc func(hwnd HWND, msg uint32, wparam, lparam uintptr) uintptr
 
-
-// ff:
-// value:
 func GetModuleHandle(value uintptr) uintptr {
 	result, _, _ := procGetModuleHandle.Call(value)
 	return result
 }
 
-
-// ff:
-// msg:
 func GetMessage(msg *MSG) uintptr {
 	rt, _, _ := procGetMessageW.Call(uintptr(unsafe.Pointer(msg)), 0, 0, 0)
 	return rt
 }
 
-
-// ff:
-// lParam:
-// wParam:
-// msg:
-// hwnd:
 func PostMessage(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	ret, _, _ := procPostMessage.Call(
 		uintptr(hwnd),
@@ -850,50 +830,30 @@ func PostMessage(hwnd HWND, msg uint32, wParam, lParam uintptr) uintptr {
 	return ret
 }
 
-
-// ff:
-// nid:
-// cmd:
 func ShellNotifyIcon(cmd uintptr, nid *NOTIFYICONDATA) bool {
 	ret, _, _ := procShellNotifyIcon.Call(cmd, uintptr(unsafe.Pointer(nid)))
 	return ret == 1
 }
 
-
-// ff:
-// msg:
-// hwnd:
 func IsDialogMessage(hwnd HWND, msg *MSG) uintptr {
 	ret, _, _ := procIsDialogMessage.Call(uintptr(hwnd), uintptr(unsafe.Pointer(msg)))
 	return ret
 }
 
-
-// ff:
-// msg:
 func TranslateMessage(msg *MSG) uintptr {
 	ret, _, _ := procTranslateMessage.Call(uintptr(unsafe.Pointer(msg)))
 	return ret
 }
 
-
-// ff:
-// msg:
 func DispatchMessage(msg *MSG) uintptr {
 	ret, _, _ := procDispatchMessage.Call(uintptr(unsafe.Pointer(msg)))
 	return ret
 }
 
-
-// ff:
-// exitCode:
 func PostQuitMessage(exitCode int32) {
 	procPostQuitMessage.Call(uintptr(exitCode))
 }
 
-
-// ff:
-// input:
 func LoHiWords(input uint32) (uint16, uint16) {
 	return uint16(input & 0xffff), uint16(input >> 16 & 0xffff)
 }

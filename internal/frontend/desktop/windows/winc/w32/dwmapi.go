@@ -10,12 +10,6 @@ var (
 	procDwmSetWindowAttribute = moddwmapi.NewProc("DwmSetWindowAttribute")
 )
 
-
-// ff:
-// cbAttribute:
-// pvAttribute:
-// dwAttribute:
-// hwnd:
 func DwmSetWindowAttribute(hwnd HWND, dwAttribute DWMWINDOWATTRIBUTE, pvAttribute LPCVOID, cbAttribute uint32) HRESULT {
 	ret, _, _ := procDwmSetWindowAttribute.Call(
 		hwnd,

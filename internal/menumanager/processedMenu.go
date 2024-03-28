@@ -3,8 +3,8 @@ package menumanager
 import (
 	"encoding/json"
 
-	"github.com/888go/wails/pkg/menu"
-	"github.com/888go/wails/pkg/menu/keys"
+	"github.com/wailsapp/wails/v2/pkg/menu"
+	"github.com/wailsapp/wails/v2/pkg/menu/keys"
 )
 
 type ProcessedMenuItem struct {
@@ -47,10 +47,6 @@ type ProcessedMenuItem struct {
 	*/
 }
 
-
-// ff:
-// menuItem:
-// menuItemMap:
 func NewProcessedMenuItem(menuItemMap *MenuItemMap, menuItem *menu.MenuItem) *ProcessedMenuItem {
 	ID := menuItemMap.menuItemToIDMap[menuItem]
 
@@ -66,13 +62,13 @@ func NewProcessedMenuItem(menuItemMap *MenuItemMap, menuItem *menu.MenuItem) *Pr
 
 	result := &ProcessedMenuItem{
 		ID:    ID,
-		Label: menuItem.X显示名称,
+		Label: menuItem.Label,
 		// 角色:             menuItem.Role,
-		Accelerator: menuItem.X快捷键,
-		Type:        menuItem.X常量_菜单项类型,
-		Disabled:    menuItem.X是否禁用,
-		Hidden:      menuItem.X是否隐藏,
-		Checked:     menuItem.X是否选中,
+		Accelerator: menuItem.Accelerator,
+		Type:        menuItem.Type,
+		Disabled:    menuItem.Disabled,
+		Hidden:      menuItem.Hidden,
+		Checked:     menuItem.Checked,
 		SubMenu:     nil,
 // 背景颜色:             menuItem的背景颜色,
 // 字体大小:         menuItem的字体大小,
@@ -84,8 +80,8 @@ func NewProcessedMenuItem(menuItemMap *MenuItemMap, menuItem *menu.MenuItem) *Pr
 // 样式化标签:      styledLabel
 	}
 
-	if menuItem.X子菜单 != nil {
-		result.SubMenu = NewProcessedMenu(menuItemMap, menuItem.X子菜单)
+	if menuItem.SubMenu != nil {
+		result.SubMenu = NewProcessedMenu(menuItemMap, menuItem.SubMenu)
 	}
 
 	return result
@@ -95,10 +91,6 @@ type ProcessedMenu struct {
 	Items []*ProcessedMenuItem
 }
 
-
-// ff:
-// menu:
-// menuItemMap:
 func NewProcessedMenu(menuItemMap *MenuItemMap, menu *menu.Menu) *ProcessedMenu {
 	result := &ProcessedMenu{}
 	if menu != nil {
@@ -124,10 +116,6 @@ type RadioGroup struct {
 	Length  int
 }
 
-
-// ff:
-// menu:
-// menuItemMap:
 func NewWailsMenu(menuItemMap *MenuItemMap, menu *menu.Menu) *WailsMenu {
 	result := &WailsMenu{}
 
@@ -140,8 +128,6 @@ func NewWailsMenu(menuItemMap *MenuItemMap, menu *menu.Menu) *WailsMenu {
 	return result
 }
 
-
-// ff:
 func (w *WailsMenu) AsJSON() (string, error) {
 	menuAsJSON, err := json.Marshal(w)
 	if err != nil {
@@ -164,7 +150,7 @@ func (w *WailsMenu) processMenuItem(item *ProcessedMenuItem) {
 	switch item.Type {
 
 	// 我们需要递归子菜单
-	case menu.X常量_菜单项类型_子菜单:
+	case menu.SubmenuType:
 
 		// 结束当前任何无线电组，因为它们不会向下传递到子菜单
 		w.finaliseRadioGroup()
@@ -173,7 +159,7 @@ func (w *WailsMenu) processMenuItem(item *ProcessedMenuItem) {
 		for _, subitem := range item.SubMenu.Items {
 			w.processMenuItem(subitem)
 		}
-	case menu.X常量_菜单项类型_单选框:
+	case menu.RadioType:
 		// 将项目添加到无线电组
 		w.currentRadioGroup = append(w.currentRadioGroup, item.ID)
 	default:

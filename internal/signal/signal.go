@@ -14,9 +14,6 @@ var (
 	lock      sync.Mutex
 )
 
-
-// ff:
-// callback:
 func OnShutdown(callback func()) {
 	lock.Lock()
 	defer lock.Unlock()
@@ -24,8 +21,6 @@ func OnShutdown(callback func()) {
 }
 
 // 启动信号管理器
-
-// ff:
 func Start() {
 	// Hook into interrupts
 	gosignal.Notify(signalChannel, os.Interrupt, syscall.SIGTERM, syscall.SIGINT)

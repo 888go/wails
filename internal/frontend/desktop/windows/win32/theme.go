@@ -35,35 +35,23 @@ func dwmSetWindowAttribute(hwnd uintptr, dwAttribute DWMWINDOWATTRIBUTE, pvAttri
 	}
 }
 
-
-// ff:
 func SupportsThemes() bool {
 	// 我们无法支持Windows 17763版本之前的版本
 	return IsWindowsVersionAtLeast(10, 0, 17763)
 }
 
-
-// ff:
 func SupportsCustomThemes() bool {
 	return IsWindowsVersionAtLeast(10, 0, 17763)
 }
 
-
-// ff:
 func SupportsBackdropTypes() bool {
 	return IsWindowsVersionAtLeast(10, 0, 22621)
 }
 
-
-// ff:
 func SupportsImmersiveDarkMode() bool {
 	return IsWindowsVersionAtLeast(10, 0, 18985)
 }
 
-
-// ff:
-// useDarkMode:
-// hwnd:
 func SetTheme(hwnd uintptr, useDarkMode bool) {
 	if SupportsThemes() {
 		attr := DwmwaUseImmersiveDarkModeBefore20h1
@@ -78,10 +66,6 @@ func SetTheme(hwnd uintptr, useDarkMode bool) {
 	}
 }
 
-
-// ff:
-// backdrop:
-// hwnd:
 func EnableTranslucency(hwnd uintptr, backdrop BackdropType) {
 	if SupportsBackdropTypes() {
 		dwmSetWindowAttribute(hwnd, DwmwaSystemBackdropType, unsafe.Pointer(&backdrop), unsafe.Sizeof(backdrop))
@@ -90,32 +74,18 @@ func EnableTranslucency(hwnd uintptr, backdrop BackdropType) {
 	}
 }
 
-
-// ff:
-// titleBarColour:
-// hwnd:
 func SetTitleBarColour(hwnd uintptr, titleBarColour int32) {
 	dwmSetWindowAttribute(hwnd, DwmwaCaptionColor, unsafe.Pointer(&titleBarColour), unsafe.Sizeof(titleBarColour))
 }
 
-
-// ff:
-// titleTextColour:
-// hwnd:
 func SetTitleTextColour(hwnd uintptr, titleTextColour int32) {
 	dwmSetWindowAttribute(hwnd, DwmwaTextColor, unsafe.Pointer(&titleTextColour), unsafe.Sizeof(titleTextColour))
 }
 
-
-// ff:
-// titleBorderColour:
-// hwnd:
 func SetBorderColour(hwnd uintptr, titleBorderColour int32) {
 	dwmSetWindowAttribute(hwnd, DwmwaBorderColor, unsafe.Pointer(&titleBorderColour), unsafe.Sizeof(titleBorderColour))
 }
 
-
-// ff:
 func IsCurrentlyDarkMode() bool {
 	key, err := registry.OpenKey(registry.CURRENT_USER, `SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize`, registry.QUERY_VALUE)
 	if err != nil {
@@ -136,8 +106,6 @@ type highContrast struct {
 	LpszDefaultScheme *int16
 }
 
-
-// ff:
 func IsCurrentlyHighContrastMode() bool {
 	var result highContrast
 	result.CbSize = uint32(unsafe.Sizeof(result))
