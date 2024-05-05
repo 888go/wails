@@ -5,7 +5,7 @@
 # bm= 包名,更换新的包名称, 如: package gin //bm:gin类
 #
 # **_其他.md 文件备注:
-# hs= 行首,跳转到行首进行重命名.文档内如果有多个相同的,会一起重命名.
+# qm= 行首,跳转到行首进行重命名.文档内如果有多个相同的,会一起重命名.
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
 # cf= 重复,用于重命名多次,如: 一个文档内有2个"One(result interface{}) error"需要重命名.
 #     但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
@@ -13,31 +13,31 @@
 #     如待替换: type authPair struct { //zz:^type *authPair
 
 [Label string]
-hs=显示名称
+qm=显示名称
 
 [Image string]
-hs=图标名称
+qm=图标名称
 
 [MacTemplateImage bool]
-hs=Mac模板图标
+qm=Mac模板图标
 
 [FontSize int]
-hs=字体大小
+qm=字体大小
 
 [FontName string]
-hs=字体名称
+qm=字体名称
 
 [Tooltip string]
-hs=提示
+qm=提示
 
 [Disabled bool]
-hs=是否禁用
+qm=是否禁用
 
 [Menu *Menu]
-hs=菜单
+qm=菜单
 
 [OnOpen func()]
-hs=打开回调函数
+qm=打开回调函数
 
 [OnClose func()]
-hs=关闭回调函数
+qm=关闭回调函数

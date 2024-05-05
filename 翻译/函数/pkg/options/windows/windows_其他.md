@@ -5,7 +5,7 @@
 # bm= 包名,更换新的包名称, 如: package gin //bm:gin类
 #
 # **_其他.md 文件备注:
-# hs= 行首,跳转到行首进行重命名.文档内如果有多个相同的,会一起重命名.
+# qm= 行首,跳转到行首进行重命名.文档内如果有多个相同的,会一起重命名.
 # th= 替换,用于替换文本,文档内如果有多个相同的,会一起替换
 # cf= 重复,用于重命名多次,如: 一个文档内有2个"One(result interface{}) error"需要重命名.
 #     但是要注意,多个新名称要保持一致. 如:"X取一条(result interface{})"
@@ -13,115 +13,115 @@
 #     如待替换: type authPair struct { //zz:^type *authPair
 
 [WindowIsTranslucent  bool]
-hs=开启窗口半透明
+qm=开启窗口半透明
 
 [SystemDefault Theme = 0]
-hs=常量_win主题_默认
+qm=常量_win主题_默认
 
 [Dark Theme = 1]
-hs=常量_win主题_暗黑
+qm=常量_win主题_暗黑
 
 [Light Theme = 2]
-hs=常量_win主题_浅色
+qm=常量_win主题_浅色
 
 [Auto    BackdropType = 0]
-hs=常量_半透明类型_自动
+qm=常量_半透明类型_自动
 
 [None    BackdropType = 1]
-hs=常量_半透明类型_无
+qm=常量_半透明类型_无
 
 [Mica    BackdropType = 2]
-hs=常量_半透明类型_Mica
+qm=常量_半透明类型_Mica
 
 [Acrylic BackdropType = 3]
-hs=常量_半透明类型_亚克力
+qm=常量_半透明类型_亚克力
 
 [Tabbed  BackdropType = 4]
-hs=常量_半透明类型_Tabbed
+qm=常量_半透明类型_Tabbed
 
 [WebviewIsTransparent bool]
-hs=开启Webview透明
+qm=开启Webview透明
 
 [DisableWindowIcon    bool]
-hs=禁用窗口图标
+qm=禁用窗口图标
 
 [IsZoomControlEnabled bool]
-hs=启用缩放控制
+qm=启用缩放控制
 
 [ZoomFactor           float64]
-hs=缩放比例
+qm=缩放比例
 
 [DisablePinchZoom bool]
-hs=禁用缩放
+qm=禁用缩放
 
 [DisableFramelessWindowDecorations bool]
-hs=禁用无边框窗口装饰
+qm=禁用无边框窗口装饰
 
 [WebviewUserDataPath string]
-hs=webview用户数据路径
+qm=webview用户数据路径
 
 [WebviewBrowserPath string]
-hs=webview浏览器路径
+qm=webview浏览器路径
 
 [Theme Theme]
-hs=主题
+qm=主题
 
 [CustomTheme *ThemeSettings]
-hs=自定义主题
+qm=自定义主题
 
 [BackdropType BackdropType]
-hs=背景半透明类型
+qm=背景半透明类型
 
 [Messages *Messages]
-hs=用户消息
+qm=用户消息
 
 [ResizeDebounceMS uint16]
-hs=重置尺寸防抖间隔
+qm=重置尺寸防抖间隔
 
 [OnSuspend func()]
-hs=低功耗模式时回调函数
+qm=低功耗模式时回调函数
 
 [OnResume func()]
-hs=低功耗模式恢复时回调函数
+qm=低功耗模式恢复时回调函数
 
 [WebviewGpuIsDisabled bool]
-hs=禁用GPU加速
+qm=禁用GPU加速
 
 [WebviewDisableRendererCodeIntegrity bool]
-hs=禁用RendererCodeIntegrity
+qm=禁用RendererCodeIntegrity
 
 [EnableSwipeGestures bool]
-hs=启用滑动手势
+qm=启用滑动手势
 
 [InstallationRequired string]
-hs=WebView2需安装
+qm=WebView2需安装
 
 [UpdateRequired       string]
-hs=WebView2需更新
+qm=WebView2需更新
 
 [MissingRequirements  string]
-hs=缺少必要组件
+qm=缺少必要组件
 
 [Webview2NotInstalled string]
-hs=WebView2未安装
+qm=WebView2未安装
 
 [Error                string]
-hs=出错
+qm=出错
 
 [FailedToInstall      string]
-hs=安装失败
+qm=安装失败
 
 [DownloadPage         string]
-hs=跳转WebView2下载页面
+qm=跳转WebView2下载页面
 
 [PressOKToInstall     string]
-hs=按OK安装
+qm=按OK安装
 
 [ContactAdmin         string]
-hs=联系管理员
+qm=联系管理员
 
 [InvalidFixedWebview2 string]
-hs=WebView2指定目录无效
+qm=WebView2指定目录无效
 
 [WebView2ProcessCrash string]
-hs=WebView2进程崩溃
+qm=WebView2进程崩溃
