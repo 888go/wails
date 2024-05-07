@@ -1,6 +1,8 @@
 module changeme
 
-go 1.18
+go 1.21
+
+toolchain go1.22.0
 
 require github.com/888go/wails v0.0.0-20240328100250-9e1d52123d83
 
