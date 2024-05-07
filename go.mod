@@ -1,6 +1,8 @@
 module github.com/888go/wails
 
-go 1.20
+go 1.21
+
+toolchain go1.22.0
 
 require (
 	github.com/Masterminds/semver v1.5.0
