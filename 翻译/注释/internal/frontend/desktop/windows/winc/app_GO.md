@@ -5,8 +5,8 @@
 <原文结束>
 
 # <翻译开始>
-// 资源编译工具将app.ico的ID设置为3
-// rsrc命令使用manifest文件（app.manifest）和ico图标文件（app.ico）生成资源文件rsrc.syso
+	// 资源编译工具将app.ico的ID设置为3
+	// rsrc命令使用manifest文件（app.manifest）和ico图标文件（app.ico）生成资源文件rsrc.syso
 # <翻译结束>
 
 
@@ -35,7 +35,7 @@
 <原文结束>
 
 # <翻译开始>
-// 此函数由MessageLoop调用。它处理键盘加速键，并对键盘和鼠标事件调用Controller.PreTranslateMessage。
+	// 此函数由MessageLoop调用。它处理键盘加速键，并对键盘和鼠标事件调用Controller.PreTranslateMessage。
 # <翻译结束>
 
 

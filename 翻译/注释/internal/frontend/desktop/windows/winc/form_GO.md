@@ -87,6 +87,6 @@
 <原文结束>
 
 # <翻译开始>
-// 使用TranslateAccelerators未能正常工作，因此我们暂时自行处理这些事件。
+			// 使用TranslateAccelerators未能正常工作，因此我们暂时自行处理这些事件。
 # <翻译结束>
 

@@ -14,8 +14,8 @@
 <原文结束>
 
 # <翻译开始>
-// LockOSThread 确保整个方法从开始到结束都在同一个线程上执行（实际上是锁定了 goroutine 的线程归属）。
-// 否则，如果 goroutine 在执行过程中切换了线程（这是常见情况），OpenClipboard 和 CloseClipboard 将在两个不同的线程上发生，这将导致剪贴板死锁。
+	// LockOSThread 确保整个方法从开始到结束都在同一个线程上执行（实际上是锁定了 goroutine 的线程归属）。
+	// 否则，如果 goroutine 在执行过程中切换了线程（这是常见情况），OpenClipboard 和 CloseClipboard 将在两个不同的线程上发生，这将导致剪贴板死锁。
 # <翻译结束>
 
 
@@ -25,7 +25,7 @@
 <原文结束>
 
 # <翻译开始>
-// "如果hMem参数标识了一个内存对象，则该对象必须使用带有GMEM_MOVEABLE标志的函数分配。"
+	// "如果hMem参数标识了一个内存对象，则该对象必须使用带有GMEM_MOVEABLE标志的函数分配。"
 # <翻译结束>
 
 

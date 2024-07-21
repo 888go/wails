@@ -27,21 +27,21 @@
 <原文结束>
 
 # <翻译开始>
-// 现在构建Typescript返回类型
-// 如果没有返回值或仅返回错误，TS 返回 Promise<void>
-// 如果返回单个值，TS 返回 Promise<type>
-// 如果返回单个值或错误，TS 返回 Promise<type>
-// 如果返回两个值，TS 返回 Promise<type1|type2>
-// 否则，TS 返回 Promise<type1>（而不是抛出Go错误？）
-// 翻译成中文：
-// ```go
-// 现在构建 TypeScript 返回类型
-// 如果没有返回值或只返回错误，TypeScript 返回 Promise<void>
-// 若返回单一类型值，TypeScript 返回 Promise<type>
-// 若返回单一类型值或错误，TypeScript 返回 Promise<type>
-// 若返回两个值，TypeScript 返回 Promise<type1|type2>
-// 否则情况下，TypeScript 返回 Promise<type1>（而非抛出 Go 语言中的错误？）
-// 注意：对于 "If returning single value or error, TS returns Promise<type>" 这一句，原文描述可能有误，根据 Typescript 的习惯用法，应为 "如果返回一个值和一个错误，TS 返回 Promise<[type, Error]> 或 Promise<ReturnType>".
+				// 现在构建Typescript返回类型
+				// 如果没有返回值或仅返回错误，TS 返回 Promise<void>
+				// 如果返回单个值，TS 返回 Promise<type>
+				// 如果返回单个值或错误，TS 返回 Promise<type>
+				// 如果返回两个值，TS 返回 Promise<type1|type2>
+				// 否则，TS 返回 Promise<type1>（而不是抛出Go错误？）
+				// 翻译成中文：
+				// ```go
+				// 现在构建 TypeScript 返回类型
+				// 如果没有返回值或只返回错误，TypeScript 返回 Promise<void>
+				// 若返回单一类型值，TypeScript 返回 Promise<type>
+				// 若返回单一类型值或错误，TypeScript 返回 Promise<type>
+				// 若返回两个值，TypeScript 返回 Promise<type1|type2>
+				// 否则情况下，TypeScript 返回 Promise<type1>（而非抛出 Go 语言中的错误？）
+				// 注意：对于 "If returning single value or error, TS returns Promise<type>" 这一句，原文描述可能有误，根据 Typescript 的习惯用法，应为 "如果返回一个值和一个错误，TS 返回 Promise<[type, Error]> 或 Promise<ReturnType>".
 # <翻译结束>
 
 
@@ -56,12 +56,12 @@
 <原文结束>
 
 # <翻译开始>
-// 打印输出，格式化字符串内容为：
-// "input=%s, keyPackage=%s, keyType=%s, valueArray=%s, valuePackage=%s, valueType=%s\n"
-// 其中，
-// %s 将被替换为对应的变量值：
-// input、keyPackage、keyType、valueArray、valuePackage、valueType
-// 分别代表输入值、键包名、键类型、值数组、值包名和值类型
+	// 打印输出，格式化字符串内容为：
+	// "input=%s, keyPackage=%s, keyType=%s, valueArray=%s, valuePackage=%s, valueType=%s\n"
+	// 其中，
+	// %s 将被替换为对应的变量值：
+	// input、keyPackage、keyType、valueArray、valuePackage、valueType
+	// 分别代表输入值、键包名、键类型、值数组、值包名和值类型
 # <翻译结束>
 
 

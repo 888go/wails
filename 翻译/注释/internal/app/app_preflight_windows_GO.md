@@ -5,7 +5,7 @@
 <原文结束>
 
 # <翻译开始>
-// 处理 webview2 运行时的情况。我们可以通过在 `wails build` 命令中的 `webview2` 标志传递一种策略。
-// 这将决定 wv2runtime.Process 在缺乏有效运行时的情况下如何处理。
+	// 处理 webview2 运行时的情况。我们可以通过在 `wails build` 命令中的 `webview2` 标志传递一种策略。
+	// 这将决定 wv2runtime.Process 在缺乏有效运行时的情况下如何处理。
 # <翻译结束>
 

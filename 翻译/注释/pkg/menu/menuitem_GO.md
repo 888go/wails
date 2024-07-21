@@ -77,8 +77,8 @@
 <原文结束>
 
 # <翻译开始>
-// Submenu 包含一个菜单项列表，这些菜单项将作为子菜单显示
-// SubMenu []*MenuItem `json:"SubMenu,omitempty"`
+	// Submenu 包含一个菜单项列表，这些菜单项将作为子菜单显示
+	// SubMenu []*MenuItem `json:"SubMenu,omitempty"`
 # <翻译结束>
 
 

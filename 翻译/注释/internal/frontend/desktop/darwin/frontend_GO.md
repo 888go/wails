@@ -16,10 +16,10 @@
 <原文结束>
 
 # <翻译开始>
-// 如果字符串message以"systemevent:"开头 {
-//     f.processSystemEvent(message) //调用处理系统事件的方法
-//     return //结束当前函数执行
-// }
+	// 如果字符串message以"systemevent:"开头 {
+	//     f.processSystemEvent(message) 	//调用处理系统事件的方法
+	//     return 	//结束当前函数执行
+	// }
 # <翻译结束>
 
 

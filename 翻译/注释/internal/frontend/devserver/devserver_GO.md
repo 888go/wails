@@ -17,9 +17,9 @@
 <原文结束>
 
 # <翻译开始>
-// 目前在生产模式下不支持WebSockets，因此WebSocket连接是通过
-// 前端开发服务器（如Vite）建立的，目的是为了支持自动重载。
-// 因此，我们直接将WebSocket连接导向前端开发服务器，而不是返回一个未实现状态（NotImplementedStatus）。
+		// 目前在生产模式下不支持WebSockets，因此WebSocket连接是通过
+		// 前端开发服务器（如Vite）建立的，目的是为了支持自动重载。
+		// 因此，我们直接将WebSocket连接导向前端开发服务器，而不是返回一个未实现状态（NotImplementedStatus）。
 # <翻译结束>
 
 

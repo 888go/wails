@@ -15,8 +15,8 @@
 <原文结束>
 
 # <翻译开始>
-// 如果URL末尾通常没有斜杠，正常情况下应当执行http重定向，但在当前WebKit WebViews（macOS/Linux）环境下无法正常工作。
-// 因此，我们将这种情况视为一个特定错误进行处理
+			// 如果URL末尾通常没有斜杠，正常情况下应当执行http重定向，但在当前WebKit WebViews（macOS/Linux）环境下无法正常工作。
+			// 因此，我们将这种情况视为一个特定错误进行处理
 # <翻译结束>
 
 
@@ -35,7 +35,7 @@
 <原文结束>
 
 # <翻译开始>
-// 即使在 io.ReadSeeker 的情况下 http.ServeContent 会执行自定义 MimeType 探测，我们也进行自定义 MimeType 探测操作。我们希望在这两种情况下都具有一致的行为。
+		// 即使在 io.ReadSeeker 的情况下 http.ServeContent 会执行自定义 MimeType 探测，我们也进行自定义 MimeType 探测操作。我们希望在这两种情况下都具有一致的行为。
 # <翻译结束>
 
 

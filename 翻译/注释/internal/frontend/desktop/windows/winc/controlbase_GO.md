@@ -41,8 +41,8 @@
 <原文结束>
 
 # <翻译开始>
-// GetDpiForWindow 函数从 Windows 10，版本1607开始支持，并且是最精确的一个，
-// 特别是它与 WM_DPICHANGED 事件保持一致。
+		// GetDpiForWindow 函数从 Windows 10，版本1607开始支持，并且是最精确的一个，
+		// 特别是它与 WM_DPICHANGED 事件保持一致。
 # <翻译结束>
 
 
@@ -88,8 +88,8 @@
 <原文结束>
 
 # <翻译开始>
-// WindowPos 与 HWND_TOPMOST 一起使用，用于确保将我们的应用置于顶部
-// 强制设置我们的主窗口置于顶层
+	// WindowPos 与 HWND_TOPMOST 一起使用，用于确保将我们的应用置于顶部
+	// 强制设置我们的主窗口置于顶层
 # <翻译结束>
 
 
@@ -122,16 +122,16 @@
 <原文结束>
 
 # <翻译开始>
-// 获取cba.hwnd的客户区矩形，并将其赋值给pRect
-// 如果cba.isForm为真（即表示当前是表单）
-// 则调用w32.InvalidateRect函数，传入cba.hwnd和pRect，以及erase参数，以更新该窗口区域
-// 否则（即表示当前不是表单）
-// 将pRect从屏幕坐标转换为客户区坐标，得到rc
-// 然后调用w32.InvalidateRect函数，传入cba.hwnd、rc转换后的W32矩形结构体，以及erase参数，以更新该窗口区域
-// 在上述代码中：
-// - `GetClientRect`：获取窗口的客户区矩形。
-// - `InvalidateRect`：使指定窗口区域无效，导致系统重绘该区域。
-// - `ScreenToClientRect`：将屏幕坐标点或矩形转换为客户区坐标点或矩形。
-// - `erase` 参数是一个布尔值，决定是否擦除窗口区域并重绘背景。
+	// 获取cba.hwnd的客户区矩形，并将其赋值给pRect
+	// 如果cba.isForm为真（即表示当前是表单）
+	// 则调用w32.InvalidateRect函数，传入cba.hwnd和pRect，以及erase参数，以更新该窗口区域
+	// 否则（即表示当前不是表单）
+	// 将pRect从屏幕坐标转换为客户区坐标，得到rc
+	// 然后调用w32.InvalidateRect函数，传入cba.hwnd、rc转换后的W32矩形结构体，以及erase参数，以更新该窗口区域
+	// 在上述代码中：
+	// - `GetClientRect`：获取窗口的客户区矩形。
+	// - `InvalidateRect`：使指定窗口区域无效，导致系统重绘该区域。
+	// - `ScreenToClientRect`：将屏幕坐标点或矩形转换为客户区坐标点或矩形。
+	// - `erase` 参数是一个布尔值，决定是否擦除窗口区域并重绘背景。
 # <翻译结束>
 

@@ -34,8 +34,8 @@
 <原文结束>
 
 # <翻译开始>
-// 在无边框模式下禁用所有窗口装饰，这意味着不会显示“Aero Shadow”和“圆角”。
-// “圆角”仅在Windows 11系统上可用。
+	// 在无边框模式下禁用所有窗口装饰，这意味着不会显示“Aero Shadow”和“圆角”。
+	// “圆角”仅在Windows 11系统上可用。
 # <翻译结束>
 
 
@@ -45,8 +45,8 @@
 <原文结束>
 
 # <翻译开始>
-// WebView2 存储用户数据的路径。如果为空，则使用 %APPDATA%\[BinaryName.exe]。
-// 如果路径无效，将显示一个包含错误信息的消息框，并且应用将以错误代码退出。
+	// WebView2 存储用户数据的路径。如果为空，则使用 %APPDATA%\[BinaryName.exe]。
+	// 如果路径无效，将显示一个包含错误信息的消息框，并且应用将以错误代码退出。
 # <翻译结束>
 
 
@@ -101,7 +101,7 @@
 <原文结束>
 
 # <翻译开始>
-// ResizeDebounceMS 是在调整窗口大小时，对 webview2 重绘操作进行防抖动的延时时间（单位：毫秒）
+	// ResizeDebounceMS 是在调整窗口大小时，对 webview2 重绘操作进行防抖动的延时时间（单位：毫秒）
 # <翻译结束>
 
 
@@ -144,13 +144,13 @@
 <原文结束>
 
 # <翻译开始>
-// WebviewDisableRendererCodeIntegrity 禁用 WebView2 的 `RendererCodeIntegrity`。某些安全端点防护软件
-// 会使用未签名或签名错误的 dll 注入到 WebView2 中，这是不允许的，并且会导致 WebView2 进程停止运行。
-// 这类安全软件需要更新以解决此问题，或者可以通过设置此标志禁用完整性检查来暂时解决。
-//
-// Windows 事件查看器日志中包含如在 https://github.com/MicrosoftEdge/WebView2Feedback/issues/2051 中提及的 `代码完整性错误`。
-//
-// !! 请注意，禁用此功能时，也会允许恶意软件注入 WebView2，请谨慎操作 !!
+	// WebviewDisableRendererCodeIntegrity 禁用 WebView2 的 `RendererCodeIntegrity`。某些安全端点防护软件
+	// 会使用未签名或签名错误的 dll 注入到 WebView2 中，这是不允许的，并且会导致 WebView2 进程停止运行。
+	// 这类安全软件需要更新以解决此问题，或者可以通过设置此标志禁用完整性检查来暂时解决。
+	//
+	// Windows 事件查看器日志中包含如在 https:	//github.com/MicrosoftEdge/WebView2Feedback/issues/2051 中提及的 `代码完整性错误`。
+	//
+	// !! 请注意，禁用此功能时，也会允许恶意软件注入 WebView2，请谨慎操作 !!
 # <翻译结束>
 
 

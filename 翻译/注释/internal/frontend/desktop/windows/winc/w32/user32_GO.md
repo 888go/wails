@@ -26,8 +26,8 @@
 <原文结束>
 
 # <翻译开始>
-// procDrawMenuBar = moduser32.NewProc("DrawMenuBar") // 创建并获取名为"DrawMenuBar"的用户32模块（moduser32）中的新过程
-// procInsertMenuItem = moduser32.NewProc("InsertMenuItemW") // 创建并获取名为"InsertMenuItemW"的用户32模块中的新过程 // 注意：待修复或进一步处理
+	// procDrawMenuBar = moduser32.NewProc("DrawMenuBar") 	// 创建并获取名为"DrawMenuBar"的用户32模块（moduser32）中的新过程
+	// procInsertMenuItem = moduser32.NewProc("InsertMenuItemW") 	// 创建并获取名为"InsertMenuItemW"的用户32模块中的新过程 	// 注意：待修复或进一步处理
 # <翻译结束>
 
 

@@ -60,8 +60,8 @@
 <原文结束>
 
 # <翻译开始>
-// 对于服务器请求，URL是从Request-Line中存储在RequestURI的URI解析得到的。对于
-// 大多数请求，除了Path和RawQuery字段外，其他字段将为空。（参见RFC 7230，第5.3节）
+	// 对于服务器请求，URL是从Request-Line中存储在RequestURI的URI解析得到的。对于
+	// 大多数请求，除了Path和RawQuery字段外，其他字段将为空。（参见RFC 7230，第5.3节）
 # <翻译结束>
 
 

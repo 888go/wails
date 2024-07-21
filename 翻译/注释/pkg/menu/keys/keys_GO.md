@@ -42,9 +42,9 @@
 <原文结束>
 
 # <翻译开始>
-// SuperKey 表示在 Mac 上的 Command 键，在其他平台（如 Windows）上表示 Windows 键
-// SuperKey Modifier = "super"
-// ControlKey 代表在所有系统上的控制键
+	// SuperKey 表示在 Mac 上的 Command 键，在其他平台（如 Windows）上表示 Windows 键
+	// SuperKey Modifier = "super"
+	// ControlKey 代表在所有系统上的控制键
 # <翻译结束>
 
 

@@ -14,8 +14,8 @@
 <原文结束>
 
 # <翻译开始>
-// BackgroundColour 是窗口的背景颜色
-// 你可以使用 options.NewRGB 和 options.NewRGBA 函数来创建新的颜色
+	// BackgroundColour 是窗口的背景颜色
+	// 你可以使用 options.NewRGB 和 options.NewRGBA 函数来创建新的颜色
 # <翻译结束>
 
 
@@ -79,8 +79,8 @@
 <原文结束>
 
 # <翻译开始>
-// EnableDefaultContextMenu 在生产环境中启用浏览器的默认右键菜单
-// 在开发和调试版本中，此菜单已经默认启用
+	// EnableDefaultContextMenu 在生产环境中启用浏览器的默认右键菜单
+	// 在开发和调试版本中，此菜单已经默认启用
 # <翻译结束>
 
 
@@ -91,8 +91,8 @@
 <原文结束>
 
 # <翻译开始>
-// EnableFraudulentWebsiteDetection 启用欺诈网站检测功能，该功能会扫描诸如恶意软件或网络钓鱼企图等欺诈内容。
-// 这些服务可能会从您的应用中发送信息，例如访问过的URL以及其他可能的内容到苹果和微软的云端服务。
+	// EnableFraudulentWebsiteDetection 启用欺诈网站检测功能，该功能会扫描诸如恶意软件或网络钓鱼企图等欺诈内容。
+	// 这些服务可能会从您的应用中发送信息，例如访问过的URL以及其他可能的内容到苹果和微软的云端服务。
 # <翻译结束>
 
 

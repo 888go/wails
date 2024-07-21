@@ -25,10 +25,10 @@
 <原文结束>
 
 # <翻译开始>
-// 如果我们想要一个无边框的窗口，但保留默认的框架装饰样式，则扩展DWM客户端区域。
-// 此选项不受在WM_NCCALCSIZE消息中返回0的影响。
-// 结果是隐藏了标题栏，但仍保留了默认的窗口框架样式。
-// 参考：https://docs.microsoft.com/zh-cn/windows/win32/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea#remarks
+			// 如果我们想要一个无边框的窗口，但保留默认的框架装饰样式，则扩展DWM客户端区域。
+			// 此选项不受在WM_NCCALCSIZE消息中返回0的影响。
+			// 结果是隐藏了标题栏，但仍保留了默认的窗口框架样式。
+			// 参考：https:			//docs.microsoft.com/zh-cn/windows/win32/api/dwmapi/nf-dwmapi-dwmextendframeintoclientarea#remarks
 # <翻译结束>
 
 
@@ -41,9 +41,9 @@
 <原文结束>
 
 # <翻译开始>
-// 禁用标准边框，允许客户区占据整个窗口大小。
-// 参考：https://docs.microsoft.com/zh-cn/windows/win32/winmsg/wm-nccalcsize#remarks
-// 这将隐藏标题栏，并由于未显示标准边框，也将禁用用户交互的窗口调整大小功能。但我们仍需要WS_THICKFRAME样式来支持前端进行窗口调整大小的操作。
+			// 禁用标准边框，允许客户区占据整个窗口大小。
+			// 参考：https:			//docs.microsoft.com/zh-cn/windows/win32/winmsg/wm-nccalcsize#remarks
+			// 这将隐藏标题栏，并由于未显示标准边框，也将禁用用户交互的窗口调整大小功能。但我们仍需要WS_THICKFRAME样式来支持前端进行窗口调整大小的操作。
 # <翻译结束>
 
 
@@ -65,11 +65,11 @@
 <原文结束>
 
 # <翻译开始>
-// 如果窗口最大化，我们必须调整客户区以适应显示器的工作区。否则，
-// 有些内容会超出显示器的可见部分。
-// 确保使用提供的RECT来获取显示器，因为在多屏幕模式下最大化时，
-// 使用MonitorFromWindow可能会返回错误的显示器。
-// 参考：https://github.com/MicrosoftEdge/WebView2Feedback/issues/2549
+					// 如果窗口最大化，我们必须调整客户区以适应显示器的工作区。否则，
+					// 有些内容会超出显示器的可见部分。
+					// 确保使用提供的RECT来获取显示器，因为在多屏幕模式下最大化时，
+					// 使用MonitorFromWindow可能会返回错误的显示器。
+					// 参考：https:					//github.com/MicrosoftEdge/WebView2Feedback/issues/2549
 # <翻译结束>
 
 
@@ -83,9 +83,9 @@
 <原文结束>
 
 # <翻译开始>
-// 这是为了解决无边框模式（frameless mode）下使用WindowDecorations时出现的窗口大小调整闪烁问题
-// 参考：https://stackoverflow.com/a/6558508
-// 原始解决方案建议减小底部1px，但这在某些Windows版本上似乎会导致由于DrawBackground也使用了这一减少而导致底部出现一条细白线。
-// 增加底部尺寸同样可以规避闪烁问题，但我们会损失WebView内容的1px高度，因此我们选择在内容底部填充1px作为补偿。
+					// 这是为了解决无边框模式（frameless mode）下使用WindowDecorations时出现的窗口大小调整闪烁问题
+					// 参考：https:					//stackoverflow.com/a/6558508
+					// 原始解决方案建议减小底部1px，但这在某些Windows版本上似乎会导致由于DrawBackground也使用了这一减少而导致底部出现一条细白线。
+					// 增加底部尺寸同样可以规避闪烁问题，但我们会损失WebView内容的1px高度，因此我们选择在内容底部填充1px作为补偿。
 # <翻译结束>
 

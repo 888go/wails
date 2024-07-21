@@ -25,7 +25,7 @@
 <原文结束>
 
 # <翻译开始>
-// 如果窗口是无边框的并且我们正在进行最小化操作，那么我们需要抑制WebView2上的Resize事件。如果不这样做，在恢复窗口大小时无法按预期工作，并且在恢复动画期间首先会以错误的尺寸还原，直到动画完成后才会完全渲染。这高度依赖于WebView中的内容，详细信息参见 https://github.com/wailsapp/wails/issues/1319
+			// 如果窗口是无边框的并且我们正在进行最小化操作，那么我们需要抑制WebView2上的Resize事件。如果不这样做，在恢复窗口大小时无法按预期工作，并且在恢复动画期间首先会以错误的尺寸还原，直到动画完成后才会完全渲染。这高度依赖于WebView中的内容，详细信息参见 https:			//github.com/wailsapp/wails/issues/1319
 # <翻译结束>
 
 
@@ -44,8 +44,8 @@
 <原文结束>
 
 # <翻译开始>
-// Exit 必须在主线程上调用。它会调用 PostQuitMessage，该函数向线程的消息队列发送 WM_QUIT 消息，
-// 而我们的消息队列是在主线程上运行的。
+	// Exit 必须在主线程上调用。它会调用 PostQuitMessage，该函数向线程的消息队列发送 WM_QUIT 消息，
+	// 而我们的消息队列是在主线程上运行的。
 # <翻译结束>
 
 
@@ -73,8 +73,8 @@
 <原文结束>
 
 # <翻译开始>
-// => 自动创建一个新的渲染进程，并导航到错误页面。
-// => 确保错误页面被展示出来。
+			// => 自动创建一个新的渲染进程，并导航到错误页面。
+			// => 确保错误页面被展示出来。
 # <翻译结束>
 
 
@@ -111,8 +111,8 @@
 <原文结束>
 
 # <翻译开始>
-// 在CoreWebView2Settings上设置UserAgent会清空Edge浏览器的整个默认UserAgent，
-// 但我们只想追加我们的ApplicationIdentifier。因此，我们对每个请求调整UserAgent。
+	// 在CoreWebView2Settings上设置UserAgent会清空Edge浏览器的整个默认UserAgent，
+	// 但我们只想追加我们的ApplicationIdentifier。因此，我们对每个请求调整UserAgent。
 # <翻译结束>
 
 

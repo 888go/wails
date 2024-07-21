@@ -57,8 +57,8 @@
 <原文结束>
 
 # <翻译开始>
-// 关于Role              Role = "about" // 撤销Role               Role = "undo" // 重做Role               Role = "redo" // 剪切Role                Role = "cut" // 复制Role               Role = "copy" // 粘贴Role              Role = "paste" // 粘贴并匹配样式Role   Role = "pasteAndMatchStyle" // 全选Role          Role = "selectAll" // 删除Role             Role = "delete" // 最小化Role           Role = "minimize" // 退出Role               Role = "quit" // 切换全屏Role       Role = "togglefullscreen" // 文件菜单Role         Role = "fileMenu" // 查看菜单Role           Role = "viewMenu" // 窗口菜单Role         Role = "windowMenu" // 隐藏Role               Role = "hide" // 隐藏其他Role         Role = "hideOthers" // 显示Role               Role = "unhide" // 置顶Role              Role = "front" // 放大Role               Role = "zoom" // 窗口子菜单Role      Role = "windowSubMenu" // 帮助子菜单Role    Role = "helpSubMenu" // 分隔符ItemRole      Role = "separatorItem" 
-// 以上Go语言代码中的注释翻译成中文，主要定义了一系列与GUI界面操作相关的角色（Role）名称，如“关于”、“撤销”、“剪切”、“复制”、“粘贴”等，这些角色通常用于菜单栏、上下文菜单以及快捷键绑定等功能。
+	// 关于Role              Role = "about" 	// 撤销Role               Role = "undo" 	// 重做Role               Role = "redo" 	// 剪切Role                Role = "cut" 	// 复制Role               Role = "copy" 	// 粘贴Role              Role = "paste" 	// 粘贴并匹配样式Role   Role = "pasteAndMatchStyle" 	// 全选Role          Role = "selectAll" 	// 删除Role             Role = "delete" 	// 最小化Role           Role = "minimize" 	// 退出Role               Role = "quit" 	// 切换全屏Role       Role = "togglefullscreen" 	// 文件菜单Role         Role = "fileMenu" 	// 查看菜单Role           Role = "viewMenu" 	// 窗口菜单Role         Role = "windowMenu" 	// 隐藏Role               Role = "hide" 	// 隐藏其他Role         Role = "hideOthers" 	// 显示Role               Role = "unhide" 	// 置顶Role              Role = "front" 	// 放大Role               Role = "zoom" 	// 窗口子菜单Role      Role = "windowSubMenu" 	// 帮助子菜单Role    Role = "helpSubMenu" 	// 分隔符ItemRole      Role = "separatorItem" 
+	// 以上Go语言代码中的注释翻译成中文，主要定义了一系列与GUI界面操作相关的角色（Role）名称，如“关于”、“撤销”、“剪切”、“复制”、“粘贴”等，这些角色通常用于菜单栏、上下文菜单以及快捷键绑定等功能。
 # <翻译结束>
 
 

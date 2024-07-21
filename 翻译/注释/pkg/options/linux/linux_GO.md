@@ -50,7 +50,7 @@
 <原文结束>
 
 # <翻译开始>
-// Icon 设置代表窗口的图标。当窗口被最小化（也称为图标化）时，会使用这个图标。
+	// Icon 设置代表窗口的图标。当窗口被最小化（也称为图标化）时，会使用这个图标。
 # <翻译结束>
 
 
@@ -85,13 +85,13 @@
 <原文结束>
 
 # <翻译开始>
-// WebviewGpuPolicy 用于确定 webview 的硬件加速策略。
-//   - WebviewGpuPolicyAlways   // 始终启用硬件加速
-//   - WebviewGpuPolicyOnDemand // 按需启用硬件加速
-//   - WebviewGpuPolicyNever    // 从不启用硬件加速
-// 由于 https://github.com/wailsapp/wails/issues/2977 中的问题，如果在调用 wails.Run() 时 options.Linux 为 nil，
-// 则默认将 WebviewGpuPolicy 设置为 WebviewGpuPolicyNever。
-// 客户端代码可以通过传递非空的 Options 并按需设置 WebviewGpuPolicy 来覆盖此默认行为。
+	// WebviewGpuPolicy 用于确定 webview 的硬件加速策略。
+	//   - WebviewGpuPolicyAlways   	// 始终启用硬件加速
+	//   - WebviewGpuPolicyOnDemand 	// 按需启用硬件加速
+	//   - WebviewGpuPolicyNever    	// 从不启用硬件加速
+	// 由于 https:	//github.com/wailsapp/wails/issues/2977 中的问题，如果在调用 wails.Run() 时 options.Linux 为 nil，
+	// 则默认将 WebviewGpuPolicy 设置为 WebviewGpuPolicyNever。
+	// 客户端代码可以通过传递非空的 Options 并按需设置 WebviewGpuPolicy 来覆盖此默认行为。
 # <翻译结束>
 
 
@@ -106,12 +106,12 @@
 <原文结束>
 
 # <翻译开始>
-// ProgramName 用于通过 GTK 的 g_set_prgname() 函数设置程序名称，以便在窗口管理器中显示。
-// 此名称不应进行本地化处理。[参见文档]
-//
-// 当创建 .desktop 文件时，如果 .desktop 文件的 Name 属性与可执行文件名不同，
-// 这个值有助于窗口分组和桌面图标功能。
-//
-// [参见文档]: https://docs.gtk.org/glib/func.set_prgname.html
+	// ProgramName 用于通过 GTK 的 g_set_prgname() 函数设置程序名称，以便在窗口管理器中显示。
+	// 此名称不应进行本地化处理。[参见文档]
+	//
+	// 当创建 .desktop 文件时，如果 .desktop 文件的 Name 属性与可执行文件名不同，
+	// 这个值有助于窗口分组和桌面图标功能。
+	//
+	// [参见文档]: https:	//docs.gtk.org/glib/func.set_prgname.html
 # <翻译结束>
 

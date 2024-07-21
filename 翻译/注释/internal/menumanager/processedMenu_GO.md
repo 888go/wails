@@ -15,9 +15,9 @@
 <原文结束>
 
 # <翻译开始>
-// Role 是一种预定义的菜单类型
-// Role menu.Role `json:",omitempty"` // 这一行表示Role字段使用menu包中的Role类型，并在序列化为JSON时，如果该字段值为空，则忽略（omitempty）
-// Accelerator 用于保存一个键绑定的表示
+	// Role 是一种预定义的菜单类型
+	// Role menu.Role `json:",omitempty"` 	// 这一行表示Role字段使用menu包中的Role类型，并在序列化为JSON时，如果该字段值为空，则忽略（omitempty）
+	// Accelerator 用于保存一个键绑定的表示
 # <翻译结束>
 
 
@@ -63,8 +63,8 @@
 <原文结束>
 
 # <翻译开始>
-// Submenu 包含一个菜单项列表，这些菜单项将作为子菜单显示
-// SubMenu []*MenuItem `json:"SubMenu,omitempty"`
+	// Submenu 包含一个菜单项列表，这些菜单项将作为子菜单显示
+	// SubMenu []*MenuItem `json:"SubMenu,omitempty"`
 # <翻译结束>
 
 
@@ -90,15 +90,15 @@
 <原文结束>
 
 # <翻译开始>
-// 解析ANSI文本
-//var styledLabel []*ansi.StyledText // 声明一个指向ansi.StyledText结构体的指针切片，用于存储解析后的文本
-//tempLabel := menuItem.Label        // 将menuItem的Label属性赋值给临时变量tempLabel
-//if strings.Contains(tempLabel, "\033[") {  // 检查tempLabel是否包含ANSI转义序列（"\033["）
-//	parsedLabel, err := ansi.Parse(menuItem.Label)  // 使用ansi包中的Parse函数解析原始文本，得到styledLabel和可能的错误信息err
-//	if err == nil {                            // 如果没有错误发生
-//		styledLabel = parsedLabel              // 将解析后的文本赋值给styledLabel变量
-//	}
-//}
+	// 解析ANSI文本
+	//var styledLabel []*ansi.StyledText 	// 声明一个指向ansi.StyledText结构体的指针切片，用于存储解析后的文本
+	//tempLabel := menuItem.Label        	// 将menuItem的Label属性赋值给临时变量tempLabel
+	//if strings.Contains(tempLabel, "\033[") {  	// 检查tempLabel是否包含ANSI转义序列（"\033["）
+	//	parsedLabel, err := ansi.Parse(menuItem.Label)  	// 使用ansi包中的Parse函数解析原始文本，得到styledLabel和可能的错误信息err
+	//	if err == nil {                            	// 如果没有错误发生
+	//		styledLabel = parsedLabel              	// 将解析后的文本赋值给styledLabel变量
+	//	}
+	//}
 # <翻译结束>
 
 
@@ -123,14 +123,14 @@
 <原文结束>
 
 # <翻译开始>
-// 背景颜色:             menuItem的背景颜色,
-// 字体大小:         menuItem的字体大小,
-// 字体名称:         menuItem的字体名称,
-// 图像:            menuItem的图像,
-// Mac模板图像:     menuItem的Mac系统模板图像,
-// Mac替代项:       menuItem在Mac系统中的替代项,
-// 工具提示:          menuItem的工具提示文本,
-// 样式化标签:      styledLabel
+		// 背景颜色:             menuItem的背景颜色,
+		// 字体大小:         menuItem的字体大小,
+		// 字体名称:         menuItem的字体名称,
+		// 图像:            menuItem的图像,
+		// Mac模板图像:     menuItem的Mac系统模板图像,
+		// Mac替代项:       menuItem在Mac系统中的替代项,
+		// 工具提示:          menuItem的工具提示文本,
+		// 样式化标签:      styledLabel
 # <翻译结束>
 
 

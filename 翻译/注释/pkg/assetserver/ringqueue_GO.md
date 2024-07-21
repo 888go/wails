@@ -15,7 +15,7 @@
 <原文结束>
 
 # <翻译开始>
-// 同时测试了1.5的增长率，参见：http://stackoverflow.com/questions/2269063/buffer-growth-strategy
-// 在Go语言中，这导致了更高的内存使用量。
+		// 同时测试了1.5的增长率，参见：http:		//stackoverflow.com/questions/2269063/buffer-growth-strategy
+		// 在Go语言中，这导致了更高的内存使用量。
 # <翻译结束>
 

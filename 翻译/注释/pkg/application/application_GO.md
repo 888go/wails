@@ -72,15 +72,15 @@
 <原文结束>
 
 # <翻译开始>
-// 创建应用，使用a.options作为参数
-// 如果创建过程中发生错误，则将错误赋值给err
-// application, err := app.CreateApp(a.options)
-// 如果err不为nil（即存在错误）
-// if err != nil {
-    // 则直接返回该错误
-//     return err
-// }
-// 将成功创建的应用赋值给a.application变量
-// a.application = application
+	// 创建应用，使用a.options作为参数
+	// 如果创建过程中发生错误，则将错误赋值给err
+	// application, err := app.CreateApp(a.options)
+	// 如果err不为nil（即存在错误）
+	// if err != nil {
+    	// 则直接返回该错误
+	//     return err
+	// }
+	// 将成功创建的应用赋值给a.application变量
+	// a.application = application
 # <翻译结束>
 
