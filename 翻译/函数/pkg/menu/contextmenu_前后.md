@@ -35,19 +35,6 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
-
-[func New() *Application {]
-ff=创建并按默认选项
-
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
-
-[func (a *Application) Run() error {]
-ff=运行
-
-[func (a *Application) Quit() {]
-ff=退出
+[Menu *Menu]
+qm=菜单
+cz=Menu *Menu

@@ -35,19 +35,22 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[TextType Type = "Text"]
+qm=常量_菜单项类型_文本
+cz=TextType Type #等号# "Text"
 
-[func New() *Application {]
-ff=创建并按默认选项
+[SeparatorType Type = "Separator"]
+qm=常量_菜单项类型_分隔符
+cz=SeparatorType Type #等号# "Separator"
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
+[SubmenuType Type = "Submenu"]
+qm=常量_菜单项类型_子菜单
+cz=SubmenuType Type #等号# "Submenu"
 
-[func (a *Application) Run() error {]
-ff=运行
+[CheckboxType Type = "Checkbox"]
+qm=常量_菜单项类型_复选框
+cz=CheckboxType Type #等号# "Checkbox"
 
-[func (a *Application) Quit() {]
-ff=退出
+[RadioType Type = "Radio"]
+qm=常量_菜单项类型_单选框
+cz=RadioType Type #等号# "Radio"

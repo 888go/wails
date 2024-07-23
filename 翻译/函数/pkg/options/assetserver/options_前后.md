@@ -35,19 +35,14 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[Assets fs.FS]
+qm=静态资源
+cz=Assets fs.FS
 
-[func New() *Application {]
-ff=创建并按默认选项
+[Handler http.Handler]
+qm=请求处理器
+cz=Handler http.Handler
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
-
-[func (a *Application) Run() error {]
-ff=运行
-
-[func (a *Application) Quit() {]
-ff=退出
+[Middleware Middleware]
+qm=中间件
+cz=Middleware Middleware

@@ -35,19 +35,42 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[Label string]
+qm=显示名称
+cz=Label string
 
-[func New() *Application {]
-ff=创建并按默认选项
+[Image string]
+qm=图标名称
+cz=Image string
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
+[MacTemplateImage bool]
+qm=Mac模板图标
+cz=MacTemplateImage bool
 
-[func (a *Application) Run() error {]
-ff=运行
+[FontSize int]
+qm=字体大小
+cz=FontSize int
 
-[func (a *Application) Quit() {]
-ff=退出
+[FontName string]
+qm=字体名称
+cz=FontName string
+
+[Tooltip string]
+qm=提示
+cz=Tooltip string
+
+[Disabled bool]
+qm=是否禁用
+cz=Disabled bool
+
+[Menu *Menu]
+qm=菜单
+cz=Menu *Menu
+
+[OnOpen func()]
+qm=打开回调函数
+cz=OnOpen func()
+
+[OnClose func()]
+qm=关闭回调函数
+cz=OnClose func()

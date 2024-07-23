@@ -35,19 +35,14 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[StartUp EventType = iota]
+qm=常量_事件类型_启动前
+cz=StartUp EventType #等号# iota
 
-[func New() *Application {]
-ff=创建并按默认选项
+[ShutDown]
+qm=常量_事件类型_应用退出
+cz=ShutDown
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
-
-[func (a *Application) Run() error {]
-ff=运行
-
-[func (a *Application) Quit() {]
-ff=退出
+[DomReady]
+qm=常量_事件类型_DOM就绪
+cz=DomReady

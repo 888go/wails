@@ -35,19 +35,26 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[CmdOrCtrlKey Modifier = "cmdorctrl"]
+qm=常量_组合键_Cmd或Ctrl键
+cz=CmdOrCtrlKey Modifier #等号# "cmdorctrl"
 
-[func New() *Application {]
-ff=创建并按默认选项
+[OptionOrAltKey Modifier = "optionoralt"]
+qm=常量_组合键_Option或Alt键
+cz=OptionOrAltKey Modifier #等号# "optionoralt"
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
+[ShiftKey Modifier = "shift"]
+qm=常量_组合键_Shift键
+cz=ShiftKey Modifier #等号# "shift"
 
-[func (a *Application) Run() error {]
-ff=运行
+[ControlKey Modifier = "ctrl"]
+qm=常量_组合键_Ctrl键
+cz=ControlKey Modifier #等号# "ctrl"
 
-[func (a *Application) Quit() {]
-ff=退出
+[Key string]
+qm=名称
+cz=Key string
+
+[Modifiers #左中括号##右中括号#Modifier]
+qm=修饰符
+cz=Modifiers []Modifier

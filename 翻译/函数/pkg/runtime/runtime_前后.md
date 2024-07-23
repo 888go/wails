@@ -35,19 +35,14 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[BuildType string `json:"buildType"`]
+qm=构建类型
+cz=BuildType string `json:"buildType"`
 
-[func New() *Application {]
-ff=创建并按默认选项
+[Platform string `json:"platform"`]
+qm=平台
+cz=Platform string `json:"platform"`
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
-
-[func (a *Application) Run() error {]
-ff=运行
-
-[func (a *Application) Quit() {]
-ff=退出
+[Arch string `json:"arch"`]
+qm=架构
+cz=Arch string `json:"arch"`

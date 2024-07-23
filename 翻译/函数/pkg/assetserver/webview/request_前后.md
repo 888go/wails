@@ -35,19 +35,22 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[Method() (string, error)]
+qm=请求方法
+cz=Method() (string, error)
 
-[func New() *Application {]
-ff=创建并按默认选项
+[Header() (http.Header, error)]
+qm=请求头
+cz=Header() (http.Header, error)
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
+[Body() (io.ReadCloser, error)]
+qm=请求体
+cz=Body() (io.ReadCloser, error)
 
-[func (a *Application) Run() error {]
-ff=运行
+[Response() ResponseWriter]
+qm=请求响应
+cz=Response() ResponseWriter
 
-[func (a *Application) Quit() {]
-ff=退出
+[Close() error]
+qm=关闭
+cz=Close() error

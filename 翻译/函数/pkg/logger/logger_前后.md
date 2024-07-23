@@ -35,19 +35,50 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[TRACE LogLevel = 1]
+qm=常量_日志级别_追踪
+cz=TRACE LogLevel #等号# 1
 
-[func New() *Application {]
-ff=创建并按默认选项
+[DEBUG LogLevel = 2]
+qm=常量_日志级别_调试
+cz=DEBUG LogLevel #等号# 2
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
+[INFO LogLevel = 3]
+qm=常量_日志级别_信息
+cz=INFO LogLevel #等号# 3
 
-[func (a *Application) Run() error {]
-ff=运行
+[WARNING LogLevel = 4]
+qm=常量_日志级别_警告
+cz=WARNING LogLevel #等号# 4
 
-[func (a *Application) Quit() {]
-ff=退出
+[ERROR LogLevel = 5]
+qm=常量_日志级别_错误
+cz=ERROR LogLevel #等号# 5
+
+[Print(message string)]
+qm=日志
+cz=Print(message string)
+
+[Trace(message string)]
+qm=日志追踪
+cz=Trace(message string)
+
+[Debug(message string)]
+qm=日志调试
+cz=Debug(message string)
+
+[Info(message string)]
+qm=日志信息
+cz=Info(message string)
+
+[Warning(message string)]
+qm=日志警告
+cz=Warning(message string)
+
+[Error(message string)]
+qm=日志错误
+cz=Error(message string)
+
+[Fatal(message string)]
+qm=日志致命
+cz=Fatal(message string)

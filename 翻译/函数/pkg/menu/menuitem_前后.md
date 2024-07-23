@@ -35,19 +35,38 @@
 # //zj:
 # 备注结束
 
-[func NewWithOptions(options *options.App) *Application {]
-ff=创建并按选项
-options=App选项
+[Label string]
+qm=显示名称
+cz=Label string
 
-[func New() *Application {]
-ff=创建并按默认选项
+[Role Role]
+qm=项角色
+cz=Role Role
 
-[func (a *Application) SetApplicationMenu(appMenu *menu.Menu) {]
-ff=设置菜单
-appMenu=菜单
+[Accelerator *keys.Accelerator]
+qm=快捷键
+cz=Accelerator *keys.Accelerator
 
-[func (a *Application) Run() error {]
-ff=运行
+[Type Type]
+qm=常量_菜单项类型
+cz=Type Type
 
-[func (a *Application) Quit() {]
-ff=退出
+[Disabled bool]
+qm=是否禁用
+cz=Disabled bool
+
+[Hidden bool]
+qm=是否隐藏
+cz=Hidden bool
+
+[Checked bool]
+qm=是否选中
+cz=Checked bool
+
+[SubMenu *Menu]
+qm=子菜单
+cz=SubMenu *Menu
+
+[Click Callback]
+qm=单击回调函数
+cz=Click Callback
